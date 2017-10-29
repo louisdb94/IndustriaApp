@@ -1,0 +1,23 @@
+
+
+<table>
+  <thead class="thead-default">
+    <tr>
+      <th>Name</th>
+      <th>Degree</th>
+      <th>Gradyear</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let student of students">
+    <td> <a md-line routerLink='/students-detail/{{student._id}}'> {{student.name}} </a> </td>
+    <td>{{student.degree}}</td>
+    <td>{{student.gradYear}}</td>
+    <td>
+      <button class="btn btn-sm btn-warning" (click)="viewStudent()"><i class="fa fa-pencil"></i> View</button>
+
+      <button class="btn btn-sm btn-danger" (click)="deleteCat(cat)"><i class="fa fa-trash"></i> Delete</button>
+    </td>
+  </tr>
+
+</table>
