@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor() { }
+  
 
   ngOnInit() {
+  }
+
+  constructor(public auth: AuthService, private translate: TranslateService) {
+    translate.setDefaultLang('en');
+   }
+
+  switchLanguage(language: string) {
+    this.translate.use(language);
   }
 
 }

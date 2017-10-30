@@ -19,7 +19,35 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { StudentsComponent} from './students/students.component';
 import { CompanyComponent} from './company/company.component';
+import { NavBarComponent} from './nav-bar/nav-bar.component';
 import { StudentsDetailComponent} from './students-detail/students-detail.component';
+
+import { StudentProfile } from './profile-student';
+import { HeaderProfile } from './profile-student/profile-header';
+import { BioProfile } from './profile-student/profile-bio';
+import { EducationProfile } from './profile-student/profile-education';
+import { SkillsProfile } from './profile-student/profile-skills';
+import { FooterProfile } from './profile-student/profile-footer';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/forms';
+
+import { jqxFileUploadComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxfileupload';
+import { jqxEditorComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxeditor';
+import { jqxProgressBarComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxprogressbar';
+import { jqxInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxinput';
+import { jqxDropDownListComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDropDownList';
+import { jqxDateTimeInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDateTimeInput';
+
+import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
+
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 
 @NgModule({
@@ -36,10 +64,34 @@ import { StudentsDetailComponent} from './students-detail/students-detail.compon
     StudentsComponent,
     StudentsDetailComponent,
     CompanyComponent,
+    NavBarComponent,
+
+    StudentProfile,
+    HeaderProfile,
+    BioProfile,
+    EducationProfile,
+    SkillsProfile,
+    FooterProfile,
+
+    jqxFileUploadComponent,
+    jqxEditorComponent,
+    jqxProgressBarComponent,
+    jqxInputComponent,
+    jqxDropDownListComponent,
+    jqxDateTimeInputComponent,
+    ImageCropperComponent,
   ],
   imports: [
     RoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ],
   providers: [
     AuthService,

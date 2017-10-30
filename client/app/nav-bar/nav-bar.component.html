@@ -1,28 +1,37 @@
-<nav class="navbar navbar-toggleable-md navbar-ligth bg-faded" style="background: #353B40">
-
-  <a class="navbar-brand" href="#">
-    <img src="../assets/img/Industria.PNG" width="45" height="60" alt="">
-  </a>
-
-  <div class="navbar-collapse collapse" id="navbarCollapse" style="">
-    <ul class="navbar-nav text-md-center nav-justified w-100">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item dropdown active">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Job Openings</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Industria</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<nav class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="height : 70px" style="background: #4c4c4c">
+    <a class="navbar-brand" href="#">
+      <img src="../assets/img/Industria.PNG" width="45" height="60" alt="">
+    </a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="navbar-collapse collapse" id="navbarCollapse" style="">
+      <ul class="navbar-nav text-md-center nav-justified w-100">
+        <li class="nav-item">
+            <a routerLink="/" class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+              <i class="fa fa-home"></i> Home
+            </a>
+        </li>
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-list"></i>{{'Profile' | translate}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a translate class="nav-link" href="#">JobOpenings</a>
+        </li>
+        <li class="nav-item">
+          <a translate class="nav-link" href="#">Industria</a>
+        </li>
+      </ul>
+    </div>
+  
+    <button (click)="switchLanguage('en')">en</button>
+    <button (click)="switchLanguage('nl')">nl</button>
+  </nav>

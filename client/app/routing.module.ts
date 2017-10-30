@@ -11,7 +11,7 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { StudentsComponent} from './students/students.component';
 import { CompanyComponent} from './company/company.component';
-import { StudentsDetailComponent} from './students-detail/students-detail.component';
+import { StudentProfile} from './profile-student/profile.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -19,7 +19,7 @@ import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 const routes: Routes = [
   { path: '', component: AboutComponent },
   { path: 'students', component: StudentsComponent},
-  { path: 'students-detail/:id', component: StudentsDetailComponent},
+  { path: 'profile-student/:id', component: StudentProfile},
   { path: 'company', component: CompanyComponent},
   { path: 'cats', component: CatsComponent },
   { path: 'register', component: RegisterComponent },
