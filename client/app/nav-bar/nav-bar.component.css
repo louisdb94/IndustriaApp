@@ -1,8 +1,9 @@
-
-a:hover{
-  color:grey;
+.nav-link{
+  color: white;
 }
 
-a{
-  color:white;
+.nav-link:hover{
+  color: rgb(218, 208, 208);
 }
+
+
