@@ -6,6 +6,7 @@ import StudentCtrl from './controllers/student';
 import Cat from './models/cat';
 import User from './models/user';
 import Student from './models/student';
+import {upload} from './app';
 
 export default function setRoutes(app) {
 
@@ -14,6 +15,8 @@ export default function setRoutes(app) {
   const catCtrl = new CatCtrl();
   const userCtrl = new UserCtrl();
   const studentCtrl = new StudentCtrl();
+
+
 
 
   // Cats

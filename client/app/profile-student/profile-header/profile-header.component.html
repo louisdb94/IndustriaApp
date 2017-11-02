@@ -7,7 +7,7 @@
         <h2>
             <textarea *ngIf="editMode" [(ngModel)]="student.name" placeholder="Write your name" rows="1" (keyup.enter)="save()"></textarea>
         </h2>
-        
+
         <h3>
             <textarea *ngIf="editMode" [(ngModel)]="student.degree" placeholder="Select your major" rows="1" (keyup.enter)="save()"></textarea>
             <p *ngIf="!editMode">{{student.degree}}</p>
@@ -15,7 +15,7 @@
         <div class="row" style="float : right">
             <button translate class="btn btn-sm btn-primary" *ngIf="!editMode" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
             <button translate class="btn btn-sm btn-primary" *ngIf="editMode" (click)="save(student)"><i class="fa fa-floppy-o"></i> Save</button>
-        </div>        
+        </div>
 
         <h3>
             <textarea *ngIf="editMode" [(ngModel)]="student.gradYear" placeholder="Select your major" rows="1" (keyup.enter)="save()"></textarea>
@@ -33,14 +33,14 @@
             <p *ngIf="!editMode">{{catchPhrase}}</p>
         </div>
     </div>
-    <div class="text-center">
-        <button *ngIf="!editCV" (click)="editCV = true">Upload CV</button>
+    <div class="form-group">
+       <label for="single">Upload CV</label>
+       <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />
     </div>
-    <jqxFileUpload *ngIf="editCV" [height]="height"></jqxFileUpload>
     <div class="text-center">
         <a href="https://www.patreon.com/posts/share-buttons-2-14815278" class="btn-facebook" target="_blank">Facebook</a>
         <a href="#" class="btn-twitter">Twitter</a>
         <a href="#" class="btn-google-plus">Google+</a>
         <a href="#" class="btn-linkedin">LinkedIn</a>
     </div>
-</div>      
+</div>

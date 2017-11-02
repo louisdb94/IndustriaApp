@@ -6,8 +6,8 @@
     <div class="row">
         <div class="col-md-4">
             <div style='margin-top: 10px;'>
-                <textarea *ngIf="editMode" [(ngModel)]="student.skills[0]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                <p *ngIf="!editMode">{{student.skills[0]}}</p>
+                <textarea *ngIf="editMode" [(ngModel)]="student.skills[0].name" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
+                <p *ngIf="!editMode">{{student.skills[0].name}}</p>
             </div>
             <jqxProgressBar #jqxProgressBar1
                 [animationDuration]="1000"
@@ -22,7 +22,7 @@
             <p class="text-center">
                 <jqxDropDownList #jqxDropDownList1 (onSelect)="updateProgressBar($event, 1)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
             </p>
-            
+
         </div>
         <div class="col-md-4">
             <div style='margin-top: 10px;'>

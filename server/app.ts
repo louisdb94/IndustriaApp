@@ -5,6 +5,10 @@ import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
 
+import * as multer from 'multer';
+import * as GridFsStorage from 'multer-gridfs-storage';
+
+
 import setRoutes from './routes';
 
 
@@ -26,7 +30,6 @@ if (process.env.NODE_ENV === 'test') {
 
 mongoose.Promise = global.Promise;
 const mongodb = mongoose.connect(mongodbURI, { useMongoClient: true });
-
 mongodb
   .then((db) => {
     console.log('Connected to MongoDB on', db.host + ':' + db.port);
@@ -48,4 +51,22 @@ mongodb
     console.error(err);
 });
 
-export { app };
+const storage = new GridFsStorage({
+  url: mongodbURI,
+  file: (req, file) => {
+    if (file.mimetype === 'image/jpeg') {
+      return {
+        bucketName: 'photos'
+      };
+    } else {
+      return null;
+    }
+  }
+});
+const upload = multer({ storage : storage});
+
+
+
+
+
+export { app , upload};

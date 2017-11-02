@@ -1,5 +1,10 @@
 import * as mongoose from 'mongoose';
 
+const skill = new mongoose.Schema({
+  name : String,
+  value : Number
+})
+
 const studentSchema = new mongoose.Schema({
   name: String,
   rnumber: String,
@@ -7,7 +12,7 @@ const studentSchema = new mongoose.Schema({
   degree: String,
   gradYear: Number,
   //whoami: String,
-  skills: Array,
+  skills: [mongoose.Schema.Types.Mixed]
 });
 
 const Student = mongoose.model('Student', studentSchema);
