@@ -2,8 +2,9 @@ import { Component,ViewChild, OnInit } from '@angular/core';
 import { jqxProgressBarComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxprogressbar';
 import { jqxInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxinput';
 import { jqxDropDownListComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDropDownList';
-
-
+import { StudentService } from '../../services/student.service';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+import { ToastComponent } from '../../shared/toast/toast.component';
 
 
 @Component({
@@ -35,6 +36,9 @@ export class SkillsProfile {
   public editMode = false;
   public count = 0;
 
+  data: any;
+  student= {};
+
   public skill1 = 'Java';
   public skill2 = 'Java';
   public skill3 = 'Java';
@@ -50,8 +54,33 @@ export class SkillsProfile {
   public valueInput : number;
   public isUpdated = false;
 
-  save(){
+  constructor(private studentService: StudentService,
+    private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      let id = params['id'];
+      this.getStudentById(id);
+    });
+  }
+
+  getStudentById(id) {
+    this.studentService.getStudentById(id).subscribe(
+      data => this.student = data,
+      error => console.log(error)
+    );
+  }
+
+  save(student){
     this.editMode = false;
+
+    this.studentService.editStudent(student).subscribe(
+      res => {
+        this.student = student;
+        this.toast.setMessage('item edited successfully.', 'success');
+      },
+      error => console.log(error)
+    );
   }
 
   add(){

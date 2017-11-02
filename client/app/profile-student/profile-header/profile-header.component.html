@@ -4,30 +4,31 @@
         <h1 class="display-4 text-center" style="margin-top:2%">
             <p *ngIf="!editMode">{{student.name}}</p>
         </h1>
-        <button translate *ngIf="!editMode" (click)="editMode = true" style="float : right">Edit</button>
-        <button translate *ngIf="editMode" (click)="save(student)" style="float : right">Save</button>
         <h2>
             <textarea *ngIf="editMode" [(ngModel)]="student.name" placeholder="Write your name" rows="1" (keyup.enter)="save()"></textarea>
         </h2>
         
-        <h3 class="text-center">
+        <h3>
             <textarea *ngIf="editMode" [(ngModel)]="student.degree" placeholder="Select your major" rows="1" (keyup.enter)="save()"></textarea>
             <p *ngIf="!editMode">{{student.degree}}</p>
         </h3>
+        <div class="row" style="float : right">
+            <button translate class="btn btn-sm btn-primary" *ngIf="!editMode" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
+            <button translate class="btn btn-sm btn-primary" *ngIf="editMode" (click)="save(student)"><i class="fa fa-floppy-o"></i> Save</button>
+        </div>        
 
-        <h3 class="text-center">
+        <h3>
             <textarea *ngIf="editMode" [(ngModel)]="student.gradYear" placeholder="Select your major" rows="1" (keyup.enter)="save()"></textarea>
             <p *ngIf="!editMode">{{student.gradYear}}</p>
         </h3>
 
-        <div class="text-center">
-            <!-- <input *ngIf="editMode" id="custom-input" type="file" (change)="fileChangeListener($event)"> -->
+        <div>
             <img-cropper *ngIf="editMode" [image]="data" [settings]="cropperSettings"></img-cropper><br>
             <img *ngIf="!editMode && cropDone" id="picture" class="rounded" [src]="data.image">
-            <img *ngIf="!editMode && !cropDone" id="picture" class="rounded" src="../../assets/img/elonmusk.jpg">
+            <img *ngIf="!editMode && !cropDone" id="picture" class="rounded" [src]="image1 + student.rnumber + image2 + student.rnumber + image3">
         </div>
 
-        <div class="text-center" style="margin-top:30px">
+        <div style="margin-top:30px">
             <textarea *ngIf="editMode" [(ngModel)]="catchPhrase" rows="5" cols="100%" placeholder="Use a catchphrase" (keyup.enter)="save()"></textarea>
             <p *ngIf="!editMode">{{catchPhrase}}</p>
         </div>

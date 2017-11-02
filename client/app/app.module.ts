@@ -39,6 +39,9 @@ import { jqxInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxi
 import { jqxDropDownListComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDropDownList';
 import { jqxDateTimeInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDateTimeInput';
 
+import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
+import { DataTableModule } from "ng2-data-table";
+
 import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -80,11 +83,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     jqxDropDownListComponent,
     jqxDateTimeInputComponent,
     ImageCropperComponent,
+
+    FileSelectDirective
   ],
   imports: [
     RoutingModule,
     SharedModule,
     HttpClientModule,
+    DataTableModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

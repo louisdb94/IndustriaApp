@@ -5,6 +5,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/forms';
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 import { jqxFileUploadComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxfileupload';
+import {Location} from '@angular/common';
 
 
 
@@ -22,6 +23,9 @@ export class HeaderProfile {
   data: any;
   student= {};
   cropperSettings: CropperSettings;
+  image1: String;
+  image2: String;
+  image3: String;
 
   constructor(private studentService: StudentService,
     private activatedRoute: ActivatedRoute, public toast: ToastComponent) {
@@ -43,6 +47,10 @@ export class HeaderProfile {
     this.activatedRoute.params.subscribe((params: Params) => {
       let id = params['id'];
       this.getStudentById(id);
+
+      this.image1 = "../../assets/img/";
+      this.image2 = "/";
+      this.image3 = ".jpg";
     });
   }
 

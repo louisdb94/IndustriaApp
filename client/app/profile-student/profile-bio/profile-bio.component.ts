@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+import { DataTableModule } from "ng2-data-table";
 
 @Component({
   selector: 'profile-bio',  // <home></home>

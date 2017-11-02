@@ -8,6 +8,7 @@ import { jqxInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxi
 import { jqxDropDownListComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDropDownList';
 import { jqxDateTimeInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDateTimeInput';
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+import { DataTableModule } from "ng2-data-table";
 
 
 @Component({

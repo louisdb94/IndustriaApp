@@ -1,8 +1,7 @@
 <div class="jumbotron">
-    <h2 translate>Education
-        <button translate *ngIf="!editMode" (click)="editMode = true" style="float : right">Edit</button>
-        <button translate *ngIf="editMode" (click)="save()" style="float : right">Save</button>
-    </h2>
+    <button translate *ngIf="!editMode" (click)="editMode = true" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
+    <button translate *ngIf="editMode" (click)="save()" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+    <h2 translate>Education</h2>
     <ul class="timeline">
         <li>
             <div class="timeline-badge">

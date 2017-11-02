@@ -1,10 +1,48 @@
 <div class="jumbotron" style="background-color:white">
-    <h2 translate style="margin-bottom : 25px">WhoAmI
-        <button translate *ngIf="!editMode" (click)="editMode = true" style="float: right">Edit</button>
-        <button translate *ngIf="editMode" (click)="save(student)"style="float: right">Save</button>
-    </h2>
+    <button translate *ngIf="!editMode" (click)="editMode = true" style="float: right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
+    <button translate *ngIf="editMode" (click)="save(student)"style="float: right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+    <h2 translate style="margin-bottom : 25px">WhoAmI</h2>
     <div class="row">
         <textarea *ngIf="editMode" [(ngModel)]="student.whoami" rows="7" cols="400" placeholder="Write a short bio about yourself" (keyup.enter)="save()"></textarea>
         <p *ngIf="!editMode">{{student.whoami}}</p>
     </div>
+
+
+    <table>
+            <caption>Employee Information</caption>
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Job role</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <td colspan="3">Data is updated every 15 minutes.</td>
+              </tr>
+            </tfoot>
+            <tbody>
+              <tr>
+                <th scope="row">Nick Pettit</th>
+                <td>nick@example.com</td>
+                <td>Web Designer</td>
+              </tr>
+              <tr>
+                <th scope="row">Andrew Chalkley</th>
+                <td>andrew@example.com</td>
+                <td>Front-End Developer</td>
+              </tr>
+              <tr>
+                <th scope="row">Dave McFarland</th>
+                <td>dave@example.com</td>
+                <td>Front-End Developer</td>
+              </tr>
+              <tr>
+                <th scope="row">Guil Hernandez</th>
+                <td>guil@example.com</td>
+                <td>Web Designer</td>
+              </tr>
+            </tbody>
+          </table>
 </div>

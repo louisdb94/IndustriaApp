@@ -1,23 +1,44 @@
+<div class="container-fluid">
 
-
-<table>
-  <thead class="thead-default">
-    <tr>
-      <th>Name</th>
-      <th>Degree</th>
-      <th>Gradyear</th>
-      <th>Actions</th>
+  <table>
+    <thead class="thead-default" >
+      <tr>
+        <th>Name</th>
+        <th>Degree</th>
+        <th>Gradyear</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let student of students">
+      <td> <a md-line routerLink='/profile-student/{{student._id}}'> {{student.name}} </a> </td>
+      <td>{{student.degree}}</td>
+      <td>{{student.gradYear}}</td>
     </tr>
-  </thead>
-  <tr *ngFor="let student of students">
-    <td> <a md-line routerLink='/profile-student/{{student._id}}'> {{student.name}} </a> </td>
-    <td>{{student.degree}}</td>
-    <td>{{student.gradYear}}</td>
-    <td>
-      <button class="btn btn-sm btn-warning" (click)="viewStudent()"><i class="fa fa-pencil"></i> View</button>
+    <br><br>   
+  </table>
 
-      <button class="btn btn-sm btn-danger" (click)="deleteCat(cat)"><i class="fa fa-trash"></i> Delete</button>
-    </td>
-  </tr>
+  <div class="card">
+      <div class="card-header"><h4>Add new student</h4></div>
+      <div class="card-block">
+        <form class="form-inline" [formGroup]="addStudentForm" (ngSubmit)="addStudent()" style="text-align:center">
+          <div class="col-md-2">
+          <div class="form-group">
+            <input class="form-control" type="text" name="name" formControlName="name" placeholder="Name">
+          </div>
+          </div>
+          <div class="col-md-2">
+          <div class="form-group">
+            <input class="form-control" type="text" name="degree" formControlName="degree" placeholder="Degree">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <input class="form-control" type="text" name="gradyear" formControlName="gradYear" placeholder="gradYear">
+          </div>
+        </div>
+          <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Add</button>
+        </form>
+      </div>
+    </div>
 
-</table>
+    <br><br>
+</div>
