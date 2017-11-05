@@ -28,6 +28,7 @@ import { BioProfile } from './profile-student/profile-bio';
 import { EducationProfile } from './profile-student/profile-education';
 import { SkillsProfile } from './profile-student/profile-skills';
 import { FooterProfile } from './profile-student/profile-footer';
+import { ExperiencesProfile } from './profile-student/profile-experiences';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/forms';
@@ -78,6 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EducationProfile,
     SkillsProfile,
     FooterProfile,
+    ExperiencesProfile,
 
     jqxFileUploadComponent,
     jqxEditorComponent,
