@@ -1,5 +1,10 @@
 import * as mongoose from 'mongoose';
 
+
+const skill = new mongoose.Schema({
+  name : String,
+  value : Number
+})
 const experienceSchema = new mongoose.Schema({
   function: Array,
   description: Array,
