@@ -6,14 +6,14 @@
     <div class="row">
         <div class="col-md-4">
             <div style='margin-top: 10px;'>
-                <textarea *ngIf="editMode" [(ngModel)]="student.skills[0].name" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                <p *ngIf="!editMode">{{student.skills[0].name}}</p>
+                <textarea *ngIf="editMode" [(ngModel)]="student.skills[0]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
+                <p *ngIf="!editMode">{{student.skills[0]}}</p>
             </div>
             <jqxProgressBar #jqxProgressBar1
                 [animationDuration]="1000"
                 [width]="250"
                 [height]="50"
-                [value]="student.skillsValue"
+                [value]="25"
                 [showText]="true"
                 [renderText]="renderText"
                 [template]="'primary'">

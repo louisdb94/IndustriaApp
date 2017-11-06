@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {FileUploadModule} from 'primeng/primeng';
 
 @Component({
   selector: 'profile-student',  // <home></home>

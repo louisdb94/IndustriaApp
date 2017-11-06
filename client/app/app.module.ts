@@ -49,6 +49,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import {FileUploadModule} from 'primeng/primeng';
+
 
 
 
@@ -103,6 +105,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    FileUploadModule
   ],
   providers: [
     AuthService,

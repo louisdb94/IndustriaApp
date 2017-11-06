@@ -6,7 +6,8 @@ import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 import { jqxFileUploadComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxfileupload';
 import {Location} from '@angular/common';
-import { FileUploader } from 'ng2-file-upload';
+
+import {FileUploadModule} from 'primeng/primeng';
 
 
 
@@ -20,7 +21,6 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 })
 export class HeaderProfile {
 
-  public uploader:FileUploader = new FileUploader({url:'http://localhost:4200/api/upload'});
 
   data: any;
   student= {};
