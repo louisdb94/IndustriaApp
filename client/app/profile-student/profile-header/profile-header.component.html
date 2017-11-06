@@ -33,7 +33,14 @@
             <p *ngIf="!editMode">{{catchPhrase}}</p>
         </div>
 
-        <p-fileUpload name="myfile[]" url="./upload.php"></p-fileUpload>
+
+        <p-fileUpload name="cv" url="./api/upload"
+            (onUpload)="onUpload($event)">
+
+        </p-fileUpload>
+
+
+
     </div>
 
 

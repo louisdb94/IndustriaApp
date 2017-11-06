@@ -5,8 +5,7 @@ import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
 
-import * as multer from 'multer';
-import * as GridFsStorage from 'multer-gridfs-storage';
+import * as fileupload from 'express-fileupload';
 
 
 import setRoutes from './routes';
@@ -51,22 +50,9 @@ mongodb
     console.error(err);
 });
 
-const storage = new GridFsStorage({
-  url: mongodbURI,
-  file: (req, file) => {
-    if (file.mimetype === 'image/jpeg') {
-      return {
-        bucketName: 'photos'
-      };
-    } else {
-      return null;
-    }
-  }
-});
-const upload = multer({ storage : storage});
+
+app.use(fileupload({ safeFileNames: true }));
 
 
 
-
-
-export { app , upload};
+export { app };

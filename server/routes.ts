@@ -6,7 +6,9 @@ import StudentCtrl from './controllers/student';
 import Cat from './models/cat';
 import User from './models/user';
 import Student from './models/student';
-import {upload} from './app';
+
+import * as mime from 'mime';
+
 
 export default function setRoutes(app) {
 
@@ -17,7 +19,34 @@ export default function setRoutes(app) {
   const studentCtrl = new StudentCtrl();
 
 
+  //uploads
+  router.route('/upload')
+    .post(function (req, res)  {
+      if (!req.files)
+        return res.status(400).send('No files were uploaded.');
 
+      // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+      //let cv = req.files.cv;
+      console.log("AAAAAAA")
+    //  console.log(cv);
+
+      console.log("CCCCCCc")
+
+      console.log(req.body);
+
+  //    cv.mv('./uploads/images/'+ cv.name+".jpg" ,function(err) {
+
+  //     if (err)
+//         return res.status(500).send(err);
+
+      // res.status(200).redirect('back');
+//     });
+
+
+
+      // Use the mv() method to place the file somewhere on your server
+
+  });
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);

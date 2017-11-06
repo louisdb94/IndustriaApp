@@ -8,6 +8,7 @@ import { jqxFileUploadComponent } from 'jqwidgets-framework/jqwidgets-ts/angular
 import {Location} from '@angular/common';
 
 import {FileUploadModule} from 'primeng/primeng';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -30,7 +31,7 @@ export class HeaderProfile {
   image3: String;
 
   constructor(private studentService: StudentService,
-    private activatedRoute: ActivatedRoute, public toast: ToastComponent) {
+    private activatedRoute: ActivatedRoute, public toast: ToastComponent, private http : HttpClient) {
 
       this.cropperSettings = new CropperSettings();
       this.cropperSettings.width = 100;
@@ -63,19 +64,6 @@ export class HeaderProfile {
     );
   }
 
-  // fileChangeListener($event) {
-  //   var image:any = new Image();
-  //   var file:File = $event.target.files[0];
-  //   var myReader:FileReader = new FileReader();
-  //   var that = this;
-  //   myReader.onloadend = function (loadEvent:any) {
-  //       image.src = loadEvent.target.result;
-  //       that.cropper.setImage(image);
-
-  //   };
-
-  //   myReader.readAsDataURL(file);
-  // }
 
   public editMode = false;
   public cropDone = false;
@@ -103,5 +91,14 @@ export class HeaderProfile {
   }
 
   height : number | string = '100px';
+
+
+  photoFiles: any[] = [];
+  onUpload(event) {
+      for(let file of event.files) {
+        this.photoFiles.push(file);
+      }
+      this.http.post('/api/upload', this.student).subscribe();
+    }
 
 }
