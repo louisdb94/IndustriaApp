@@ -84,7 +84,15 @@ export class SkillsProfile {
   }
 
   add(){
-    this.count++;
+    if(this.count < 6){
+      this.count++;
+    }
+  }
+
+  delete(){
+    if(this.count > 0){
+      this.count--;
+    }
   }
 
   updateProgressBar(event: any, x: number): void {
