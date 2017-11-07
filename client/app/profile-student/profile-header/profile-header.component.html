@@ -25,7 +25,7 @@
         <div>
             <img-cropper *ngIf="editMode" [image]="data" [settings]="cropperSettings"></img-cropper><br>
             <img *ngIf="!editMode && cropDone" id="picture" class="rounded" [src]="data.image">
-            <img *ngIf="!editMode && !cropDone" id="picture" class="rounded" [src]="image1 + student.rnumber + image2 + student.rnumber + image3">
+            <img *ngIf="!editMode && !cropDone" id="picture" class="rounded" [src]="image1 + student.rnumber + image3">
         </div>
 
         <div style="margin-top:30px">
@@ -39,7 +39,7 @@
 
         </p-fileUpload>
 
-
+        <button (click)="downloadPdf()" class="btn btn-primary">download PDF</button>
 
     </div>
 

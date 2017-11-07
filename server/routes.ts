@@ -9,6 +9,7 @@ import Student from './models/student';
 import * as path from 'path';
 
 import * as mime from 'mime';
+import * as fs from 'fs';
 
 
 export default function setRoutes(app) {
@@ -28,6 +29,13 @@ export default function setRoutes(app) {
       for(let i = 0; i< req.body.students.length; i++){
         rnumber += req.body.students[i];
       }
+
+      let id = '';
+      for(let i = 0; i< req.body.id.length; i++){
+        id += req.body.id[i];
+      }
+
+
       if (!(<any>req.files).files)
         return res.status(400).send('No files were uploaded.');
 
@@ -38,10 +46,33 @@ export default function setRoutes(app) {
        if (err)
          return res.status(500).send(err);
 
+         Student.findOneAndUpdate({ _id: id }, {$set:{cv: {name: rnumber}}}, (err) => {
+         if (err) { return console.error(err); }
+         console.log("cv geupload");
+       });
+
        res.status(200).redirect('back');
      });
 
+
+
   });
+
+
+  router.route('/download/:id')
+    .get(function (req, res) {
+
+
+      // let filePath = ('./uploads/images/r0111111.pdf');
+      // fs.readFile(__dirname + filePath , function (err,data){
+      // res.contentType('application/pdf');
+      // res.send(data);
+      // });
+
+      res.download('./uploads/images/r0111111.pdf');
+    });
+
+
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);

@@ -26,6 +26,7 @@ export class HeaderProfile {
   data: any;
   student = {};
   rnumber = String;
+  id = String;
   cropperSettings: CropperSettings;
   image1: String;
   image2: String;
@@ -62,8 +63,7 @@ export class HeaderProfile {
       let id = params['id'];
       this.getStudentById(id);
 
-      this.image1 = "../../assets/img/";
-      this.image2 = "/";
+      this.image1 = "../../../uploads/images/";
       this.image3 = ".jpg";
 
       this.files = [];
@@ -73,7 +73,7 @@ export class HeaderProfile {
 
   getStudentById(id) {
     this.studentService.getStudentById(id).subscribe(
-      data => {this.student = data, this.rnumber = data.rnumber},
+      data => {this.student = data, this.rnumber = data.rnumber, this.id = data._id},
       error => console.log(error)
     );
   }
@@ -103,6 +103,11 @@ export class HeaderProfile {
     let rnumber = this.rnumber;
     for(let i = 0; i<rnumber.length;i++){
          formData.append('students', rnumber[i]);
+    }
+
+    let id = this.id;
+    for(let i = 0; i<id.length;i++){
+         formData.append('id', id[i]);
     }
 
     for(let i = 0; i < files.length; i++) {
@@ -136,5 +141,9 @@ export class HeaderProfile {
   hasFiles(): boolean {
         return this.files && this.files.length > 0;
     }
+
+downloadPdf(){
+  this.studentService.download().subscribe();
+}
 
 }

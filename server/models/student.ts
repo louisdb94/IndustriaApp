@@ -12,6 +12,12 @@ const experienceSchema = new mongoose.Schema({
 
 })
 
+const cv = new mongoose.Schema({
+  name : String,
+  mimetipe : String,
+
+})
+
 const studentSchema = new mongoose.Schema({
   name: String,
   rnumber: String,
@@ -20,7 +26,10 @@ const studentSchema = new mongoose.Schema({
   gradYear: Number,
   skills: Array,
   skillsValue: [Number],
-  experiences: []
+  experiences: [],
+  cv : [cv],
+  imgs: [cv],
+  
 
 });
 
