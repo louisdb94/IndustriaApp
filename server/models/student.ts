@@ -14,7 +14,7 @@ const experienceSchema = new mongoose.Schema({
 
 const cv = new mongoose.Schema({
   name : String,
-  mimetipe : String,
+  mimetype : String,
 
 })
 
@@ -29,7 +29,7 @@ const studentSchema = new mongoose.Schema({
   experiences: [],
   cv : [cv],
   imgs: [cv],
-  
+
 
 });
 

@@ -21,7 +21,7 @@ export default function setRoutes(app) {
   const studentCtrl = new StudentCtrl();
 
 
-  //uploads
+  //upload a pdf or image
   router.route('/upload')
     .post(function (req, res)  {
 
@@ -46,7 +46,7 @@ export default function setRoutes(app) {
        if (err)
          return res.status(500).send(err);
 
-         Student.findOneAndUpdate({ _id: id }, {$set:{cv: {name: rnumber}}}, (err) => {
+         Student.findOneAndUpdate({ _id: id }, {$set:{cv: {name: rnumber, mimetype: type}}}, (err) => {
          if (err) { return console.error(err); }
          console.log("cv geupload");
        });
@@ -54,22 +54,30 @@ export default function setRoutes(app) {
        res.status(200).redirect('back');
      });
 
-
-
   });
 
+  //list all the cvs of a student
+  router.route('/download/cv')
+    .get(function (req, res){
 
-  router.route('/download/:id')
+    });
+
+  //download a cv of a student
+  router.route('/download/:cv_id')
     .get(function (req, res) {
 
+      let name = "";
+      let mimetype = "";
+      Student.findOne({ _id: req.params.cv_id }, (err, obj) => {
+        if (err) { return console.error(err); }
+        name = obj.name;
+        mimetype = obj.mimetype;
+      });
 
-      // let filePath = ('./uploads/images/r0111111.pdf');
-      // fs.readFile(__dirname + filePath , function (err,data){
-      // res.contentType('application/pdf');
-      // res.send(data);
-      // });
 
-      res.download('./uploads/images/r0111111.pdf');
+      res.download('./uploads/images/'+ name + '.' + mimetype);
+
+  //    res.download('./uploads/images/r0111111.pdf');
     });
 
 
