@@ -1,15 +1,15 @@
 import { Component, ViewChild, OnInit, enableProdMode } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
-import {Router, ActivatedRoute, Params} from '@angular/router';
-import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/forms';
-import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, NgModelGroup, NgForm } from '@angular/forms';
+import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 import { jqxFileUploadComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxfileupload';
-import {Location} from '@angular/common';
-
-import {FileUploadModule} from 'primeng/primeng';
+import { Location } from '@angular/common';
+import {DomSanitizer} from '@angular/platform-browser';
+import { FileUploadModule } from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
-
+import {formData} from 'form-data';
 
 
 enableProdMode();
@@ -17,34 +17,45 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
 @Component({
   selector: 'profile-header',  // <home></home>
-  styleUrls: [ './profile-header.component.scss' ],
+  styleUrls: ['./profile-header.component.scss'],
   templateUrl: './profile-header.component.html'
 })
 export class HeaderProfile {
 
-
+  files: File[];
   data: any;
-  student= {};
+  student = {};
+  rnumber = String;
   cropperSettings: CropperSettings;
   image1: String;
   image2: String;
   image3: String;
 
-  constructor(private studentService: StudentService,
-    private activatedRoute: ActivatedRoute, public toast: ToastComponent, private http : HttpClient) {
+  editMode = false;
+  cropDone = false;
+  editCV = false;
+  name = 'Elon Musk';
+  major = 'ICT';
+  catchPhrase = 'I am an enthousiastic and young Industrial Engineer looking for a job in UI design.';
+  height: number | string = '100px';
 
-      this.cropperSettings = new CropperSettings();
-      this.cropperSettings.width = 100;
-      this.cropperSettings.height = 100;
-      this.cropperSettings.croppedWidth = 300;
-      this.cropperSettings.croppedHeight = 300;
-      this.cropperSettings.canvasWidth = 400;
-      this.cropperSettings.canvasHeight = 300;
-      this.cropperSettings.noFileInput = false;
+  constructor(  private studentService: StudentService,
+                private activatedRoute: ActivatedRoute,
+                public toast: ToastComponent,
+                private http: HttpClient,
+                private sanitizer: DomSanitizer){
 
-      this.data = {};
+                    this.cropperSettings = new CropperSettings();
+                    this.cropperSettings.width = 100;
+                    this.cropperSettings.height = 100;
+                    this.cropperSettings.croppedWidth = 300;
+                    this.cropperSettings.croppedHeight = 300;
+                    this.cropperSettings.canvasWidth = 400;
+                    this.cropperSettings.canvasHeight = 300;
+                    this.cropperSettings.noFileInput = false;
 
-  }
+                    this.data = {};
+                }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -54,25 +65,20 @@ export class HeaderProfile {
       this.image1 = "../../assets/img/";
       this.image2 = "/";
       this.image3 = ".jpg";
+
+      this.files = [];
+
     });
   }
 
   getStudentById(id) {
     this.studentService.getStudentById(id).subscribe(
-      data => this.student = data,
+      data => {this.student = data, this.rnumber = data.rnumber},
       error => console.log(error)
     );
   }
 
-
-  public editMode = false;
-  public cropDone = false;
-  public editCV = false;
-  public name = 'Elon Musk';
-  public major = 'ICT';
-  public catchPhrase = 'I am an enthousiastic and young Industrial Engineer looking for a job in UI design.';
-
-  save(student){
+  save(student) {
     this.editMode = false;
     this.cropDone = true;
 
@@ -85,20 +91,50 @@ export class HeaderProfile {
     );
   }
 
-  cvEdit(){
-    this.editCV = true;
-    this.cropDone = true;
+  myUploader(event) {
+
+    let files: File[] = event.files;
+    console.log('FILES?', files);
+
+    let formData: FormData = new FormData();
+    for(let i = 0; i<files.length;i++){
+         formData.append('files', files[i], files[i].name);
+    }
+    let rnumber = this.rnumber;
+    for(let i = 0; i<rnumber.length;i++){
+         formData.append('students', rnumber[i]);
+    }
+
+    for(let i = 0; i < files.length; i++) {
+        let file = (<any>files[i]);
+
+        if(!this.isFileSelected(file)){
+          file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
+          this.files.push(file);
+        }
+        if(this.hasFiles()) {
+          const fileUpload: any = {};
+          console.log('FILEUPLOAD empty', fileUpload);
+          fileUpload.files = this.files;
+          console.log('FILEUPLOAD files', fileUpload);
+          fileUpload.student = this.student;
+          console.log('FILEUPLOAD files & student', fileUpload);
+
+          this.http.post('/api/upload', formData, {}).subscribe(res => console.log('gelukt', res));
+        }
+    }
   }
 
-  height : number | string = '100px';
-
-
-  photoFiles: any[] = [];
-  onUpload(event) {
-      for(let file of event.files) {
-        this.photoFiles.push(file);
-      }
-      this.http.post('/api/upload', this.student).subscribe();
+  isFileSelected(file: File): boolean{
+        for(let sFile of this.files){
+            if((sFile.name + sFile.type + sFile.size) === (file.name + file.type+file.size)) {
+                return true;
+            }
+        }
+        return false;
+  }
+  hasFiles(): boolean {
+        return this.files && this.files.length > 0;
     }
 
 }

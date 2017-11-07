@@ -46,6 +46,7 @@
     "express": "^4.16.2",
     "express-fileupload": "^0.3.0",
     "font-awesome": "^4.7.0",
+    "form-data": "^2.3.1",
     "gridfs-stream": "^1.1.1",
     "jquery": "^3.2.1",
     "jqwidgets-framework": "^5.4.0",

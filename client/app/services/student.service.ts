@@ -26,6 +26,11 @@ export class StudentService {
     return this.http.post('/api/student', JSON.stringify(student), this.options);
   }
 
+  addUpload(fileupload): Observable<any> {
+    console.log("danny");
+    return this.http.post('/api/upload', JSON.stringify(fileupload), this.options);
+  }
+
   getStudent(student): Observable<any> {
     return this.http.get(`/api/student/${student._id}`).map(res => res.json());
   }

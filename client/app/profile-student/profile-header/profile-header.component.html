@@ -34,7 +34,7 @@
         </div>
 
 
-        <p-fileUpload name="cv" url="./api/upload"
+        <p-fileUpload name="cv" customUpload="true"  (uploadHandler)="myUploader($event)"
             (onUpload)="onUpload($event)">
 
         </p-fileUpload>

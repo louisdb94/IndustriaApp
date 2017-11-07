@@ -6,6 +6,7 @@ import StudentCtrl from './controllers/student';
 import Cat from './models/cat';
 import User from './models/user';
 import Student from './models/student';
+import * as path from 'path';
 
 import * as mime from 'mime';
 
@@ -22,29 +23,23 @@ export default function setRoutes(app) {
   //uploads
   router.route('/upload')
     .post(function (req, res)  {
-      if (!req.files)
+
+      let rnumber = '';
+      for(let i = 0; i< req.body.students.length; i++){
+        rnumber += req.body.students[i];
+      }
+      if (!(<any>req.files).files)
         return res.status(400).send('No files were uploaded.');
 
-      // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-      //let cv = req.files.cv;
-      console.log("AAAAAAA")
-    //  console.log(cv);
+      let newCv = (<any>req.files).files;
+      let type = newCv.mimetype.split('/')[1]
+    //  console.log(type);
+      newCv.mv('./uploads/images/'+ rnumber + "." +type ,function(err) {
+       if (err)
+         return res.status(500).send(err);
 
-      console.log("CCCCCCc")
-
-      console.log(req.body);
-
-  //    cv.mv('./uploads/images/'+ cv.name+".jpg" ,function(err) {
-
-  //     if (err)
-//         return res.status(500).send(err);
-
-      // res.status(200).redirect('back');
-//     });
-
-
-
-      // Use the mv() method to place the file somewhere on your server
+       res.status(200).redirect('back');
+     });
 
   });
 
