@@ -1,6 +1,6 @@
 <div class="jumbotron" style="background-color:white">
   <button translate *ngIf="editMode" (click)="save(student)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-  <button translate *ngIf="!editMode" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+  <button translate *ngIf="!editMode" (click)="edit(experiences2)" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
   <h2 translate>Experience</h2>
   <table>
     <thead class="thead-default" >
@@ -8,21 +8,20 @@
         <th>Function</th>
         <th>Description</th>
         <th>Period</th>
-        <th>Action</th>
       </tr>
     </thead>
     <tr *ngFor="let experience of experiences; let i = index">
         <td *ngIf="i%3===0">
-          {{student.experiences[i]}}
+          <p *ngIf="!editMode">{{student.experiences[i]}}</p>
+          <textarea *ngIf="editMode" [(ngModel)]="experiences2[i]"></textarea>
         </td>
         <td *ngIf="i%3===0">
-          {{student.experiences[i + 1]}}
+          <p *ngIf="!editMode">{{student.experiences[i + 1]}}</p>
+          <textarea *ngIf="editMode" [(ngModel)]="experiences2[i + 1]"></textarea>
         </td>
         <td *ngIf="i%3===0">
-          {{student.experiences[i + 2]}}
-        </td>
-        <td *ngIf="i%3===0">
-          <button class="btn btn-sm btn-danger" (click)="deleteCat(cat)"><i class="fa fa-trash"></i> Delete</button>
+          <p *ngIf="!editMode">{{student.experiences[i + 2]}}</p>
+          <textarea *ngIf="editMode" [(ngModel)]="experiences2[i + 2]"></textarea>
         </td>
     </tr>
     <br><br>   

@@ -44,6 +44,7 @@
     "del": "^3.0.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
+    "flag-icon-css": "^2.8.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jqwidgets-framework": "^5.4.0",

@@ -181,6 +181,6 @@
             </p>
         </div>
     </div>
-    <button *ngIf="editMode" (click)="add()" style="float : right">Add</button>
-    <button *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete()" style="float : right"><i class="fa fa-trash"></i>Delete</button>
+    <button *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete()" style="float : right"><i class="fa fa-trash"></i> Delete</button>
+    <button *ngIf="editMode" class="btn btn-sm btn-success" (click)="add()" style="float : right"><i class="fa fa-plus"></i> Add</button>
 </div>

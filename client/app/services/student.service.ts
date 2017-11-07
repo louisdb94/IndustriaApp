@@ -42,4 +42,8 @@ export class StudentService {
     return this.http.delete(`/api/cat/${student._id}`, this.options);
   }
 
+  deleteExperience(experience): Observable<any> {
+    return this.http.delete(`/api/student/${experience}`, this.options);
+  }
+
 }

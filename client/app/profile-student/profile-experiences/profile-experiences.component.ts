@@ -13,8 +13,9 @@ import { DataTableModule } from "ng2-data-table";
 export class ExperiencesProfile {
   data: any;
   student= {};
-  experiences= [];
-  experience= {};
+  experiences = [];
+  experiences2 = [];
+  experience = {};
 
   public valueInput : number;
   public isUpdated = false;
@@ -49,17 +50,22 @@ export class ExperiencesProfile {
     );
   }
 
-  // deleteExperience(experience) {
-  //   if (window.confirm('Are you sure you want to permanently delete this item?')) {
-  //     this.studentService.deleteExperience(experience).subscribe(
-  //       res => {
-  //         const pos = this.experiences.map(elem => elem._id).indexOf(cat._id);
-  //         this.experiences.splice(pos, 1);
-  //         this.toast.setMessage('item deleted successfully.', 'success');
-  //       },
-  //       error => console.log(error)
-  //     );
-  //   }
-  // }
+  edit(experiences2){
+    this.editMode = true;
+    this.experiences2 = this.experiences;
+  }
+
+  deleteExperience(experience) {
+    if (window.confirm('Are you sure you want to permanently delete this item?')) {
+      this.studentService.deleteExperience(experience).subscribe(
+        res => {
+          const pos = this.experiences.map(elem => elem).indexOf(experience);
+          this.experiences.splice(pos, 1);
+          this.toast.setMessage('item deleted successfully.', 'success');
+        },
+        error => console.log(error)
+      );
+    }
+  }
 
 }
