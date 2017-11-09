@@ -8,6 +8,10 @@ a {
   margin-top: 10px;
 }
 
+td {
+  width: 20%;
+  
+}
 
 
 @mixin btn-variant($bg-color, $icon) {

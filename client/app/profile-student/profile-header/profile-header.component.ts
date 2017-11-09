@@ -68,6 +68,8 @@ export class HeaderProfile {
 
       this.files = [];
 
+
+
     });
   }
 
@@ -142,8 +144,10 @@ export class HeaderProfile {
         return this.files && this.files.length > 0;
     }
 
-downloadPdf(){
-  this.studentService.download().subscribe();
+downloadPdf(cv_id){
+  console.log("KEEKEKE", cv_id);
+  this.studentService.download(cv_id).subscribe();
+
 }
 
 }

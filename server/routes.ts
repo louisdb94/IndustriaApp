@@ -56,28 +56,26 @@ export default function setRoutes(app) {
 
   });
 
-  //list all the cvs of a student
-  router.route('/download/cv')
-    .get(function (req, res){
-
-    });
 
   //download a cv of a student
   router.route('/download/:cv_id')
     .get(function (req, res) {
 
-      let name = "";
-      let mimetype = "";
-      Student.findOne({ _id: req.params.cv_id }, (err, obj) => {
-        if (err) { return console.error(err); }
-        name = obj.name;
-        mimetype = obj.mimetype;
+      // let name = "";
+      // let mimetype = "";
+      // Student.findOne({ 'cv._id': req.params.cv_id }, (err, obj) => {
+      //   if (err) { return console.error(err); }
+      //   name = obj.cv.name;
+      //   mimetype = obj.cv.mimetype;
+      // });
+      //
+      // res.download('./uploads/images/'+ name + '.' + mimetype);
+      console.log("downloading");
+      res.download('./uploads/images/r0111111.pdf', function(err){
+        if(err){console.log(err)}
       });
+      console.log("gedowload");
 
-
-      res.download('./uploads/images/'+ name + '.' + mimetype);
-
-  //    res.download('./uploads/images/r0111111.pdf');
     });
 
 

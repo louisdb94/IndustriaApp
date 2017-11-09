@@ -47,8 +47,9 @@ export class StudentService {
     return this.http.post('/api/upload', JSON.stringify(fileupload), this.options);
   }
 
-  download(): Observable<any> {
-    return this.http.get(`/api/download`);
+  download(cv_id): Observable<any> {
+    console.log(cv_id);
+    return this.http.get(`/api/download/${cv_id}`, this.options);
   }
 
 

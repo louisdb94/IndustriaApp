@@ -39,7 +39,13 @@
 
         </p-fileUpload>
 
-        <button (click)="downloadPdf()" class="btn btn-primary">download PDF</button>
+        <table>
+          <td> <a> {{student.cv[0].name}} </a> </td>
+          <td> {{student.cv[0]._id}}</td>
+          <td> <button (click)="downloadPdf(student.cv[0]._id)" class="btn btn-primary">download PDF</button> </td>
+        </table>
+
+
 
     </div>
 
