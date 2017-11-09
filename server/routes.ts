@@ -46,10 +46,11 @@ export default function setRoutes(app) {
        if (err)
          return res.status(500).send(err);
 
-         Student.findOneAndUpdate({ _id: id }, {$set:{cv: {name: rnumber, mimetype: type}}}, (err) => {
+         Student.findOneAndUpdate({ _id: id }, {$set:{cv: {name: rnumber, mimetype: type}}},{upsert:true}, (err) => {
          if (err) { return console.error(err); }
          console.log("cv geupload");
        });
+
 
        res.status(200).redirect('back');
      });
@@ -58,7 +59,7 @@ export default function setRoutes(app) {
 
 
   //download a cv of a student
-  router.route('/download/:cv_id')
+  router.route(`/download/:cv_id`)
     .get(function (req, res) {
 
       // let name = "";
@@ -71,10 +72,15 @@ export default function setRoutes(app) {
       //
       // res.download('./uploads/images/'+ name + '.' + mimetype);
       console.log("downloading");
-      res.download('./uploads/images/r0111111.pdf', function(err){
+      res.download('./uploads/images/r0222222.pdf', function(err){
         if(err){console.log(err)}
+        console.log("In de functie res.download")
       });
+
       console.log("gedowload");
+
+      //DELETEN
+      //fs.unlink('./uploads/images/r0111111.jpeg');
 
     });
 

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class StudentService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
+  private headers = new Headers({ 'Content-Type': 'application/pdf', 'charset': 'UTF-8' });
   private options = new RequestOptions({ headers: this.headers });
 
 
@@ -49,7 +49,7 @@ export class StudentService {
 
   download(cv_id): Observable<any> {
     console.log(cv_id);
-    return this.http.get(`/api/download/${cv_id}`, this.options);
+    return this.http.get(`/api/download/${cv_id}`);
   }
 
 

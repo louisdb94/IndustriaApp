@@ -11,7 +11,6 @@ import { FileUploadModule } from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import {formData} from 'form-data';
 
-
 enableProdMode();
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
@@ -144,9 +143,12 @@ export class HeaderProfile {
         return this.files && this.files.length > 0;
     }
 
+
+
 downloadPdf(cv_id){
   console.log("KEEKEKE", cv_id);
   this.studentService.download(cv_id).subscribe();
+//  this.http.get(`/api/download/${cv_id}`).subscribe();
 
 }
 
