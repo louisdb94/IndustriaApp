@@ -8,6 +8,21 @@ a {
   margin-top: 10px;
 }
 
+td {
+  width: 20%;
+  margin-top: 5%;
+}
+
+table {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5%;
+  background-color: white;
+
+
+}
+
+
 @mixin btn-variant($bg-color, $icon) {
   text-align: center;
   display: inline-block;

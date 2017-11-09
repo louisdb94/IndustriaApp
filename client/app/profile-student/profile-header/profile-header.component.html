@@ -33,10 +33,27 @@
             <p *ngIf="!editMode">{{catchPhrase}}</p>
         </div>
     </div>
+    <br><br>
     <div class="text-center">
-        <button *ngIf="!editCV" (click)="editCV = true">Upload CV</button>
+        <input type="checkbox" [(ngModel)]="check" (change)= "changeChecked($event)"/>
+        <p>Check this button if you agree to uploading your CV on this website</p>
+        <button *ngIf="!editCV && marked" (click)="editCV = true">Upload CV</button>
     </div>
-    <jqxFileUpload *ngIf="editCV" [height]="height"></jqxFileUpload>
+    <table *ngIf= "marked">
+        <thead class="thead-default" >
+            <tr>
+            <th>CV</th>
+            <th>Type</th>
+            <th>Action</th>
+            </tr>
+        </thead>
+        <tr *ngFor = "let cv of cvs; let i = index">
+            <td>{{student.cv[i][0].name}}</td>
+            <td>{{student.cv[i][0].mimetype}}</td>
+            <td><button class="btn btn-sm btn-primary">Download CV</button></td>
+        </tr>
+        <br><br>   
+    </table>
     <div class="text-center">
         <a href="https://www.patreon.com/posts/share-buttons-2-14815278" class="btn-facebook" target="_blank">Facebook</a>
         <a href="#" class="btn-twitter">Twitter</a>

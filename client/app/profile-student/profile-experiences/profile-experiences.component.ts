@@ -3,6 +3,7 @@ import { StudentService } from '../../services/student.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataTableModule } from "ng2-data-table";
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -16,6 +17,10 @@ export class ExperiencesProfile {
   experiences = [];
   experiences2 = [];
   experience = {};
+
+  exp1: String;
+  exp2: String;
+  exp3: String;
 
   public valueInput : number;
   public isUpdated = false;
@@ -55,17 +60,10 @@ export class ExperiencesProfile {
     this.experiences2 = this.experiences;
   }
 
-  deleteExperience(experience) {
-    if (window.confirm('Are you sure you want to permanently delete this item?')) {
-      this.studentService.deleteExperience(experience).subscribe(
-        res => {
-          const pos = this.experiences.map(elem => elem).indexOf(experience);
-          this.experiences.splice(pos, 1);
-          this.toast.setMessage('item deleted successfully.', 'success');
-        },
-        error => console.log(error)
-      );
-    }
+  addExperience(exp1, exp2, exp3) {
+    this.experiences.push(this.exp1);
+    this.experiences.push(this.exp2);
+    this.experiences.push(this.exp3);
+    this.save(this.student);
   }
-
 }

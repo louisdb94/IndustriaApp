@@ -6,6 +6,11 @@ const experienceSchema = new mongoose.Schema({
   period: Array
 })
 
+const uploads = new mongoose.Schema({
+  name: String,
+  mimetype: String
+})
+
 const studentSchema = new mongoose.Schema({
   name: String,
   rnumber: String,
@@ -14,7 +19,8 @@ const studentSchema = new mongoose.Schema({
   gradYear: Number,
   skills: Array,
   skillsValue: [Number],
-  experiences: []
+  experiences: [],
+  cv: [[uploads]]
 });
 
 const Student = mongoose.model('Student', studentSchema);

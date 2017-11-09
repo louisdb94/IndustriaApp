@@ -22,6 +22,10 @@ export class HeaderProfile {
 
   data: any;
   student= {};
+  cv= {};
+  cvs=[];
+  check = false;
+  marked = false;
   cropperSettings: CropperSettings;
   image1: String;
   image2: String;
@@ -56,7 +60,7 @@ export class HeaderProfile {
 
   getStudentById(id) {
     this.studentService.getStudentById(id).subscribe(
-      data => this.student = data,
+      data => (this.student = data, this.cvs = data.cv),
       error => console.log(error)
     );
   }
@@ -101,5 +105,9 @@ export class HeaderProfile {
   }
 
   height : number | string = '100px';
+
+  changeChecked(e){
+    this.marked= e.target.checked;
+  }
 
 }
