@@ -18,7 +18,8 @@ export class NavBarComponent implements OnInit {
     translate.setDefaultLang('en');
    }
 
-  switchLanguage(language: string) {
+  switchLanguage(language) {
+    console.log(language);
     this.translate.use(language);
   }
 

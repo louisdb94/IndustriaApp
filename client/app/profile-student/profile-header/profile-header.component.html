@@ -24,8 +24,8 @@
 
         <div>
             <img-cropper *ngIf="editMode" [image]="data" [settings]="cropperSettings"></img-cropper><br>
-            <img *ngIf="!editMode && cropDone" id="picture" class="rounded" [src]="data.image">
-            <img *ngIf="!editMode && !cropDone" id="picture" class="rounded" [src]="image1 + student.rnumber + image2 + student.rnumber + image3">
+            <img *ngIf="!editMode && cropDone" id="picture" class="rounded-circle" [src]="data.image">
+            <img id="profilepic" *ngIf="!editMode && !cropDone" class="rounded-circle" [src]="image1 + student.rnumber + image2 + student.rnumber + image3">
         </div>
 
         <div style="margin-top:30px">
@@ -35,8 +35,11 @@
     </div>
     <br><br>
     <div class="text-center">
-        <input type="checkbox" [(ngModel)]="check" (change)= "changeChecked($event)"/>
-        <p>Check this button if you agree to uploading your CV on this website</p>
+        <label class="custom-control custom-checkbox">
+            <input class="custom-control-input" type="checkbox" [(ngModel)]="check" (change)= "changeChecked($event)"/>
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description">Check this button if you agree to uploading your CV on this website</span>
+        </label>
         <button *ngIf="!editCV && marked" (click)="editCV = true">Upload CV</button>
     </div>
     <table *ngIf= "marked">

@@ -22,6 +22,11 @@ table {
 
 }
 
+#profilepic{
+  height: 400px;
+  width: 400px;
+}
+
 
 @mixin btn-variant($bg-color, $icon) {
   text-align: center;

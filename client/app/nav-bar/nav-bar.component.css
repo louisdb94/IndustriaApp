@@ -11,4 +11,24 @@
   height: 100px;
 }
 
+#languageselector{
+  width: 180px;
+}
+
+#homeid{
+  font-size: 25px;
+}
+
+#profileid{
+  font-size: 25px;
+}
+
+#jobopeningsid{
+  font-size: 25px;
+}
+
+#industriaid{
+  font-size: 25px;
+}
+
 

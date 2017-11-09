@@ -10,13 +10,11 @@
       <ul class="navbar-nav text-md-center nav-justified w-100">
         <li class="nav-item">
             <a routerLink="/" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-              <i class="fa fa-home"></i> Home
+              <p id="homeid"><i class="fa fa-home"></i> Home</p>
             </a>
         </li>
         <li class="nav-item dropdown active">
-          <a class="ab nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-list"></i> {{'Profile' | translate}}
-          </a>
+            <p class="ab nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="profileid"><i class="fa fa-list"></i> {{'Profile' | translate}} </p>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
@@ -24,16 +22,22 @@
           </div>
         </li>
         <li class="nav-item">
-          <a translate class=" ab nav-link" href="#">JobOpenings</a>
+          <a id="jobopeningsid" translate class=" ab nav-link" href="#">JobOpenings</a>
         </li>
         <li class="nav-item">
-          <a translate class="ab nav-link" href="#">Industria</a>
+          <a id="industriaid" translate class="ab nav-link" href="#">Industria</a>
         </li>
       </ul>
     </div>
 
-    <div class="btn-group" data-toggle="buttons">
+    <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
+      <option selected>Choose a language</option>
+      <option value="en" (ngModelChange)="switchLanguage('en')">English</option>
+      <option value="nl" (ngModelChange)="switchLanguage('nl')">Nederlands</option>
+    </select>
+
+    <!-- <div class="btn-group" data-toggle="buttons">
       <button (click)="switchLanguage('en')">English</button>
       <button (click)="switchLanguage('nl')">Nederlands</button>
-    </div>
+    </div> -->
   </nav>
