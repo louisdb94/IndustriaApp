@@ -1,11 +1,13 @@
 import * as express from 'express';
 
 import CatCtrl from './controllers/cat';
+import CvCtrl from './controllers/cv';
 import UserCtrl from './controllers/user';
 import StudentCtrl from './controllers/student';
 import Cat from './models/cat';
 import User from './models/user';
 import Student from './models/student';
+import Cv from './models/cv';
 import * as path from 'path';
 
 import * as mime from 'mime';
@@ -19,47 +21,23 @@ export default function setRoutes(app) {
   const catCtrl = new CatCtrl();
   const userCtrl = new UserCtrl();
   const studentCtrl = new StudentCtrl();
+  const cvCtrl = new CvCtrl();
 
 
+  // CV
+  router.route('/cv').get(cvCtrl.getAll);
+  router.route('/cv/count').get(cvCtrl.count);
+  router.route('/cv').post(cvCtrl.insert);
+  router.route('/cv/:id').get(cvCtrl.get);
+  router.route('/cv/:id').put(cvCtrl.update);
+  router.route('/cv/:id').delete(cvCtrl.delete);
   //upload a pdf or image
   router.route('/upload')
-    .post(function (req, res)  {
-
-      let rnumber = '';
-      for(let i = 0; i< req.body.students.length; i++){
-        rnumber += req.body.students[i];
-      }
-
-      let id = '';
-      for(let i = 0; i< req.body.id.length; i++){
-        id += req.body.id[i];
-      }
-
-
-      if (!(<any>req.files).files)
-        return res.status(400).send('No files were uploaded.');
-
-      let newCv = (<any>req.files).files;
-      let type = newCv.mimetype.split('/')[1]
-    //  console.log(type);
-      newCv.mv('./uploads/images/'+ rnumber + "." +type ,function(err) {
-       if (err)
-         return res.status(500).send(err);
-
-         Student.findOneAndUpdate({ _id: id }, {$set:{cv: {name: rnumber, mimetype: type}}},{upsert:true}, (err) => {
-         if (err) { return console.error(err); }
-         console.log("cv geupload");
-       });
-
-
-       res.status(200).redirect('back');
-     });
-
-  });
+    .post(cvCtrl.uploadCv);
 
 
   //download a cv of a student
-  router.route(`/download/:cv_id`)
+  router.route('/download/:cv_id')
     .get(function (req, res) {
 
       // let name = "";
@@ -72,19 +50,40 @@ export default function setRoutes(app) {
       //
       // res.download('./uploads/images/'+ name + '.' + mimetype);
       console.log("downloading");
+      res.setHeader('Content-Type', 'application/pdf');
       res.download('./uploads/images/r0222222.pdf', function(err){
-        if(err){console.log(err)}
-        console.log("In de functie res.download")
+        if(err){
+          return console.log(err);
+        } else {
+          return console.log("In de functie res.download");
+        }
       });
 
       console.log("gedowload");
 
-      //DELETEN
-      //fs.unlink('./uploads/images/r0111111.jpeg');
+
 
     });
 
+  router.route('/cv/remove/:id')
+    .get(function(req,res){
 
+      let name = '';
+      let type = '';
+      Student.findOne({_id: req.params.id}, (err, obj) => {
+        if (err) { return console.error(err); }
+          name = obj.name;
+          type = obj.type;
+      })
+      Student.findOneAndRemove({ _id: req.params.id }, (err) => {
+      if (err) { return console.error(err); }
+      console.log("cv verwijders");
+      });
+
+      //DELETEN
+      fs.unlink('./uploads/images/'+ name + '.' + type);
+
+  });
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);

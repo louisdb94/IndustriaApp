@@ -27,7 +27,9 @@ const studentSchema = new mongoose.Schema({
   skills: Array,
   skillsValue: [Number],
   experiences: [],
-  cv : [uploads]
+  cv : [uploads],
+  numberCv: {type: Number, default: 0},
+  cvs: Array
 
 
 });
