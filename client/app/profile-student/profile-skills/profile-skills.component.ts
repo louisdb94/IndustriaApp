@@ -1,4 +1,4 @@
-import { Component,ViewChild, OnInit } from '@angular/core';
+import { Component,ViewChild, OnInit, Input } from '@angular/core';
 import { jqxProgressBarComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxprogressbar';
 import { jqxInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxinput';
 import { jqxDropDownListComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDropDownList';
@@ -37,7 +37,7 @@ export class SkillsProfile {
   public count = 0;
 
   data: any;
-  student= {};
+  @Input() student: {};
 
   public skill1 = 'Java';
   public skill2 = 'Java';
@@ -56,20 +56,6 @@ export class SkillsProfile {
 
   constructor(private studentService: StudentService,
     private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
-
-  ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];
-      this.getStudentById(id);
-    });
-  }
-
-  getStudentById(id) {
-    this.studentService.getStudentById(id).subscribe(
-      data => this.student = data,
-      error => console.log(error)
-    );
-  }
 
   save(student){
     this.editMode = false;

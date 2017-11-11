@@ -20,7 +20,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { StudentsComponent} from './students/students.component';
 import { CompanyComponent} from './company/company.component';
 import { NavBarComponent} from './nav-bar/nav-bar.component';
-import { StudentsDetailComponent} from './students-detail/students-detail.component';
 
 import { StudentProfile } from './profile-student';
 import { HeaderProfile } from './profile-student/profile-header';
@@ -66,7 +65,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminComponent,
     NotFoundComponent,
     StudentsComponent,
-    StudentsDetailComponent,
     CompanyComponent,
     NavBarComponent,
 

@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, enableProdMode } from '@angular/core';
+import { Component, ViewChild, OnInit, enableProdMode, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
@@ -21,7 +21,7 @@ export class HeaderProfile {
 
 
   data: any;
-  student= {};
+  @Input() student: {};
   cv= {};
   cvs=[];
   check = false;
@@ -43,41 +43,13 @@ export class HeaderProfile {
       this.cropperSettings.canvasHeight = 300;
       this.cropperSettings.noFileInput = false;
 
-      this.data = {};
-
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];
-      this.getStudentById(id);
-
-      this.image1 = "../../assets/img/";
-      this.image2 = "/";
-      this.image3 = ".jpg";
-    });
+    this.image1 = "../../assets/img/";
+    this.image2 = "/";
+    this.image3 = ".jpg";
   }
-
-  getStudentById(id) {
-    this.studentService.getStudentById(id).subscribe(
-      data => (this.student = data, this.cvs = data.cv),
-      error => console.log(error)
-    );
-  }
-
-  // fileChangeListener($event) {
-  //   var image:any = new Image();
-  //   var file:File = $event.target.files[0];
-  //   var myReader:FileReader = new FileReader();
-  //   var that = this;
-  //   myReader.onloadend = function (loadEvent:any) {
-  //       image.src = loadEvent.target.result;
-  //       that.cropper.setImage(image);
-
-  //   };
-
-  //   myReader.readAsDataURL(file);
-  // }
 
   public editMode = false;
   public cropDone = false;

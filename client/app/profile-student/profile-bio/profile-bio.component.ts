@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
@@ -11,24 +11,10 @@ import { DataTableModule } from "ng2-data-table";
 })
 export class BioProfile {
   public editMode = false;  
-  student= {};
+  @Input() student: {};
 
   constructor(private studentService: StudentService,
     private activatedRoute: ActivatedRoute, public toast: ToastComponent) {}
-
-  ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];
-      this.getStudentById(id);
-    });
-  }
-
-  getStudentById(id) {
-    this.studentService.getStudentById(id).subscribe(
-      data => this.student = data,
-      error => console.log(error)
-    );
-  }
 
   save(student){
     this.editMode = false;

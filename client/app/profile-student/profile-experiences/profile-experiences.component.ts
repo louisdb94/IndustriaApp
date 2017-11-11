@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataTableModule } from "ng2-data-table";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {StudentProfile} from '../profile.component';
 
 
 @Component({
@@ -12,11 +13,6 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   templateUrl: './profile-experiences.component.html'
 })
 export class ExperiencesProfile {
-  data: any;
-  student= {};
-  experiences = [];
-  experiences2 = [];
-  experience = {};
 
   exp1: String;
   exp2: String;
@@ -26,22 +22,13 @@ export class ExperiencesProfile {
   public isUpdated = false;
   public editMode = false;
 
-  constructor(private studentService: StudentService,
+  experience = {};
+
+  @Input() student: {};
+  @Input() experiences: [String];
+
+  constructor(private studentService: StudentService, private studentProfile: StudentProfile,
     private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
-
-  ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];
-      this.getStudentById(id);
-    });
-  }
-
-  getStudentById(id) {
-    this.studentService.getStudentById(id).subscribe(
-      data => {this.student = data, this.experiences = data.experiences},
-      error => console.log(error)
-    );
-  }
 
   save(student){
     this.editMode = false;
@@ -55,15 +42,14 @@ export class ExperiencesProfile {
     );
   }
 
-  edit(experiences2){
+  edit(){
     this.editMode = true;
-    this.experiences2 = this.experiences;
   }
 
   addExperience(exp1, exp2, exp3) {
     this.experiences.push(this.exp1);
     this.experiences.push(this.exp2);
     this.experiences.push(this.exp3);
-    this.save(this.student);
+    this.save(this.studentProfile.student);
   }
 }
