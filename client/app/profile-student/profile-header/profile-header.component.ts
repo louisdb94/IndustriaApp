@@ -32,8 +32,7 @@ export class HeaderProfile {
   image1: String;
   image2: String;
   image3: String;
-  cv_id = String;
-  cv = [];
+  cvs = [];
 
   addCvForm: FormGroup;
 
@@ -68,6 +67,7 @@ export class HeaderProfile {
     this.activatedRoute.params.subscribe((params: Params) => {
       let id = params['id'];
       this.getStudentById(id);
+      this.getCvFromStudent(id);
 
       this.image1 = "../../../uploads/images/";
       this.image3 = ".jpg";
@@ -146,6 +146,7 @@ export class HeaderProfile {
     this.studentService.addcv(this.addCvForm.value).subscribe(
       res => {
         const newCv = res.json();
+        this.cvs.push(newCv);
       }
     );
 
@@ -164,13 +165,40 @@ export class HeaderProfile {
         return this.files && this.files.length > 0;
     }
 
-downloadPdf(cv_id){
+downloadCv(cv_id){
   console.log("KEEKEKE", cv_id);
   this.studentService.download(cv_id).subscribe();
 //  this.http.get(`/api/download/${cv_id}`).subscribe();
 
 }
 
+removeCv(cv){
+  this.studentService.removeCv(cv).subscribe(
+    res => {
+      const pos = this.cvs.map(elem => elem._id).indexOf(cv._id);
+      this.cvs.splice(pos, 1);
+      this.toast.setMessage('item deleted successfully.', 'success');
+    },
+    error => console.log(error)
+  );
 
+
+
+  const cvs: any = {};
+  cvs.name = cv.name;
+  cvs.number = cv.number;
+  cvs.uploader = cv.uploader;
+  cvs.mimetype = cv.mimetype;
+
+  this.http.post(`/api/cv/remove/${cv._id}`, cvs).subscribe();
+
+}
+
+getCvFromStudent(id){
+  this.studentService.getCvFromStudent(id).subscribe(
+    data => {this.cvs = data},
+    error => console.log(error)
+  )
+}
 
 }

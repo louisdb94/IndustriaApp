@@ -39,9 +39,11 @@
         </p-fileUpload>
 
         <table>
-          <td> <a> {{student.cv[0].name}} </a> </td>
-          <td> {{student.cv[0]._id}}</td>
-          <td> <button (click)="downloadPdf(student.cv[0]._id)" class="btn btn-primary">download PDF</button> </td>
+          <tr *ngFor="let cv of cvs">
+            <td> <a> {{cv.customName}}  </a> </td>
+            <td> <button (click)="downloadCv(cv)" class="btn btn-primary">download </button> </td>
+            <td> <button (click)="removeCv(cv)" class="btn btn-primary">remove </button> </td>
+          </tr>
         </table>
 
 

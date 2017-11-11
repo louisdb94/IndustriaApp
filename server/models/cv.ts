@@ -5,7 +5,8 @@ const CvSchema = new mongoose.Schema({
   mimetype: String,
   size: Number,
   uploader: String,
-  number: {type:Number, default : 1}
+  number: {type:Number, default : 1},
+  customName: {type: String, default: 'Curriculum vitae'}
 });
 
 const Cv = mongoose.model('cv', CvSchema);

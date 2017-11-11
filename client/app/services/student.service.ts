@@ -52,16 +52,16 @@ export class StudentService {
     return this.http.get(`/api/download/${cv_id}`);
   }
 
-  incrementcv(id):Observable<any>{
-    return this.http.put(`/api/student/${id}/incrementcv`, this.options);
-  }
-
-  addcvtostudent(id, cv_id):Observable<any>{
-    return this.http.post(`/api/student/${id}/addcv`, this.options);
-  }
-
   addcv(cv):Observable<any>{
     return this.http.post('/api/cv', JSON.stringify(cv), this.options);
+  }
+
+  getCvFromStudent(id):Observable<any>{
+    return this.http.get(`/api/cv/${id}`).map(res => res.json());
+  }
+
+  removeCv(cv):Observable<any>{
+    return this.http.delete(`/api/cv/${cv._id}`, this.options);
   }
 
 

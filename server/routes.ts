@@ -26,64 +26,18 @@ export default function setRoutes(app) {
 
   // CV
   router.route('/cv').get(cvCtrl.getAll);
+  router.route('/cv/:stud_id').get(cvCtrl.getAllFromStudent);
   router.route('/cv/count').get(cvCtrl.count);
   router.route('/cv').post(cvCtrl.insert);
   router.route('/cv/:id').get(cvCtrl.get);
   router.route('/cv/:id').put(cvCtrl.update);
   router.route('/cv/:id').delete(cvCtrl.delete);
   //upload a pdf or image
-  router.route('/upload')
-    .post(cvCtrl.uploadCv);
-
-
+  router.route('/upload').post(cvCtrl.uploadCv);
   //download a cv of a student
-  router.route('/download/:cv_id')
-    .get(function (req, res) {
-
-      // let name = "";
-      // let mimetype = "";
-      // Student.findOne({ 'cv._id': req.params.cv_id }, (err, obj) => {
-      //   if (err) { return console.error(err); }
-      //   name = obj.cv.name;
-      //   mimetype = obj.cv.mimetype;
-      // });
-      //
-      // res.download('./uploads/images/'+ name + '.' + mimetype);
-      console.log("downloading");
-      res.setHeader('Content-Type', 'application/pdf');
-      res.download('./uploads/images/r0222222.pdf', function(err){
-        if(err){
-          return console.log(err);
-        } else {
-          return console.log("In de functie res.download");
-        }
-      });
-
-      console.log("gedowload");
-
-
-
-    });
-
-  router.route('/cv/remove/:id')
-    .get(function(req,res){
-
-      let name = '';
-      let type = '';
-      Student.findOne({_id: req.params.id}, (err, obj) => {
-        if (err) { return console.error(err); }
-          name = obj.name;
-          type = obj.type;
-      })
-      Student.findOneAndRemove({ _id: req.params.id }, (err) => {
-      if (err) { return console.error(err); }
-      console.log("cv verwijders");
-      });
-
-      //DELETEN
-      fs.unlink('./uploads/images/'+ name + '.' + type);
-
-  });
+  router.route('/download/:cv_id').get(cvCtrl.downloadCv);
+  
+  router.route('/cv/remove/:id').post(cvCtrl.removeCv);
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);
@@ -100,8 +54,7 @@ export default function setRoutes(app) {
   router.route('/student/:id').get(studentCtrl.get);
   router.route('/student/:id').put(studentCtrl.update);
   router.route('/student/:id').delete(studentCtrl.delete);
-  router.route('/student/:id/incrementcv').put(studentCtrl.incrementCv);
-  router.route('/student/:id/addcv').post(studentCtrl.addCv);
+
 
 
   // Users
