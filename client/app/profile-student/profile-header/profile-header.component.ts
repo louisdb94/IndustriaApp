@@ -10,6 +10,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import { FileUploadModule } from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import {formData} from 'form-data';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 enableProdMode();
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -26,10 +27,15 @@ export class HeaderProfile {
   student = {};
   rnumber = String;
   id = String;
+  numberCv = Number;
   cropperSettings: CropperSettings;
   image1: String;
   image2: String;
   image3: String;
+  cv_id = String;
+  cv = [];
+
+  addCvForm: FormGroup;
 
   editMode = false;
   cropDone = false;
@@ -43,7 +49,8 @@ export class HeaderProfile {
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private http: HttpClient,
-                private sanitizer: DomSanitizer){
+                private sanitizer: DomSanitizer,
+                private formBuilder: FormBuilder,){
 
                     this.cropperSettings = new CropperSettings();
                     this.cropperSettings.width = 100;
@@ -74,7 +81,8 @@ export class HeaderProfile {
 
   getStudentById(id) {
     this.studentService.getStudentById(id).subscribe(
-      data => {this.student = data, this.rnumber = data.rnumber, this.id = data._id},
+      data => {this.student = data, this.rnumber = data.rnumber, this.id = data._id,
+                this.numberCv = data.numberCv},
       error => console.log(error)
     );
   }
@@ -94,13 +102,14 @@ export class HeaderProfile {
 
   myUploader(event) {
 
+
     let files: File[] = event.files;
-    console.log('FILES?', files);
 
     let formData: FormData = new FormData();
     for(let i = 0; i<files.length;i++){
          formData.append('files', files[i], files[i].name);
     }
+    formData.append('cvnumber', (<any>this.numberCv))
     let rnumber = this.rnumber;
     for(let i = 0; i<rnumber.length;i++){
          formData.append('students', rnumber[i]);
@@ -118,17 +127,29 @@ export class HeaderProfile {
           file.objectURL = this.sanitizer.bypassSecurityTrustUrl((window.URL.createObjectURL(files[i])));
           this.files.push(file);
         }
-        if(this.hasFiles()) {
-          const fileUpload: any = {};
-          console.log('FILEUPLOAD empty', fileUpload);
-          fileUpload.files = this.files;
-          console.log('FILEUPLOAD files', fileUpload);
-          fileUpload.student = this.student;
-          console.log('FILEUPLOAD files & student', fileUpload);
 
+        this.addCvForm = this.formBuilder.group({
+          name: rnumber,
+          uploader: id,
+          mimetype: file.type.split('/')[1],
+          number: this.numberCv
+        });
+
+        if(this.hasFiles()) {
           this.http.post('/api/upload', formData, {}).subscribe(res => console.log('gelukt', res));
         }
     }
+    console.log("number before incrmeent", this.numberCv);
+    (<any>this.numberCv) ++;
+    console.log("number after incrmeent", this.numberCv);
+
+    this.studentService.addcv(this.addCvForm.value).subscribe(
+      res => {
+        const newCv = res.json();
+      }
+    );
+
+
   }
 
   isFileSelected(file: File): boolean{
@@ -143,13 +164,13 @@ export class HeaderProfile {
         return this.files && this.files.length > 0;
     }
 
-
-
 downloadPdf(cv_id){
   console.log("KEEKEKE", cv_id);
   this.studentService.download(cv_id).subscribe();
 //  this.http.get(`/api/download/${cv_id}`).subscribe();
 
 }
+
+
 
 }

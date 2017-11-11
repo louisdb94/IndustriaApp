@@ -5,7 +5,7 @@ const CvSchema = new mongoose.Schema({
   mimetype: String,
   size: Number,
   uploader: String,
-  number: {type:Number, default : 0}
+  number: {type:Number, default : 1}
 });
 
 const Cv = mongoose.model('cv', CvSchema);

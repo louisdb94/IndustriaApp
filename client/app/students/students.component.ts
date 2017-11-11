@@ -18,7 +18,7 @@ export class StudentsComponent implements OnInit {
   degree = new FormControl('', Validators.required);
   gradYear = new FormControl('', Validators.required);
 
-  constructor(private studentService: StudentService, 
+  constructor(private studentService: StudentService,
               private formBuilder: FormBuilder,
               public toast: ToastComponent) { }
 

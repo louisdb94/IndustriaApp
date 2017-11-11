@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class StudentService {
 
-  private headers = new Headers({ 'Content-Type': 'application/pdf', 'charset': 'UTF-8' });
+  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
   private options = new RequestOptions({ headers: this.headers });
 
 
@@ -51,6 +51,21 @@ export class StudentService {
     console.log(cv_id);
     return this.http.get(`/api/download/${cv_id}`);
   }
+
+  incrementcv(id):Observable<any>{
+    return this.http.put(`/api/student/${id}/incrementcv`, this.options);
+  }
+
+  addcvtostudent(id, cv_id):Observable<any>{
+    return this.http.post(`/api/student/${id}/addcv`, this.options);
+  }
+
+  addcv(cv):Observable<any>{
+    return this.http.post('/api/cv', JSON.stringify(cv), this.options);
+  }
+
+
+
 
 
 }
