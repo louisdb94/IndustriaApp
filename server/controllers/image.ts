@@ -26,16 +26,11 @@ export default class ImageCtrl extends BaseCtrl {
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
     newImage.mv('./uploads/images/'+ rnumber + '.jpeg' ,function(err) {
-     if (err)
-       return res.status(500).send(err);
+     if (err){return res.status(500).send(err);}
+     else{res.status(200).redirect('back');}
      });
-     res.status(200).redirect('back');
-
-     Student.findOne({_id: id}, (err, obj) => {
-       if(err) { return console.error(err);}
-       else{
-         obj.image = true;
-       }
+     Student.findOneAndUpdate({ _id: id }, {$set:{"image": 'true'}}, function (err, obj){
+       if (err) { return console.error(err); }
      });
    };
 

@@ -32,14 +32,16 @@
         <!-- <td> <button (click)="downloadImage(student._id)" class="btn btn-primary">download </button> </td> -->
 
         <div class="file-upload">
-          <span class="text">upload image: </span>
           <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+          <button (click)="add()">Add</button>
         </div>
-        <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+
+        <!-- <p-fileUpload name="image" customUpload="true"  (uploadHandler)="fileChangeListener($event)"></p-fileUpload> -->
+        <!-- <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
         <br>
         <span class="result rounded" *ngIf="data.image">
             <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
-        </span>
+        </span> -->
 
 
 
@@ -47,8 +49,6 @@
             <textarea *ngIf="editMode" [(ngModel)]="catchPhrase" rows="5" cols="100%" placeholder="Use a catchphrase" (keyup.enter)="save()"></textarea>
             <p *ngIf="!editMode">{{catchPhrase}}</p>
         </div>
-
-        <p> FOTO </p>
         <img class="profile-pic" [src]="im" >
 
 
