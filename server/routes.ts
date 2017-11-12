@@ -38,8 +38,7 @@ export default function setRoutes(app) {
   //upload a pdf or image
   router.route('/cv/upload').post(cvCtrl.uploadCv);
   //download a cv of a student
-  router.route('/download/:cv_id')
-        .get(cvCtrl.downloadCv);
+  router.route('/download/:cv_id').get(cvCtrl.downloadCv);
 
   router.route('/cv/remove/:id').post(cvCtrl.removeCv);
 
@@ -55,7 +54,7 @@ export default function setRoutes(app) {
   //upload a pdf or image
   router.route('/image/upload').post(imageCtrl.upload);
   //download a cv of a student
-  router.route('/downloadImage').get(imageCtrl.download);
+  router.route('/downloadImage/:id').get(imageCtrl.download);
 
   router.route('/image/remove/:id').post(imageCtrl.remove);
 

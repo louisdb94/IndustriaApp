@@ -29,7 +29,8 @@ const studentSchema = new mongoose.Schema({
   experiences: [],
   cv : [uploads],
   numberCv: {type: Number, default: 0},
-  cvs: Array
+  cvs: Array,
+  image: {type: Boolean, default: false}
 
 
 });

@@ -40,10 +40,6 @@ export class FileService {
   // IMAGE
 
 
-  downloadIm(image_id): Observable<any> {
-    return this.http.get(`/api/download/${image_id}`);
-  }
-
   addImage(image):Observable<any>{
     return this.http.post('/api/image', JSON.stringify(image), this.options);
   }
@@ -56,8 +52,7 @@ export class FileService {
     return this.http.delete(`/api/image/${image._id}`, this.options);
   }
 
-  downloadImage(): Observable<any> {
-    return this.http.get(`/api/downloadImage`);
-
+  downloadImage(id): Observable<any> {
+    return this.http.get(`/api/downloadImage/${id}`);
   }
 }

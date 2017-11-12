@@ -30,9 +30,6 @@ export class HeaderProfile {
   id = String;
   numberCv = Number;
   cropperSettings: CropperSettings;
-  image1: String;
-  image2: String;
-  image3: String;
   cvs = [];
 
   addCvForm: FormGroup;
@@ -45,7 +42,7 @@ export class HeaderProfile {
 
 
   image: File;
-  im: any;
+  im = 'data:image/JPEG;base64,';
 
 
   @ViewChild('cropper', undefined)
@@ -76,11 +73,10 @@ export class HeaderProfile {
       let id = params['id'];
       this.getStudentById(id);
       this.getCvFromStudent(id);
-
-      this.image1 = "../../../uploads/images/";
-      this.image3 = ".jpg";
-
+      this.downloadImage(id);
       this.files = [];
+
+
     });
   }
 
@@ -106,21 +102,21 @@ export class HeaderProfile {
   }
 
   fileChangeListener($event) {
-  //     var image:any = new Image();
-  //     var file:File = $event.target.files[0];
-  //     var myReader:FileReader = new FileReader();
-  //     var that = this;
-  //     myReader.onloadend = function (loadEvent:any) {
-  //         image.src = loadEvent.target.result;
-  //         that.cropper.setImage(image);
-  //
-  //     };
-  //
-  //     myReader.readAsDataURL(file);
-  //
-  //   //  console.log(this.data.image);
-  //
-  //     this.im = this.data.image;
+      var image:any = new Image();
+      var file:File = $event.target.files[0];
+      var myReader:FileReader = new FileReader();
+      var that = this;
+      myReader.onloadend = function (loadEvent:any) {
+          image.src = loadEvent.target.result;
+          that.cropper.setImage(image);
+
+      };
+
+      myReader.readAsDataURL(file);
+
+     console.log(this.data);
+
+  //    this.im = this.data.image;
   //
   //     this.addImageForm = this.formBuilder.group({
   //       name: this.rnumber,
@@ -141,25 +137,25 @@ export class HeaderProfile {
   //    this.image = $event.target.files[0];
 
 
-      console.log("TESJEEE")
-
-      let files: File = $event.target.files[0];
-
-      console.log("IMAGE FILE", files)
-      let formData: FormData = new FormData();
-      formData.append('files', files, files.name);
-
-      let rnumber = this.rnumber;
-      for(let i = 0; i<rnumber.length;i++){
-           formData.append('students', rnumber[i]);
-      }
-      let id = this.id;
-      for(let i = 0; i<id.length;i++){
-           formData.append('id', id[i]);
-      }
-      if(files) {
-        this.http.post('/api/image/upload', formData, {}).subscribe(res => console.log('gelukt', res));
-      }
+      // console.log("TESJEEE")
+      //
+      // let files: File = $event.target.files[0];
+      //
+      // console.log("IMAGE FILE", files)
+      // let formData: FormData = new FormData();
+      // formData.append('files', files, files.name);
+      //
+      // let rnumber = this.rnumber;
+      // for(let i = 0; i<rnumber.length;i++){
+      //      formData.append('students', rnumber[i]);
+      // }
+      // let id = this.id;
+      // for(let i = 0; i<id.length;i++){
+      //      formData.append('id', id[i]);
+      // }
+      // if(files) {
+      //   this.http.post('/api/image/upload', formData, {}).subscribe(res => console.log('gelukt', res));
+      // }
 
   }
 
@@ -234,11 +230,11 @@ downloadCv(cv){
 }
 
 
-downloadImage(){
-  //
-  // window.open('/api/downloadImage')
-
-
+downloadImage(id){
+  this.fileService.downloadImage(id).subscribe(
+    data => {this.im += data._body},
+    error => console.log(error)
+  );
 
 }
 

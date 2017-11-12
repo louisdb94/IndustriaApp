@@ -29,13 +29,13 @@
         </div> -->
 
 
-        <td> <button (click)="downloadImage()" class="btn btn-primary">download </button> </td>
+        <!-- <td> <button (click)="downloadImage(student._id)" class="btn btn-primary">download </button> </td> -->
 
         <div class="file-upload">
           <span class="text">upload image: </span>
           <input id="custom-input" type="file" (change)="fileChangeListener($event)">
         </div>
-        <!-- <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+        <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
         <br>
         <span class="result rounded" *ngIf="data.image">
             <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
@@ -49,7 +49,9 @@
         </div>
 
         <p> FOTO </p>
-        <img [src]="im" > -->
+        <img class="profile-pic" [src]="im" >
+
+
 
         <p-fileUpload name="cv" customUpload="true"  (uploadHandler)="myUploader($event)">
 

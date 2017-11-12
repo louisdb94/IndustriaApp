@@ -25,12 +25,21 @@ export default class ImageCtrl extends BaseCtrl {
     //add file to server
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
-    newImage.mv('./uploads/images/'+ rnumber + "." +type ,function(err) {
+    newImage.mv('./uploads/images/'+ rnumber + '.jpeg' ,function(err) {
      if (err)
        return res.status(500).send(err);
      });
      res.status(200).redirect('back');
+
+     Student.findOne({_id: id}, (err, obj) => {
+       if(err) { return console.error(err);}
+       else{
+         obj.image = true;
+       }
+     });
    };
+
+
 
 
    getAllFromStudent = (req, res) => {
@@ -48,18 +57,29 @@ export default class ImageCtrl extends BaseCtrl {
 
    download = (req, res) => {
 
+     Student.findOne({ _id: req.params.id }, (err, obj) => {
+       if (err) { return console.error(err); }
+       else{
+           if(obj.image){
+             fs.readFile('./uploads/images/' + obj.rnumber + '.jpeg', 'base64', function(err, data){
+               if(err){console.log(err);}
+               res.setHeader('Content-Disposition', 'attachment');
+               res.send(data)
+             })
+           }
+           else{
+             fs.readFile('./uploads/images/standard.jpeg', 'base64', function(err, data){
+               if(err){console.log(err);}
+               res.setHeader('Content-Disposition', 'attachment');
+               res.send(data)
+             })
+           }
+         }
+     });
 
-        // fs.readFile('./uploads/images/r0222222.jpeg', function(err, data){
-        //   if(err){console.log(err);}
-        //   console.log(data);
-        // })
 
-        res.setHeader('Content-disposition', 'attachment; filename=r0222222.jpeg');
-        res.setHeader('Content-Type', 'application/image');
-        res.download('./uploads/images/r0222222.jpeg', 'r0222222.jpeg', function(err){
-          if(err){console.log(err)}
 
-        })
+
 
 
 

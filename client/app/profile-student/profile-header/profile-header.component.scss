@@ -10,9 +10,15 @@ a {
 
 td {
   width: 20%;
-  
+
 }
 
+
+.profile-pic{
+  max-width: 300px;
+  max-height: 300px;
+
+}
 
 @mixin btn-variant($bg-color, $icon) {
   text-align: center;
