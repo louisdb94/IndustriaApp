@@ -2,12 +2,14 @@ import * as express from 'express';
 
 import CatCtrl from './controllers/cat';
 import CvCtrl from './controllers/cv';
+import ImageCtrl from './controllers/image';
 import UserCtrl from './controllers/user';
 import StudentCtrl from './controllers/student';
 import Cat from './models/cat';
 import User from './models/user';
 import Student from './models/student';
 import Cv from './models/cv';
+import Image from './models/image';
 import * as path from 'path';
 
 import * as mime from 'mime';
@@ -22,6 +24,7 @@ export default function setRoutes(app) {
   const userCtrl = new UserCtrl();
   const studentCtrl = new StudentCtrl();
   const cvCtrl = new CvCtrl();
+  const imageCtrl = new ImageCtrl();
 
 
   // CV
@@ -33,11 +36,29 @@ export default function setRoutes(app) {
   router.route('/cv/:id').put(cvCtrl.update);
   router.route('/cv/:id').delete(cvCtrl.delete);
   //upload a pdf or image
-  router.route('/upload').post(cvCtrl.uploadCv);
+  router.route('/cv/upload').post(cvCtrl.uploadCv);
   //download a cv of a student
-  router.route('/download/:cv_id').get(cvCtrl.downloadCv);
-  
+  router.route('/download/:cv_id')
+        .get(cvCtrl.downloadCv);
+
   router.route('/cv/remove/:id').post(cvCtrl.removeCv);
+
+
+  // Image
+  router.route('/image').get(imageCtrl.getAll);
+  router.route('/image/:stud_id').get(imageCtrl.getAllFromStudent);
+  router.route('/image/count').get(imageCtrl.count);
+  router.route('/image').post(imageCtrl.insert);
+  router.route('/image/:id').get(imageCtrl.get);
+  router.route('/image/:id').put(imageCtrl.update);
+  router.route('/image/:id').delete(imageCtrl.delete);
+  //upload a pdf or image
+  router.route('/image/upload').post(imageCtrl.upload);
+  //download a cv of a student
+  router.route('/downloadImage').get(imageCtrl.download);
+
+  router.route('/image/remove/:id').post(imageCtrl.remove);
+
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);

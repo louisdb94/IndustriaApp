@@ -5,6 +5,7 @@ import { SharedModule } from './shared/shared.module';
 import { CatService } from './services/cat.service';
 import { UserService } from './services/user.service';
 import { StudentService } from './services/student.service';
+import { FileService } from './services/file.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -113,7 +114,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AuthGuardAdmin,
     CatService,
     UserService,
-    StudentService
+    StudentService,
+    FileService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

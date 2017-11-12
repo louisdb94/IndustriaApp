@@ -19,10 +19,10 @@ const uploads = new mongoose.Schema({
 })
 
 const studentSchema = new mongoose.Schema({
-  name: String,
+  name: {type: String, default: "Elon Musk"},
   rnumber: String,
-  whoami: { type: String, default: "Elon Musk" },
-  degree: String,
+  whoami: { type: String, default: "Here is some general information about me" },
+  degree: {type : String, default: "My Degree"},
   gradYear: Number,
   skills: Array,
   skillsValue: [Number],

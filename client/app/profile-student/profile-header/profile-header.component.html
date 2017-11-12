@@ -22,17 +22,34 @@
             <p *ngIf="!editMode">{{student.gradYear}}</p>
         </h3>
 
-        <div>
+        <!-- <div>
             <img-cropper *ngIf="editMode" [image]="data" [settings]="cropperSettings"></img-cropper><br>
             <img *ngIf="!editMode && cropDone" id="picture" class="rounded" [src]="data.image">
             <img *ngIf="!editMode && !cropDone" id="picture" class="rounded" [src]="image1 + student.rnumber + image3">
+        </div> -->
+
+
+        <td> <button (click)="downloadImage()" class="btn btn-primary">download </button> </td>
+
+        <div class="file-upload">
+          <span class="text">upload image: </span>
+          <input id="custom-input" type="file" (change)="fileChangeListener($event)">
         </div>
+        <!-- <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+        <br>
+        <span class="result rounded" *ngIf="data.image">
+            <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+        </span>
+
+
 
         <div style="margin-top:30px">
             <textarea *ngIf="editMode" [(ngModel)]="catchPhrase" rows="5" cols="100%" placeholder="Use a catchphrase" (keyup.enter)="save()"></textarea>
             <p *ngIf="!editMode">{{catchPhrase}}</p>
         </div>
 
+        <p> FOTO </p>
+        <img [src]="im" > -->
 
         <p-fileUpload name="cv" customUpload="true"  (uploadHandler)="myUploader($event)">
 

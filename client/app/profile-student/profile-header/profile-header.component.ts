@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit, enableProdMode } from '@angular/core';
 import { StudentService } from '../../services/student.service';
+import { FileService } from '../../services/file.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, NgModelGroup, NgForm } from '@angular/forms';
@@ -35,16 +36,23 @@ export class HeaderProfile {
   cvs = [];
 
   addCvForm: FormGroup;
+  addImageForm: FormGroup;
 
   editMode = false;
   cropDone = false;
   editCV = false;
-  name = 'Elon Musk';
-  major = 'ICT';
-  catchPhrase = 'I am an enthousiastic and young Industrial Engineer looking for a job in UI design.';
   height: number | string = '100px';
 
+
+  image: File;
+  im: any;
+
+
+  @ViewChild('cropper', undefined)
+  cropper:ImageCropperComponent
+
   constructor(  private studentService: StudentService,
+                private fileService: FileService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private http: HttpClient,
@@ -52,13 +60,13 @@ export class HeaderProfile {
                 private formBuilder: FormBuilder,){
 
                     this.cropperSettings = new CropperSettings();
-                    this.cropperSettings.width = 100;
-                    this.cropperSettings.height = 100;
+                    this.cropperSettings.width = 200;
+                    this.cropperSettings.height = 200;
                     this.cropperSettings.croppedWidth = 300;
                     this.cropperSettings.croppedHeight = 300;
                     this.cropperSettings.canvasWidth = 400;
                     this.cropperSettings.canvasHeight = 300;
-                    this.cropperSettings.noFileInput = false;
+                    this.cropperSettings.noFileInput = true;
 
                     this.data = {};
                 }
@@ -73,9 +81,6 @@ export class HeaderProfile {
       this.image3 = ".jpg";
 
       this.files = [];
-
-
-
     });
   }
 
@@ -98,6 +103,64 @@ export class HeaderProfile {
       },
       error => console.log(error)
     );
+  }
+
+  fileChangeListener($event) {
+  //     var image:any = new Image();
+  //     var file:File = $event.target.files[0];
+  //     var myReader:FileReader = new FileReader();
+  //     var that = this;
+  //     myReader.onloadend = function (loadEvent:any) {
+  //         image.src = loadEvent.target.result;
+  //         that.cropper.setImage(image);
+  //
+  //     };
+  //
+  //     myReader.readAsDataURL(file);
+  //
+  //   //  console.log(this.data.image);
+  //
+  //     this.im = this.data.image;
+  //
+  //     this.addImageForm = this.formBuilder.group({
+  //       name: this.rnumber,
+  //       uploader: this.id,
+  //       mimetype: file.type.split('/')[1],
+  //       data: this.im
+  //     });
+  //
+  // //    console.log(this.addImageForm.value)
+  //
+  //     this.fileService.addImage(this.addImageForm.value).subscribe(
+  //       res => {
+  //         const newImage = res.json();
+  //         console.log(newImage)
+  //       }
+  //     );
+
+  //    this.image = $event.target.files[0];
+
+
+      console.log("TESJEEE")
+
+      let files: File = $event.target.files[0];
+
+      console.log("IMAGE FILE", files)
+      let formData: FormData = new FormData();
+      formData.append('files', files, files.name);
+
+      let rnumber = this.rnumber;
+      for(let i = 0; i<rnumber.length;i++){
+           formData.append('students', rnumber[i]);
+      }
+      let id = this.id;
+      for(let i = 0; i<id.length;i++){
+           formData.append('id', id[i]);
+      }
+      if(files) {
+        this.http.post('/api/image/upload', formData, {}).subscribe(res => console.log('gelukt', res));
+      }
+
   }
 
   myUploader(event) {
@@ -136,14 +199,14 @@ export class HeaderProfile {
         });
 
         if(this.hasFiles()) {
-          this.http.post('/api/upload', formData, {}).subscribe(res => console.log('gelukt', res));
+          this.http.post('/api/cv/upload', formData, {}).subscribe(res => console.log('gelukt', res));
         }
     }
     console.log("number before incrmeent", this.numberCv);
     (<any>this.numberCv) ++;
     console.log("number after incrmeent", this.numberCv);
 
-    this.studentService.addcv(this.addCvForm.value).subscribe(
+    this.fileService.addCv(this.addCvForm.value).subscribe(
       res => {
         const newCv = res.json();
         this.cvs.push(newCv);
@@ -165,15 +228,22 @@ export class HeaderProfile {
         return this.files && this.files.length > 0;
     }
 
-downloadCv(cv_id){
-  console.log("KEEKEKE", cv_id);
-  this.studentService.download(cv_id).subscribe();
-//  this.http.get(`/api/download/${cv_id}`).subscribe();
+
+downloadCv(cv){
+  window.open('/api/download/' + cv._id)
+}
+
+
+downloadImage(){
+  //
+  // window.open('/api/downloadImage')
+
+
 
 }
 
 removeCv(cv){
-  this.studentService.removeCv(cv).subscribe(
+  this.fileService.removeCv(cv).subscribe(
     res => {
       const pos = this.cvs.map(elem => elem._id).indexOf(cv._id);
       this.cvs.splice(pos, 1);
@@ -195,10 +265,13 @@ removeCv(cv){
 }
 
 getCvFromStudent(id){
-  this.studentService.getCvFromStudent(id).subscribe(
+  this.fileService.getCvFromStudent(id).subscribe(
     data => {this.cvs = data},
     error => console.log(error)
   )
 }
+
+
+
 
 }

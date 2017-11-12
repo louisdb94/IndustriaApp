@@ -56,30 +56,26 @@ export default class CvCtrl extends BaseCtrl {
      //DELETEN
      fs.unlink('./uploads/cvs/'+ req.body.name + "("+ req.body.number +")" +'.' + req.body.mimetype);
 
+
    }
 
    downloadCv = (req, res) => {
 
-     // let name = "";
-     // let mimetype = "";
-     // Student.findOne({ 'cv._id': req.params.cv_id }, (err, obj) => {
-     //   if (err) { return console.error(err); }
-     //   name = obj.cv.name;
-     //   mimetype = obj.cv.mimetype;
-     // });
-     //
-     // res.download('./uploads/images/'+ name + '.' + mimetype);
-     console.log("downloading");
-     res.setHeader('Content-Type', 'application/pdf');
-     res.download('./uploads/images/r0222222.pdf', function(err){
-       if(err){
-         return console.log(err);
-       } else {
-         return console.log("In de functie res.download");
-       }
+
+     this.model.findOne({ _id: req.params.cv_id }, (err, obj) => {
+       if (err) { return console.error(err); }
+       else{
+           res.download('./uploads/cvs/'+obj.name + '(' + obj.number +')' + '.' + obj.mimetype, function(err){
+             if(err){
+               console.log(err);
+             } else {
+               console.log("In de functie res.download");
+             }
+           });
+         }
      });
 
-     console.log("gedowload");
+
 
    }
 
