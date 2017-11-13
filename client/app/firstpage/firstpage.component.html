@@ -1,0 +1,28 @@
+<div class="jumbotron" style="background: white">
+    <div id="firstpage" class="mx-auto">
+        <div class="card text-center">
+            <div class="card-header" style="font-size: 30px">
+                <img src="../assets/img/Industria.PNG" width="45" height="60">
+                Welcome to the Industria job portal
+                <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
+                    <option selected>Choose a language</option>
+                    <option value="en" (ngModelChange)="switchLanguage('en')">English</option>
+                    <option value="nl" (ngModelChange)="switchLanguage('nl')">Nederlands</option>
+                </select>
+            </div>
+            <div class="card-block">
+                <h4 class="card-title">Choose your corresponding login</h4>
+                <br><br>
+                <a href="/login" class="btn btn-secondary btn-lg">Student</a>
+                <br><br>
+                <a href="#" class="btn btn-secondary btn-lg">Company</a>
+                <br><br>
+                <a href="#" class="btn btn-secondary btn-lg">Visitor</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <profile-footer></profile-footer>
+</footer>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 import { jqxFileUploadComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxfileupload';
@@ -9,14 +9,28 @@ import { jqxDropDownListComponent } from 'jqwidgets-framework/jqwidgets-ts/angul
 import { jqxDateTimeInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDateTimeInput';
 import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 import { DataTableModule } from "ng2-data-table";
+import { TranslateService } from '@ngx-translate/core';
+import { DataService } from './services/data.service';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  
+  messageNav: boolean;
+  test = false;
 
+  constructor(private translate: TranslateService, private data: DataService){
+    translate.setDefaultLang('en');
+  }
+
+  ngOnInit(){
+    this.data.navMessage.subscribe(message => this.messageNav = message);
+  }
+
+  switchLanguage(language: string) {
+    this.translate.use(language);
+  }
 }

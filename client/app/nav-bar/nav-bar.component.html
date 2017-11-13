@@ -1,6 +1,6 @@
 <nav id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
     <a class="navbar-brand" href="#">
-      <img src="../assets/img/Industria.PNG" width="45" height="60" alt="">
+      <img src="../assets/img/Industria.PNG" width="45" height="60">
     </a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,12 +14,9 @@
             </a>
         </li>
         <li class="nav-item dropdown active">
-            <p class="ab nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="profileid"><i class="fa fa-list"></i> {{'Profile' | translate}} </p>
-          <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+          <a [routerLink] ="profileString + messageId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <p translate id="homeid"><i class="fa fa-list"></i> Profile</p>
+          </a>
         </li>
         <li class="nav-item">
           <a id="jobopeningsid" translate class=" ab nav-link" href="#">JobOpenings</a>
@@ -35,9 +32,4 @@
       <option value="en" (ngModelChange)="switchLanguage('en')">English</option>
       <option value="nl" (ngModelChange)="switchLanguage('nl')">Nederlands</option>
     </select>
-
-    <!-- <div class="btn-group" data-toggle="buttons">
-      <button (click)="switchLanguage('en')">English</button>
-      <button (click)="switchLanguage('nl')">Nederlands</button>
-    </div> -->
   </nav>

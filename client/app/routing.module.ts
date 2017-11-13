@@ -11,14 +11,17 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { StudentsComponent} from './students/students.component';
 import { CompanyComponent} from './company/company.component';
+import { FirstPageComponent} from './firstpage/firstpage.component';
 import { StudentProfile} from './profile-student/profile.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
 const routes: Routes = [
-  { path: '', component: AboutComponent },
+  // { path: '', component: AboutComponent },
+  { path: '', component: FirstPageComponent },
   { path: 'students', component: StudentsComponent},
+  { path: 'firstpage', component: FirstPageComponent},
   { path: 'profile-student/:id', component: StudentProfile},
   { path: 'company', component: CompanyComponent},
   { path: 'cats', component: CatsComponent },
