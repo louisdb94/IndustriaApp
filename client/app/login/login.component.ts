@@ -46,9 +46,10 @@ export class LoginComponent implements OnInit {
               public toast: ToastComponent) { }
 
   ngOnInit() {
-    // if (this.auth.loggedIn) {
-    //   this.router.navigate(['/']);
-    // }
+    if (this.auth.loggedIn) {
+      this.data.changeMessageNav(true);
+      this.router.navigate(['/students']);
+    }
     this.loginForm = this.formBuilder.group({
       email: this.email,
       password: this.password

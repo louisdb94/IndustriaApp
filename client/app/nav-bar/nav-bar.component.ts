@@ -24,4 +24,10 @@ export class NavBarComponent {
     this.translate.use(language);
   }
 
+  logout(){
+    this.data.changeMessageId("");
+    this.data.changeMessageNav(false);
+    this.auth.logout();
+  }
+
 }

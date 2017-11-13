@@ -9,7 +9,7 @@
     <div class="navbar-collapse collapse" id="navbarCollapse">
       <ul class="navbar-nav text-md-center nav-justified w-100">
         <li class="nav-item">
-            <a routerLink="/" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <a routerLink="/students" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
               <p id="homeid"><i class="fa fa-home"></i> Home</p>
             </a>
         </li>
@@ -32,4 +32,6 @@
       <option value="en" (ngModelChange)="switchLanguage('en')">English</option>
       <option value="nl" (ngModelChange)="switchLanguage('nl')">Nederlands</option>
     </select>
+
+    <button (click)="logout()">Logout</button>
   </nav>
