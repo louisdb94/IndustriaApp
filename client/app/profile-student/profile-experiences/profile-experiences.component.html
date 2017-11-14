@@ -33,7 +33,7 @@
       </tr>
     </table>
 
-    <button *ngIf="editMode" (click)="addClicked = true"  class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>   
-    <button *ngIf="editMode" (click)="deleteExperience()"  class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Delete</button>
+    <button *ngIf="editMode" (click)="deleteExperience()"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
+    <button *ngIf="editMode" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>       
   </div>
 </div>
