@@ -12,8 +12,9 @@
 }
 
 #languageselector{
-  width: 120px;
-  font-size: 15px;
+  width: 60px;
+  height: 30px;
+  font-size: 13px;
   float: right;
 }
 

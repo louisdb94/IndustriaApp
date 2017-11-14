@@ -21,6 +21,8 @@ export class ExperiencesProfile {
   public valueInput : number;
   public isUpdated = false;
   public editMode = false;
+  public addClicked = false;
+  public deleteClicked = false;
 
   experience = {};
 
@@ -30,8 +32,15 @@ export class ExperiencesProfile {
   constructor(private studentService: StudentService, private studentProfile: StudentProfile,
     private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
 
-  save(student){
-    this.editMode = false;
+  save(student, exp1, exp2, exp3){
+
+    console.log(this.deleteClicked);
+
+    if(this.addClicked){
+      this.experiences.push(this.exp1);
+      this.experiences.push(this.exp2);
+      this.experiences.push(this.exp3);
+    }
 
     this.studentService.editStudent(student).subscribe(
       res => {
@@ -40,16 +49,24 @@ export class ExperiencesProfile {
       },
       error => console.log(error)
     );
+
+    if(!this.deleteClicked){
+      this.editMode = false;
+    }
+
+    this.deleteClicked = false;
+    this.addClicked = false;
   }
 
   edit(){
     this.editMode = true;
   }
 
-  addExperience(exp1, exp2, exp3) {
-    this.experiences.push(this.exp1);
-    this.experiences.push(this.exp2);
-    this.experiences.push(this.exp3);
-    this.save(this.studentProfile.student);
+  deleteExperience(){
+    this.deleteClicked = true;
+    this.experiences.pop();
+    this.experiences.pop();
+    this.experiences.pop();
+    this.save(this.studentProfile.student, null, null, null);
   }
 }

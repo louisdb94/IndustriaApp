@@ -31,6 +31,10 @@ export class HeaderProfile {
   image2: String;
   image3: String;
 
+  public editMode = false;
+  public cropDone = false;
+  public editCV = false;
+
   
   @ViewChild('cropper', undefined)
   cropper:ImageCropperComponent;
@@ -69,13 +73,6 @@ export class HeaderProfile {
     this.image2 = "/";
     this.image3 = ".jpg";
   }
-
-  public editMode = false;
-  public cropDone = false;
-  public editCV = false;
-  public name = 'Elon Musk';
-  public major = 'ICT';
-  public catchPhrase = 'I am an enthousiastic and young Industrial Engineer looking for a job in UI design.';
 
   save(student){
     this.editMode = false;

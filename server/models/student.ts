@@ -12,11 +12,11 @@ const uploads = new mongoose.Schema({
 })
 
 const studentSchema = new mongoose.Schema({
-  name: String,
-  rnumber: String,
-  whoami: { type: String, default: "Elon Musk" },
-  degree: String,
-  gradYear: Number,
+  name: { type: String, default: "Elon Musk" },
+  rnumber: { type: String, default: "r0000000" },
+  whoami: { type: String, default: "I am a South African-born Canadian American business magnate, investor, engineer, and inventor. He is the founder, CEO, and CTO of SpaceX; a co-founder, Series A investor, CEO, and product architect of Tesla Inc.; co-chairman of OpenAI; and founder and CEO of Neuralink. Musk is also a co-founder and former chairman of SolarCity, co-founder of Zip2, and founder of X.com, which merged with Confinity and took the name PayPal." },
+  degree: { type: String, default: "Electromechanics" },
+  gradYear: { type: Number, default: 2018},
   skills: Array,
   skillsValue: [],
   experiences: [],
