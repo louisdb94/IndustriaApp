@@ -18,8 +18,12 @@ const studentSchema = new mongoose.Schema({
   degree: String,
   gradYear: Number,
   skills: Array,
-  skillsValue: [Number],
+  skillsValue: [],
   experiences: [],
+  countExperiences: { type: Number, default: 0, max: 6 },
+  education: [],
+  educationDate: [],
+  countEducation: { type: Number, default: 0, max: 7 },
   cv: [[uploads]]
 });
 

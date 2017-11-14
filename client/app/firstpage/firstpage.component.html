@@ -5,8 +5,7 @@
                 <img src="../assets/img/Industria.PNG" width="45" height="60">
                 Welcome to the Industria job portal
                 <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
-                    <option selected>Choose a language</option>
-                    <option value="en" (ngModelChange)="switchLanguage('en')">English</option>
+                    <option selected value="en" (ngModelChange)="switchLanguage('en')">English</option>
                     <option value="nl" (ngModelChange)="switchLanguage('nl')">Nederlands</option>
                 </select>
             </div>

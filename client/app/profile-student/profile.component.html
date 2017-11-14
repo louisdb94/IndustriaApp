@@ -7,9 +7,11 @@
         <profile-bio class="component" [student]="student"></profile-bio>
     </div>
 
-    <profile-education class="component"></profile-education>
+    <div *ngIf="student">
+        <profile-education class="component" [student]="student"></profile-education>
+    </div>
 
-    <div *ngIf="student && experiences">
+    <div *ngIf="student">
         <profile-experiences class="component" [student]="student" [experiences]="experiences"></profile-experiences>
     </div>
 

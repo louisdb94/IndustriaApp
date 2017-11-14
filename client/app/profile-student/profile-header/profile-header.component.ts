@@ -31,6 +31,10 @@ export class HeaderProfile {
   image2: String;
   image3: String;
 
+  
+  @ViewChild('cropper', undefined)
+  cropper:ImageCropperComponent;
+
   constructor(private studentService: StudentService,
     private activatedRoute: ActivatedRoute, public toast: ToastComponent) {
 
@@ -41,8 +45,23 @@ export class HeaderProfile {
       this.cropperSettings.croppedHeight = 300;
       this.cropperSettings.canvasWidth = 400;
       this.cropperSettings.canvasHeight = 300;
-      this.cropperSettings.noFileInput = false;
+      this.cropperSettings.noFileInput = true;
+      this.data = {};
 
+  }
+
+  fileChangeListener($event) {
+    var image:any = new Image();
+    var file:File = $event.target.files[0];
+    var myReader:FileReader = new FileReader();
+    var that = this;
+    myReader.onloadend = function (loadEvent:any) {
+        image.src = loadEvent.target.result;
+        that.cropper.setImage(image);
+ 
+    };
+ 
+    myReader.readAsDataURL(file);
   }
 
   ngOnInit() {

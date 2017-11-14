@@ -17,7 +17,8 @@ export class StudentProfile implements OnInit {
   data: any;
   student: {};
   experiences = [];
-  experience = {};
+  countEducation: Number;
+  countExperiences: Number;
 
   ngOnInit() {
     this.translate.setDefaultLang('en');
@@ -33,7 +34,7 @@ export class StudentProfile implements OnInit {
 
   getStudentById(id) {
     this.studentService.getStudentById(id).subscribe(
-      data => {this.student = data, this.experiences = data.experiences},
+      data => {this.student = data, this.experiences = data.experiences, this.countEducation = data.countEducation, this.countExperiences = data.countExperiences},
       error => console.log(error),
     );
   }

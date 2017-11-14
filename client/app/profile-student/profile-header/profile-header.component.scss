@@ -27,6 +27,17 @@ table {
   width: 400px;
 }
 
+#editText{
+  white-space: normal;
+  text-align: justify;
+  -moz-text-align-last: center; /* Firefox 12+ */
+  text-align-last: center;
+}
+
+#divprofile{
+  padding-left: 40px;
+}
+
 
 @mixin btn-variant($bg-color, $icon) {
   text-align: center;
