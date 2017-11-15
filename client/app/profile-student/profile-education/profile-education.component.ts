@@ -32,7 +32,7 @@ export class EducationProfile {
   }
 
   add(student){
-    if(student.countEducation < 7){
+    if(student.countEducation < 6){
       student.countEducation++;
     }
   }

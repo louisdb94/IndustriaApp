@@ -36,7 +36,7 @@ export class ExperiencesProfile {
 
     console.log(this.deleteClicked);
 
-    if(this.addClicked){
+    if(this.addClicked && exp1 != null && exp2 != null && exp3 != null){
       this.experiences.push(this.exp1);
       this.experiences.push(this.exp2);
       this.experiences.push(this.exp3);
