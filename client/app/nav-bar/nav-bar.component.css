@@ -6,4 +6,32 @@
   color: rgb(218, 208, 208);
 }
 
+#nav{
+  background-color: #4c4c4c;
+  height: 100px;
+}
+
+#languageselector{
+  width: 60px;
+  height: 30px;
+  font-size: 13px;
+  float: right;
+}
+
+#homeid{
+  font-size: 25px;
+}
+
+#profileid{
+  font-size: 25px;
+}
+
+#jobopeningsid{
+  font-size: 25px;
+}
+
+#industriaid{
+  font-size: 25px;
+}
+
 

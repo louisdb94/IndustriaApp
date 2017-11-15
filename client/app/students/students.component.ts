@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../services/student.service';
+import { DataService } from "../services/data.service";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ToastComponent } from '../shared/toast/toast.component';
 
@@ -12,6 +13,8 @@ export class StudentsComponent implements OnInit {
 
   students = [];
   student = {};
+  rnumber: String;
+  messageId: String;
 
   addStudentForm: FormGroup;
   name = new FormControl('', Validators.required);
@@ -19,6 +22,7 @@ export class StudentsComponent implements OnInit {
   gradYear = new FormControl('', Validators.required);
 
   constructor(private studentService: StudentService,
+              private data: DataService,
               private formBuilder: FormBuilder,
               public toast: ToastComponent) { }
 
@@ -29,6 +33,8 @@ export class StudentsComponent implements OnInit {
       degree: this.degree,
       gradYear: this.gradYear
     });
+
+    this.data.idMessage.subscribe(message => this.messageId = message)
   }
   getStudents() {
     this.studentService.getStudents().subscribe(
@@ -47,9 +53,5 @@ export class StudentsComponent implements OnInit {
       },
       error => console.log(error)
     );
-  }
-
-  viewStudent(){
-
   }
 }

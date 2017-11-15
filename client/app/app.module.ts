@@ -3,6 +3,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
 import { CatService } from './services/cat.service';
+import { DataService } from './services/data.service';
 import { UserService } from './services/user.service';
 import { StudentService } from './services/student.service';
 import { FileService } from './services/file.service';
@@ -21,7 +22,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { StudentsComponent} from './students/students.component';
 import { CompanyComponent} from './company/company.component';
 import { NavBarComponent} from './nav-bar/nav-bar.component';
-import { StudentsDetailComponent} from './students-detail/students-detail.component';
+import { FirstPageComponent} from './firstpage/firstpage.component';
 
 import { StudentProfile } from './profile-student';
 import { HeaderProfile } from './profile-student/profile-header';
@@ -72,9 +73,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AdminComponent,
     NotFoundComponent,
     StudentsComponent,
-    StudentsDetailComponent,
     CompanyComponent,
     NavBarComponent,
+    FirstPageComponent,
 
     StudentProfile,
     HeaderProfile,
@@ -115,7 +116,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     CatService,
     UserService,
     StudentService,
-    FileService
+    FileService,
+    DataService
+
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

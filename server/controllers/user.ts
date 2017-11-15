@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
 
 import User from '../models/user';
+import Student from '../models/student'
 import BaseCtrl from './base';
 
 export default class UserCtrl extends BaseCtrl {
@@ -15,6 +16,14 @@ export default class UserCtrl extends BaseCtrl {
         const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
         res.status(200).json({ token: token });
       });
+    });
+  }
+
+  // Get by rnumber
+  getByRnumber = (req, res) => {
+    Student.findOne({ rnumber: req.params.rnumber }, (err, obj) => {
+      if (err) { return console.error(err); }
+      res.json(obj);
     });
   }
 

@@ -34,6 +34,11 @@ export class StudentService {
     return this.http.get(`/api/student/${id}`).map(res => res.json());
   }
 
+  getStudentByRnumber(rnumber): Observable<any> {
+    console.log(rnumber);
+    return this.http.get(`/api/user/${rnumber}`).map(res => res.json());
+  }
+
   editStudent(student): Observable<any> {
     return this.http.put(`/api/student/${student._id}`, JSON.stringify(student), this.options);
   }
@@ -41,6 +46,7 @@ export class StudentService {
   deleteStudent(student): Observable<any> {
     return this.http.delete(`/api/cat/${student._id}`, this.options);
   }
+
 
   // // Files
   //
@@ -67,7 +73,9 @@ export class StudentService {
   // }
 
 
-
+  deleteExperience(experience): Observable<any> {
+    return this.http.delete(`/api/student/${experience}`, this.options);
+  }
 
 
 }

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataTableModule } from "ng2-data-table";
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {StudentProfile} from '../profile.component';
 
 
 @Component({
@@ -11,34 +13,34 @@ import { DataTableModule } from "ng2-data-table";
   templateUrl: './profile-experiences.component.html'
 })
 export class ExperiencesProfile {
-  data: any;
-  student= {};
-  experiences= [];
-  experience= {};
+
+  exp1: String;
+  exp2: String;
+  exp3: String;
 
   public valueInput : number;
   public isUpdated = false;
   public editMode = false;
+  public addClicked = false;
+  public deleteClicked = false;
 
-  constructor(private studentService: StudentService,
+  experience = {};
+
+  @Input() student: {};
+  @Input() experiences: [String];
+
+  constructor(private studentService: StudentService, private studentProfile: StudentProfile,
     private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];
-      this.getStudentById(id);
-    });
-  }
+  save(student, exp1, exp2, exp3){
 
-  getStudentById(id) {
-    this.studentService.getStudentById(id).subscribe(
-      data => {this.student = data, this.experiences = data.experiences},
-      error => console.log(error)
-    );
-  }
+    console.log(this.deleteClicked);
 
-  save(student){
-    this.editMode = false;
+    if(this.addClicked){
+      this.experiences.push(this.exp1);
+      this.experiences.push(this.exp2);
+      this.experiences.push(this.exp3);
+    }
 
     this.studentService.editStudent(student).subscribe(
       res => {
@@ -47,19 +49,24 @@ export class ExperiencesProfile {
       },
       error => console.log(error)
     );
+
+    if(!this.deleteClicked){
+      this.editMode = false;
+    }
+
+    this.deleteClicked = false;
+    this.addClicked = false;
   }
 
-  // deleteExperience(experience) {
-  //   if (window.confirm('Are you sure you want to permanently delete this item?')) {
-  //     this.studentService.deleteExperience(experience).subscribe(
-  //       res => {
-  //         const pos = this.experiences.map(elem => elem._id).indexOf(cat._id);
-  //         this.experiences.splice(pos, 1);
-  //         this.toast.setMessage('item deleted successfully.', 'success');
-  //       },
-  //       error => console.log(error)
-  //     );
-  //   }
-  // }
+  edit(){
+    this.editMode = true;
+  }
 
+  deleteExperience(){
+    this.deleteClicked = true;
+    this.experiences.pop();
+    this.experiences.pop();
+    this.experiences.pop();
+    this.save(this.studentProfile.student, null, null, null);
+  }
 }

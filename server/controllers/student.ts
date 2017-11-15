@@ -1,7 +1,7 @@
 import Student from '../models/student';
 import BaseCtrl from './base';
 
-export default class CatCtrl extends BaseCtrl {
+export default class StudentCtrl extends BaseCtrl {
   model = Student;
 
 

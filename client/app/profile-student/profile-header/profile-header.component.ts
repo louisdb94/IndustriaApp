@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, enableProdMode } from '@angular/core';
+import { Component, ViewChild, OnInit, enableProdMode, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { FileService } from '../../services/file.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
@@ -25,16 +25,18 @@ export class HeaderProfile {
 
   files: File[];
   data: any;
-  student = {};
   rnumber = String;
   id = String;
   numberCv = Number;
-  cropperSettings: CropperSettings;
-  cvs = [];
 
+  @Input() student: {};
+  cv= {};
+  cvs=[];
+  check = false;
+  marked = false;
+  cropperSettings: CropperSettings;
   addCvForm: FormGroup;
   addImageForm: FormGroup;
-
   editMode = false;
   cropDone = false;
   editCV = false;
@@ -42,9 +44,8 @@ export class HeaderProfile {
 
   im = 'data:image/JPEG;base64,';
 
-
   @ViewChild('cropper', undefined)
-  cropper:ImageCropperComponent
+  cropper:ImageCropperComponent;
 
   constructor(  private studentService: StudentService,
                 private fileService: FileService,
@@ -66,6 +67,7 @@ export class HeaderProfile {
                     this.data = {};
                 }
 
+
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       let id = params['id'];
@@ -73,7 +75,6 @@ export class HeaderProfile {
       this.getCvFromStudent(id);
       this.downloadImage(id);
       this.files = [];
-
 
     });
   }
@@ -86,7 +87,8 @@ export class HeaderProfile {
     );
   }
 
-  save(student) {
+  save(student){
+
     this.editMode = false;
     this.cropDone = true;
 
@@ -197,8 +199,10 @@ export class HeaderProfile {
       }
     );
 
-
   }
+
+
+
 
   isFileSelected(file: File): boolean{
         for(let sFile of this.files){
@@ -209,53 +213,53 @@ export class HeaderProfile {
         return false;
   }
   hasFiles(): boolean {
-        return this.files && this.files.length > 0;
-    }
+    return this.files && this.files.length > 0;
+  }
 
 
-downloadCv(cv){
-  window.open('/api/download/' + cv._id)
-}
+  downloadCv(cv){
+    window.open('/api/download/' + cv._id)
+  }
 
 
-downloadImage(id){
-  this.fileService.downloadImage(id).subscribe(
-    data => {this.im += data._body},
-    error => console.log(error)
-  );
+  downloadImage(id){
+    this.fileService.downloadImage(id).subscribe(
+      data => {this.im += data._body},
+      error => console.log(error)
+    );
 
-}
+  }
 
-removeCv(cv){
-  this.fileService.removeCv(cv).subscribe(
-    res => {
-      const pos = this.cvs.map(elem => elem._id).indexOf(cv._id);
-      this.cvs.splice(pos, 1);
-      this.toast.setMessage('item deleted successfully.', 'success');
-    },
-    error => console.log(error)
-  );
-
-
-
-  const cvs: any = {};
-  cvs.name = cv.name;
-  cvs.number = cv.number;
-  cvs.uploader = cv.uploader;
-  cvs.mimetype = cv.mimetype;
-
-  this.http.post(`/api/cv/remove/${cv._id}`, cvs).subscribe();
-
-}
-
-getCvFromStudent(id){
-  this.fileService.getCvFromStudent(id).subscribe(
-    data => {this.cvs = data},
-    error => console.log(error)
-  )
-}
+  removeCv(cv){
+    this.fileService.removeCv(cv).subscribe(
+      res => {
+        const pos = this.cvs.map(elem => elem._id).indexOf(cv._id);
+        this.cvs.splice(pos, 1);
+        this.toast.setMessage('item deleted successfully.', 'success');
+      },
+      error => console.log(error)
+    );
 
 
 
+    const cvs: any = {};
+    cvs.name = cv.name;
+    cvs.number = cv.number;
+    cvs.uploader = cv.uploader;
+    cvs.mimetype = cv.mimetype;
 
+    this.http.post(`/api/cv/remove/${cv._id}`, cvs).subscribe();
+
+  }
+
+  getCvFromStudent(id){
+    this.fileService.getCvFromStudent(id).subscribe(
+      data => {this.cvs = data},
+      error => console.log(error)
+    )
+  }
+
+  changeChecked(e){
+    this.marked= e.target.checked;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component,ViewChild, OnInit } from '@angular/core';
+import { Component,ViewChild, OnInit, Input } from '@angular/core';
 import { jqxProgressBarComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxprogressbar';
 import { jqxInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxinput';
 import { jqxDropDownListComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDropDownList';
@@ -34,10 +34,9 @@ export class SkillsProfile {
   @ViewChild('jqxDropDownList9') dropDownList9: jqxDropDownListComponent;
 
   public editMode = false;
-  public count = 0;
 
   data: any;
-  student= {};
+  @Input() student: {};
 
   public skill1 = 'Java';
   public skill2 = 'Java';
@@ -57,20 +56,6 @@ export class SkillsProfile {
   constructor(private studentService: StudentService,
     private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];
-      this.getStudentById(id);
-    });
-  }
-
-  getStudentById(id) {
-    this.studentService.getStudentById(id).subscribe(
-      data => this.student = data,
-      error => console.log(error)
-    );
-  }
-
   save(student){
     this.editMode = false;
 
@@ -83,206 +68,244 @@ export class SkillsProfile {
     );
   }
 
-  add(){
-    this.count++;
+  add(student){
+    if(student.countExperiences < 6){
+      student.countExperiences++;
+    }
   }
 
-  updateProgressBar(event: any, x: number): void {
+  delete(student){
+    if(student.countExperiences > 0){
+      student.countExperiences--;
+    }
+  }
+
+  updateProgressBar(event: any, x: number, student): void {
     let args = event.args;
     let item = this.dropDownList1.getItem(args.index);
 
     if(x == 1){
       if (item != null) {
-        if(item.label == 'Learning'){
-          this.progressBar1.val(25);
+        if(item.label == this.source[0]){
+          student.skillsValue[0] = 25;
+          student.skillsValue[1] = this.source[0];
           this.isUpdated = true;
         }
-        if(item.label == 'Basic'){
-          this.progressBar1.val(50);
+        if(item.label == this.source[1]){
+          student.skillsValue[0] = 50;
+          student.skillsValue[1] = this.source[1];
           this.isUpdated = true;
         }
-        if(item.label == 'Intermediate'){
-          this.progressBar1.val(75);
+        if(item.label == this.source[2]){
+          student.skillsValue[0] = 75;
+          student.skillsValue[1] = this.source[2];
           this.isUpdated = true;
         }
-        if(item.label == 'Expert'){
-          this.progressBar1.val(100);
-          this.isUpdated = true;
-        }
-      }
-    }
-
-    if (x == 2){
-      item = this.dropDownList2.getItem(args.index);
-      if (item != null) {
-        if(item.label == 'Learning'){
-          this.progressBar2.val(25);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Basic'){
-          this.progressBar2.val(50);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Intermediate'){
-          this.progressBar2.val(75);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Expert'){
-          this.progressBar2.val(100);
-          this.isUpdated = true;
-        }
-      }
-    }
-    if (x == 3){
-      item = this.dropDownList3.getItem(args.index);
-      if (item != null) {
-        if(item.label == 'Learning'){
-          this.progressBar3.val(25);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Basic'){
-          this.progressBar3.val(50);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Intermediate'){
-          this.progressBar3.val(75);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Expert'){
-          this.progressBar3.val(100);
-          this.isUpdated = true;
-        }
-      }
-    }
-    if (x == 4){
-      item = this.dropDownList4.getItem(args.index);
-      if (item != null) {
-        if(item.label == 'Learning'){
-          this.progressBar4.val(25);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Basic'){
-          this.progressBar4.val(50);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Intermediate'){
-          this.progressBar4.val(75);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Expert'){
-          this.progressBar4.val(100);
-          this.isUpdated = true;
-        }
-      }
-    }
-    if (x == 5){
-      item = this.dropDownList5.getItem(args.index);
-      if (item != null) {
-        if(item.label == 'Learning'){
-          this.progressBar5.val(25);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Basic'){
-          this.progressBar5.val(50);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Intermediate'){
-          this.progressBar5.val(75);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Expert'){
-          this.progressBar5.val(100);
-          this.isUpdated = true;
-        }
-      }
-    }
-    if (x == 6){
-      item = this.dropDownList6.getItem(args.index);
-      if (item != null) {
-        if(item.label == 'Learning'){
-          this.progressBar6.val(25);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Basic'){
-          this.progressBar6.val(50);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Intermediate'){
-          this.progressBar6.val(75);
-          this.isUpdated = true;
-        }
-        if(item.label == 'Expert'){
-          this.progressBar6.val(100);
+        if(item.label == this.source[3]){
+          student.skillsValue[0] = 100;
+          student.skillsValue[1] = this.source[3];
           this.isUpdated = true;
         }
       }
     }
 
-    if (x == 7){
-      item = this.dropDownList7.getItem(args.index);
+    if(x == 2){
       if (item != null) {
-        if(item.label == 'Learning'){
-          this.progressBar7.val(25);
+        if(item.label == this.source[0]){
+          student.skillsValue[2] = 25;
+          student.skillsValue[3] = this.source[0];
           this.isUpdated = true;
         }
-        if(item.label == 'Basic'){
-          this.progressBar7.val(50);
+        if(item.label == this.source[1]){
+          student.skillsValue[2] = 50;
+          student.skillsValue[3] = this.source[1];
           this.isUpdated = true;
         }
-        if(item.label == 'Intermediate'){
-          this.progressBar7.val(75);
+        if(item.label == this.source[2]){
+          student.skillsValue[2] = 75;
+          student.skillsValue[3] = this.source[2];
           this.isUpdated = true;
         }
-        if(item.label == 'Expert'){
-          this.progressBar7.val(100);
+        if(item.label == this.source[3]){
+          student.skillsValue[2] = 100;
+          student.skillsValue[3] = this.source[3];
           this.isUpdated = true;
         }
       }
     }
 
-    if (x == 8){
-      item = this.dropDownList8.getItem(args.index);
+    if(x == 3){
       if (item != null) {
-        if(item.label == 'Learning'){
-          this.progressBar8.val(25);
+        if(item.label == this.source[0]){
+          student.skillsValue[4] = 25;
+          student.skillsValue[5] = this.source[0];
           this.isUpdated = true;
         }
-        if(item.label == 'Basic'){
-          this.progressBar8.val(50);
+        if(item.label == this.source[1]){
+          student.skillsValue[4] = 50;
+          student.skillsValue[5] = this.source[1];
           this.isUpdated = true;
         }
-        if(item.label == 'Intermediate'){
-          this.progressBar8.val(75);
+        if(item.label == this.source[2]){
+          student.skillsValue[4] = 75;
+          student.skillsValue[5] = this.source[2];
           this.isUpdated = true;
         }
-        if(item.label == 'Expert'){
-          this.progressBar8.val(100);
+        if(item.label == this.source[3]){
+          student.skillsValue[4] = 100;
+          student.skillsValue[5] = this.source[3];
+          this.isUpdated = true;
+        }
+      }
+    }
+    if(x == 4){
+      if (item != null) {
+        if(item.label == this.source[0]){
+          student.skillsValue[6] = 25;
+          student.skillsValue[7] = this.source[0];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[1]){
+          student.skillsValue[6] = 50;
+          student.skillsValue[7] = this.source[1];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[2]){
+          student.skillsValue[6] = 75;
+          student.skillsValue[7] = this.source[2];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[3]){
+          student.skillsValue[6] = 100;
+          student.skillsValue[7] = this.source[3];
           this.isUpdated = true;
         }
       }
     }
 
-    if (x == 9){
-      item = this.dropDownList9.getItem(args.index);
+    if(x == 5){
       if (item != null) {
-        if(item.label == 'Learning'){
-          this.progressBar9.val(25);
+        if(item.label == this.source[0]){
+          student.skillsValue[8] = 25;
+          student.skillsValue[9] = this.source[0];
           this.isUpdated = true;
         }
-        if(item.label == 'Basic'){
-          this.progressBar9.val(50);
+        if(item.label == this.source[1]){
+          student.skillsValue[8] = 50;
+          student.skillsValue[9] = this.source[1];
           this.isUpdated = true;
         }
-        if(item.label == 'Intermediate'){
-          this.progressBar9.val(75);
+        if(item.label == this.source[2]){
+          student.skillsValue[8] = 75;
+          student.skillsValue[9] = this.source[2];
           this.isUpdated = true;
         }
-        if(item.label == 'Expert'){
-          this.progressBar9.val(100);
+        if(item.label == this.source[3]){
+          student.skillsValue[8] = 100;
+          student.skillsValue[9] = this.source[3];
           this.isUpdated = true;
         }
       }
     }
-  } 
-    
+
+    if(x == 6){
+      if (item != null) {
+        if(item.label == this.source[0]){
+          student.skillsValue[10] = 25;
+          student.skillsValue[11] = this.source[0];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[1]){
+          student.skillsValue[10] = 50;
+          student.skillsValue[11] = this.source[1];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[2]){
+          student.skillsValue[10] = 75;
+          student.skillsValue[11] = this.source[2];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[3]){
+          student.skillsValue[10] = 100;
+          student.skillsValue[11] = this.source[3];
+          this.isUpdated = true;
+        }
+      }
+    }
+
+    if(x == 7){
+      if (item != null) {
+        if(item.label == this.source[0]){
+          student.skillsValue[12] = 25;
+          student.skillsValue[13] = this.source[0];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[1]){
+          student.skillsValue[12] = 50;
+          student.skillsValue[13] = this.source[1];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[2]){
+          student.skillsValue[12] = 75;
+          student.skillsValue[13] = this.source[2];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[3]){
+          student.skillsValue[12] = 100;
+          student.skillsValue[13] = this.source[3];
+          this.isUpdated = true;
+        }
+      }
+    }
+
+    if(x == 8){
+      if (item != null) {
+        if(item.label == this.source[0]){
+          student.skillsValue[14] = 25;
+          student.skillsValue[15] = this.source[0];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[1]){
+          student.skillsValue[14] = 50;
+          student.skillsValue[15] = this.source[1];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[2]){
+          student.skillsValue[14] = 75;
+          student.skillsValue[15] = this.source[2];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[3]){
+          student.skillsValue[14] = 100;
+          student.skillsValue[15] = this.source[3];
+          this.isUpdated = true;
+        }
+      }
+    }
+
+    if(x == 9){
+      if (item != null) {
+        if(item.label == this.source[0]){
+          student.skillsValue[16] = 25;
+          student.skillsValue[17] = this.source[0];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[1]){
+          student.skillsValue[16] = 50;
+          student.skillsValue[17] = this.source[1];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[2]){
+          student.skillsValue[16] = 75;
+          student.skillsValue[17] = this.source[2];
+          this.isUpdated = true;
+        }
+        if(item.label == this.source[3]){
+          student.skillsValue[16] = 100;
+          student.skillsValue[17] = this.source[3];
+          this.isUpdated = true;
+        }
+      }
+    } 
+  }    
 }
