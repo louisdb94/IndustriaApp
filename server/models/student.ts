@@ -8,6 +8,8 @@ const studentSchema = new mongoose.Schema({
   degree: { type: String, default: "Electromechanics" },
   gradYear: { type: Number, default: 2018},
   cvChecked: { type: Boolean, default: false},
+  socialMedia: { type: Array, default: []},
+  socialMediaChecked: { type: Array, default: [false, false, false, false]},
   skills: Array,
   skillsValue: [],
   experiences: [],

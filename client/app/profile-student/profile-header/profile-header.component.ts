@@ -264,4 +264,8 @@ export class HeaderProfile {
     this.cvChecked = e.target.checked;
     this.save(student);
   }
+
+  changeSocialMediaChecked(e, student, i){
+    student.socialMediaChecked[i] = e.target.checked;
+  }
 }

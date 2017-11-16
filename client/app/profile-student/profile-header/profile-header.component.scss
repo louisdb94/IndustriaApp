@@ -25,8 +25,8 @@ table {
 }
 
 #profilepic{
-  height: 400px;
-  width: 400px;
+  max-height: 400px;
+  max-width: 400px;
 }
 
 #editText{
@@ -34,6 +34,15 @@ table {
   text-align: justify;
   -moz-text-align-last: center; /* Firefox 12+ */
   text-align-last: center;
+  height: 50px;
+}
+
+#editName{
+  white-space: normal;
+  text-align: justify;
+  -moz-text-align-last: center; /* Firefox 12+ */
+  text-align-last: center;
+  height: 90px;
 }
 
 #divprofile{
