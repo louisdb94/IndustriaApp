@@ -10,36 +10,10 @@
                 <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.name" placeholder="Write your name" rows="1" (keyup.enter)="save()"></textarea>
             </h1>
 
-
             <h3>
                 <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.degree" placeholder="Select your major" rows="1" (keyup.enter)="save()"></textarea>
                 <p *ngIf="!editMode">{{student.degree}}</p>
             </h3>
-
-
-        <!-- <div>
-            <img-cropper *ngIf="editMode" [image]="data" [settings]="cropperSettings"></img-cropper><br>
-            <img *ngIf="!editMode && cropDone" id="picture" class="rounded" [src]="data.image">
-            <img *ngIf="!editMode && !cropDone" id="picture" class="rounded" [src]="image1 + student.rnumber + image3">
-        </div> -->
-
-
-        <!-- <td> <button (click)="downloadImage(student._id)" class="btn btn-primary">download </button> </td> -->
-
-
-
-        <!-- <p-fileUpload name="image" customUpload="true"  (uploadHandler)="fileChangeListener($event)"></p-fileUpload> -->
-        <!-- <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
-        <br>
-        <span class="result rounded" *ngIf="data.image">
-            <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
-        </span> -->
-
-
-
-        <div style="margin-top:30px">
-            <textarea *ngIf="editMode" [(ngModel)]="catchPhrase" rows="5" cols="100%" placeholder="Use a catchphrase" (keyup.enter)="save()"></textarea>
-            <p *ngIf="!editMode">{{catchPhrase}}</p>
 
             <h3>
                 <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.gradYear" placeholder="Select your year of graduation" rows="1" (keyup.enter)="save()"></textarea>
@@ -50,57 +24,46 @@
                 <button translate class="btn btn-sm btn-primary" *ngIf="!editMode" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
                 <button translate class="btn btn-sm btn-primary" *ngIf="editMode" (click)="save(student)"><i class="fa fa-floppy-o"></i> Save</button>
             </div>
-<!--
-            <div id="divprofile" class="mx-auto">
-                <img-cropper #cropper *ngIf="editMode" [image]="data" [settings]="cropperSettings"></img-cropper>
-                <img *ngIf="!editMode && cropDone" id="picture" class="rounded-circle" [src]="data.image">
+
+        <div id="divprofile" class="mx-auto">
+            <img id="picture" class="profile-pic" class="rounded-circle" [src]="im">
+            <div class="file-upload">
                 <div class="file-upload" *ngIf="editMode">
+                    <br>
+                    <button (click)="add()">Upload</button>
                     <input id="custom-input" type="file" (change)="fileChangeListener($event)">
                 </div>
-                <img id="profilepic" *ngIf="!editMode && !cropDone" class="rounded-circle" [src]="image1 + student.rnumber + image2 + student.rnumber + image3">
-            </div> -->
-        </div>
-        <br>
-
-
-        <img class="profile-pic" [src]="im" >
-
-
-        <div class="file-upload">
-          <input id="custom-input" type="file" (change)="fileChangeListener($event)">
-          <button (click)="add()">Add</button>
-        </div>
-
-
+            </div>
+        </div><br>
 
         <div class="text-center">
-            <label class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" [(ngModel)]="check" (change)= "changeChecked($event)"/>
-                <span class="custom-control-indicator"></span>
-                <span class="custom-control-description">Check this button if you agree to uploading your CV on this website</span>
+            <label class="custom-control custom-checkbox" checked>
+                <input [checked]="cvChecked" class="custom-control-input" type="checkbox" [(ngModel)]="check" (change)= "changeChecked($event, student)"/>
+                <span id="checkboxCV" class="custom-control-indicator"></span>
+                <span translate class="custom-control-description">CVcheck</span>
             </label>
         </div>
 
+        <p-fileUpload *ngIf="cvChecked" name="cv" customUpload="true"  (uploadHandler)="myUploader($event)"></p-fileUpload>
 
-        <p-fileUpload *ngIf="marked" name="cv" customUpload="true"  (uploadHandler)="myUploader($event)">
+        <br><br>
 
-        </p-fileUpload>
-        <table *ngIf= "marked">
-            <!-- <thead class="thead-default" >
-                <tr>
-                <th>CV</th>
-                <th>Download</th>
-                <th>Remove</th>
+        <div *ngIf="cvChecked">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Download CV</th>
+                        <th>Remove CV</th>
+                    </tr>
+                </thead>
+                <tr *ngFor="let cv of cvs">
+                    <td><p style="float: left"> {{cv.customName}}  </p> </td>
+                    <td><p style="float: left"><button (click)="downloadCv(cv)" class="btn btn-sm btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download</button></p> </td>
+                    <td><p style="float: left"><button (click)="removeCv(cv)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Remove</button></p> </td>
                 </tr>
-            </thead> -->
-
-            <tr *ngFor="let cv of cvs">
-              <td> <a> {{cv.customName}}  </a> </td>
-              <td> <button (click)="downloadCv(cv)" class="btn btn-sm btn-primary">download </button> </td>
-              <td> <button (click)="removeCv(cv)" class="btn btn-sm btn-primary">remove </button> </td>
-            </tr>
-            <br><br>
-        </table>
+            </table>
+        </div>
 
 
 

@@ -5,11 +5,14 @@
         <div class="card text-center">
             <div class="card-header" style="font-size: 30px">
                 <img src="../assets/img/Industria.PNG" width="45" height="60">
-                Login
-                <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
-                    <option selected value="en" (ngModelChange)="switchLanguage('en')">English</option>
-                    <option value="nl" (ngModelChange)="switchLanguage('nl')">Nederlands</option>
-                </select>
+                <p translate>
+                    Login
+                    <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
+                        <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
+                        <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
+                    </select>
+                </p>
+                
             </div>
             <br><br>
             <form [formGroup]="loginForm" (ngSubmit)="login()">

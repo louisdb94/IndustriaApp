@@ -7,6 +7,8 @@
     "Edit": "Bewerken",
     "Save": "Opslaan",
 
+    "CVcheck": "Bij het aanvinken geef ik aan dat derden toegang hebben tot mijn CV en ze kunnen downloaden (enkel PDF)",
+
     "WhoAmI": "Wie ben ik?",
 
     "Education": "Opleidingstijdlijn",
@@ -15,5 +17,13 @@
 
     "Skills": "Vaardigheden",
 
-    "footer": "Tel 016/30 10 48 · Vragen en opmerkingen: "
+    "footer": "Tel 016/30 10 48 · Vragen en opmerkingen: ",
+
+    "Random": "Welkom op het carrierèportaal van Industria",
+    "Choose your corresponding login": "Selecteer de bijpassende login",
+    "Student": "Student",
+    "Company": "Bedrijf",
+    "Visitor": "Bezoeker",
+
+    "Login": "Carrièreportaal login"
 }

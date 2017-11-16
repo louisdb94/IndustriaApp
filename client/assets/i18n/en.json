@@ -7,6 +7,8 @@
     "Edit": "Edit",
     "Save": "Save",
 
+    "CVcheck": "By checking this off I give permission that other parties can access and download my resume (only PDF)",
+
     "WhoAmI": "Who Am I?",
 
     "Education": "Education Timeline",
@@ -15,5 +17,13 @@
 
     "Skills": "Skills",
 
-    "footer": "Phone number 016/30 10 48 · Questions and remarks: "
+    "footer": "Phone number 016/30 10 48 · Questions and remarks: ",
+
+    "Random": "Welcome to the Industria job portal",
+    "Choose your corresponding login": "Choose your corresponding login",
+    "Student": "Student",
+    "Company": "Company",
+    "Visitor": "Visitor",
+
+    "Login": "Job portal login"
 }

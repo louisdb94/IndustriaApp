@@ -40,6 +40,7 @@ export class HeaderProfile {
   editMode = false;
   cropDone = false;
   editCV = false;
+  cvChecked = false;
   height: number | string = '100px';
 
   im = 'data:image/JPEG;base64,';
@@ -75,14 +76,13 @@ export class HeaderProfile {
       this.getCvFromStudent(id);
       this.downloadImage(id);
       this.files = [];
-
     });
   }
 
   getStudentById(id) {
     this.studentService.getStudentById(id).subscribe(
       data => {this.student = data, this.rnumber = data.rnumber, this.id = data._id,
-                this.numberCv = data.numberCv},
+                this.numberCv = data.numberCv, this.cvChecked = data.cvChecked},
       error => console.log(error)
     );
   }
@@ -259,7 +259,9 @@ export class HeaderProfile {
     )
   }
 
-  changeChecked(e){
-    this.marked= e.target.checked;
+  changeChecked(e, student){
+    student.cvChecked = e.target.checked;
+    this.cvChecked = e.target.checked;
+    this.save(student);
   }
 }
