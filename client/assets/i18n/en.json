@@ -6,6 +6,8 @@
 
     "Edit": "Edit",
     "Save": "Save",
+    "Add": "Add",
+    "Delete": "Delete",
 
     "CVcheck": "By checking this off I give permission that other parties can access and download my resume (only PDF)",
 
@@ -14,6 +16,9 @@
     "Education": "Education Timeline",
 
     "Experience": "Experience",
+    "Function": "Function",
+    "Description": "Description",
+    "Period": "Period",
 
     "Skills": "Skills",
 

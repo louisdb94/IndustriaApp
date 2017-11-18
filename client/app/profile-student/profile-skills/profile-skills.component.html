@@ -8,7 +8,7 @@
             <div class="col-md-4">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[0]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                    <p *ngIf="!editMode">{{student.skills[0]}}</p>
+                    <p id="skillsTitle" *ngIf="!editMode" style="font-size : 20px">{{student.skills[0]}}</p>
                 </div>
                 <jqxProgressBar #jqxProgressBar1
                     [animationDuration]="1000"
@@ -31,7 +31,7 @@
             <div class="col-md-4">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[1]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                    <p *ngIf="!editMode">{{student.skills[1]}}</p>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.skills[1]}}</p>
                 </div>
                 <jqxProgressBar #jqxProgressBar2
                     [animationDuration]="1000"
@@ -53,7 +53,7 @@
             <div class="col-md-4">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[2]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                    <p *ngIf="!editMode">{{student.skills[2]}}</p>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.skills[2]}}</p>
                 </div>
                 <jqxProgressBar #jqxProgressBar3
                     [animationDuration]="1000"
@@ -77,7 +77,7 @@
             <div class="col-md-4" *ngIf="student.countExperiences >= 1">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[3]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                    <p *ngIf="!editMode">{{student.skills[3]}}</p>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.skills[3]}}</p>
                 </div>
                 <jqxProgressBar #jqxProgressBar4
                     [animationDuration]="1000"
@@ -99,7 +99,7 @@
             <div class="col-md-4" *ngIf="student.countExperiences >= 2">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[4]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                    <p *ngIf="!editMode">{{student.skills[4]}}</p>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.skills[4]}}</p>
                 </div>
                 <jqxProgressBar #jqxProgressBar5
                     [animationDuration]="1000"
@@ -121,7 +121,7 @@
             <div class="col-md-4" *ngIf="student.countExperiences >= 3">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[5]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                    <p *ngIf="!editMode">{{student.skills[5]}}</p>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.skills[5]}}</p>
                 </div>
                 <jqxProgressBar #jqxProgressBar6
                     [animationDuration]="1000"
@@ -145,7 +145,7 @@
             <div class="col-md-4" *ngIf="student.countExperiences >= 4">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[6]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                    <p *ngIf="!editMode">{{student.skills[6]}}</p>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.skills[6]}}</p>
                 </div>
                 <jqxProgressBar #jqxProgressBar7
                     [animationDuration]="1000"
@@ -167,7 +167,7 @@
             <div class="col-md-4" *ngIf="student.countExperiences >= 5">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[7]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                    <p *ngIf="!editMode">{{student.skills[7]}}</p>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.skills[7]}}</p>
                 </div>
                 <jqxProgressBar #jqxProgressBar8
                     [animationDuration]="1000"
@@ -189,7 +189,7 @@
             <div class="col-md-4" *ngIf="student.countExperiences >= 6">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[8]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                    <p *ngIf="!editMode">{{student.skills[8]}}</p>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.skills[8]}}</p>
                 </div>
                 <jqxProgressBar #jqxProgressBar9
                     [animationDuration]="1000"

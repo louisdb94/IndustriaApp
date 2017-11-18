@@ -6,6 +6,8 @@
 
     "Edit": "Bewerken",
     "Save": "Opslaan",
+    "Add": "Voeg toe",
+    "Delete": "Verwijder",
 
     "CVcheck": "Bij het aanvinken geef ik aan dat derden toegang hebben tot mijn CV en ze kunnen downloaden (enkel PDF)",
 
@@ -14,6 +16,9 @@
     "Education": "Opleidingstijdlijn",
 
     "Experience": "Ervaring",
+    "Function": "Functie",
+    "Description": "Beschrijving",
+    "Period": "Periode",
 
     "Skills": "Vaardigheden",
 
