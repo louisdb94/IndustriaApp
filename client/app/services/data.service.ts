@@ -12,7 +12,7 @@ export class DataService {
 
   constructor() {}
 
-  changeMessageId(message: string) {
+  changeMessageId(message: String) {
     this.messageId.next(message);
   }
 

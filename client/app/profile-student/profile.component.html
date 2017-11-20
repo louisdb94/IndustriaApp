@@ -18,5 +18,13 @@
     <profile-skills class="component" [student]="student"></profile-skills>
 </div>
 
+<div *ngIf="student">
+    <profile-language class="component" [student]="student"></profile-language>
+</div>
+
+<div *ngIf="student">
+    <profile-contact class="component" [student]="student" [contactChecked]="contactChecked"></profile-contact>
+</div>
+
 <profile-footer class="component"></profile-footer>
 

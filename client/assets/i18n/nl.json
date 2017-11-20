@@ -10,6 +10,12 @@
     "Delete": "Verwijder",
 
     "CVcheck": "Bij het aanvinken geef ik aan dat derden toegang hebben tot mijn CV en ze kunnen downloaden (enkel PDF)",
+    "Contact check": "Bij het aanvinken geef ik aan dat derden toegang hebben tot mijn contactinformatie",
+
+    "Email:": "Email:",
+    "Phone number:": "Telefoon nummer:",
+    "Province:": "Provincie:",
+    "City:": "Woonplaats:",
 
     "WhoAmI": "Wie ben ik?",
 
@@ -21,6 +27,7 @@
     "Period": "Periode",
 
     "Skills": "Vaardigheden",
+    "Language knowledge": "Taalvaardigheid",
 
     "footer": "Tel 016/30 10 48 · Vragen en opmerkingen: ",
 

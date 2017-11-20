@@ -47,7 +47,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.auth.loggedIn) {
-      this.data.changeMessageNav(true);
+      this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
+        data => (this.id = data._id, this.data.changeMessageId(data._id), this.data.changeMessageNav(true), console.log("data: ", this.id)),
+        error => console.log("error")
+      );
+
       this.router.navigate(['/students']);
     }
     this.loginForm = this.formBuilder.group({

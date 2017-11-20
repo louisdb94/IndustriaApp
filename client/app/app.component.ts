@@ -11,6 +11,7 @@ import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 import { DataTableModule } from "ng2-data-table";
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from './services/data.service';
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
   messageNav: boolean;
   test = false;
 
-  constructor(private translate: TranslateService, private data: DataService){
+  constructor(private translate: TranslateService, private data: DataService, private auth: AuthService){
     translate.setDefaultLang('en');
   }
 
@@ -32,5 +33,12 @@ export class AppComponent implements OnInit {
 
   switchLanguage(language: string) {
     this.translate.use(language);
+  }
+
+  logout(){
+    this.data.changeMessageId("");
+    this.data.changeMessageNav(false);
+    this.auth.loggedIn = false;
+    this.auth.logout();
   }
 }

@@ -10,6 +10,12 @@
     "Delete": "Delete",
 
     "CVcheck": "By checking this off I give permission that other parties can access and download my resume (only PDF)",
+    "Contact check": "By checking this off I give permission that other parties can access my contact information",
+
+    "Email:": "Email:",
+    "Phone number:": "Phone number:",
+    "Province:": "Province:",
+    "City:": "City:",
 
     "WhoAmI": "Who Am I?",
 
@@ -21,6 +27,7 @@
     "Period": "Period",
 
     "Skills": "Skills",
+    "Language knowledge": "Language knowledge",
 
     "footer": "Phone number 016/30 10 48 · Questions and remarks: ",
 

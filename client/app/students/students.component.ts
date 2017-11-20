@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../services/student.service';
 import { DataService } from "../services/data.service";
+import { AuthService } from '../services/auth.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 
 @Component({
   selector: 'app-students',
@@ -21,12 +24,24 @@ export class StudentsComponent implements OnInit {
   degree = new FormControl('', Validators.required);
   gradYear = new FormControl('', Validators.required);
 
+  private compare = new BehaviorSubject<String>("default message");
+  compareID = this.compare.asObservable();
+
   constructor(private studentService: StudentService,
               private data: DataService,
+              public auth: AuthService,
               private formBuilder: FormBuilder,
               public toast: ToastComponent) { }
 
   ngOnInit() {
+
+    if (this.auth.loggedIn) {
+      this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
+        data => (this.data.changeMessageId(data._id), this.data.changeMessageNav(true)),
+        error => console.log("error")
+      );
+    }
+
     this.getStudents();
     this.addStudentForm = this.formBuilder.group({
       name: this.name,

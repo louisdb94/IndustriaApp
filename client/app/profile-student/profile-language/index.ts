@@ -1,0 +1,1 @@
+export * from './profile-language.component';

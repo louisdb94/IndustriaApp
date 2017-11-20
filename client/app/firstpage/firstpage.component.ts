@@ -12,11 +12,13 @@ import { DataService } from "../services/data.service";
 export class FirstPageComponent implements OnInit {
 
   messageNav: boolean;
+  messageId: String;
 
   constructor(private appcomponent: AppComponent, private data: DataService) {}
 
   ngOnInit(){
     this.data.navMessage.subscribe(message => this.messageNav = message);
+    this.data.idMessage.subscribe(message => this.messageId = message);
   }
 
   switchLanguage(language) {

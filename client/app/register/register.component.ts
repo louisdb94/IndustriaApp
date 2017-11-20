@@ -2,21 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../services/user.service';
+import { StudentService } from '../services/student.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  username = new FormControl('', [
-    Validators.required,
-    Validators.minLength(2),
-    Validators.maxLength(30),
-    Validators.pattern('[a-zA-Z0-9_-\\s]*')
-  ]);
+  rnumber = new FormControl('', []);
   email = new FormControl('', [
     Validators.required,
     Validators.minLength(3),
@@ -26,26 +23,22 @@ export class RegisterComponent implements OnInit {
     Validators.required,
     Validators.minLength(6)
   ]);
-  role = new FormControl('', [
-    Validators.required
-  ]);
+
+  emailStudent = "";
+  passwordStudent = "";
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               public toast: ToastComponent,
+              private studentService: StudentService,
               private userService: UserService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      username: this.username,
+      rnumber: this.rnumber,
       email: this.email,
-      password: this.password,
-      role: this.role
+      password: this.password
     });
-  }
-
-  setClassUsername() {
-    return { 'has-danger': !this.username.pristine && !this.username.valid };
   }
   setClassEmail() {
     return { 'has-danger': !this.email.pristine && !this.email.valid };
@@ -54,10 +47,19 @@ export class RegisterComponent implements OnInit {
     return { 'has-danger': !this.password.pristine && !this.password.valid };
   }
 
+  addStudent(){
+    this.studentService.addStudent(this.registerForm.value).subscribe(
+      res => {console.log("New student created")},
+      error => console.log(error)
+    );
+  }
+
   register() {
+    this.registerForm.value.rnumber = this.emailStudent.substring(0,8);
     this.userService.register(this.registerForm.value).subscribe(
       res => {
         this.toast.setMessage('you successfully registered!', 'success');
+        this.addStudent();
         this.router.navigate(['/login']);
       },
       error => this.toast.setMessage('email already exists', 'danger')

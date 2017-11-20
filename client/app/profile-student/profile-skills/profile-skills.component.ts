@@ -69,14 +69,14 @@ export class SkillsProfile {
   }
 
   add(student){
-    if(student.countExperiences < 6){
-      student.countExperiences++;
+    if(student.countSkills < 6){
+      student.countSkills++;
     }
   }
 
   delete(student){
-    if(student.countExperiences > 0){
-      student.countExperiences--;
+    if(student.countSkills > 0){
+      student.countSkills--;
     }
   }
 

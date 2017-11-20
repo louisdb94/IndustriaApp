@@ -1,30 +1,39 @@
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="card">
-  <h4 class="card-header">Register</h4>
-  <div class="card-block">
-    <form [formGroup]="registerForm" (ngSubmit)="register()">
-      <div class="input-group" [ngClass]="setClassUsername()">
-        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-        <input class="form-control" type="text" name="username" formControlName="username" placeholder="Username" autofocus>
+<div class="jumbotron" style="background: white">
+  <div id="registerpage" class="mx-auto">
+    <div class="card text-center">
+      <div class="card-header" style="font-size: 30px">
+          <img src="../assets/img/Industria.PNG" width="45" height="60">
+          <p translate>
+            Register
+            <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
+                <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
+                <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
+            </select>
+          </p>
+      </div><br>
+      <div class="card-block">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+          <div *ngIf="myVar" id="register" class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+            <input class="form-control" type="text" [(ngModel)]="rnumber" name="rnumber" formControlName="rnumber" placeholder="rnumber" autofocus>
+          </div>
+
+          <div id="register" class="input-group" [ngClass]="setClassEmail()">
+            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+            <input class="form-control" [(ngModel)]="emailStudent" type="email" name="email" formControlName="email" placeholder="Email" email pattern="[r]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}">
+          </div><br>
+
+          <div id="register" class="input-group" [ngClass]="setClassPassword()">
+            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+            <input class="form-control" [(ngModel)]="passwordStudent" type="password" name="password" formControlName="password" placeholder="Password">
+          </div><br>
+
+          <button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid"><i class="fa fa-user-plus"></i> Register</button>
+        </form>
       </div>
-      <div class="input-group" [ngClass]="setClassEmail()">
-        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-        <input class="form-control" type="email" name="email" formControlName="email" placeholder="Email">
-      </div>
-      <div class="input-group" [ngClass]="setClassPassword()">
-        <span class="input-group-addon"><i class="fa fa-key"></i></span>
-        <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
-      </div>
-      <div class="input-group">
-        <span class="input-group-addon"><i class="fa fa-black-tie"></i></span>
-        <select class="form-control" name="role" formControlName="role">
-          <option value="" selected disabled>Role</option>
-          <option value="user">User</option>
-          <option value="admin">Admin</option>
-        </select>
-      </div>
-      <button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid"><i class="fa fa-user-plus"></i> Register</button>
-    </form>
+    </div>
   </div>
 </div>

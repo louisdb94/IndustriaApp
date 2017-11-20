@@ -29,6 +29,8 @@ import { HeaderProfile } from './profile-student/profile-header';
 import { BioProfile } from './profile-student/profile-bio';
 import { EducationProfile } from './profile-student/profile-education';
 import { SkillsProfile } from './profile-student/profile-skills';
+import { LanguageProfile } from './profile-student/profile-language';
+import { ContactProfile } from './profile-student/profile-contact';
 import { FooterProfile } from './profile-student/profile-footer';
 import { ExperiencesProfile } from './profile-student/profile-experiences';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -81,9 +83,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     HeaderProfile,
     BioProfile,
     EducationProfile,
-    SkillsProfile,
-    FooterProfile,
     ExperiencesProfile,
+    SkillsProfile,
+    LanguageProfile,
+    ContactProfile,
+    FooterProfile,
 
     jqxFileUploadComponent,
     jqxEditorComponent,

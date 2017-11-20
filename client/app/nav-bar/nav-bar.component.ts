@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../services/auth.service';
 import { DataService } from '../services/data.service';
@@ -27,6 +27,7 @@ export class NavBarComponent {
   logout(){
     this.data.changeMessageId("");
     this.data.changeMessageNav(false);
+    this.auth.loggedIn = false;
     this.auth.logout();
   }
 
