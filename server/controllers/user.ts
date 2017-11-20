@@ -27,4 +27,7 @@ export default class UserCtrl extends BaseCtrl {
     });
   }
 
+  sendMail = (req,res) => {
+    console.log("random");
+  }
 }

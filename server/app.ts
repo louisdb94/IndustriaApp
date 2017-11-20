@@ -4,6 +4,8 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import * as mongoose from 'mongoose';
 import * as path from 'path';
+import * as nodemailer from 'nodemailer';
+import * as EmailTemplate from 'email-templates';
 
 import * as fileupload from 'express-fileupload';
 
@@ -53,6 +55,13 @@ mongodb
 
 app.use(fileupload({ safeFileNames: true }));
 
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: '',
+    pass: ''
+  }
+});
 
 
 export { app };

@@ -31,11 +31,13 @@
 
     "footer": "Phone number 016/30 10 48 · Questions and remarks: ",
 
-    "Random": "Welcome to the Industria job portal",
+    "Firstpage": "Welcome to the Industria job portal",
     "Choose your corresponding login": "Choose your corresponding login",
     "Student": "Student",
     "Company": "Company",
     "Visitor": "Visitor",
 
-    "Login": "Job portal login"
+    "Login": "Student job portal login",
+    "Register": "Student job portal registration",
+    "RegisterButton": "Register"
 }

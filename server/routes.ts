@@ -86,6 +86,7 @@ export default function setRoutes(app) {
   router.route('/user/:rnumber').get(userCtrl.getByRnumber);
   router.route('/user/:id').put(userCtrl.update);
   router.route('/user/:id').delete(userCtrl.delete);
+  router.route('/send').post(userCtrl.sendMail);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);

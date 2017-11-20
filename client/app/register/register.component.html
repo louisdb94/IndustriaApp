@@ -5,7 +5,7 @@
     <div class="card text-center">
       <div class="card-header" style="font-size: 30px">
           <img src="../assets/img/Industria.PNG" width="45" height="60">
-          <p translate>
+          <p translate style="margin-left:8%">
             Register
             <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
                 <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
@@ -14,7 +14,7 @@
           </p>
       </div><br>
       <div class="card-block">
-        <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <form method="POST" action="api/send" [formGroup]="registerForm" (ngSubmit)="register()">
 
           <div *ngIf="myVar" id="register" class="input-group">
             <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -31,9 +31,13 @@
             <input class="form-control" [(ngModel)]="passwordStudent" type="password" name="password" formControlName="password" placeholder="Password">
           </div><br>
 
-          <button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid"><i class="fa fa-user-plus"></i> Register</button>
+          <button translate class="btn btn-primary" type="submit" [disabled]="!registerForm.valid"><i class="fa fa-user-plus"></i> RegisterButton</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<footer>
+  <profile-footer></profile-footer>
+</footer>

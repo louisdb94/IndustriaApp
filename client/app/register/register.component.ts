@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { UserService } from '../services/user.service';
 import { StudentService } from '../services/student.service';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { HttpClient } from '@angular/common/http';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-register',
@@ -31,7 +33,9 @@ export class RegisterComponent implements OnInit {
               private router: Router,
               public toast: ToastComponent,
               private studentService: StudentService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private appcomponent: AppComponent,
+              private http: HttpClient,) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -45,6 +49,10 @@ export class RegisterComponent implements OnInit {
   }
   setClassPassword() {
     return { 'has-danger': !this.password.pristine && !this.password.valid };
+  }
+
+  switchLanguage(language) {
+    this.appcomponent.switchLanguage(language);
   }
 
   addStudent(){
