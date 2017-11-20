@@ -39,5 +39,7 @@
 
     "Login": "Student job portal login",
     "Register": "Student job portal registration",
-    "RegisterButton": "Register"
+    "RegisterButton": "Register",
+
+    "Graduation year": "Graduation year"
 }
