@@ -63,7 +63,15 @@ export default function setRoutes(app) {
 
 
   // CREATE MYSQL TABLES
+  router.route('create-users').get(usersCtrl.getsql);
+  router.route('create-students').get(studentsCtrl.getsql);
   router.route('create-cvs').get(cvsCtrl.getsql);
+  router.route('create-contacts').get(contactsCtrl.getsql);
+  router.route('create-education').get(educationCtrl.getsql);
+  router.route('create-experience').get(experienceCtrl.getsql);
+  router.route('create-language').get(languageCtrl.getsql);
+  router.route('create-skills').get(skillsCtrl.getsql);
+  router.route('create-socialmedia').get(socialmediaCtrl.getsql);
 
 
   // CV
@@ -113,7 +121,6 @@ export default function setRoutes(app) {
   router.route('/student/:id').get(studentCtrl.get);
   router.route('/student/:id').put(studentCtrl.update);
   router.route('/student/:id').delete(studentCtrl.delete);
-
 
 
   // Users

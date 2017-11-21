@@ -54,24 +54,6 @@ app.get('/createdb', (req, res) => {
     });
 });
 
-// Create table
-app.get('/createuser', (req, res) => {
-     db.query(sql_users, (err, result) => {
-        if(err) throw err;
-        console.log(result);
-        res.send('Posts table created...');
-    });
-});
-
-// Create table
-app.get('/createstudents', (req, res) => {
-     db.query(sql_students, (err, result) => {
-        if(err) throw err;
-        console.log(result);
-        res.send('Posts table created...');
-    });
-});
-
 
 // Insert post 1
 app.get('/addpost1', (req, res) => {
@@ -136,6 +118,8 @@ app.get('/deletepost/:id', (req, res) => {
         res.send('Post deleted...');
     });
 });
+
+
 setRoutes(app);
 app.listen('3000', () => {
     console.log('Server started on port 3000');
