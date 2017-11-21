@@ -1,4 +1,9 @@
 import * as express from 'express';
+import * as path from 'path';
+import * as mime from 'mime';
+import * as fs from 'fs';
+import {db} from './app';
+import * as  mysql from 'mysql';
 
 import CatCtrl from './controllers/cat';
 import CvCtrl from './controllers/cv';
@@ -11,24 +16,28 @@ import Student from './models/student';
 import Cv from './models/cv';
 import Image from './models/image';
 
-import CvsCtrl from './controllers_mysql/cvs';      //HEREEE
-
+//MYSQL CONTROLLERS
+import CvsCtrl from './controllers_mysql/cvs';
+import ContactCtrl from './controllers_mysql/contact';
+import EducationCtrl from './controllers_mysql/education';
+import ExperienceCtrl from './controllers_mysql/experiences';
 import LanguageCtrl from './controllers_mysql/language';
 import SkillsCtrl from './controllers_mysql/skills';
 import SocialmediaCtrl from './controllers_mysql/socialmedia';
-import StudentsCtrl from './controllers_mysql/students'; 
-import UsersCtrl from './controllers_mysql/users'; 
+import StudentsCtrl from './controllers_mysql/students';
+import UsersCtrl from './controllers_mysql/users';
 
-import * as path from 'path';
 
-import * as mime from 'mime';
-import * as fs from 'fs';
-
+//MYSQL MODELS
 import contacts from './models_mysql/contact';
 import cvs from './models_mysql/cvs';
-
-import {db} from './app';
-import * as  mysql from 'mysql';
+import education from './models_mysql/education';
+import experiences from './models_mysql/experiences';
+import language from './models_mysql/language';
+import skills from './models_mysql/skills';
+import socialmedia from './models_mysql/socialmedia';
+import students from './models_mysql/students';
+import users from './models_mysql/users';
 
 
 export default function setRoutes(app) {
@@ -41,11 +50,20 @@ export default function setRoutes(app) {
   const cvCtrl = new CvCtrl();
   const imageCtrl = new ImageCtrl();
 
-  const cvsCtrl = new CvsCtrl();      //HEREEE
+  //MYSQL CONTROLLERS
+  const cvsCtrl = new CvsCtrl();
+  const contactsCtrl = new ContactCtrl();
+  const educationCtrl = new EducationCtrl();
+  const experienceCtrl = new ExperienceCtrl();
+  const languageCtrl = new LanguageCtrl();
+  const skillsCtrl = new SkillsCtrl();
+  const socialmediaCtrl = new SocialmediaCtrl();
+  const studentsCtrl = new StudentsCtrl();
+  const usersCtrl = new UsersCtrl();
 
 
-  // Create table
-  router.route('create-cvs').get(cvsCtrl.getsql);     //HEREEE
+  // CREATE MYSQL TABLES
+  router.route('create-cvs').get(cvsCtrl.getsql);
 
 
   // CV
