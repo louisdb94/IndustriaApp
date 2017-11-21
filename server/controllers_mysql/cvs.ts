@@ -8,11 +8,5 @@ export default class CvsCtrl extends BaseSqlCtrl {
 
   model = cvs;
 
-  getsql = (req, res) => {
-    db.query(this.model, (err, result) => {
-      if (err) throw err;
-      console.log(result);
-      res.send('Posts table created...');
-    });
-  }
+  
 }

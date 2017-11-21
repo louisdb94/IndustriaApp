@@ -8,11 +8,5 @@ export default class SocialmediaCtrl extends BaseSqlCtrl {
 
   model = sql_socialmedia;
 
-  getsql = (req, res) => {
-    db.query(this.model, (err, result) => {
-      if (err) throw err;
-      console.log(result);
-      res.send('Posts table created...');
-    });
-  }
+  
 }

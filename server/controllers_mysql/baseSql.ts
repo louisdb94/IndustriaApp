@@ -6,6 +6,15 @@ abstract class BaseSqlCtrl {
 
     // abstract field: any;
 
+
+    getsql = (req, res) => {
+      db.query(this.model, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Posts table created...');
+      });
+    }
+
     // Insert post 1
     insert =  (req, res) => {
 

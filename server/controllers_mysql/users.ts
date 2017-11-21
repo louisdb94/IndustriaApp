@@ -2,14 +2,9 @@ import {db} from '../app';
 import sql_user from '../models_mysql/users';
 import * as  mysql from 'mysql';
 
+import BaseSqlCtrl from './baseSql'
 
-export default class UserCtrl {
+export default class UserCtrl extends BaseSqlCtrl {
 
-  getsql = (req, res) => {
-    db.query(sql_user, (err, result) => {
-      if (err) throw err;
-      console.log(result);
-      res.send('Posts table created...');
-    });
-  }
+  model = sql_user;
 }

@@ -8,11 +8,5 @@ export default class SkillsCtrl extends BaseSqlCtrl{
 
   model = sql_skills;
 
-  getsql = (req, res) => {
-    db.query(this.model, (err, result) => {
-      if (err) throw err;
-      console.log(result);
-      res.send('Posts table created...');
-    });
-  }
+
 }

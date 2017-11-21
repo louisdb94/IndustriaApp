@@ -8,11 +8,4 @@ export default class ExperienceCtrl extends BaseSqlCtrl {
 
   model = experiences;
 
-  getsql = (req, res) => {
-    db.query(this.model, (err, result) => {
-      if (err) throw err;
-      console.log(result);
-      res.send('Posts table created...');
-    });
-  }
 }
