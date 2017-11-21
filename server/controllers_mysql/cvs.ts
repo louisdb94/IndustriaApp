@@ -1,11 +1,13 @@
 import {db} from '../app';
 import * as  mysql from 'mysql';
+import cvs from '../models_mysql/cvs';
 
 import BaseSqlCtrl from './baseSql';
 
 export default class CvsCtrl extends BaseSqlCtrl {
 
   model = 'cvs';
+  dummy = cvs;
 
   // Update post
   updateName = (req, res) => {

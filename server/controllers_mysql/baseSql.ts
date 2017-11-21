@@ -3,12 +3,13 @@ import {db} from '../app';
 abstract class BaseSqlCtrl {
 
     abstract model: any;
+    abstract dummy : any;
 
     // abstract field: any;
 
 
     getsql = (req, res) => {
-      db.query(this.model, (err, result) => {
+      db.query(this.dummy, (err, result) => {
         if (err) throw err;
         console.log(result);
         res.send('Posts table created...');

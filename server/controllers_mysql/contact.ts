@@ -1,12 +1,13 @@
 import {db} from '../app';
 import * as  mysql from 'mysql';
-
+import contact from '../models_mysql/contact';
 import BaseSqlCtrl from './baseSql';
 
 
 export default class ContactCtrl extends BaseSqlCtrl {
 
   model = 'contact';
+  dummy = contact;
 
   // Update post
   updateEmail = (req, res) => {

@@ -75,8 +75,13 @@ export class HeaderProfile {
       this.getStudentById(id);
       this.getCvFromStudent(id);
       this.downloadImage(id);
+      this.getSocialMediaById(id);
       this.files = [];
     });
+  }
+
+  getSocialMediaById(id){
+    this.
   }
 
   getStudentById(id) {

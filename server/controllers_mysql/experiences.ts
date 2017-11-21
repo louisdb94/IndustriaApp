@@ -1,11 +1,13 @@
 import {db} from '../app';
 import * as  mysql from 'mysql';
+import experiences from '../models_mysql/experiences';
 
 import BaseSqlCtrl from './baseSql';
 
 export default class ExperienceCtrl extends BaseSqlCtrl {
 
   model = 'experiences';
+  dummy = experiences;
 
   // Update post
   updateFunction = (req, res) => {

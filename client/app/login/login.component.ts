@@ -20,10 +20,17 @@ export class LoginComponent implements OnInit {
   user = {};
   emailStudent = "";
   passwordStudent = "";
-  rnumber: String;
   id: any;
   messageId: String;
   messageNav: boolean;
+  dataRnumber: String;
+  id_user: Number;
+  value: Number;
+
+  userForm: FormGroup;
+  user_fk = new FormControl(Number);
+  rnumber = new FormControl('', []);
+
   loginForm: FormGroup;
   email = new FormControl('', [
     Validators.required,
@@ -54,13 +61,30 @@ export class LoginComponent implements OnInit {
 
       this.router.navigate(['/students']);
     }
+
     this.loginForm = this.formBuilder.group({
       email: this.email,
       password: this.password
     });
 
+    this.userForm = this.formBuilder.group({
+      rnumber: this.rnumber,
+      user_fk: this.user_fk
+    });
+
     this.data.idMessage.subscribe(message => this.messageId = message);
     this.data.navMessage.subscribe(message => this.messageNav = message);
+    this.data.id_user.subscribe(message => this.id_user = message);
+    this.data.dataRnumber.subscribe(message => this.dataRnumber = message);
+
+    console.log(this.data.id_user);
+    this.data.id_user.subscribe(
+      value => {console.log("user_fk: ",value), this.userForm.value.user_fk = value}
+    );
+
+    this.data.dataRnumber.subscribe(
+      value => {console.log("rnumber: ", value), this.userForm.value.rnumber = value}
+    );
   }
 
   setClassEmail() {
@@ -75,10 +99,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.rnumber = this.emailStudent.substring(0,8);
-    console.log(this.rnumber);
-    this.studentService.getStudentByRnumber(this.rnumber).subscribe(
-      data => (this.id = data._id, this.data.changeMessageId(data._id), this.data.changeMessageNav(true), console.log("data: ", this.id)),
+
+    this.studentService.addStudentMysql(this.userForm.value).subscribe(
+      res => {console.log("New student created")},
+      error => console.log(error)
+    );
+  }
+
+  test(){
+    console.log(this.userForm.value.rnumber);
+    this.userForm.value.rnumber = this.emailStudent.substring(0,8);
+    this.studentService.getStudentByRnumberMysql(this.userForm.value.rnumber).subscribe(
+      data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), this.data.changeMessageNav(true), console.log("data: ", this.id)),
       error => console.log("error")
     );
       

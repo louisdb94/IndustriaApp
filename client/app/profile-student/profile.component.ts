@@ -43,7 +43,7 @@ export class StudentProfile implements OnInit {
     this.translate.setDefaultLang('en');
     this.activatedRoute.params.subscribe((params: Params) => {
       let id = params['id'];
-      this.getStudentByIdMySql(33);
+      this.getStudentByIdMySql(id);
     });
   }
 

@@ -62,28 +62,28 @@ export default function setRoutes(app) {
   const usersCtrl = new UsersCtrl();
 
 
-  // // CREATE MYSQL TABLES
-  // router.route('/create-users').get(usersCtrl.getsql);
-  // router.route('/create-students').get(studentsCtrl.getsql);
-  // router.route('/create-cvs').get(cvsCtrl.getsql);
-  // router.route('/create-contacts').get(contactsCtrl.getsql);
-  // router.route('/create-education').get(educationCtrl.getsql);
-  // router.route('/create-experience').get(experienceCtrl.getsql);
-  // router.route('/create-language').get(languageCtrl.getsql);
-  // router.route('/create-skills').get(skillsCtrl.getsql);
-  // router.route('/create-socialmedia').get(socialmediaCtrl.getsql);
-
   // CREATE MYSQL TABLES
-  router.route('/create-users')
-        .get(usersCtrl.getsql)
-        .get(studentsCtrl.getsql)
-        .get(cvsCtrl.getsql)
-        .get(contactsCtrl.getsql)
-        .get(educationCtrl.getsql)
-        .get(experienceCtrl.getsql)
-        .get(languageCtrl.getsql)
-        .get(skillsCtrl.getsql)
-        .get(socialmediaCtrl.getsql);
+  router.route('/create-users').get(usersCtrl.getsql);
+  router.route('/create-students').get(studentsCtrl.getsql);
+  router.route('/create-cvs').get(cvsCtrl.getsql);
+  router.route('/create-contacts').get(contactsCtrl.getsql);
+  router.route('/create-education').get(educationCtrl.getsql);
+  router.route('/create-experience').get(experienceCtrl.getsql);
+  router.route('/create-language').get(languageCtrl.getsql);
+  router.route('/create-skills').get(skillsCtrl.getsql);
+  router.route('/create-socialmedia').get(socialmediaCtrl.getsql);
+
+   // CREATE MYSQL TABLES
+  // router.route('/create-users')
+  //       .get(usersCtrl.getsql)
+  //       .get(studentsCtrl.getsql)
+  //       .get(cvsCtrl.getsql)
+  //       .get(contactsCtrl.getsql)
+  //       .get(educationCtrl.getsql)
+  //       .get(experienceCtrl.getsql)
+  //       .get(languageCtrl.getsql)
+  //       .get(skillsCtrl.getsql)
+  //       .get(socialmediaCtrl.getsql);
 
   //User
   router.route('/user-get/:id').get(usersCtrl.getbyId);
@@ -92,11 +92,14 @@ export default function setRoutes(app) {
   router.route('/user-delete/:id').get(usersCtrl.delete);
   router.route('/user-updateemail/:id').get(usersCtrl.updateEmail);
   router.route('/users-updaternumber/:id').get(usersCtrl.updateRnumber);
+  router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);
+  router.route('/users-login').post(usersCtrl.login);
 
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
   router.route('/students-getall').get(studentsCtrl.select);
   router.route('/students-insert').post(studentsCtrl.insert);
+  router.route('/students-insertUserFk').post(studentsCtrl.insertUserFk);
   router.route('/student-delete/:id').get(studentsCtrl.delete);
   router.route('/student-updatename/:id').get(studentsCtrl.updateName);
   router.route('/student-updaternumber/:id').get(studentsCtrl.updateRnumber);
@@ -110,6 +113,7 @@ export default function setRoutes(app) {
   router.route('/student-updatecounteducation/:id').get(studentsCtrl.updateCountEduaction);
   router.route('/student-updatenumbercv/:id').get(studentsCtrl.updateNumbercv);
   router.route('/student-updateimage/:id').get(studentsCtrl.updateImage);
+  router.route('/student-getbyrnumber/:rnumber').get(studentsCtrl.getStudentByRnumber);
 
   //Cvs
   router.route('/cvs-get/:id').get(cvsCtrl.getbyId);

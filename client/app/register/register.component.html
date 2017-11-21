@@ -18,8 +18,13 @@
 
           <div *ngIf="myVar" id="register" class="input-group">
             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-            <input class="form-control" type="text" [(ngModel)]="rnumber" name="rnumber" formControlName="rnumber" placeholder="rnumber" autofocus>
+            <input class="form-control" type="text" name="rnumber" formControlName="rnumber" placeholder="rnumber" autofocus>
           </div>
+
+          <!-- <div *ngIf="myVar" id="register" class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+            <input class="form-control" name="user_fk" formControlName="user_fk" placeholder="user_fk" autofocus>
+          </div> -->
 
           <div id="register" class="input-group" [ngClass]="setClassEmail()">
             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
@@ -33,6 +38,9 @@
 
           <button translate class="btn btn-primary" type="submit" [disabled]="!registerForm.valid"><i class="fa fa-user-plus"></i> RegisterButton</button>
         </form>
+        <p>{{id_user}}</p>
+        <p>{{messageId}}</p>
+        <button (click)=test()>TEST</button>
       </div>
     </div>
   </div>

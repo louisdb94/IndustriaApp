@@ -1,11 +1,13 @@
 import {db} from '../app';
 import * as  mysql from 'mysql';
+import sql_socialmedia from '../models_mysql/socialmedia';
 
 import BaseSqlCtrl from './baseSql';
 
 export default class SocialmediaCtrl extends BaseSqlCtrl {
 
   model = 'socialmedia';
+  dummy = sql_socialmedia;
 
   // Update post
   updateType = (req, res) => {

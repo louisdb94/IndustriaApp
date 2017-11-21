@@ -1,11 +1,34 @@
 import {db} from '../app';
 import * as  mysql from 'mysql';
+import sql_students from '../models_mysql/students';
 
 import BaseSqlCtrl from './baseSql';
 
 export default class StudentsCtrl extends BaseSqlCtrl {
 
   model = 'students';
+  dummy = sql_students;
+
+  insertUserFk =  (req, res) => {
+    
+        let sql = `INSERT INTO ${this.model} (user_fk) VALUES ('${req.params.user_id}')`;
+        let query = db.query(sql, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.json(result);
+        });
+    };
+
+    getStudentByRnumber =  (req, res) => {
+        console.log("joooooow", req.params.rnumber);
+        let sql = `SELECT id FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
+        let query = db.query(sql, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.json(result);
+
+        });
+    };
 
   // Update post
   updateName = (req, res) => {

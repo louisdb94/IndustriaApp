@@ -50,4 +50,13 @@ export class UserService {
     return this.http.post('/api/users-insert', JSON.stringify(user), this.options);
   }
 
+  getUserMysql(rnumber): Observable<any> {
+    console.log(rnumber);
+    return this.http.get(`/api/users-getbyrnumber/${rnumber}`).map(res => res.json());
+  }
+
+  loginMysql(credentials): Observable<any> {
+    return this.http.post('/api/users-login', JSON.stringify(credentials), this.options);
+  }
+
 }
