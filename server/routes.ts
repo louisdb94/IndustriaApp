@@ -13,6 +13,12 @@ import Image from './models/image';
 
 import CvsCtrl from './controllers_mysql/cvs';      //HEREEE
 
+import LanguageCtrl from './controllers_mysql/language';
+import SkillsCtrl from './controllers_mysql/skills';
+import SocialmediaCtrl from './controllers_mysql/socialmedia';
+import StudentsCtrl from './controllers_mysql/students'; 
+import UsersCtrl from './controllers_mysql/users'; 
+
 import * as path from 'path';
 
 import * as mime from 'mime';

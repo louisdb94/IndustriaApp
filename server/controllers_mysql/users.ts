@@ -1,12 +1,12 @@
 import {db} from '../app';
-import cvs from '../models_mysql/cvs';
+import sql_user from '../models_mysql/users';
 import * as  mysql from 'mysql';
 
 
 export default class UserCtrl {
 
   getsql = (req, res) => {
-    db.query(cvs, (err, result) => {
+    db.query(sql_user, (err, result) => {
       if (err) throw err;
       console.log(result);
       res.send('Posts table created...');
