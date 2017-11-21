@@ -1,0 +1,14 @@
+let cvs = `CREATE TABLE cvs (
+  cvs_id int(11) NOT NULL AUTO_INCREMENT,
+  student_fk int(11) NOT NULL,
+  name varchar(15) NOT NULL,
+  mimetype varchar(8) NOT NULL,
+  size int(11) NOT NULL,
+  number int(11) NOT NULL DEFAULT '1',
+  customName varchar(20) NOT NULL DEFAULT 'Curriculum vitae',
+  PRIMARY KEY (cvs_id),
+  KEY student_fk (student_fk),
+  CONSTRAINT cvs_ibfk_1 FOREIGN KEY (student_fk) REFERENCES students (student_id) ON UPDATE CASCADE
+)`
+
+export default cvs;

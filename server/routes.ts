@@ -15,6 +15,10 @@ import * as path from 'path';
 import * as mime from 'mime';
 import * as fs from 'fs';
 
+import contacts from './models_mysql/contact';
+import {db} from './app';
+import * as  mysql from 'mysql';
+
 
 export default function setRoutes(app) {
 
@@ -25,6 +29,18 @@ export default function setRoutes(app) {
   const studentCtrl = new StudentCtrl();
   const cvCtrl = new CvCtrl();
   const imageCtrl = new ImageCtrl();
+
+
+  // Create table
+  router.route('/createstudents').get(function (req, res){
+
+       db.query(contacts, (err, result) => {
+          if(err) throw err;
+          console.log(result);
+          res.send('Posts table created...');
+      });
+
+  });
 
 
   // CV
