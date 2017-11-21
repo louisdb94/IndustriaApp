@@ -5,6 +5,11 @@ import User from '../models/user';
 import Student from '../models/student'
 import BaseCtrl from './base';
 
+import {db} from '../app';
+import cvs from '../models_mysql/cvs';
+import * as  mysql from 'mysql';
+
+
 export default class UserCtrl extends BaseCtrl {
   model = User;
 
@@ -29,5 +34,15 @@ export default class UserCtrl extends BaseCtrl {
 
   sendMail = (req,res) => {
     console.log("random");
+  }
+
+
+  getsql = (req, res) => {
+    db.query(cvs, (err, result) => {
+      if (err) throw err;
+      console.log(result);
+      res.send('Posts table created...');
+    });
+  
   }
 }

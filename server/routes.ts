@@ -16,6 +16,8 @@ import * as mime from 'mime';
 import * as fs from 'fs';
 
 import contacts from './models_mysql/contact';
+import cvs from './models_mysql/cvs';
+
 import {db} from './app';
 import * as  mysql from 'mysql';
 
@@ -32,15 +34,17 @@ export default function setRoutes(app) {
 
 
   // Create table
-  router.route('/createstudents').get(function (req, res){
+  router.route('/createcvs').get(function(req, res){
 
-       db.query(contacts, (err, result) => {
+       db.query(cvs, (err, result) => {
           if(err) throw err;
           console.log(result);
           res.send('Posts table created...');
       });
 
   });
+
+  router.route('/create-cvs').get(userCtrl.getsql);
 
 
   // CV

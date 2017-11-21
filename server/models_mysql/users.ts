@@ -5,7 +5,7 @@ let sql_users = `CREATE TABLE user (
     email varchar(20) NOT NULL,
     password varchar(30) NOT NULL,
     role varchar(20) NOT NULL,
-    PRIMARY KEY (user_id),
+    PRIMARY KEY (user_id)
   )`
 
-  export default sql_users
+export default sql_users;
