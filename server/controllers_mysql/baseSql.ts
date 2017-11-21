@@ -26,17 +26,6 @@ abstract class BaseSqlCtrl {
         });
     };
 
-    // Insert post 2
-    insert2 = (req, res) => {
-
-        let sql = `INSERT INTO '${this.model}' SET ?`;
-        let query = db.query(sql, `${req.body}`, (err, result) => {
-            if(err) throw err;
-            console.log(result);
-            res.send('Post 2 added...');
-        });
-    };
-
     // Select posts
     select = (req, res) => {
         let sql = `SELECT * FROM ${this.model}`;
@@ -78,8 +67,8 @@ abstract class BaseSqlCtrl {
 
 
     // // Update post
-    // update =  (req, res) => {
-    //     let sql = `UPDATE '${this.model}' SET '${this.field}' = '${req.body}' WHERE id = ${req.params.id}`;
+    // update = (req, res) => {
+    //     let sql = `UPDATE ${this.model} SET field = '${req.body}' WHERE id = ${req.params.id}`;
     //     let query = db.query(sql, (err, result) => {
     //         if(err) throw err;
     //         console.log(result);
