@@ -111,6 +111,63 @@ export default function setRoutes(app) {
   router.route('/student-updatenumbercv/:id').get(studentsCtrl.updateNumbercv);
   router.route('/student-updateimage/:id').get(studentsCtrl.updateImage);
 
+  //Cvs
+  router.route('/cvs-get/:id').get(cvsCtrl.getbyId);
+  router.route('/cvs-getall').get(cvsCtrl.select);
+  router.route('/cvs-insert').post(cvsCtrl.insert);
+  router.route('/cvs-delete/:id').get(cvsCtrl.delete);
+  router.route('/cvs-updatename/:id').get(cvsCtrl.updateName);
+  router.route('/cvs-updatesize/:id').get(cvsCtrl.updateSize);
+  router.route('/cvs-updatenumber/:id').get(cvsCtrl.updateNumber);
+  router.route('/cvs-updatemimetype/:id').get(cvsCtrl.updateMimetype);
+  router.route('/cvs-updatecustomname/:id').get(cvsCtrl.updateCustomName);
+
+  //Education
+  router.route('/education-get/:id').get(educationCtrl.getbyId);
+  router.route('/education-getall').get(educationCtrl.select);
+  router.route('/education-insert').post(educationCtrl.insert);
+  router.route('/education-delete/:id').get(educationCtrl.delete);
+  router.route('/education-updatetype/:id').get(educationCtrl.updateType);
+  router.route('/education-updateinstitution/:id').get(educationCtrl.updateInstitution);
+  router.route('/education-updatefrom/:id').get(educationCtrl.updateDatefrom);
+  router.route('/education-updateuntil/:id').get(educationCtrl.updateDateuntil);
+
+  //Experiences
+  router.route('/experiences-get/:id').get(experienceCtrl.getbyId);
+  router.route('/experiences-getall').get(experienceCtrl.select);
+  router.route('/experiences-insert').post(experienceCtrl.insert);
+  router.route('/experiences-delete/:id').get(experienceCtrl.delete);
+  router.route('/experiences-updatefrom/:id').get(experienceCtrl.updateDatefrom);
+  router.route('/experiences-updatefunction/:id').get(experienceCtrl.updateFunction);
+  router.route('/experiences-updateuntil/:id').get(experienceCtrl.updateDateuntil);
+  router.route('/experiences-updatedescription/:id').get(experienceCtrl.updateDescription);
+
+  //Language
+  router.route('/language-get/:id').get(languageCtrl.getbyId);
+  router.route('/language-getall').get(languageCtrl.select);
+  router.route('/language-insert').post(languageCtrl.insert);
+  router.route('/languageCtrl-delete/:id').get(languageCtrl.delete);
+  router.route('/language-updatetype/:id').get(languageCtrl.updateType);
+  router.route('/language-updatevalue/:id').get(languageCtrl.updateValue);
+  router.route('/language-updatevaluetype/:id').get(languageCtrl.updateValueType);
+
+  //Skill
+  router.route('/skills-get/:id').get(skillsCtrl.getbyId);
+  router.route('/skills-getall').get(skillsCtrl.select);
+  router.route('/skills-insert').post(skillsCtrl.insert);
+  router.route('/skills-delete/:id').get(skillsCtrl.delete);
+  router.route('/skills-updateskill/:id').get(skillsCtrl.updateSkill);
+  router.route('/skills-updatevalue/:id').get(skillsCtrl.updateValue);
+  router.route('/skills-updatevaluetype/:id').get(skillsCtrl.updateValueType);
+
+  //SocialMedia
+  router.route('/socialmedia-get/:id').get(socialmediaCtrl.getbyId);
+  router.route('/socialMedia-getall').get(socialmediaCtrl.select);
+  router.route('/socialmedia-insert').post(socialmediaCtrl.insert);
+  router.route('/socialmedia-delete/:id').get(socialmediaCtrl.delete);
+  router.route('/socialmedia-updateskill/:id').get(socialmediaCtrl.updateUrl);
+  router.route('/socialmedia-updatetype/:id').get(socialmediaCtrl.updateType);
+  router.route('/socialmedia-updatechecked/:id').get(socialmediaCtrl.updateChecked);
 
 
   // CV
