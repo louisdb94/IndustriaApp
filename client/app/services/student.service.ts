@@ -54,9 +54,19 @@ export class StudentService {
 
   //MYSQL
 
-  getStudentsByIdMysql(id): Observable<any> {
+  getStudentByIdMysql(id): Observable<any> {
     return this.http.get(`/api/students-get/${id}`).map(res => res.json());
   }
+
+  getStudentsMysql(): Observable<any> {
+    return this.http.get(`/api/students-getall`).map(res => res.json());
+  }
+
+  addStudentMysql(student): Observable<any> {
+    return this.http.post('/api/students-insert', JSON.stringify(student), this.options);
+  }
+
+
 
 
 }

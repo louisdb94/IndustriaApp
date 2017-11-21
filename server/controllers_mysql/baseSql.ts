@@ -19,10 +19,10 @@ abstract class BaseSqlCtrl {
     insert =  (req, res) => {
 
         let sql = `INSERT INTO ${this.model} SET ?`;
-        let query = db.query(sql, `${req.body}`, (err, result) => {
+        let query = db.query(sql, req.body, (err, result) => {
             if(err) throw err;
             console.log(result);
-            res.send('Post 1 added...');
+            // res.json(result);
         });
     };
 
@@ -32,7 +32,7 @@ abstract class BaseSqlCtrl {
         let query = db.query(sql, (err, results) => {
             if(err) throw err;
             console.log(results);
-            res.send('Posts fetched...');
+            res.json(results);
         });
     };
 
@@ -43,7 +43,7 @@ abstract class BaseSqlCtrl {
             if(err) throw err;
             console.log(result);
             res.json(result);
-            // res.send('Post fetched...');
+
         });
     };
 
@@ -52,7 +52,8 @@ abstract class BaseSqlCtrl {
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
             console.log(result);
-            res.send('Post fetched...');
+            res.json(result);
+
         });
     };
 
@@ -61,7 +62,7 @@ abstract class BaseSqlCtrl {
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
             console.log(result);
-            res.send('Post fetched...');
+            res.json(result);
         });
     };
 

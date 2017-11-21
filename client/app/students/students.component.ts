@@ -23,6 +23,8 @@ export class StudentsComponent implements OnInit {
   name = new FormControl('', Validators.required);
   degree = new FormControl('', Validators.required);
   gradYear = new FormControl('', Validators.required);
+  user_fk = new FormControl('', Validators.required);
+
 
   private compare = new BehaviorSubject<String>("default message");
   compareID = this.compare.asObservable();
@@ -42,24 +44,26 @@ export class StudentsComponent implements OnInit {
     //   );
     // }
 
-    this.getStudentsByIdMysql(33);
+    this.getStudentsMysql();
     this.addStudentForm = this.formBuilder.group({
       name: this.name,
       degree: this.degree,
-      gradYear: this.gradYear
+      gradYear: this.gradYear,
+      user_fk : this.user_fk
     });
 
     this.data.idMessage.subscribe(message => this.messageId = message)
   }
-  getStudentsByIdMysql(id) {
-    this.studentService.getStudentsByIdMysql(id).subscribe(
-      data => {console.log(JSON.stringify(data[0]))},
+  getStudentsMysql() {
+    this.studentService.getStudentsMysql().subscribe(
+      data => {this.students = data},
       error => console.log(error)
     );
+
   }
 
   addStudent() {
-    this.studentService.addStudent(this.addStudentForm.value).subscribe(
+    this.studentService.addStudentMysql(this.addStudentForm.value).subscribe(
       res => {
         const newStudent = res.json();
         this.students.push(newStudent);

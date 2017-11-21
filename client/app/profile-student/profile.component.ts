@@ -32,18 +32,18 @@ export class StudentProfile implements OnInit {
   compareID = this.compare.asObservable();
 
   ngOnInit() {
-    
-    if (this.auth.loggedIn && this.dataService.idMessage  == this.compareID) {
-      this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
-        data => (this.data.changeMessageId(data._id), this.data.changeMessageNav(true)),
-        error => console.log("error")
-      );
-    }
+
+    // if (this.auth.loggedIn && this.dataService.idMessage  == this.compareID) {
+    //   this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
+    //     data => (this.data.changeMessageId(data._id), this.data.changeMessageNav(true)),
+    //     error => console.log("error")
+    //   );
+    // }
 
     this.translate.setDefaultLang('en');
     this.activatedRoute.params.subscribe((params: Params) => {
       let id = params['id'];
-      this.getStudentById(id);
+      this.getStudentByIdMySql(33);
     });
   }
 
@@ -51,9 +51,9 @@ export class StudentProfile implements OnInit {
     this.translate.use(language);
   }
 
-  getStudentById(id) {
-    this.studentService.getStudentById(id).subscribe(
-      data => {this.student = data, this.experiences = data.experiences, this.countEducation = data.countEducation, this.countExperiences = data.countExperiences, this.contactChecked = data.contactChecked},
+  getStudentByIdMySql(id) {
+    this.studentService.getStudentByIdMysql(id).subscribe(
+      data => {this.student = data[0], this.countEducation = data[0].countEducation, this.countExperiences = data[0].countExperiences, this.contactChecked = data[0].contactChecked},
       error => console.log(error),
     );
   }

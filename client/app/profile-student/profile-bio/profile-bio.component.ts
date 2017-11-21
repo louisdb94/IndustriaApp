@@ -10,7 +10,7 @@ import { DataTableModule } from "ng2-data-table";
   templateUrl: './profile-bio.component.html'
 })
 export class BioProfile {
-  public editMode = false;  
+  public editMode = false;
   @Input() student: {};
 
   constructor(private studentService: StudentService,

@@ -6,7 +6,7 @@
     <div class="container">
         <div class="col-md-12 text-center">
             <h1 class="display-4 text-center" style="margin-top:4%">
-                <textarea id="editName" *ngIf="editMode" [(ngModel)]="student.name" placeholder="Write your name" rows="1" (keyup.enter)="save()"></textarea>    
+                <textarea id="editName" *ngIf="editMode" [(ngModel)]="student.name" placeholder="Write your name" rows="1" (keyup.enter)="save()"></textarea>
                 <p *ngIf="!editMode">{{student.name}}</p>
             </h1>
 
@@ -67,7 +67,7 @@
 
 
 
-        <div *ngIf="!editMode" class="text-center">
+        <!-- <div *ngIf="!editMode" class="text-center">
             <a *ngIf="student.socialMediaChecked[0]" [href]="student.socialMedia[0]" class="btn-facebook" target="_blank">Facebook</a>
             <a *ngIf="student.socialMediaChecked[1]" [href]="student.socialMedia[1]" class="btn-twitter" target="_blank">Twitter</a>
             <a *ngIf="student.socialMediaChecked[2]" [href]="student.socialMedia[2]" class="btn-google-plus" target="_blank">Google+</a>
@@ -107,7 +107,7 @@
                 <a href="#" class="btn-linkedin">LinkedIn</a>
                 <input [(ngModel)]="student.socialMedia[3]" placeholder="Link your LinkedIn page">
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 

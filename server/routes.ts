@@ -84,7 +84,7 @@ export default function setRoutes(app) {
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
   router.route('/students-getall').get(studentsCtrl.select);
-  router.route('/students-insert').get(studentsCtrl.insert);
+  router.route('/students-insert').post(studentsCtrl.insert);
   router.route('/student-delete/:id').get(studentsCtrl.delete);
   router.route('/student-updatename/:id').get(studentsCtrl.updateName);
   router.route('/student-updaternumber/:id').get(studentsCtrl.updateRnumber);
