@@ -73,6 +73,10 @@ export default function setRoutes(app) {
   router.route('/create-skills').get(skillsCtrl.getsql);
   router.route('/create-socialmedia').get(socialmediaCtrl.getsql);
 
+  //User
+  router.route('/users/:id').get(usersCtrl.getbyId);
+  router.route('/users-delete/:id').get(usersCtrl.delete);
+
 
   // CV
   router.route('/cv').get(cvCtrl.getAll);

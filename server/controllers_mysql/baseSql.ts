@@ -18,7 +18,7 @@ abstract class BaseSqlCtrl {
     // Insert post 1
     insert =  (req, res) => {
 
-        let sql = `INSERT INTO '${this.model}' SET ?`;
+        let sql = `INSERT INTO ${this.model} SET ?`;
         let query = db.query(sql, `${req.body}`, (err, result) => {
             if(err) throw err;
             console.log(result);
@@ -39,7 +39,7 @@ abstract class BaseSqlCtrl {
 
     // Select posts
     select = (req, res) => {
-        let sql = `SELECT * FROM '${this.model}'`;
+        let sql = `SELECT * FROM ${this.model}`;
         let query = db.query(sql, (err, results) => {
             if(err) throw err;
             console.log(results);
@@ -49,13 +49,33 @@ abstract class BaseSqlCtrl {
 
     // Select single post
     getbyId =  (req, res) => {
-        let sql = `SELECT * FROM '${this.model}' WHERE id = ${req.params.id}`;
+        let sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
             console.log(result);
             res.send('Post fetched...');
         });
     };
+
+    getbyStudentId =  (req, res) => {
+        let sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
+        let query = db.query(sql, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.send('Post fetched...');
+        });
+    };
+
+    getbyUserId =  (req, res) => {
+        let sql = `SELECT * FROM ${this.model} WHERE user_fk = '${req.params.id}'`;
+        let query = db.query(sql, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.send('Post fetched...');
+        });
+    };
+
+
 
     // // Update post
     // update =  (req, res) => {
@@ -69,7 +89,7 @@ abstract class BaseSqlCtrl {
 
     // Delete post
     delete = (req, res) => {
-        let sql = `DELETE FROM '${this.model}' WHERE id = ${req.params.id}`;
+        let sql = `DELETE FROM ${this.model} WHERE id = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
             console.log(result);
