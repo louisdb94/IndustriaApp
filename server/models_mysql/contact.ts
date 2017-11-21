@@ -1,4 +1,4 @@
-let contacts = `CREATE TABLE contact (
+let contacts = `CREATE TABLE IF NOT EXISTS contact (
   id int(11) NOT NULL AUTO_INCREMENT,
   email varchar(20) NOT NULL,
   phone varchar(10) NOT NULL,

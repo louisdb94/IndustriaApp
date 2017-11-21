@@ -1,4 +1,4 @@
-let sql_socialmedia = `CREATE TABLE socialmedia (
+let sql_socialmedia = `CREATE TABLE IF NOT EXISTS socialmedia (
     id int(10) NOT NULL AUTO_INCREMENT,
     type varchar(10) DEFAULT NULL,
     url varchar(50) DEFAULT NULL,

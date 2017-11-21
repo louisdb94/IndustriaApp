@@ -1,4 +1,4 @@
-let education = `CREATE TABLE education (
+let education = `CREATE TABLE IF NOT EXISTS education (
   id int(11) NOT NULL AUTO_INCREMENT,
   student_fk int(11) NOT NULL,
   type varchar(30) NOT NULL DEFAULT 'Master Industrial Engineering',

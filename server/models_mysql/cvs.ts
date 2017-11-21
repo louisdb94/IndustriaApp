@@ -1,4 +1,4 @@
-let cvs = `CREATE TABLE cvs (
+let cvs = `CREATE TABLE IF NOT EXISTS cvs (
   id int(11) NOT NULL AUTO_INCREMENT,
   student_fk int(11) NOT NULL,
   name varchar(15) NOT NULL,

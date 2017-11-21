@@ -1,4 +1,4 @@
-let language = `CREATE TABLE language (
+let language = `CREATE TABLE IF NOT EXISTS language (
   id int(11) NOT NULL AUTO_INCREMENT,
   student_fk int(11) NOT NULL,
   type varchar(20) NOT NULL,

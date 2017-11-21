@@ -1,4 +1,4 @@
-let sql_students = `CREATE TABLE students (
+let sql_students = `CREATE TABLE IF NOT EXISTS students (
     id int(10) NOT NULL AUTO_INCREMENT,
     name varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'Elon Musk',
     rnumber varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,

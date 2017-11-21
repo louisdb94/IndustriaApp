@@ -1,4 +1,4 @@
-let sql_skills = `CREATE TABLE skills (
+let sql_skills = `CREATE TABLE IF NOT EXISTS skills (
     id int(11) NOT NULL AUTO_INCREMENT,
     student_fk int(11) NOT NULL,
     skill varchar(10) NOT NULL,

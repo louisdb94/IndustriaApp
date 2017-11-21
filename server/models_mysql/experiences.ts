@@ -1,4 +1,4 @@
-let experiences = `CREATE TABLE experiences (
+let experiences = `CREATE TABLE IF NOT EXISTS experiences (
   id int(10) NOT NULL AUTO_INCREMENT,
   function varchar(30) NOT NULL DEFAULT 'Engineer',
   description varchar(50) NOT NULL DEFAULT 'Good Engineer',
