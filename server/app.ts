@@ -46,7 +46,7 @@ db.connect((err) => {
 
 // Create DB
 app.get('/createdb', (req, res) => {
-    let sql = 'CREATE DATABASE industriaApp';
+    let sql = 'CREATE DATABASE IF NOT EXISTS industriaApp';
     db.query(sql, (err, result) => {
         if(err) throw err;
         console.log(result);
