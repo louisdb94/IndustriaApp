@@ -74,8 +74,31 @@ export default function setRoutes(app) {
   router.route('/create-socialmedia').get(socialmediaCtrl.getsql);
 
   //User
-  router.route('/users/:id').get(usersCtrl.getbyId);
-  router.route('/users-delete/:id').get(usersCtrl.delete);
+  router.route('/user-get/:id').get(usersCtrl.getbyId);
+  router.route('/users-getall').get(usersCtrl.select);
+  router.route('/users-insert').get(usersCtrl.insert);
+  router.route('/user-delete/:id').get(usersCtrl.delete);
+  router.route('/user-updateemail/:id').get(usersCtrl.updateEmail);
+  router.route('/users-updaternumber/:id').get(usersCtrl.updateRnumber);
+
+  //Students
+  router.route('/students-get/:id').get(studentsCtrl.getbyId);
+  router.route('/students-getall').get(studentsCtrl.select);
+  router.route('/students-insert').get(studentsCtrl.insert);
+  router.route('/student-delete/:id').get(studentsCtrl.delete);
+  router.route('/student-updatename/:id').get(studentsCtrl.updateName);
+  router.route('/student-updaternumber/:id').get(studentsCtrl.updateRnumber);
+  router.route('/student-updatewhoami/:id').get(studentsCtrl.updateWhoami);
+  router.route('/student-updategradyear/:id').get(studentsCtrl.updateGradyear);
+  router.route('/student-updatedegree/:id').get(studentsCtrl.updateDegree);
+  router.route('/student-updatecvchecked/:id').get(studentsCtrl.updateCvchecked);
+  router.route('/student-updatecountskills/:id').get(studentsCtrl.updateCountSkills);
+  router.route('/student-updatecontactchecked/:id').get(studentsCtrl.updateContactChecked);
+  router.route('/student-updatecountlanguage/:id').get(studentsCtrl.updateCountLanguage);
+  router.route('/student-updatecounteducation/:id').get(studentsCtrl.updateCountEduaction);
+  router.route('/student-updatenumbercv/:id').get(studentsCtrl.updateNumbercv);
+  router.route('/student-updateimage/:id').get(studentsCtrl.updateImage);
+
 
 
   // CV

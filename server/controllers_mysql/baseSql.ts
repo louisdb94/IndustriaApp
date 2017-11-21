@@ -64,8 +64,6 @@ abstract class BaseSqlCtrl {
         });
     };
 
-
-
     // // Update post
     // update = (req, res) => {
     //     let sql = `UPDATE ${this.model} SET field = '${req.body}' WHERE id = ${req.params.id}`;
