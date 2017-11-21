@@ -1,16 +1,16 @@
 import {db} from '../app';
 
-abstract class BaseCtrl {
+abstract class BaseSqlCtrl {
 
     abstract model: any;
-    abstract post: any;
-    abstract field: any;
+
+    // abstract field: any;
 
     // Insert post 1
     insert =  (req, res) => {
 
         let sql = `INSERT INTO '${this.model}' SET ?`;
-        let query = db.query(sql, this.post, (err, result) => {
+        let query = db.query(sql, `${req.body}`, (err, result) => {
             if(err) throw err;
             console.log(result);
             res.send('Post 1 added...');
@@ -21,7 +21,7 @@ abstract class BaseCtrl {
     insert2 = (req, res) => {
 
         let sql = `INSERT INTO '${this.model}' SET ?`;
-        let query = db.query(sql, this.post, (err, result) => {
+        let query = db.query(sql, `${req.body}`, (err, result) => {
             if(err) throw err;
             console.log(result);
             res.send('Post 2 added...');
@@ -48,15 +48,15 @@ abstract class BaseCtrl {
         });
     };
 
-    // Update post
-    update =  (req, res) => {
-        let sql = `UPDATE '${this.model}' SET '${this.field}' = '${this.post}' WHERE id = ${req.params.id}`;
-        let query = db.query(sql, (err, result) => {
-            if(err) throw err;
-            console.log(result);
-            res.send('Post updated...');
-        });
-    };
+    // // Update post
+    // update =  (req, res) => {
+    //     let sql = `UPDATE '${this.model}' SET '${this.field}' = '${req.body}' WHERE id = ${req.params.id}`;
+    //     let query = db.query(sql, (err, result) => {
+    //         if(err) throw err;
+    //         console.log(result);
+    //         res.send('Post updated...');
+    //     });
+    // };
 
     // Delete post
     delete = (req, res) => {
@@ -69,3 +69,5 @@ abstract class BaseCtrl {
     };
 
 }
+
+export default BaseSqlCtrl;
