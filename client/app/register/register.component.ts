@@ -55,19 +55,20 @@ export class RegisterComponent implements OnInit {
     this.appcomponent.switchLanguage(language);
   }
 
-  addStudent(){
-    this.studentService.addStudent(this.registerForm.value).subscribe(
-      res => {console.log("New student created")},
-      error => console.log(error)
-    );
-  }
+  // addStudent(){
+  //   this.studentService.addStudentMysql(this.registerForm.value).subscribe(
+  //     res => {console.log("New student created")},
+  //     error => console.log(error)
+  //   );
+  // }
 
   register() {
     this.registerForm.value.rnumber = this.emailStudent.substring(0,8);
-    this.userService.register(this.registerForm.value).subscribe(
+    console.log(this.registerForm.value);
+    this.userService.registerMysql(this.registerForm.value).subscribe(
       res => {
         this.toast.setMessage('you successfully registered!', 'success');
-        this.addStudent();
+  //      this.addStudent();
         this.router.navigate(['/login']);
       },
       error => this.toast.setMessage('email already exists', 'danger')

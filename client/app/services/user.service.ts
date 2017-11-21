@@ -44,4 +44,10 @@ export class UserService {
     return this.http.delete(`/api/user/${user._id}`, this.options);
   }
 
+  //MYSQL
+
+  registerMysql(user): Observable<any> {
+    return this.http.post('/api/users-insert', JSON.stringify(user), this.options);
+  }
+
 }

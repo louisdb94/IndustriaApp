@@ -22,9 +22,11 @@ abstract class BaseSqlCtrl {
         let query = db.query(sql, req.body, (err, result) => {
             if(err) throw err;
             console.log(result);
-            // res.json(result);
+            res.json(result);
         });
     };
+
+
 
     // Select posts
     select = (req, res) => {

@@ -62,21 +62,33 @@ export default function setRoutes(app) {
   const usersCtrl = new UsersCtrl();
 
 
+  // // CREATE MYSQL TABLES
+  // router.route('/create-users').get(usersCtrl.getsql);
+  // router.route('/create-students').get(studentsCtrl.getsql);
+  // router.route('/create-cvs').get(cvsCtrl.getsql);
+  // router.route('/create-contacts').get(contactsCtrl.getsql);
+  // router.route('/create-education').get(educationCtrl.getsql);
+  // router.route('/create-experience').get(experienceCtrl.getsql);
+  // router.route('/create-language').get(languageCtrl.getsql);
+  // router.route('/create-skills').get(skillsCtrl.getsql);
+  // router.route('/create-socialmedia').get(socialmediaCtrl.getsql);
+
   // CREATE MYSQL TABLES
-  router.route('/create-users').get(usersCtrl.getsql);
-  router.route('/create-students').get(studentsCtrl.getsql);
-  router.route('/create-cvs').get(cvsCtrl.getsql);
-  router.route('/create-contacts').get(contactsCtrl.getsql);
-  router.route('/create-education').get(educationCtrl.getsql);
-  router.route('/create-experience').get(experienceCtrl.getsql);
-  router.route('/create-language').get(languageCtrl.getsql);
-  router.route('/create-skills').get(skillsCtrl.getsql);
-  router.route('/create-socialmedia').get(socialmediaCtrl.getsql);
+  router.route('/create-users')
+        .get(usersCtrl.getsql)
+        .get(studentsCtrl.getsql)
+        .get(cvsCtrl.getsql)
+        .get(contactsCtrl.getsql)
+        .get(educationCtrl.getsql)
+        .get(experienceCtrl.getsql)
+        .get(languageCtrl.getsql)
+        .get(skillsCtrl.getsql)
+        .get(socialmediaCtrl.getsql);
 
   //User
   router.route('/user-get/:id').get(usersCtrl.getbyId);
   router.route('/users-getall').get(usersCtrl.select);
-  router.route('/users-insert').get(usersCtrl.insert);
+  router.route('/users-insert').post(usersCtrl.insert);
   router.route('/user-delete/:id').get(usersCtrl.delete);
   router.route('/user-updateemail/:id').get(usersCtrl.updateEmail);
   router.route('/users-updaternumber/:id').get(usersCtrl.updateRnumber);
