@@ -10,6 +10,9 @@ import User from './models/user';
 import Student from './models/student';
 import Cv from './models/cv';
 import Image from './models/image';
+
+import CvsCtrl from './controllers_mysql/cvs';      //HEREEE
+
 import * as path from 'path';
 
 import * as mime from 'mime';
@@ -32,19 +35,11 @@ export default function setRoutes(app) {
   const cvCtrl = new CvCtrl();
   const imageCtrl = new ImageCtrl();
 
+  const cvsCtrl = new CvsCtrl();      //HEREEE
+
 
   // Create table
-  router.route('/createcvs').get(function(req, res){
-
-       db.query(cvs, (err, result) => {
-          if(err) throw err;
-          console.log(result);
-          res.send('Posts table created...');
-      });
-
-  });
-
-  router.route('/create-cvs').get(userCtrl.getsql);
+  router.route('create-cvs').get(cvsCtrl.getsql);     //HEREEE
 
 
   // CV

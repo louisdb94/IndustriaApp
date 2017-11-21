@@ -36,13 +36,4 @@ export default class UserCtrl extends BaseCtrl {
     console.log("random");
   }
 
-
-  getsql = (req, res) => {
-    db.query(cvs, (err, result) => {
-      if (err) throw err;
-      console.log(result);
-      res.send('Posts table created...');
-    });
-  
-  }
 }
