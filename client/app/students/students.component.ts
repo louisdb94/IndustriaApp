@@ -35,14 +35,14 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit() {
 
-    if (this.auth.loggedIn) {
-      this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
-        data => (this.data.changeMessageId(data._id), this.data.changeMessageNav(true)),
-        error => console.log("error")
-      );
-    }
+    // if (this.auth.loggedIn) {
+    //   this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
+    //     data => (this.data.changeMessageId(data._id), this.data.changeMessageNav(true)),
+    //     error => console.log("error")
+    //   );
+    // }
 
-    this.getStudents();
+    this.getStudentsByIdMysql(33);
     this.addStudentForm = this.formBuilder.group({
       name: this.name,
       degree: this.degree,
@@ -51,9 +51,9 @@ export class StudentsComponent implements OnInit {
 
     this.data.idMessage.subscribe(message => this.messageId = message)
   }
-  getStudents() {
-    this.studentService.getStudents().subscribe(
-      data => this.students = data,
+  getStudentsByIdMysql(id) {
+    this.studentService.getStudentsByIdMysql(id).subscribe(
+      data => {console.log(JSON.stringify(data[0]))},
       error => console.log(error)
     );
   }

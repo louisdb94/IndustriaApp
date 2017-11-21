@@ -42,7 +42,8 @@ abstract class BaseSqlCtrl {
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
             console.log(result);
-            res.send('Post fetched...');
+            res.json(result);
+            // res.send('Post fetched...');
         });
     };
 

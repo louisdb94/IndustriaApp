@@ -47,34 +47,15 @@ export class StudentService {
     return this.http.delete(`/api/cat/${student._id}`, this.options);
   }
 
-
-  // // Files
-  //
-  // addUpload(fileupload): Observable<any> {
-  //   console.log("danny");
-  //   return this.http.post('/api/upload', JSON.stringify(fileupload), this.options);
-  // }
-  //
-  // download(cv_id): Observable<any> {
-  //   console.log(cv_id);
-  //   return this.http.get(`/api/download/${cv_id}`);
-  // }
-  //
-  // addcv(cv):Observable<any>{
-  //   return this.http.post('/api/cv', JSON.stringify(cv), this.options);
-  // }
-  //
-  // getCvFromStudent(id):Observable<any>{
-  //   return this.http.get(`/api/cv/${id}`).map(res => res.json());
-  // }
-  //
-  // removeCv(cv):Observable<any>{
-  //   return this.http.delete(`/api/cv/${cv._id}`, this.options);
-  // }
-
-
   deleteExperience(experience): Observable<any> {
     return this.http.delete(`/api/student/${experience}`, this.options);
+  }
+
+
+  //MYSQL
+
+  getStudentsByIdMysql(id): Observable<any> {
+    return this.http.get(`/api/students-get/${id}`).map(res => res.json());
   }
 
 
