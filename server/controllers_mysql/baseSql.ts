@@ -27,7 +27,6 @@ abstract class BaseSqlCtrl {
     };
 
 
-
     // Select posts
     select = (req, res) => {
         let sql = `SELECT * FROM ${this.model}`;
