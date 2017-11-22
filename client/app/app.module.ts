@@ -30,6 +30,7 @@ import { BioProfile } from './profile-student/profile-bio';
 import { EducationProfile } from './profile-student/profile-education';
 import { SkillsProfile } from './profile-student/profile-skills';
 import { LanguageProfile } from './profile-student/profile-language';
+import { ProfessionalProfile } from './profile-student/profile-professional';
 import { ContactProfile } from './profile-student/profile-contact';
 import { FooterProfile } from './profile-student/profile-footer';
 import { ExperiencesProfile } from './profile-student/profile-experiences';
@@ -90,6 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ExperiencesProfile,
     SkillsProfile,
     LanguageProfile,
+    ProfessionalProfile,
     ContactProfile,
     FooterProfile,
 

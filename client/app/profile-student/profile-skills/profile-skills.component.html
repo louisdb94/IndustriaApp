@@ -74,7 +74,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4" *ngIf="student.countExperiences >= 1">
+            <div class="col-md-4" *ngIf="student.countSkills >= 1">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[3]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
                     <p id="skillsTitle" *ngIf="!editMode">{{student.skills[3]}}</p>
@@ -96,7 +96,7 @@
                     <jqxDropDownList #jqxDropDownList4 *ngIf="editMode" (onSelect)="updateProgressBar($event, 4, student)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
                 </p>
             </div>
-            <div class="col-md-4" *ngIf="student.countExperiences >= 2">
+            <div class="col-md-4" *ngIf="student.countSkills >= 2">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[4]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
                     <p id="skillsTitle" *ngIf="!editMode">{{student.skills[4]}}</p>
@@ -118,7 +118,7 @@
                     <jqxDropDownList #jqxDropDownList5 *ngIf="editMode" (onSelect)="updateProgressBar($event, 5, student)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
                 </p>
             </div>
-            <div class="col-md-4" *ngIf="student.countExperiences >= 3">
+            <div class="col-md-4" *ngIf="student.countSkills >= 3">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[5]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
                     <p id="skillsTitle" *ngIf="!editMode">{{student.skills[5]}}</p>
@@ -142,7 +142,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4" *ngIf="student.countExperiences >= 4">
+            <div class="col-md-4" *ngIf="student.countSkills >= 4">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[6]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
                     <p id="skillsTitle" *ngIf="!editMode">{{student.skills[6]}}</p>
@@ -164,7 +164,7 @@
                     <jqxDropDownList #jqxDropDownList7 *ngIf="editMode" (onSelect)="updateProgressBar($event, 7, student)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
                 </p>
             </div>
-            <div class="col-md-4" *ngIf="student.countExperiences >= 5">
+            <div class="col-md-4" *ngIf="student.countSkills >= 5">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[7]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
                     <p id="skillsTitle" *ngIf="!editMode">{{student.skills[7]}}</p>
@@ -186,7 +186,7 @@
                     <jqxDropDownList #jqxDropDownList8 *ngIf="editMode" (onSelect)="updateProgressBar($event, 8, student)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
                 </p>
             </div>
-            <div class="col-md-4" *ngIf="student.countExperiences >= 6">
+            <div class="col-md-4" *ngIf="student.countSkills >= 6">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="student.skills[8]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
                     <p id="skillsTitle" *ngIf="!editMode">{{student.skills[8]}}</p>

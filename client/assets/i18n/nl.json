@@ -26,7 +26,8 @@
     "Description": "Beschrijving",
     "Period": "Periode",
 
-    "Skills": "Vaardigheden",
+    "Skills": "Technische Vaardigheden",
+    "Professional Skills": "Professionele Vaardigheden",
     "Language knowledge": "Taalvaardigheid",
 
     "footer": "Tel 016/30 10 48 · Vragen en opmerkingen: ",
@@ -39,12 +40,12 @@
 
     "Login": "Student carrièreportaal login",
     "Register": "Student carrièreportaal registratie",
-    "RegisterButton": "Registreer",
+    "RegisterButton": "Registreer hier",
 
     "Graduation year": "Afstudeer jaar",
 
     "homepage" : "Deze pagina is nog onder constructie. Om je profiel pagina in te vullen ga naar 'Profiel' via de navigatiebalk.",
 
     "Do you want to register?":  "Klik op deze link indien u nog niet geregistreerd bent als student",
-    "login under construction": "Deze website is nog onder ontwikkeling, de volgende keer dat je aanmeldt/registreert, zal het via de KU Leuven login zijn. Alle data die tijdens deze sessie wordt ingegeven zal nog worden overgezet naar een andere databank. Een wachtwoord is dus momenteel niet nodig. Bedankt voor uw begrip"
+    "login under construction": "Website is nog onder ontwikkeling, volgende zal je aanmelden via KU Leuven. Alle data verzameld tijdens deze sessie zal nog worden overgezet. Bedankt voor uw begrip"
 }

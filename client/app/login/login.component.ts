@@ -89,6 +89,6 @@ export class LoginComponent implements OnInit {
   }
 
   addTip(){
-    this.toast.setMessage('Format is r0xxxxxx@kuleuven.be => r0123456@kuleuven.be', 'info')
+    this.toast.setMessage('Format is r0123456@kuleuven.be', 'info')
   }
 }

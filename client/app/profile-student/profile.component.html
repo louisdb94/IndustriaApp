@@ -19,6 +19,10 @@
 </div>
 
 <div *ngIf="student">
+    <profile-professional class="component" [student]="student"></profile-professional>
+</div>
+
+<div *ngIf="student">
     <profile-language class="component" [student]="student"></profile-language>
 </div>
 

@@ -26,7 +26,8 @@
     "Description": "Description",
     "Period": "Period",
 
-    "Skills": "Skills",
+    "Skills": "Technical Skills",
+    "Professional Skills": "Professional Skills",
     "Language knowledge": "Language knowledge",
 
     "footer": "Phone number 016/30 10 48 · Questions and remarks: ",
@@ -39,12 +40,12 @@
 
     "Login": "Student job portal login",
     "Register": "Student job portal registration",
-    "RegisterButton": "Register",
+    "RegisterButton": "Register here",
 
     "Graduation year": "Graduation year",
 
-    "homepage" : "The page is still under construction, to fill in your profile page go to 'Profile' via the navigation bar.",
-
     "Do you want to register?":  "Click on this link if you are new and want to register as a student",
-    "login under construction": "This website is still under construction, the next time that you will log in/register, this will be done through the KU Leuven server. All data recorded during this session, will be transferred to another database, so a password is not necessary for the moment. Thanks in advance for understanding"
+    "homepage" : "The homepage is still under construction, to fill in your profile page go to 'Profile' via the navigation bar.",
+    
+    "login under construction": "Still under construction, next log in/register will be done through the KU Leuven server. Data recorded during this session will be saved and transferred. Thanks in advance for understanding"
 }

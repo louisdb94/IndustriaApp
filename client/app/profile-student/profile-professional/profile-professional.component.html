@@ -1,0 +1,147 @@
+<div class="jumbotron">
+    <div class="container">
+        <button translate *ngIf="editMode" (click)="save(student)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+        <button translate *ngIf="!editMode" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+        <h2 translate>Professional Skills</h2><br>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div style='margin-top: 10px;'>
+                    <textarea *ngIf="editMode" [(ngModel)]="student.professional[0]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
+                    <p id="skillsTitle" *ngIf="!editMode" style="font-size : 20px">{{student.professional[0]}}</p>
+                </div>
+                <jqxProgressBar #jqxProgressBar1
+                    [animationDuration]="1000"
+                    [width]="250"
+                    [height]="50"
+                    [(value)]="student.professionalValue[0]"
+                    [showText]="true"
+                    [renderText]="renderText"
+                    [template]="'primary'">
+                </jqxProgressBar>
+                <div id="skillsText" class="text-center">
+                    <p *ngIf="!editMode">{{student.professionalValue[1]}}</p>
+                </div>
+                <br>
+                <p class="text-center">
+                    <jqxDropDownList #jqxDropDownList1 *ngIf="editMode" (onSelect)="updateProgressBar($event, 1, student)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
+                </p>
+
+            </div>
+            <div class="col-md-4">
+                <div style='margin-top: 10px;'>
+                    <textarea *ngIf="editMode" [(ngModel)]="student.professional[1]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.professional[1]}}</p>
+                </div>
+                <jqxProgressBar #jqxProgressBar2
+                    [animationDuration]="1000"
+                    [width]="250"
+                    [height]="50"
+                    [(value)]="student.professionalValue[2]"
+                    [showText]="true"
+                    [renderText]="renderText"
+                    [template]="'primary'">
+                </jqxProgressBar>
+                <div id="skillsText" class="text-center">
+                    <p *ngIf="!editMode">{{student.professionalValue[3]}}</p>
+                </div>
+                <br>
+                <p class="text-center">
+                    <jqxDropDownList #jqxDropDownList2 *ngIf="editMode" (onSelect)="updateProgressBar($event, 2, student)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
+                </p>
+            </div>
+            <div class="col-md-4" *ngIf="student.countProfessional >= 1">
+                <div style='margin-top: 10px;'>
+                    <textarea *ngIf="editMode" [(ngModel)]="student.professional[2]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.professional[2]}}</p>
+                </div>
+                <jqxProgressBar #jqxProgressBar3
+                    [animationDuration]="1000"
+                    [width]="250"
+                    [height]="50"
+                    [(value)]="student.professionalValue[4]"
+                    [showText]="true"
+                    [renderText]="renderText"
+                    [template]="'primary'">
+                </jqxProgressBar>
+                <div id="skillsText" class="text-center">
+                    <p *ngIf="!editMode">{{student.professionalValue[5]}}</p>
+                </div>
+                <br>
+                <p class="text-center">
+                    <jqxDropDownList #jqxDropDownList3 *ngIf="editMode" (onSelect)="updateProgressBar($event, 3, student)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" *ngIf="student.countProfessional >= 2">
+                <div style='margin-top: 10px;'>
+                    <textarea *ngIf="editMode" [(ngModel)]="student.professional[3]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.professional[3]}}</p>
+                </div>
+                <jqxProgressBar #jqxProgressBar4
+                    [animationDuration]="1000"
+                    [width]="250"
+                    [height]="50"
+                    [(value)]="student.professionalValue[6]"
+                    [showText]="true"
+                    [renderText]="renderText"
+                    [template]="'primary'">
+                </jqxProgressBar>
+                <div id="skillsText" class="text-center">
+                    <p *ngIf="!editMode">{{student.professionalValue[7]}}</p>
+                </div>
+                <br>
+                <p class="text-center">
+                    <jqxDropDownList #jqxDropDownList4 *ngIf="editMode" (onSelect)="updateProgressBar($event, 4, student)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
+                </p>
+            </div>
+            <div class="col-md-4" *ngIf="student.countProfessional >= 3">
+                <div style='margin-top: 10px;'>
+                    <textarea *ngIf="editMode" [(ngModel)]="student.professional[4]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.professional[4]}}</p>
+                </div>
+                <jqxProgressBar #jqxProgressBar5
+                    [animationDuration]="1000"
+                    [width]="250"
+                    [height]="50"
+                    [(value)]="student.professionalValue[8]"
+                    [showText]="true"
+                    [renderText]="renderText"
+                    [template]="'primary'">
+                </jqxProgressBar>
+                <div id="skillsText" class="text-center">
+                    <p *ngIf="!editMode">{{student.professionalValue[9]}}</p>
+                </div>
+                <br>
+                <p class="text-center">
+                    <jqxDropDownList #jqxDropDownList5 *ngIf="editMode" (onSelect)="updateProgressBar($event, 5, student)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
+                </p>
+            </div>
+            <div class="col-md-4" *ngIf="student.countProfessional >= 4">
+                <div style='margin-top: 10px;'>
+                    <textarea *ngIf="editMode" [(ngModel)]="student.professional[5]" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
+                    <p id="skillsTitle" *ngIf="!editMode">{{student.professional[5]}}</p>
+                </div>
+                <jqxProgressBar #jqxProgressBar6
+                    [animationDuration]="1000"
+                    [width]="250"
+                    [height]="50"
+                    [(value)]="student.professionalValue[10]"
+                    [showText]="true"
+                    [renderText]="renderText"
+                    [template]="'primary'">
+                </jqxProgressBar>
+                <div id="skillsText" class="text-center">
+                    <p *ngIf="!editMode">{{student.professionalValue[11]}}</p>
+                </div>
+                <br>
+                <p class="text-center">
+                    <jqxDropDownList #jqxDropDownList6 *ngIf="editMode" (onSelect)="updateProgressBar($event, 6, student)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
+                </p>
+            </div>
+        </div>
+        <button *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete(student)" style="float : right"><i class="fa fa-trash"></i> Delete</button>
+        <button *ngIf="editMode" class="btn btn-sm btn-success" (click)="add(student)" style="float : right"><i class="fa fa-plus"></i> Add</button>
+    </div>
+</div>
