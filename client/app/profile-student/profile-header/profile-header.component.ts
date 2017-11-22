@@ -102,46 +102,26 @@ export class HeaderProfile {
   }
 
   fileChangeListener($event) {
-      // var image:any = new Image();
-      // var file:File = $event.target.files[0];
-      // var myReader:FileReader = new FileReader();
-      // var that = this;
-      // myReader.onloadend = function (loadEvent:any) {
-      //     image.src = loadEvent.target.result;
-      //     that.cropper.setImage(image);
-      //
-      // };
-      // myReader.readAsDataURL(file);
-
-      // //Upload image to ImageModel -> DB
-      // this.addImageForm = this.formBuilder.group({
-      //   name: this.rnumber,
-      //   uploader: this.id,
-      //   mimetype: file.type.split('/')[1],
-      // });
-      // this.fileService.addImage(this.addImageForm.value).subscribe(
-      //   res => {
-      //     const newImage = res.json();
-      //     console.log("New image toegevoegd aan ImageModel", newImage)
-      //   }
-      // );
 
       //Upload image to server
       var file:File = $event.target.files[0];
-      let formData: FormData = new FormData();
-      formData.append('files', file, file.name);
-      let rnumber = this.rnumber;
-      for(let i = 0; i<rnumber.length;i++){
-           formData.append('students', rnumber[i]);
-      }
-      let id = this.id;
-      for(let i = 0; i<id.length;i++){
-           formData.append('id', id[i]);
-      }
-      if(file) {
-        this.http.post('/api/image/upload', formData, {}).subscribe(
-          res => console.log('gelukt', res));
-      }
+      if(file.size < 2550594){
+          let formData: FormData = new FormData();
+          formData.append('files', file, file.name);
+          let rnumber = this.rnumber;
+          for(let i = 0; i<rnumber.length;i++){
+               formData.append('students', rnumber[i]);
+          }
+          let id = this.id;
+          for(let i = 0; i<id.length;i++){
+               formData.append('id', id[i]);
+          }
+          if(file) {
+            this.http.post('/api/image/upload', formData, {}).subscribe(
+              res => console.log('gelukt', res));
+          }
+      }else{alert('File is too large (< 2.5mb)')}
+
 
   }
 

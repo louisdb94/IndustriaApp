@@ -6,7 +6,7 @@
     <div class="container">
         <div class="col-md-12 text-center">
             <h1 class="display-4 text-center" style="margin-top:4%">
-                <textarea id="editName" *ngIf="editMode" [(ngModel)]="student.name" placeholder="Write your name" rows="1" (keyup.enter)="save()"></textarea>    
+                <textarea id="editName" *ngIf="editMode" [(ngModel)]="student.name" placeholder="Write your name" rows="1" (keyup.enter)="save()"></textarea>
                 <p *ngIf="!editMode">{{student.name}}</p>
             </h1>
 
@@ -31,7 +31,7 @@
                 <div class="file-upload" *ngIf="editMode">
                     <br>
                     <button (click)="add()">Upload</button>
-                    <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+                    <input id="custom-input" type="file" accept="image/*" (change)="fileChangeListener($event)">
                 </div>
             </div>
         </div><br>
@@ -44,7 +44,7 @@
             </label>
         </div>
 
-        <p-fileUpload *ngIf="cvChecked" name="cv" customUpload="true"  (uploadHandler)="myUploader($event)"></p-fileUpload>
+        <p-fileUpload *ngIf="cvChecked" name="cv" customUpload="true"  (uploadHandler)="myUploader($event)" accept="application/pdf" maxFileSize="1000000"></p-fileUpload>
 
         <br><br>
 
