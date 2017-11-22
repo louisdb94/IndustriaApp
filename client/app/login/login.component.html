@@ -21,6 +21,7 @@
                 <div id="login" class="input-group" [ngClass]="setClassEmail()">
                   <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                   <input class="form-control" [(ngModel)]="emailStudent" type="email" name="email" formControlName="email" placeholder="Email" email pattern="[r]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
+                  <i id="info" (click)="addTip()"  class="fa fa-info-circle" aria-hidden="true"></i>
                 </div>
                 <br>
                 <!-- <div id="login" class="input-group" [ngClass]="setClassPassword()">
@@ -31,13 +32,12 @@
                 <!-- <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid"><i class="fa fa-sign-in"></i> Login</button> -->
                 <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid"><i class="fa fa-sign-in"></i> Login</button>
                 <br><br>
-                <br>
                 <a href="/register"><p translate>Do you want to register?</p></a>
             </form>
         </div>
     </div>
 </div>
 
-<footer>
+<footer class="footer">
     <profile-footer></profile-footer>
 </footer>
