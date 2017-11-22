@@ -11,6 +11,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
+
 @Component({
   selector: 'profile-student',  // <home></home>
   styleUrls: [ './profile.component.scss' ],
@@ -37,7 +38,7 @@ export class StudentProfile implements OnInit {
 
     this.dataService.idMessage.subscribe(message => this.messageId = message);
     this.dataService.navMessage.subscribe(message => this.messageNav = message);
-    
+
     if (this.auth.loggedIn && this.dataService.idMessage  != this.compareID) {
       this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
         data => (this.dataService.changeMessageId(data._id), this.dataService.changeMessageNav(true)),
@@ -51,6 +52,7 @@ export class StudentProfile implements OnInit {
       this.getStudentById(id);
     });
   }
+
 
   switchLanguage(language: string) {
     this.translate.use(language);

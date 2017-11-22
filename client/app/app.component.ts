@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(){
     this.data.navMessage.subscribe(message => this.messageNav = message);
+
   }
 
   switchLanguage(language: string) {
@@ -41,4 +42,7 @@ export class AppComponent implements OnInit {
     this.auth.loggedIn = false;
     this.auth.logout();
   }
+
+
+
 }

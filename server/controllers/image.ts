@@ -25,7 +25,7 @@ export default class ImageCtrl extends BaseCtrl {
     //add file to server
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
-    newImage.mv('./uploads/images/'+ rnumber + '.jpeg' ,function(err) {
+    newImage.mv('./uploads/images/'+ rnumber + '.jpg' ,function(err) {
      if (err){return res.status(500).send(err);}
      else{res.status(200).redirect('back');}
      });
@@ -56,14 +56,14 @@ export default class ImageCtrl extends BaseCtrl {
        if (err) { return console.error(err); }
        else{
            if(obj.image){
-             fs.readFile('./uploads/images/' + obj.rnumber + '.jpeg', 'base64', function(err, data){
+             fs.readFile('./uploads/images/' + obj.rnumber + '.jpg', 'base64', function(err, data){
                if(err){console.log(err);}
                res.setHeader('Content-Disposition', 'attachment');
                res.send(data)
              })
            }
            else{
-             fs.readFile('./uploads/images/standard.jpeg', 'base64', function(err, data){
+             fs.readFile('./uploads/images/standard.jpg', 'base64', function(err, data){
                if(err){console.log(err);}
                res.setHeader('Content-Disposition', 'attachment');
                res.send(data)

@@ -54,6 +54,10 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import {FileUploadModule} from 'primeng/primeng';
+import {ScheduleModule} from 'primeng/primeng';
+
+
+
 
 
 
@@ -97,7 +101,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     jqxDateTimeInputComponent,
     ImageCropperComponent,
 
-    FileSelectDirective
+    FileSelectDirective,
   ],
   imports: [
     RoutingModule,
@@ -111,7 +115,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    FileUploadModule
+    FileUploadModule,
+    ScheduleModule,
   ],
   providers: [
     AuthService,

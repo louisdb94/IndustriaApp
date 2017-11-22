@@ -5,6 +5,8 @@ import { AuthService } from '../services/auth.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {ScheduleModule} from 'primeng/primeng';
+
 
 
 @Component({
@@ -18,6 +20,7 @@ export class StudentsComponent implements OnInit {
   student = {};
   rnumber: String;
   messageId: String;
+  events = [];
 
   addStudentForm: FormGroup;
   name = new FormControl('', Validators.required);
@@ -50,7 +53,10 @@ export class StudentsComponent implements OnInit {
     });
 
     this.data.idMessage.subscribe(message => this.messageId = message)
+
   }
+
+
   getStudents() {
     this.studentService.getStudents().subscribe(
       data => this.students = data,

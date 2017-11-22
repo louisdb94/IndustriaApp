@@ -17,7 +17,7 @@
 
             <div>
                 <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.gradYear" placeholder="Select your year of graduation" rows="1" (keyup.enter)="save()"></textarea>
-                <p translate *ngIf="!editMode">Graduation year: {{student.gradYear}} </p>
+                <p translate *ngIf="!editMode">Expected graduation year: {{student.gradYear}} </p>
             </div>
 
             <div class="row" style="float : right">
@@ -40,7 +40,7 @@
             <label class="custom-control custom-checkbox">
                 <input [checked]="cvChecked" class="custom-control-input" type="checkbox" [(ngModel)]="check" (change)= "changeChecked($event, student)"/>
                 <span id="checkboxCV" class="custom-control-indicator"></span>
-                <span translate class="custom-control-description">CVcheck</span>
+                <span translate style="color:#984444;"class="custom-control-description">CVcheck</span>
             </label>
         </div>
 
