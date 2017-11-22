@@ -13,6 +13,7 @@
             </select>
           </p>
       </div><br>
+      <p id="underconstruction" translate>login under construction</p>
       <div class="card-block">
         <form method="POST" action="api/send" [formGroup]="registerForm" (ngSubmit)="register()">
 
@@ -26,10 +27,10 @@
             <input class="form-control" [(ngModel)]="emailStudent" type="email" name="email" formControlName="email" placeholder="Email" email pattern="[r]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}">
           </div><br>
 
-          <div id="register" class="input-group" [ngClass]="setClassPassword()">
+          <!-- <div id="register" class="input-group" [ngClass]="setClassPassword()">
             <span class="input-group-addon"><i class="fa fa-key"></i></span>
             <input class="form-control" [(ngModel)]="passwordStudent" type="password" name="password" formControlName="password" placeholder="Password">
-          </div><br>
+          </div><br> -->
 
           <button translate class="btn btn-primary" type="submit" [disabled]="!registerForm.valid"><i class="fa fa-user-plus"></i> RegisterButton</button>
         </form>

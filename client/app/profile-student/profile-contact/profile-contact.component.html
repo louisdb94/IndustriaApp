@@ -16,7 +16,7 @@
         </div><br>
 
         <div class="row" *ngIf="contactChecked">
-            <label translate class="col-md-2 control-label" for="phone">Phone number: </label>
+            <label translate class="col-md-2 control-label" for="phone">GSM: </label>
             <div class="col-md-9">
                 <input id="phone" name="phone" class="form-control" *ngIf="editMode" [(ngModel)]="student.contact[1]" placeholder="Write your phone number" type="text" (keyup.enter)="save()">
                 <p *ngIf="!editMode">{{student.contact[1]}}</p>

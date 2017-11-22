@@ -21,10 +21,10 @@ export class RegisterComponent implements OnInit {
     Validators.minLength(3),
     Validators.maxLength(100)
   ]);
-  password = new FormControl('', [
-    Validators.required,
-    Validators.minLength(6)
-  ]);
+  // password = new FormControl('', [
+    // Validators.required,
+    // Validators.minLength(6)
+  // ]);
 
   emailStudent = "";
   passwordStudent = "";
@@ -41,15 +41,15 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       rnumber: this.rnumber,
       email: this.email,
-      password: this.password
+      // password: this.password
     });
   }
   setClassEmail() {
     return { 'has-danger': !this.email.pristine && !this.email.valid };
   }
-  setClassPassword() {
-    return { 'has-danger': !this.password.pristine && !this.password.valid };
-  }
+  // setClassPassword() {
+  //   return { 'has-danger': !this.password.pristine && !this.password.valid };
+  // }
 
   switchLanguage(language) {
     this.appcomponent.switchLanguage(language);
@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm.value.rnumber = this.emailStudent.substring(0,8);
     this.userService.register(this.registerForm.value).subscribe(
       res => {
-        this.toast.setMessage('you successfully registered!', 'success');
+        this.toast.setMessage('You have successfully registered!', 'success');
         this.addStudent();
         this.router.navigate(['/login']);
       },

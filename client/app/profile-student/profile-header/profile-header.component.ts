@@ -70,21 +70,22 @@ export class HeaderProfile {
 
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];
-      this.getStudentById(id);
-      this.getCvFromStudent(id);
-      this.downloadImage(id);
-      this.files = [];
-    });
-  }
 
-  getStudentById(id) {
-    this.studentService.getStudentById(id).subscribe(
-      data => {this.student = data, this.rnumber = data.rnumber, this.id = data._id,
-                this.numberCv = data.numberCv, this.cvChecked = data.cvChecked},
-      error => console.log(error)
-    );
+    this.activatedRoute.params.subscribe((params: Params) => {
+        let id = params['id'];
+        this.getStudentById(id);
+        this.getCvFromStudent(id);
+        this.downloadImage(id);
+        this.files = [];
+      });
+    }
+
+    getStudentById(id) {
+      this.studentService.getStudentById(id).subscribe(
+        data => {this.student = data, this.rnumber = data.rnumber, this.id = data._id,
+                  this.numberCv = data.numberCv, this.cvChecked = data.cvChecked},
+        error => console.log(error)
+      );
   }
 
   save(student){

@@ -27,15 +27,20 @@ export class StudentProfile implements OnInit {
   countEducation: Number;
   countExperiences: Number;
   contactChecked: boolean;
+  messageId: String;
+  messageNav: boolean;
 
   private compare = new BehaviorSubject<String>("default message");
   compareID = this.compare.asObservable();
 
   ngOnInit() {
+
+    this.dataService.idMessage.subscribe(message => this.messageId = message);
+    this.dataService.navMessage.subscribe(message => this.messageNav = message);
     
-    if (this.auth.loggedIn && this.dataService.idMessage  == this.compareID) {
+    if (this.auth.loggedIn && this.dataService.idMessage  != this.compareID) {
       this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
-        data => (this.data.changeMessageId(data._id), this.data.changeMessageNav(true)),
+        data => (this.dataService.changeMessageId(data._id), this.dataService.changeMessageNav(true)),
         error => console.log("error")
       );
     }

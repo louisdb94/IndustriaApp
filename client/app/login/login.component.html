@@ -15,22 +15,24 @@
                 
             </div>
             <br><br>
+            <p id="underconstruction" translate>login under construction</p>
+            <br>
             <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <div id="login" class="input-group" [ngClass]="setClassEmail()">
                   <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                   <input class="form-control" [(ngModel)]="emailStudent" type="email" name="email" formControlName="email" placeholder="Email" email pattern="[r]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
                 </div>
                 <br>
-                <div id="login" class="input-group" [ngClass]="setClassPassword()">
+                <!-- <div id="login" class="input-group" [ngClass]="setClassPassword()">
                   <span class="input-group-addon"><i class="fa fa-key"></i></span>
                   <input class="form-control" [(ngModel)]="passwordStudent" type="password" name="password" formControlName="password" placeholder="Password">
                 </div>
-                <br>
+                <br> -->
                 <!-- <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid"><i class="fa fa-sign-in"></i> Login</button> -->
                 <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid"><i class="fa fa-sign-in"></i> Login</button>
                 <br><br>
                 <br>
-                <a href="/register">Do you want to register?</a>
+                <a href="/register"><p translate>Do you want to register?</p></a>
             </form>
         </div>
     </div>

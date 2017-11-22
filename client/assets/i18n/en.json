@@ -43,6 +43,8 @@
 
     "Graduation year": "Graduation year",
 
-    "homepage" : "The homepage is still under construction, to fill in your profile page go to 'Profile' via the navigation bar."
-
+    "homepage" : "The homepage is still under construction, to fill in your profile page go to 'Profile' via the navigation bar.",
+    
+    "Do you want to register?":  "Click on this link if you are new and want to register as a student",
+    "login under construction": "This website is still under construction, the next time that you will log in/register, this will be done through the KU Leuven server. All data recorded during this session, will be transferred to another database, so a password is not necessary for the moment. Thanks in advance for understanding"
 }
