@@ -17,7 +17,7 @@
 
             <div>
                 <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.gradYear" placeholder="Select your year of graduation" rows="1" (keyup.enter)="save()"></textarea>
-                <p translate *ngIf="!editMode">Graduation year: {{student.gradYear}}</p>
+                <p translate *ngIf="!editMode">Graduation year: {{student.gradYear}} </p>
             </div>
 
             <div class="row" style="float : right">
