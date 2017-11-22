@@ -46,7 +46,6 @@ export class LanguageProfile {
     this.studentService.editStudent(student).subscribe(
       res => {
         this.student = student;
-        this.toast.setMessage('item edited successfully.', 'success');
       },
       error => console.log(error)
     );
@@ -55,6 +54,11 @@ export class LanguageProfile {
   add(student){
     if(student.countLanguage < 4){
       student.countLanguage++;
+    }
+
+    if(student.countLanguage < 4){
+      console.log("toast");
+      this.toast.setMessage('Format is r0123456@kuleuven.be', 'info');
     }
   }
 

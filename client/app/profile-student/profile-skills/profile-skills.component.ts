@@ -72,6 +72,9 @@ export class SkillsProfile {
     if(student.countSkills < 6){
       student.countSkills++;
     }
+    else{
+      this.toast.setMessage('You have reached the maximum amount of Technical Skills', 'danger');
+    }
   }
 
   delete(student){

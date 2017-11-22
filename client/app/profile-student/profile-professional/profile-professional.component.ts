@@ -62,6 +62,9 @@ export class ProfessionalProfile {
     if(student.countProfessional < 4){
       student.countProfessional++;
     }
+    else{
+      this.toast.setMessage('You have reached the maximum amount of Professional Skills', 'danger');
+    }
   }
 
   delete(student){
