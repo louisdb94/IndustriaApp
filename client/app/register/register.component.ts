@@ -73,33 +73,48 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.dataService.changeRnumber(this.emailStudent.substring(0,8))
-    this.userForm.value.rnumber = this.emailStudent.substring(0,8);
-    this.userForm.value.user_fk = 50;
+    // this.dataService.changeRnumber(this.emailStudent.substring(0,8))
+    // this.userForm.value.rnumber = this.emailStudent.substring(0,8);
+    // this.userForm.value.user_fk = 50;
     this.registerForm.value.rnumber = this.emailStudent.substring(0,8);
+    this.registerForm.value.email = this.emailStudent;
+    this.registerForm.value.password = this.emailStudent.substring(0,8);
     console.log(this.registerForm.value);
     console.log(this.userForm.value);
-    this.userService.registerMysql(this.registerForm.value).subscribe(
-      res => {
-        this.toast.setMessage('you successfully registered!', 'success');
-        this.userService.getUserMysql(this.registerForm.value.rnumber).subscribe(
-          data => {this.dataService.changeUserId(data[0].id), console.log(data[0].id)} 
-        );
 
-        // console.log(this.dataService.id_user);
-        // this.dataService.id_user.subscribe(
-        //   value => {console.log(value), this.userForm.value.user_fk = value}
-        // );
-    
-        // this.studentService.addStudentMysql(this.userForm.value).subscribe(
-        //   res => {console.log("New student created")},
-        //   error => console.log(error)
-        // );
-        
-        this.router.navigate(['/login']);    
-      },
-      error => this.toast.setMessage('email already exists', 'danger')
-    );
+
+    let map_result = {};
+    let user_fk : any;
+    this.userService.registerMysql(this.registerForm.value)
+        .switchMap( userid =>
+          this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId))
+              .map(studentid => ({
+                map_result_userid : JSON.parse(studentid._body).insertId})
+                )
+        .subscribe(v => console.log(v))
+
+
+    // this.userService.registerMysql(this.registerForm.value).subscribe(
+    //   res => {
+    //     this.toast.setMessage('you successfully registered!', 'success');
+    //     this.userService.getUserMysql(this.registerForm.value.rnumber).subscribe(
+    //       data => {this.dataService.changeUserId(data[0].id), console.log(data[0].id)}
+    //     );
+    //
+    //     // console.log(this.dataService.id_user);
+    //     // this.dataService.id_user.subscribe(
+    //     //   value => {console.log(value), this.userForm.value.user_fk = value}
+    //     // );
+    //
+    //     // this.studentService.addStudentMysql(this.userForm.value).subscribe(
+    //     //   res => {console.log("New student created")},
+    //     //   error => console.log(error)
+    //     // );
+    //
+    //     this.router.navigate(['/login']);
+    //   },
+    //   error => this.toast.setMessage('email already exists', 'danger')
+    // );
   }
 
   test(){

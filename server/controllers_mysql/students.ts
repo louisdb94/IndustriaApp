@@ -20,7 +20,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
     };
 
   insertUserFk =  (req, res) => {
-    
+
         let sql = `INSERT INTO ${this.model} (user_fk) VALUES ('${req.params.user_id}')`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
@@ -28,6 +28,16 @@ export default class StudentsCtrl extends BaseSqlCtrl {
             res.json(result);
         });
     };
+
+    insertUserFkParam =  (req, res) => {
+
+          let sql = `INSERT INTO ${this.model} (user_fk) VALUES ('${req.params.id}')`;
+          let query = db.query(sql, (err, result) => {
+              if(err) throw err;
+              console.log(result);
+              res.json(result);
+          });
+      };
 
     getStudentByRnumber =  (req, res) => {
         console.log("joooooow", req.params.rnumber);

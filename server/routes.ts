@@ -100,6 +100,7 @@ export default function setRoutes(app) {
   router.route('/students-getall').get(studentsCtrl.select);
   router.route('/students-insert').post(studentsCtrl.insert);
   router.route('/students-insertUserFk').post(studentsCtrl.insertUserFk);
+  router.route('/students-insertUserFk/:id').post(studentsCtrl.insertUserFkParam);
   router.route('/student-delete/:id').get(studentsCtrl.delete);
   router.route('/student-updatename/:id').get(studentsCtrl.updateName);
   router.route('/student-updaternumber/:id').get(studentsCtrl.updateRnumber);

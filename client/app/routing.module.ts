@@ -21,6 +21,10 @@ const routes: Routes = [
   // { path: '', component: AboutComponent },
   // { path: '', component: FirstPageComponent },
   { path: '', component: RegisterComponent },
+<<<<<<< Updated upstream
+=======
+  // { path: ':id', component: StudentProfile},
+>>>>>>> Stashed changes
   { path: 'students', component: StudentsComponent},
   { path: 'firstpage', component: FirstPageComponent},
   { path: 'profile-student/:id', component: StudentProfile},
