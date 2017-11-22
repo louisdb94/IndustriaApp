@@ -8,6 +8,14 @@ import { UserService } from './services/user.service';
 import { StudentService } from './services/student.service';
 import { FileService } from './services/file.service';
 import { AuthService } from './services/auth.service';
+
+import { CvsService } from './services/cvs.service';
+import { EducationService } from './services/education.service';
+import { ExperienceService } from './services/experience.service';
+import { LanguageService } from './services/language.service';
+import { SkillService } from './services/skill.service';
+import { SocialmediaService } from './services/socialmedia.service';
+
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 import { AppComponent } from './app.component';
@@ -121,7 +129,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserService,
     StudentService,
     FileService,
-    DataService
+    DataService,
+
+    CvsService,
+    EducationService,
+    ExperienceService,
+    LanguageService,
+    SkillService,
+    SocialmediaService
+
 
 
   ],

@@ -114,6 +114,7 @@ export default function setRoutes(app) {
   router.route('/student-updatenumbercv/:id').get(studentsCtrl.updateNumbercv);
   router.route('/student-updateimage/:id').get(studentsCtrl.updateImage);
   router.route('/student-getbyrnumber/:rnumber').get(studentsCtrl.getStudentByRnumber);
+  router.route('/student-update').put(studentsCtrl.updateAll);
 
   //Cvs
   router.route('/cvs-get/:id').get(cvsCtrl.getbyId);
@@ -165,7 +166,7 @@ export default function setRoutes(app) {
   router.route('/skills-updatevaluetype/:id').get(skillsCtrl.updateValueType);
 
   //SocialMedia
-  router.route('/socialmedia-get/:id').get(socialmediaCtrl.getbyId);
+  router.route('/socialmedia-get/:id').get(socialmediaCtrl.getbyFk);
   router.route('/socialMedia-getall').get(socialmediaCtrl.select);
   router.route('/socialmedia-insert').post(socialmediaCtrl.insert);
   router.route('/socialmedia-delete/:id').get(socialmediaCtrl.delete);

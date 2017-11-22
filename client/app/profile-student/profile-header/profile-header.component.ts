@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit, enableProdMode, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
+import { SocialmediaService } from '../../services/socialmedia.service';
 import { FileService } from '../../services/file.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -28,6 +29,12 @@ export class HeaderProfile {
   rnumber = String;
   id = String;
   numberCv = Number;
+  socialmedia0 = [];
+  socialmedia1 = [];
+  socialmedia2 = [];
+  socialmedia3 = [];
+
+  socialmedia = [];
 
   @Input() student: {};
   cv= {};
@@ -50,6 +57,7 @@ export class HeaderProfile {
 
   constructor(  private studentService: StudentService,
                 private fileService: FileService,
+                private socialmediaService: SocialmediaService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private http: HttpClient,
@@ -78,10 +86,17 @@ export class HeaderProfile {
       this.getSocialMediaById(id);
       this.files = [];
     });
+
+    // if(this.socialmedia0.checked == 0){
+    //   this.socialmediaChecked[0] == false
+    // }
   }
 
   getSocialMediaById(id){
-    this.
+    this.socialmediaService.getSocialmediaById(id).subscribe(
+          data => {this.socialmedia[0] = data[0], this.socialmedia[1] = data[1], this.socialmedia[2] = data[2], this.socialmedia[3] = data[3], console.log(data.length)},
+      error => console.log(error)     
+    );
   }
 
   getStudentById(id) {

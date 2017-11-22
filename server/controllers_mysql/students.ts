@@ -9,6 +9,16 @@ export default class StudentsCtrl extends BaseSqlCtrl {
   model = 'students';
   dummy = sql_students;
 
+  updateAll =  (req, res) => {
+    
+        let sql = `UPDATE ${this.model} SET name = '${req.body.name}' rnumber = '${req.body.rnumber}' whoami = '${req.body.whoami}' gradYear = '${req.body.gradYear}' degree = '${req.body.degree}' WHERE id = '${req.params.id}'`;
+        let query = db.query(sql, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.json(result);
+        });
+    };
+
   insertUserFk =  (req, res) => {
     
         let sql = `INSERT INTO ${this.model} (user_fk) VALUES ('${req.params.user_id}')`;

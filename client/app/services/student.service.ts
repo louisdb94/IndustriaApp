@@ -75,6 +75,10 @@ export class StudentService {
     return this.http.get(`/api/student-getbyrnumber/${rnumber}`).map(res => res.json());
   }
 
+  editStudentMysql(student): Observable<any> {
+    return this.http.put(`/api/student-update`, JSON.stringify(student), this.options);
+  }
+
 
 
 

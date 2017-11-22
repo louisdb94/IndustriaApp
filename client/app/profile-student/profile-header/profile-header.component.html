@@ -67,47 +67,47 @@
 
 
 
-        <!-- <div *ngIf="!editMode" class="text-center">
-            <a *ngIf="student.socialMediaChecked[0]" [href]="student.socialMedia[0]" class="btn-facebook" target="_blank">Facebook</a>
-            <a *ngIf="student.socialMediaChecked[1]" [href]="student.socialMedia[1]" class="btn-twitter" target="_blank">Twitter</a>
-            <a *ngIf="student.socialMediaChecked[2]" [href]="student.socialMedia[2]" class="btn-google-plus" target="_blank">Google+</a>
-            <a *ngIf="student.socialMediaChecked[3]" [href]="student.socialMedia[3]" class="btn-linkedin" target="_blank">LinkedIn</a>
+        <div *ngIf="!editMode" class="text-center">
+            <a *ngIf="socialmedia[0]" [(href)]="socialmedia[0].url" class="btn-facebook" target="_blank">Facebook</a>
+            <a *ngIf="socialmedia[1]" [(href)]="socialmedia[1].url" class="btn-twitter" target="_blank">Twitter</a>
+            <a *ngIf="socialmedia[2]" [(href)]="socialmedia[2].url" class="btn-google-plus" target="_blank">Google+</a>
+            <a *ngIf="socialmedia[3]" [(href)]="socialmedia[3].url" class="btn-linkedin" target="_blank">LinkedIn</a>
         </div>
 
         <div *ngIf="editMode" class="text-center">
             <div>
                 <label class="custom-control custom-checkbox">
-                    <input [checked]="student.socialMediaChecked[0]" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, student, 0)"/>
+                    <input *ngIf="socialmedia[0]" [checked]="socialmedia[0].checked" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, socialmedia, 0)"/>
                     <span class="custom-control-indicator"></span>
                 </label>
                 <a href="#" class="btn-facebook">Facebook</a>
-                <input [(ngModel)]="student.socialMedia[0]" placeholder="Link your Facebook page">
+                <input *ngIf="socialmedia[0]" [(ngModel)]="socialmedia[0].url" placeholder="Link your Facebook page">
             </div>
             <div>
                 <label class="custom-control custom-checkbox">
-                    <input [checked]="student.socialMediaChecked[1]" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, student, 1)"/>
+                    <input *ngIf="socialmedia[1]" [checked]="socialmedia[1].checked" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, socialmedia, 1)"/>
                     <span class="custom-control-indicator"></span>
                 </label>
                 <a href="#" class="btn-twitter">Twitter</a>
-                <input [(ngModel)]="student.socialMedia[1]" placeholder="Link your Twitter page">
+                <input *ngIf="socialmedia[1]" [(ngModel)]="socialmedia[1].url" placeholder="Link your Twitter page">
             </div>
             <div>
                 <label class="custom-control custom-checkbox">
-                    <input [checked]="student.socialMediaChecked[2]" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, student, 2)"/>
+                    <input *ngIf="socialmedia[2]" [checked]="socialmedia[2].checked" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, socialmedia, 2)"/>
                     <span class="custom-control-indicator"></span>
                 </label>
                 <a href="#" class="btn-google-plus">Google+</a>
-                <input [(ngModel)]="student.socialMedia[2]" placeholder="Link your Google+ page">
+                <input *ngIf="socialmedia[2]" [(ngModel)]="socialmedia[2].url" placeholder="Link your Google+ page">
             </div>
             <div>
                 <label class="custom-control custom-checkbox">
-                    <input [checked]="student.socialMediaChecked[3]" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, student, 3)"/>
+                    <input *ngIf="socialmedia[3]" [checked]="socialmedia[3].checked" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, socialmedia, 3)"/>
                     <span class="custom-control-indicator"></span>
                 </label>
                 <a href="#" class="btn-linkedin">LinkedIn</a>
-                <input [(ngModel)]="student.socialMedia[3]" placeholder="Link your LinkedIn page">
+                <input *ngIf="socialmedia[3]" [(ngModel)]="socialmedia[3].url" placeholder="Link your LinkedIn page">
             </div>
-        </div> -->
+        </div>
     </div>
 </div>
 
