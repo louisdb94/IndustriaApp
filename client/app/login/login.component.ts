@@ -100,9 +100,15 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    this.studentService.addStudentMysql(this.userForm.value).subscribe(
-      res => {console.log("New student created")},
-      error => console.log(error)
+    this.userForm.value.rnumber = this.emailStudent.substring(0,8);
+    this.studentService.getStudentByRnumberMysql(this.userForm.value.rnumber).subscribe(
+      data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), this.data.changeMessageNav(true), console.log("data: ", this.id)),
+      error => console.log("error")
+    );
+
+    this.auth.login(this.loginForm.value).subscribe(
+      res => this.router.navigate(['/students']),
+      error => this.toast.setMessage('invalid email or password!', 'danger')
     );
   }
 
@@ -113,7 +119,7 @@ export class LoginComponent implements OnInit {
       data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), this.data.changeMessageNav(true), console.log("data: ", this.id)),
       error => console.log("error")
     );
-      
+
     this.auth.login(this.loginForm.value).subscribe(
       res => this.router.navigate(['/students']),
       error => this.toast.setMessage('invalid email or password!', 'danger')
