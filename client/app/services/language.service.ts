@@ -33,5 +33,9 @@ export class LanguageService {
     return this.http.get(`/api/experience-delete/${language.id}`, this.options);
   }
 
+  addLanguageFromStudentId(id): Observable<any> {
+    return this.http.get(`/api/language-insert/${id}`, this.options);
+  }
+
 
 }

@@ -10,7 +10,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
   dummy = sql_students;
 
   updateAll =  (req, res) => {
-    
+
         let sql = `UPDATE ${this.model} SET name = '${req.body.name}' rnumber = '${req.body.rnumber}' whoami = '${req.body.whoami}' gradYear = '${req.body.gradYear}' degree = '${req.body.degree}' WHERE id = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
@@ -19,9 +19,9 @@ export default class StudentsCtrl extends BaseSqlCtrl {
         });
     };
 
-  insertUserFk =  (req, res) => {
+  insertUser =  (req, res) => {
 
-        let sql = `INSERT INTO ${this.model} (user_fk) VALUES ('${req.params.user_id}')`;
+        let sql = `INSERT INTO ${this.model} SET user_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
             console.log(result);
@@ -29,15 +29,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
         });
     };
 
-    insertUserFkParam =  (req, res) => {
 
-          let sql = `INSERT INTO ${this.model} (user_fk) VALUES ('${req.params.id}')`;
-          let query = db.query(sql, (err, result) => {
-              if(err) throw err;
-              console.log(result);
-              res.json(result);
-          });
-      };
 
     getStudentByRnumber =  (req, res) => {
         console.log("joooooow", req.params.rnumber);

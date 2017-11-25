@@ -99,8 +99,7 @@ export default function setRoutes(app) {
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
   router.route('/students-getall').get(studentsCtrl.select);
   router.route('/students-insert').post(studentsCtrl.insert);
-  router.route('/students-insertUserFk').post(studentsCtrl.insertUserFk);
-  router.route('/students-insertUserFk/:id').post(studentsCtrl.insertUserFkParam);
+  router.route('/students-insert/:id').get(studentsCtrl.insertUser);
   router.route('/student-delete/:id').get(studentsCtrl.delete);
   router.route('/student-updatename/:id').get(studentsCtrl.updateName);
   router.route('/student-updaternumber/:id').get(studentsCtrl.updateRnumber);
@@ -121,6 +120,7 @@ export default function setRoutes(app) {
   router.route('/cvs-get/:id').get(cvsCtrl.getbyId);
   router.route('/cvs-getall').get(cvsCtrl.select);
   router.route('/cvs-insert').post(cvsCtrl.insert);
+  router.route('/cvs-insert/:id').get(cvsCtrl.insertStudentFK);
   router.route('/cvs-delete/:id').get(cvsCtrl.delete);
   router.route('/cvs-updatename/:id').get(cvsCtrl.updateName);
   router.route('/cvs-updatesize/:id').get(cvsCtrl.updateSize);
@@ -132,6 +132,7 @@ export default function setRoutes(app) {
   router.route('/education-get/:id').get(educationCtrl.getbyId);
   router.route('/education-getall').get(educationCtrl.select);
   router.route('/education-insert').post(educationCtrl.insert);
+  router.route('/education-insert/:id').get(educationCtrl.insertStudentFK);
   router.route('/education-delete/:id').get(educationCtrl.delete);
   router.route('/education-updatetype/:id').get(educationCtrl.updateType);
   router.route('/education-updateinstitution/:id').get(educationCtrl.updateInstitution);
@@ -142,6 +143,7 @@ export default function setRoutes(app) {
   router.route('/experiences-get/:id').get(experienceCtrl.getbyId);
   router.route('/experiences-getall').get(experienceCtrl.select);
   router.route('/experiences-insert').post(experienceCtrl.insert);
+  router.route('/experience-insert/:id').get(experienceCtrl.insertStudentFK);
   router.route('/experiences-delete/:id').get(experienceCtrl.delete);
   router.route('/experiences-updatefrom/:id').get(experienceCtrl.updateDatefrom);
   router.route('/experiences-updatefunction/:id').get(experienceCtrl.updateFunction);
@@ -152,6 +154,7 @@ export default function setRoutes(app) {
   router.route('/language-get/:id').get(languageCtrl.getbyId);
   router.route('/language-getall').get(languageCtrl.select);
   router.route('/language-insert').post(languageCtrl.insert);
+  router.route('/language-insert/:id').get(languageCtrl.insertStudentFK);
   router.route('/languageCtrl-delete/:id').get(languageCtrl.delete);
   router.route('/language-updatetype/:id').get(languageCtrl.updateType);
   router.route('/language-updatevalue/:id').get(languageCtrl.updateValue);
@@ -161,6 +164,7 @@ export default function setRoutes(app) {
   router.route('/skills-get/:id').get(skillsCtrl.getbyId);
   router.route('/skills-getall').get(skillsCtrl.select);
   router.route('/skills-insert').post(skillsCtrl.insert);
+  router.route('/skills-insert/:id').get(skillsCtrl.insertStudentFK);
   router.route('/skills-delete/:id').get(skillsCtrl.delete);
   router.route('/skills-updateskill/:id').get(skillsCtrl.updateSkill);
   router.route('/skills-updatevalue/:id').get(skillsCtrl.updateValue);
@@ -170,6 +174,7 @@ export default function setRoutes(app) {
   router.route('/socialmedia-get/:id').get(socialmediaCtrl.getbyFk);
   router.route('/socialMedia-getall').get(socialmediaCtrl.select);
   router.route('/socialmedia-insert').post(socialmediaCtrl.insert);
+  router.route('/socialmedia-insert/:id').get(socialmediaCtrl.insertStudentFK);
   router.route('/socialmedia-delete/:id').get(socialmediaCtrl.delete);
   router.route('/socialmedia-updateskill/:id').get(socialmediaCtrl.updateUrl);
   router.route('/socialmedia-updatetype/:id').get(socialmediaCtrl.updateType);

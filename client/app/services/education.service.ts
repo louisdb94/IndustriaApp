@@ -33,5 +33,9 @@ export class EducationService {
     return this.http.get(`/api/education-delete/${education.id}`, this.options);
   }
 
+  addEducationFromStudentId(id): Observable<any> {
+    return this.http.get(`/api/education-insert/${id}`, this.options);
+  }
+
 
 }

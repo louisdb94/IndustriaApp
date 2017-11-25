@@ -4,6 +4,12 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { UserService } from '../services/user.service';
 import { StudentService } from '../services/student.service';
 import { DataService } from '../services/data.service';
+import { CvsService} from '../services/cvs.service';
+import { EducationService} from '../services/education.service';
+import { ExperienceService} from '../services/experience.service';
+import { LanguageService} from '../services/language.service';
+import { SkillService} from '../services/skill.service';
+import { SocialmediaService} from '../services/socialmedia.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { HttpClient } from '@angular/common/http';
 import { AppComponent } from '../app.component';
@@ -42,6 +48,12 @@ export class RegisterComponent implements OnInit {
               private studentService: StudentService,
               private userService: UserService,
               private dataService: DataService,
+              private cvsService: CvsService,
+              private educationService: EducationService,
+              private experienceService: ExperienceService,
+              private languageService: LanguageService,
+              private skillService: SkillService,
+              private socialmediaService: SocialmediaService,
               private appcomponent: AppComponent,
               private http: HttpClient,) { }
 
@@ -80,19 +92,60 @@ export class RegisterComponent implements OnInit {
     this.registerForm.value.email = this.emailStudent;
     this.registerForm.value.password = this.emailStudent.substring(0,8);
     console.log(this.registerForm.value);
-    console.log(this.userForm.value);
+
+    // this.userService.registerMysql(this.registerForm.value)
+    //     .switchMap( userid =>
+    //       this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId))
+    //         .subscribe(
+    //           res => {console.log("New student created")},
+    //           error => console.log(error)
+    //         )
 
 
-    let map_result = {};
-    let user_fk : any;
-    this.userService.registerMysql(this.registerForm.value)
-        .switchMap( userid =>
-          this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId))
-              .map(studentid => ({
-                map_result_userid : JSON.parse(studentid._body).insertId})
-                )
-        .subscribe(v => console.log(v))
+  let student_result : any;
+  this.userService.registerMysql(this.registerForm.value)
+      .switchMap( userid =>
+        this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId)
+          .switchMap(studentid =>
+               this.cvsService.addCvsFromStudentId(JSON.parse(studentid._body).insertId)
+               .switchMap(educ =>
+                    this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
+                    .switchMap(exper =>
+                         this.experienceService.addExperienceFromStudentId(JSON.parse(studentid._body).insertId)
+                         .switchMap(lang =>
+                              this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId)
+                              .switchMap(socia =>
+                                   this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
+                                   .switchMap(skil =>
+                                        this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
 
+               .map(result => ({
+                 user_id : JSON.parse(userid._body).insertId,
+                 student_id : JSON.parse(studentid._body).insertId
+               })))))))))
+      .subscribe(
+        res => { console.log("GELUKT", res)},
+        error => console.log(error)
+      )
+
+  // TEST
+
+    // this.userService.registerMysql(this.registerForm.value)
+    //     .switchMap( userid =>
+    //       this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId)
+    //         .switchMap(studentid =>
+    //             ( this.cvsService.addCvsFromStudentId(JSON.parse(studentid._body).insertId),
+    //               this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId),
+    //               this.experienceService.addEducationFromStudentId(JSON.parse(studentid._body).insertId),
+    //               this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId),
+    //               this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId),
+    //               this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId))))
+    //           .subscribe(
+    //             res => {console.log("New student and others created")},
+    //             error => console.log(error)
+    //           )
+
+//WORKSSSS
 
     // this.userService.registerMysql(this.registerForm.value).subscribe(
     //   res => {

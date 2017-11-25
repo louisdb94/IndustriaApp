@@ -66,12 +66,12 @@ export class StudentService {
     return this.http.post('/api/students-insert', JSON.stringify(student), this.options);
   }
 
-  addStudentFromUserIdMysql(user_id): Observable<any> {
-    return this.http.post('/api/students-insertUserFk', JSON.stringify(user_id), this.options);
-  }
+  // addStudentFromUserIdMysql(user_id): Observable<any> {
+  //   return this.http.post('/api/students-insertUserFk', JSON.stringify(user_id), this.options);
+  // }
 
   addStudentFromUserId(id): Observable<any> {
-    return this.http.post(`/api/students-insertUserFk/${id}`, JSON.stringify(id), this.options);
+    return this.http.get(`/api/students-insert/${id}`, this.options);
   }
 
   getStudentByRnumberMysql(rnumber): Observable<any> {

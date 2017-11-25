@@ -27,6 +27,16 @@ abstract class BaseSqlCtrl {
         });
     };
 
+    insertStudentFK =  (req, res) => {
+
+          let sql = `INSERT INTO ${this.model} SET student_fk = '${req.params.id}'`;
+          let query = db.query(sql, (err, result) => {
+              if(err) throw err;
+              console.log(result);
+              res.json(result);
+          });
+      };
+
 
     // Select posts
     select = (req, res) => {

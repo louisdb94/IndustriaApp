@@ -33,5 +33,9 @@ export class ExperienceService {
     return this.http.get(`/api/experience-delete/${experience.id}`, this.options);
   }
 
+  addExperienceFromStudentId(id): Observable<any> {
+    return this.http.get(`/api/experience-insert/${id}`, this.options);
+  }
+
 
 }

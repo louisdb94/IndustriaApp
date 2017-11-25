@@ -33,5 +33,9 @@ export class SocialmediaService {
     return this.http.get(`/api/socialmedia-delete/${socialmedia.id}`, this.options);
   }
 
+  addSocialmediaFromStudentId(id): Observable<any> {
+    return this.http.get(`/api/socialmedia-insert/${id}`, this.options);
+  }
+
 
 }
