@@ -93,12 +93,18 @@ export class HeaderProfile {
   }
 
   getSocialMediaById(id){
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     this.socialmediaService.getSocialmediaById(id).subscribe(
           data => {this.socialmedia[0] = data[0], this.socialmedia[1] = data[1], this.socialmedia[2] = data[2], this.socialmedia[3] = data[3], console.log(data.length)},
       error => console.log(error)
     );
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   }
 
   getStudentById(id) {
