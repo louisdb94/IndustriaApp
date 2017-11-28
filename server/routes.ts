@@ -25,7 +25,18 @@ import LanguageCtrl from './controllers_mysql/language';
 import SkillsCtrl from './controllers_mysql/skills';
 import SocialmediaCtrl from './controllers_mysql/socialmedia';
 import StudentsCtrl from './controllers_mysql/students';
+import CvsCtrl from './controllers_mysql/students/cvs';
+import ContactCtrl from './controllers_mysql/students/contact';
+import EducationCtrl from './controllers_mysql/students/education';
+import ExperienceCtrl from './controllers_mysql/students/experiences';
+import LanguageCtrl from './controllers_mysql/students/language';
+import SkillsCtrl from './controllers_mysql/students/skills';
+import SocialmediaCtrl from './controllers_mysql/students/socialmedia';
+import StudentsCtrl from './controllers_mysql/students/students';
 import UsersCtrl from './controllers_mysql/users';
+
+import CompanyCtrl from './controllers_mysql/company/companies';
+import VacaturesCtrl from './controllers_mysql/company/vacatures';
 
 
 //MYSQL MODELS
@@ -37,7 +48,18 @@ import language from './models_mysql/language';
 import skills from './models_mysql/skills';
 import socialmedia from './models_mysql/socialmedia';
 import students from './models_mysql/students';
+import contacts from './models_mysql/students/contact';
+import cvs from './models_mysql/students/cvs';
+import education from './models_mysql/students/education';
+import experiences from './models_mysql/students/experiences';
+import language from './models_mysql/students/language';
+import skills from './models_mysql/students/skills';
+import socialmedia from './models_mysql/students/socialmedia';
+import students from './models_mysql/students/students';
 import users from './models_mysql/users';
+
+import companies from './models_mysql/company/companies';
+import vacatures from './models_mysql/company/vacatures';
 
 
 export default function setRoutes(app) {
@@ -61,6 +83,9 @@ export default function setRoutes(app) {
   const studentsCtrl = new StudentsCtrl();
   const usersCtrl = new UsersCtrl();
 
+  const companiesCtrl = new CompanyCtrl();
+  const vacaturesCtrl = new VacaturesCtrl();
+
 
   // CREATE MYSQL TABLES
   router.route('/create-users').get(usersCtrl.getsql);
@@ -72,6 +97,9 @@ export default function setRoutes(app) {
   router.route('/create-language').get(languageCtrl.getsql);
   router.route('/create-skills').get(skillsCtrl.getsql);
   router.route('/create-socialmedia').get(socialmediaCtrl.getsql);
+
+  router.route('/create-companies').get(companiesCtrl.getsql);
+  router.route('/create-vacatures').get(vacaturesCtrl.getsql);
 
    // CREATE MYSQL TABLES
   // router.route('/create-users')
@@ -87,6 +115,7 @@ export default function setRoutes(app) {
 
   //User
   router.route('/user-get/:id').get(usersCtrl.getbyId);
+  router.route('/user-getbyrole').get(usersCtrl.getbyRole);
   router.route('/users-getall').get(usersCtrl.select);
   router.route('/users-insert').post(usersCtrl.insert);
   router.route('/user-delete/:id').get(usersCtrl.delete);
@@ -155,6 +184,7 @@ export default function setRoutes(app) {
   
   //Language
   router.route('/language-get/:id').get(languageCtrl.getbyId);
+  router.route('/language-getbystudentfk/:id').get(languageCtrl.getbyStudentId);
   router.route('/language-getall').get(languageCtrl.select);
   router.route('/language-insert').post(languageCtrl.insert);
   router.route('/language-insert/:id').get(languageCtrl.insertStudentFK);
@@ -162,9 +192,11 @@ export default function setRoutes(app) {
   router.route('/language-updatetype/:id').get(languageCtrl.updateType);
   router.route('/language-updatevalue/:id').get(languageCtrl.updateValue);
   router.route('/language-updatevaluetype/:id').get(languageCtrl.updateValueType);
+  router.route('/language-update').put(languageCtrl.updateAll);
 
   //Skill
   router.route('/skills-get/:id').get(skillsCtrl.getbyId);
+  router.route('/skills-getbystudentfk/:id').get(skillsCtrl.getbyStudentId);
   router.route('/skills-getall').get(skillsCtrl.select);
   router.route('/skills-insert').post(skillsCtrl.insert);
   router.route('/skills-insert/:id').get(skillsCtrl.insertStudentFK);
@@ -172,6 +204,8 @@ export default function setRoutes(app) {
   router.route('/skills-updateskill/:id').get(skillsCtrl.updateSkill);
   router.route('/skills-updatevalue/:id').get(skillsCtrl.updateValue);
   router.route('/skills-updatevaluetype/:id').get(skillsCtrl.updateValueType);
+  router.route('/skills-update').put(skillsCtrl.updateAll);
+
 
   //SocialMedia
   router.route('/socialmedia-get/:id').get(socialmediaCtrl.getbyFk);
@@ -183,6 +217,29 @@ export default function setRoutes(app) {
   router.route('/socialmedia-updatetype/:id').get(socialmediaCtrl.updateType);
   router.route('/socialmedia-updatechecked/:id').get(socialmediaCtrl.updateChecked);
   router.route('/socialmedia-update').put(socialmediaCtrl.updateAll);
+
+  //Contact
+  router.route('/contact-get/:id').get(contactsCtrl.getbyId);
+  router.route('/contact-getbystudentfk/:id').get(contactsCtrl.getbyStudentId);
+  router.route('/contact-getall').get(contactsCtrl.select);
+  router.route('/contact-insert').post(contactsCtrl.insert);
+  router.route('/contact-insert/:id').get(contactsCtrl.insertStudentFK);
+  router.route('/contact-delete/:id').get(contactsCtrl.delete);
+  router.route('/contact-update').put(contactsCtrl.updateAll);
+
+  //Companies
+  router.route('/companies-get/:id').get(companiesCtrl.getbyId);
+  router.route('/companies-getall').get(companiesCtrl.select);
+  router.route('/companies-insert').post(companiesCtrl.insert);
+  router.route('/companies-insert/:id').get(companiesCtrl.insertUser);
+  router.route('/companies-delete/:id').get(companiesCtrl.delete);
+
+  //Vacature
+  router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyId);
+  router.route('/vacatures-getall').get(vacaturesCtrl.select);
+  router.route('/vacatures-insert').post(vacaturesCtrl.insert);
+  router.route('/vacatures-insert/:id').get(vacaturesCtrl.insertCompanyFK);
+  router.route('/vacatures-delete/:id').get(vacaturesCtrl.delete);
 
 
   // CV

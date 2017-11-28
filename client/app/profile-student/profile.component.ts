@@ -9,6 +9,9 @@ import { ToastComponent } from '../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SkillService} from '../services/skill.service';
+import { LanguageService} from '../services/language.service';
+import { ContactService} from '../services/contact.service';
 
 
 @Component({
@@ -20,6 +23,15 @@ export class StudentProfile implements OnInit {
 
   constructor(private studentService: StudentService, public auth: AuthService, public dataService: DataService, private translate: TranslateService, private activatedRoute: ActivatedRoute,
     public toast: ToastComponent) {}
+  constructor(  private studentService: StudentService,
+                private skillService : SkillService,
+                private languageService : LanguageService,
+                private contactService : ContactService,
+                public auth: AuthService,
+                public dataService: DataService,
+                private translate: TranslateService,
+                private activatedRoute: ActivatedRoute,
+                public toast: ToastComponent) {}
 
   data: any;
   student: {};
@@ -27,6 +39,10 @@ export class StudentProfile implements OnInit {
   countEducation: Number;
   countExperiences: Number;
   contactChecked: boolean;
+
+  skills = [];
+  languages = [];
+  contacts = [];
 
   private compare = new BehaviorSubject<String>("default message");
   compareID = this.compare.asObservable();
@@ -44,6 +60,9 @@ export class StudentProfile implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       let id = params['id'];
       this.getStudentByIdMySql(id);
+      this.getskillbyid(id);
+      this.getLanguagebyid(id);
+      this.getContactbyid(id);
     });
   }
 
@@ -56,5 +75,26 @@ export class StudentProfile implements OnInit {
       data => {this.student = data[0], this.countEducation = data[0].countEducation, this.countExperiences = data[0].countExperiences, this.contactChecked = data[0].contactChecked},
       error => console.log(error),
     );
+  }
+
+  getskillbyid(id){
+    this.skillService.getSkillByStudentId(id).subscribe(
+      data => {this.skills = data},
+      error => console.log(error)
+    )
+  }
+
+  getLanguagebyid(id){
+    this.languageService.getLanguageByStudentId(id).subscribe(
+      data => {this.languages = data},
+      error => console.log(error)
+    )
+  }
+
+  getContactbyid(id){
+    this.contactService.getContactByStudentId(id).subscribe(
+      data => {this.contacts = data},
+      error => console.log(error)
+    )
   }
 }

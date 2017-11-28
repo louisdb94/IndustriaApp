@@ -8,6 +8,7 @@ import { CvsService} from '../services/cvs.service';
 import { EducationService} from '../services/education.service';
 import { ExperienceService} from '../services/experience.service';
 import { LanguageService} from '../services/language.service';
+import { ContactService} from '../services/contact.service';
 import { SkillService} from '../services/skill.service';
 import { SocialmediaService} from '../services/socialmedia.service';
 import { ToastComponent } from '../shared/toast/toast.component';
@@ -54,6 +55,7 @@ export class RegisterComponent implements OnInit {
               private languageService: LanguageService,
               private skillService: SkillService,
               private socialmediaService: SocialmediaService,
+              private contactService : ContactService,
               private appcomponent: AppComponent,
               private http: HttpClient,) { }
 
@@ -94,6 +96,11 @@ export class RegisterComponent implements OnInit {
     console.log(this.registerForm.value);
 
     let student_result : any;
+    let studentForm = this.formBuilder.group({
+      rnumber: this.emailStudent.substring(0,8),
+      user_fk: Number
+    });
+
     this.userService.registerMysql(this.registerForm.value)
         .switchMap( userid =>
           this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId)
@@ -134,6 +141,71 @@ export class RegisterComponent implements OnInit {
                    user_id : JSON.parse(userid._body).insertId,
                    student_id : JSON.parse(studentid._body).insertId
                  })))))))))))))))))))
+        .switchMap(studentid =>
+          this.cvsService.addCvsFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(educ =>
+          this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(educ =>
+          this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(educ =>
+          this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(educ =>
+          this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(educ =>
+          this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(educ =>
+          this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(educ =>
+          this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(educ =>
+          this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(exper =>
+          this.experienceService.addExperienceFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(lang =>
+          this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(lang =>
+          this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(lang =>
+          this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(lang =>
+          this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(lang =>
+          this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(lang =>
+          this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(socia =>
+          this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(socia =>
+          this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(socia =>
+          this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(socia =>
+          this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(skil =>
+          this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(skil =>
+          this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(skil =>
+          this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(skil =>
+          this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(skil =>
+          this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(skil =>
+          this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(skil =>
+          this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(skil =>
+          this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(skil =>
+          this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(skil =>
+          this.contactService.addContactFromStudentId(JSON.parse(studentid._body).insertId)
+
+           .map(result => ({
+             user_id : JSON.parse(userid._body).insertId,
+             student_id : JSON.parse(studentid._body).insertId,
+           })))))))))))))))))))))))))))))))))
         .subscribe(
           res => { this.toast.setMessage('you successfully registered!', 'success'); this.router.navigate(['/login']);},
           error => console.log(error)

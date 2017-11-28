@@ -147,21 +147,29 @@ export class LanguageProfile {
         if(item.label == this.source[0]){
           student.languageValue[6] = 25;
           student.languageValue[7] = this.source[0];
+          languages[3].value = 25;
+          languages[3].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
           student.languageValue[6] = 50;
           student.languageValue[7] = this.source[1];
+          languages[3].value = 50;
+          languages[3].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
           student.languageValue[6] = 75;
           student.languageValue[7] = this.source[2];
+          languages[3].value = 75;
+          languages[3].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
           student.languageValue[6] = 100;
           student.languageValue[7] = this.source[3];
+          languages[3].value = 100;
+          languages[3].value_type = this.source[3];
           this.isUpdated = true;
         }
       }
@@ -172,21 +180,29 @@ export class LanguageProfile {
         if(item.label == this.source[0]){
           student.languageValue[8] = 25;
           student.languageValue[9] = this.source[0];
+          languages[4].value = 25;
+          languages[4].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
           student.languageValue[8] = 50;
           student.languageValue[9] = this.source[1];
+          languages[4].value = 50;
+          languages[4].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
           student.languageValue[8] = 75;
           student.languageValue[9] = this.source[2];
+          languages[4].value = 75;
+          languages[4].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
           student.languageValue[8] = 100;
           student.languageValue[9] = this.source[3];
+          languages[4].value = 100;
+          languages[4].value_type = this.source[3];
           this.isUpdated = true;
         }
       }
@@ -197,24 +213,34 @@ export class LanguageProfile {
         if(item.label == this.source[0]){
           student.languageValue[10] = 25;
           student.languageValue[11] = this.source[0];
+          languages[5].value = 25;
+          languages[5].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
           student.languageValue[10] = 50;
           student.languageValue[11] = this.source[1];
+          languages[5].value = 50;
+          languages[5].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
           student.languageValue[10] = 75;
           student.languageValue[11] = this.source[2];
+          languages[5].value = 75;
+          languages[5].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
           student.languageValue[10] = 100;
           student.languageValue[11] = this.source[3];
+          languages[5].value = 100;
+          languages[5].value_type = this.source[3];
           this.isUpdated = true;
         }
       }
     } 
   }    
+}}}}    }
+  }
 }

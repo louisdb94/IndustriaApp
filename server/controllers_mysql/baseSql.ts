@@ -37,6 +37,26 @@ abstract class BaseSqlCtrl {
           });
       };
 
+      insertUser =  (req, res) => {
+
+            let sql = `INSERT INTO ${this.model} SET user_fk = '${req.params.id}'`;
+            let query = db.query(sql, (err, result) => {
+                if(err) throw err;
+                console.log(result);
+                res.json(result);
+            });
+        };
+
+      insertCompanyFK =  (req, res) => {
+
+            let sql = `INSERT INTO ${this.model} SET companies_fk = '${req.params.id}'`;
+            let query = db.query(sql, (err, result) => {
+                if(err) throw err;
+                console.log(result);
+                res.json(result);
+            });
+        };
+
 
     // Select posts
     select = (req, res) => {
@@ -51,6 +71,17 @@ abstract class BaseSqlCtrl {
     // Select single post
     getbyId =  (req, res) => {
         let sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
+        let query = db.query(sql, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.json(result);
+
+        });
+    };
+
+    // Select single post
+    getbyRole =  (req, res) => {
+        let sql = `SELECT * FROM ${this.model} WHERE role = 'company'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
             console.log(result);

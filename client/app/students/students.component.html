@@ -10,6 +10,7 @@
     </thead>
     <tr *ngFor="let student of students">
       <td> <a md-line routerLink='/profile-student/{{student._id}}'> {{student.name}} </a> </td>
+      <td> <a md-line routerLink='/profile-student/{{student.id}}'> {{student.name}} </a> </td>
       <td>{{student.degree}}</td>
       <td>{{student.gradYear}}</td>
     </tr>
@@ -46,4 +47,42 @@
     </div>
 
     <br><br>
+
+    <table>
+      <thead class="thead-default" >
+        <tr>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let company of companies">
+        <td> <a md-line routerLink='/profile-student/{{company._id}}'> {{company.email}} </a> </td>
+      </tr>
+      <br><br>
+    </table>
+
+
+    <div class="card">
+        <div class="card-header"><h4>Add new company</h4></div>
+        <div class="card-block">
+          <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
+            <div class="col-md-2">
+            <div class="form-group">
+              <input class="form-control" type="text" name="email" formControlName="email" placeholder="Name">
+            </div>
+            </div>
+            <div class="col-md-2">
+            <div class="form-group">
+              <input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <input class="form-control" type="text" name="role" formControlName="role" placeholder="role">
+            </div>
+          </div>
+            <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Add</button>
+          </form>
+        </div>
+      </div>
+
 </div>

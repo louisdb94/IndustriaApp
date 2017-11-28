@@ -19,6 +19,8 @@ export class SkillService {
 
   getSkillById(id): Observable<any> {
     return this.http.get(`/api/skills-get/${id}`).map(res => res.json());
+  getSkillByStudentId(id): Observable<any> {
+    return this.http.get(`/api/skills-getbystudentfk/${id}`).map(res => res.json());
   }
 
   getSkills(): Observable<any> {
@@ -35,6 +37,10 @@ export class SkillService {
 
   addSkillFromStudentId(id): Observable<any> {
     return this.http.get(`/api/skills-insert/${id}`, this.options);
+  }
+
+  editSkill(skill): Observable<any> {
+    return this.http.put(`/api/skills-update`, JSON.stringify(skill), this.options);
   }
 
 

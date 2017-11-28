@@ -46,6 +46,10 @@ export class UserService {
 
   //MYSQL
 
+  getUserByRoleMysql(): Observable<any> {
+    return this.http.get(`/api/user-getbyrole`).map(res => res.json());
+  }
+
   registerMysql(user): Observable<any> {
     return this.http.post('/api/users-insert', JSON.stringify(user), this.options);
   }

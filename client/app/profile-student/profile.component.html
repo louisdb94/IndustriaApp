@@ -10,20 +10,27 @@
     <profile-education class="component" [student]="student"></profile-education>
 </div>
 
+
 <div *ngIf="student">
     <profile-experiences class="component" [student]="student"></profile-experiences>
 </div>
 
 <!-- <div *ngIf="student">
     <profile-skills class="component" [student]="student"></profile-skills>
+<div *ngIf="student">
+    <profile-skills class="component" [student]="student" [skills]="skills"></profile-skills>
+
 </div>
 
 <div *ngIf="student">
     <profile-language class="component" [student]="student"></profile-language>
+    <profile-language class="component" [student]="student" [languages]="languages"></profile-language>
 </div>
 
 <div *ngIf="student">
     <profile-contact class="component" [student]="student" [contactChecked]="contactChecked"></profile-contact>
+    <profile-contact class="component" [student]="student" [contactChecked]="contactChecked" [contacts]="contacts"></profile-contact>
 </div>
 
 <profile-footer class="component"></profile-footer> -->
+<profile-footer class="component"></profile-footer>

@@ -15,6 +15,9 @@ import { ExperienceService } from './services/experience.service';
 import { LanguageService } from './services/language.service';
 import { SkillService } from './services/skill.service';
 import { SocialmediaService } from './services/socialmedia.service';
+import { ContactService } from './services/contact.service';
+import { CompanyService} from './services/company/company.service';
+import { VacatureService} from './services/company/vacature.service';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -31,6 +34,7 @@ import { StudentsComponent} from './students/students.component';
 import { CompanyComponent} from './company/company.component';
 import { NavBarComponent} from './nav-bar/nav-bar.component';
 import { FirstPageComponent} from './firstpage/firstpage.component';
+import { StudentListComponent} from './student-list/student-list.component';
 
 import { StudentProfile } from './profile-student';
 import { HeaderProfile } from './profile-student/profile-header';
@@ -62,6 +66,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import {FileUploadModule} from 'primeng/primeng';
+import {DropdownModule} from 'primeng/primeng';
+import {OrderListModule} from 'primeng/primeng';
 
 
 
@@ -86,6 +92,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CompanyComponent,
     NavBarComponent,
     FirstPageComponent,
+    StudentListComponent,
 
     StudentProfile,
     HeaderProfile,
@@ -120,6 +127,9 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     FileUploadModule
+    FileUploadModule,
+    DropdownModule,
+    OrderListModule
   ],
   providers: [
     AuthService,
@@ -130,6 +140,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     StudentService,
     FileService,
     DataService,
+    CompanyService,
+    VacatureService,
 
     CvsService,
     EducationService,
@@ -137,6 +149,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LanguageService,
     SkillService,
     SocialmediaService
+    SocialmediaService,
+    ContactService
 
 
 

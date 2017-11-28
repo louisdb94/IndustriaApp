@@ -21,6 +21,10 @@ export class LanguageService {
     return this.http.get(`/api/language-get/${id}`).map(res => res.json());
   }
 
+  getLanguageByStudentId(id): Observable<any> {
+    return this.http.get(`/api/language-getbystudentfk/${id}`).map(res => res.json());
+  }
+
   getLanguages(): Observable<any> {
     return this.http.get(`/api/language-getall`).map(res => res.json());
   }
@@ -35,6 +39,10 @@ export class LanguageService {
 
   addLanguageFromStudentId(id): Observable<any> {
     return this.http.get(`/api/language-insert/${id}`, this.options);
+  }
+
+  editLanguage(language): Observable<any> {
+    return this.http.put(`/api/language-update`, JSON.stringify(language), this.options);
   }
 
 
