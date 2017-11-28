@@ -5,7 +5,6 @@
         <h2 translate>Language knowledge</h2><br>
 
         <div class="row">
-            <div class="col-md-4">
             <div *ngIf= "languages[0]" class="col-md-4">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="languages[0].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
@@ -29,7 +28,6 @@
                 </p>
 
             </div>
-            <div class="col-md-4">
             <div *ngIf= "languages[1] && student.countLanguage >= 1" class="col-md-4">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="languages[1].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
@@ -52,7 +50,6 @@
                     <jqxDropDownList #jqxDropDownList2 *ngIf="editMode" (onSelect)="updateProgressBar($event, 2, languages)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
                 </p>
             </div>
-            <div class="col-md-4" *ngIf="student.countLanguage >= 1">
             <div *ngIf= "languages[2] && student.countLanguage >= 2" class="col-md-4">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="languages[2].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
@@ -76,7 +73,6 @@
                 </p>
             </div>
         </div>
-        <div class="row">
         <div *ngIf= "languages[3] && student.countLanguage >= 3" class="row">
             <div class="col-md-4" *ngIf="student.countLanguage >= 2">
                 <div style='margin-top: 10px;'>
@@ -100,7 +96,7 @@
                     <jqxDropDownList #jqxDropDownList4 *ngIf="editMode" (onSelect)="updateProgressBar($event, 4, languages)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
                 </p>
             </div>
-            <div class="col-md-4" *ngIf="student.countLanguage >= 3">
+            <div class="col-md-4" *ngIf="student.countLanguage >= 4">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="languages[4].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
                     <p id="languageTitle" *ngIf="!editMode">{{languages[4].type}}</p>
@@ -122,8 +118,7 @@
                     <jqxDropDownList #jqxDropDownList5 *ngIf="editMode" (onSelect)="updateProgressBar($event, 5, languages)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList>
                 </p>
             </div>
-            <div class="col-md-4" *ngIf="student.countLanguage >= 4">
-            <div *ngIf= "languages[5] && student.countLanguage >= 4" class="col-md-4">
+            <div *ngIf= "languages[5] && student.countLanguage >= 5" class="col-md-4">
                 <div style='margin-top: 10px;'>
                     <textarea *ngIf="editMode" [(ngModel)]="languages[5].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
                     <p id="languageTitle" *ngIf="!editMode">{{languages[5].type}}</p>

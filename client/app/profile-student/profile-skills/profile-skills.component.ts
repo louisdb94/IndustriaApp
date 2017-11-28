@@ -142,7 +142,7 @@ export class SkillsProfile {
         }
         if(item.label == this.source[2]){
           skills[1].value = 75;
-          skills[1].value = this.source[2];
+          skills[1].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
@@ -196,7 +196,7 @@ export class SkillsProfile {
         }
         if(item.label == this.source[3]){
           skills[3].value = 100;
-          skills[3].value = this.source[3];
+          skills[3].value_type = this.source[3];
           this.isUpdated = true;
         }
       }
