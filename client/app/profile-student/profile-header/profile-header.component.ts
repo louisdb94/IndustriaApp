@@ -26,20 +26,16 @@ export class HeaderProfile {
 
   files: File[];
   data: any;
+  id: String;
   rnumber = String;
-  id = String;
   numberCv = Number;
-  socialmedia0 = [];
-  socialmedia1 = [];
-  socialmedia2 = [];
-  socialmedia3 = [];
 
   socialmedia = [];
 
   @Input() student: {};
   cv= {};
   cvs=[];
-  check = false;
+  student_id = 0;
   marked = false;
   cropperSettings: CropperSettings;
   addCvForm: FormGroup;
@@ -47,7 +43,6 @@ export class HeaderProfile {
   editMode = false;
   cropDone = false;
   editCV = false;
-  cvChecked = false;
   height: number | string = '100px';
 
   im = 'data:image/JPEG;base64,';
@@ -79,48 +74,44 @@ export class HeaderProfile {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];
-      this.getStudentById(id);
-      this.getCvFromStudent(id);
-      this.downloadImage(id);
-      this.getSocialMediaById(id);
+      this.student_id = params['id'];
+      this.getCvFromStudent(this.student_id);
+      this.downloadImage(this.student_id);
+      this.getSocialMediaById(this.student_id);
       this.files = [];
     });
-
-    // if(this.socialmedia0.checked == 0){
-    //   this.socialmediaChecked[0] == false
-    // }
   }
 
   getSocialMediaById(id){
-
     this.socialmediaService.getSocialmediaById(id).subscribe(
-          data => {this.socialmedia[0] = data[0], this.socialmedia[1] = data[1], this.socialmedia[2] = data[2], this.socialmedia[3] = data[3], console.log(data.length)},
+          data => {this.socialmedia = data},
       error => console.log(error)
     );
 
   }
 
-  getStudentById(id) {
-    this.studentService.getStudentById(id).subscribe(
-      data => {this.student = data, this.rnumber = data.rnumber, this.id = data._id,
-                this.numberCv = data.numberCv, this.cvChecked = data.cvChecked},
-      error => console.log(error)
-    );
-  }
-
-  save(student){
+  save(student, socialmedia){
 
     this.editMode = false;
     this.cropDone = true;
 
-    this.studentService.editStudent(student).subscribe(
+    this.studentService.editStudentMysql(student).subscribe(
       res => {
         this.student = student;
         this.toast.setMessage('item edited successfully.', 'success');
       },
       error => console.log(error)
     );
+
+    for(let i = 0; i < 4; i++){
+      console.log(this.socialmedia[i]);
+      if(this.socialmedia[i] != null){
+        this.socialmediaService.editSocialmediaMysql(this.socialmedia[i]).subscribe(
+          res => {}, 
+          error => console.log(error)
+        );
+      }
+    }
   }
 
   fileChangeListener($event) {
@@ -282,12 +273,23 @@ export class HeaderProfile {
   }
 
   changeChecked(e, student){
-    student.cvChecked = e.target.checked;
-    this.cvChecked = e.target.checked;
-    this.save(student);
+    if(e.target.checked){
+      student.cvChecked = 1;
+    }
+    else{
+      student.cvChecked = 0;
+    }
+    this.save(student, null);
   }
 
-  changeSocialMediaChecked(e, student, i){
-    student.socialMediaChecked[i] = e.target.checked;
+  changeSocialMediaChecked(e, student, socialmedia, i){
+    if(e.target.checked){
+      socialmedia[i].checked = 1;
+    }
+    else{
+      socialmedia[i].checked = 0;
+    }
+
+    this.save(student, socialmedia);
   }
 }

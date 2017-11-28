@@ -37,5 +37,9 @@ export class EducationService {
     return this.http.get(`/api/education-insert/${id}`, this.options);
   }
 
+  editEducation(education): Observable<any> {
+    return this.http.put(`/api/education-update`, JSON.stringify(education), this.options);
+  }
+
 
 }

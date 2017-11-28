@@ -1,307 +1,247 @@
 <div class="jumbotron">
     <div class="container">
         <button translate *ngIf="!editMode" (click)="editMode = true" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
-        <button translate *ngIf="editMode" (click)="save(student)" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+        <button translate *ngIf="editMode" (click)="save(student, education)" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
         <h2 translate>Education</h2>
         <ul class="timeline">
-            <li>
-                <div class="timeline-badge">
-                <a><i class="fa fa-circle" id=""></i></a>
+            <li *ngIf="education[0]">
+                <div *ngIf="education[0]" class="timeline-badge">
+                    <a><i class="fa fa-circle" id=""></i></a>
                 </div>
-                <div class="timeline-panel">
+                <div *ngIf="education[0]" class="timeline-panel">
                     <div class="timeline-heading">
                         <h4>
-                            <textarea *ngIf="editMode" [(ngModel)]="student.education[0]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                            <p *ngIf="!editMode">{{student.education[0]}}</p>
+                            <textarea *ngIf="editMode" [(ngModel)]="education[0].type" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                            <p *ngIf="!editMode">{{education[0].type}}</p>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <textarea *ngIf="editMode" [(ngModel)]="student.education[1]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode">{{student.education[1]}}</p>
+                        <textarea *ngIf="editMode" [(ngModel)]="education[0].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                        <p *ngIf="!editMode">{{education[0].institution}}</p>
                     </div>
-                    <div class="timeline-footer">
+                    <div *ngIf="education[0]" class="timeline-footer">
                         <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[0]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[0].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
                             </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[1]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[0].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
                             </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{student.educationDate[0]}} - {{student.educationDate[1]}}</p>
+                            <p *ngIf="!editMode">{{education[0].date_from}} - {{education[0].date_until}}</p>
                         </div>
                     </div>
                 </div>
             </li>
-            
-            <li class="timeline-inverted">
+    
+            <li *ngIf="countEducation >= 1 && education[1]" class="timeline-inverted">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle invert" id=""></i></a>
                 </div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4>
-                            <textarea *ngIf="editMode" [(ngModel)]="student.education[2]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                            <p *ngIf="!editMode">{{student.education[2]}}</p>
+                            <textarea *ngIf="editMode " [(ngModel)]="education[1].type" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                            <p *ngIf="!editMode ">{{education[1].type}}</p>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <textarea *ngIf="editMode" [(ngModel)]="student.education[3]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode">{{student.education[3]}}</p>                
+                        <textarea *ngIf="editMode " [(ngModel)]="education[1].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                        <p *ngIf="!editMode ">{{education[1].institution}}</p>                
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[2]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[1].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
                             </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[3]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[1].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
                             </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{student.educationDate[2]}} - {{student.educationDate[3]}}</p>
+                            <p *ngIf="!editMode">{{education[1].date_from}} - {{education[1].date_until}}</p>
                         </div>
                     </div>
                 </div>
             </li>
 
-            <li *ngIf="student.countEducation >= 1">
+
+            <li *ngIf="education[2] && countEducation >= 2" >
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle" id=""></i></a>
                 </div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4>
-                            <textarea *ngIf="editMode" [(ngModel)]="student.education[4]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                            <p *ngIf="!editMode">{{student.education[4]}}</p>
+                            <textarea *ngIf="editMode" [(ngModel)]="education[2].type" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                            <p *ngIf="!editMode">{{education[2].type}}</p>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <textarea *ngIf="editMode" [(ngModel)]="student.education[5]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode">{{student.education[5]}}</p>
+                        <textarea *ngIf="editMode" [(ngModel)]="education[2].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                        <p *ngIf="!editMode">{{education[2].institution}}</p>
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[4]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[2].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
                             </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[5]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[2].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
                             </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{student.educationDate[4]}} - {{student.educationDate[5]}}</p>
+                            <p *ngIf="!editMode">{{education[2].date_from}} - {{education[2].date_until}}</p>
                         </div>
                     </div>
                 </div>
             </li>
-            
-            <li *ngIf="student.countEducation >= 2" class="timeline-inverted">
+    
+            <li *ngIf="student.countEducation >= 3 && education[3]" class="timeline-inverted">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle invert" id=""></i></a>
                 </div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4>
-                            <textarea *ngIf="editMode" [(ngModel)]="student.education[6]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                            <p *ngIf="!editMode">{{student.education[6]}}</p>
+                            <textarea *ngIf="editMode " [(ngModel)]="education[3].type" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                            <p *ngIf="!editMode ">{{education[3].type}}</p>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <textarea *ngIf="editMode" [(ngModel)]="student.education[7]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode">{{student.education[7]}}</p>                
+                        <textarea *ngIf="editMode " [(ngModel)]="education[3].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                        <p *ngIf="!editMode ">{{education[3].institution}}</p>                
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[6]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[3].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
                             </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[7]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[3].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
                             </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{student.educationDate[6]}} - {{student.educationDate[7]}}</p>
+                            <p *ngIf="!editMode">{{education[3].date_from}} - {{education[3].date_until}}</p>
                         </div>
                     </div>
                 </div>
             </li>
 
-            <li *ngIf="student.countEducation >= 3">
+
+            <li *ngIf="education[4] && student.countEducation >= 4">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle" id=""></i></a>
                 </div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4>
-                            <textarea *ngIf="editMode" [(ngModel)]="student.education[8]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                            <p *ngIf="!editMode">{{student.education[8]}}</p>
+                            <textarea *ngIf="editMode" [(ngModel)]="education[4].type" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                            <p *ngIf="!editMode">{{education[4].type}}</p>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <textarea *ngIf="editMode" [(ngModel)]="student.education[9]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode">{{student.education[9]}}</p>
+                        <textarea *ngIf="editMode" [(ngModel)]="education[4].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                        <p *ngIf="!editMode">{{education[4].institution}}</p>
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[8]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[4].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
                             </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[9]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[4].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
                             </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{student.educationDate[8]}} - {{student.educationDate[9]}}</p>
+                            <p *ngIf="!editMode">{{education[4].date_from}} - {{education[4].date_until}}</p>
                         </div>
                     </div>
                 </div>
             </li>
-            
-            <li *ngIf="student.countEducation >= 4" class="timeline-inverted">
+    
+            <li *ngIf="student.countEducation >= 5 && education[5]" class="timeline-inverted">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle invert" id=""></i></a>
                 </div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4>
-                            <textarea *ngIf="editMode" [(ngModel)]="student.education[10]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                            <p *ngIf="!editMode">{{student.education[10]}}</p>
+                            <textarea *ngIf="editMode " [(ngModel)]="education[5].type" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                            <p *ngIf="!editMode ">{{education[5].type}}</p>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <textarea *ngIf="editMode" [(ngModel)]="student.education[11]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode">{{student.education[11]}}</p>                
+                        <textarea *ngIf="editMode " [(ngModel)]="education[5].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                        <p *ngIf="!editMode ">{{education[5].institution}}</p>                
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[10]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[5].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
                             </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[11]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[5].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
                             </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{student.educationDate[10]}} - {{student.educationDate[11]}}</p>
+                            <p *ngIf="!editMode">{{education[5].date_from}} - {{education[5].date_until}}</p>
                         </div>
                     </div>
                 </div>
             </li>
 
-            <li *ngIf="student.countEducation >= 5">
+
+            <li *ngIf="education[6] && student.countEducation >= 6">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle" id=""></i></a>
                 </div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4>
-                            <textarea *ngIf="editMode" [(ngModel)]="student.education[12]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                            <p *ngIf="!editMode">{{student.education[12]}}</p>
+                            <textarea *ngIf="editMode" [(ngModel)]="education[6].type" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                            <p *ngIf="!editMode">{{education[6].type}}</p>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <textarea *ngIf="editMode" [(ngModel)]="student.education[13]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode">{{student.education[13]}}</p>
+                        <textarea *ngIf="editMode" [(ngModel)]="education[6].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                        <p *ngIf="!editMode">{{education[6].institution}}</p>
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[12]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[6].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
                             </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[13]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[6].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
                             </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{student.educationDate[12]}} - {{student.educationDate[13]}}</p>
+                            <p *ngIf="!editMode">{{education[6].date_from}} - {{education[6].date_until}}</p>
                         </div>
                     </div>
                 </div>
             </li>
-            
-            <li *ngIf="student.countEducation >= 6" class="timeline-inverted">
+    
+            <li *ngIf="student.countEducation >= 7 && education[7]" class="timeline-inverted">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle invert" id=""></i></a>
                 </div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4>
-                            <textarea *ngIf="editMode" [(ngModel)]="student.education[14]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                            <p *ngIf="!editMode">{{student.education[14]}}</p>
+                            <textarea *ngIf="editMode " [(ngModel)]="education[7].type" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                            <p *ngIf="!editMode ">{{education[7].type}}</p>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <textarea *ngIf="editMode" [(ngModel)]="student.education[15]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode">{{student.education[15]}}</p>                
+                        <textarea *ngIf="editMode " [(ngModel)]="education[7].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                        <p *ngIf="!editMode ">{{education[7].institution}}</p>                
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[14]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[7].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
                             </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="student.educationDate[15]" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[7].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
                                 [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
                             </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{student.educationDate[14]}} - {{student.educationDate[15]}}</p>
+                            <p *ngIf="!editMode">{{education[7].date_from}} - {{education[7].date_until}}</p>
                         </div>
                     </div>
                 </div>
-            </li>       
+            </li>
+
             <li class="clearfix no-float"></li>
         </ul>
         <button translate *ngIf="editMode" class="btn btn-sm btn-success" (click)="add(student)" style="float : right"><i class="fa fa-plus"></i>Add</button>        
         <button translate *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete(student)" style="float : right"><i class="fa fa-trash"></i>Delete</button>
     </div>
 </div>
-
-
-
-<!-- <div class="jumbotron">
-<div class="timeline">
-    <div class="entry">
-      <div class="title">
-        <h3>2014 - Present</h3>
-        <p>Title, Company</p>
-      </div>
-      <div class="body">
-        <p>Voluptatibus veniam ea reprehenderit atque reiciendis non laborum adipisci ipsa pariatur omnis.</p>
-        <ul>
-          <li>Rerum sit libero possimus amet excepturi</li>
-          <li>Exercitationem enim dolores sunt praesentium dolorum praesentium</li>
-          <li>Modi aut dolores dignissimos sequi sit ut aliquid molestias deserunt illo</li>
-        </ul>
-      </div>
-    </div>
-    <div class="entry">
-      <div class="title">
-        <h3>2010 - Present</h3>
-        <p>Title, Company</p>
-      </div>
-      <div class="body">
-        <p>Voluptatibus veniam ea reprehenderit atque reiciendis non laborum adipisci ipsa pariatur omnis.</p>
-        <ul>
-          <li>Rerum sit libero possimus amet excepturi</li>
-          <li>Exercitationem enim dolores sunt praesentium dolorum praesentium</li>
-          <li>Modi aut dolores dignissimos sequi sit ut aliquid molestias deserunt illo</li>
-        </ul>
-      </div>
-    </div>
-    <div class="entry">
-      <div class="title">
-        <h3>2009 - 2010</h3>
-        <p>Title, Company</p>
-      </div>
-      <div class="body">
-        <p>Voluptatibus veniam ea reprehenderit atque reiciendis non laborum adipisci ipsa pariatur omnis.</p>
-        <ul>
-          <li>Rerum sit libero possimus amet excepturi</li>
-          <li>Exercitationem enim dolores sunt praesentium dolorum praesentium</li>
-          <li>Modi aut dolores dignissimos sequi sit ut aliquid molestias deserunt illo</li>
-        </ul>
-      </div>
-    </div>
-    <div class="entry">
-      <div class="title">
-        <h3>2006 - 2008</h3>
-        <p>Title, Company</p>
-      </div>
-      <div class="body">
-        <p>Voluptatibus veniam ea reprehenderit atque reiciendis non laborum adipisci ipsa pariatur omnis.</p>
-        <ul>
-          <li>Rerum sit libero possimus amet excepturi</li>
-          <li>Exercitationem enim dolores sunt praesentium dolorum praesentium</li>
-          <li>Modi aut dolores dignissimos sequi sit ut aliquid molestias deserunt illo</li>
-        </ul>
-      </div>
-    </div>
-  
-  </div>
-</div> -->

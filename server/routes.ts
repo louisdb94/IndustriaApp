@@ -129,7 +129,7 @@ export default function setRoutes(app) {
   router.route('/cvs-updatecustomname/:id').get(cvsCtrl.updateCustomName);
 
   //Education
-  router.route('/education-get/:id').get(educationCtrl.getbyId);
+  router.route('/education-get/:id').get(educationCtrl.getbyFk);
   router.route('/education-getall').get(educationCtrl.select);
   router.route('/education-insert').post(educationCtrl.insert);
   router.route('/education-insert/:id').get(educationCtrl.insertStudentFK);
@@ -138,6 +138,7 @@ export default function setRoutes(app) {
   router.route('/education-updateinstitution/:id').get(educationCtrl.updateInstitution);
   router.route('/education-updatefrom/:id').get(educationCtrl.updateDatefrom);
   router.route('/education-updateuntil/:id').get(educationCtrl.updateDateuntil);
+  router.route('/education-update').put(educationCtrl.updateAll);
 
   //Experiences
   router.route('/experiences-get/:id').get(experienceCtrl.getbyId);
@@ -179,6 +180,7 @@ export default function setRoutes(app) {
   router.route('/socialmedia-updateskill/:id').get(socialmediaCtrl.updateUrl);
   router.route('/socialmedia-updatetype/:id').get(socialmediaCtrl.updateType);
   router.route('/socialmedia-updatechecked/:id').get(socialmediaCtrl.updateChecked);
+  router.route('/socialmedia-update').put(socialmediaCtrl.updateAll);
 
 
   // CV
