@@ -48,10 +48,7 @@ export class StudentsComponent implements OnInit {
               public auth: AuthService,
               private formBuilder: FormBuilder,
               public toast: ToastComponent) { }
-              public toast: ToastComponent) {
-
-              }
-
+    
   ngOnInit() {
 
     // if (this.auth.loggedIn) {

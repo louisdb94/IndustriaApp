@@ -18,7 +18,8 @@ export class SkillService {
   //MYSQL
 
   getSkillById(id): Observable<any> {
-    return this.http.get(`/api/skills-get/${id}`).map(res => res.json());
+    return this.http.get(`/api/skills-get/${id}`).map(res => res.json());}
+    
   getSkillByStudentId(id): Observable<any> {
     return this.http.get(`/api/skills-getbystudentfk/${id}`).map(res => res.json());
   }

@@ -56,8 +56,7 @@ export class SkillsProfile {
   public valueInput : number;
   public isUpdated = false;
 
-  constructor(private studentService: StudentService,
-    private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
+
   constructor(  private studentService: StudentService,
                 private skillService : SkillService,
                 private activatedRoute: ActivatedRoute,
@@ -85,7 +84,7 @@ export class SkillsProfile {
   save(student, skills){
     this.editMode = false;
 
-    this.studentService.editStudent(student).subscribe(
+
     let count = student.countSkills;
 
         for(let i = 0; i <= count; i++){
@@ -417,8 +416,8 @@ export class SkillsProfile {
           this.isUpdated = true;
         }
       }
-    } 
-  }    
+    }
+  }
 }}    }
   }
 }

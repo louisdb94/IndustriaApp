@@ -104,43 +104,6 @@ export class RegisterComponent implements OnInit {
     this.userService.registerMysql(this.registerForm.value)
         .switchMap( userid =>
           this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId)
-            .switchMap(studentid =>
-                 this.cvsService.addCvsFromStudentId(JSON.parse(studentid._body).insertId)
-                 .switchMap(educ =>
-                      this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
-                      .switchMap(educ =>
-                        this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
-                        .switchMap(educ =>
-                          this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
-                          .switchMap(educ =>
-                            this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
-                            .switchMap(educ =>
-                              this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
-                              .switchMap(educ =>
-                                this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
-                                .switchMap(educ =>
-                                  this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
-                                  .switchMap(educ =>
-                                    this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
-                                    .switchMap(exper =>
-                                        this.experienceService.addExperienceFromStudentId(JSON.parse(studentid._body).insertId)
-                                        .switchMap(lang =>
-                                              this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId)
-                                              .switchMap(socia =>
-                                                  this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
-                                                  .switchMap(socia =>
-                                                    this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
-                                                    .switchMap(socia =>
-                                                      this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
-                                                      .switchMap(socia =>
-                                                        this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
-                                                        .switchMap(skil =>
-                                                          this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
-
-                 .map(result => ({
-                   user_id : JSON.parse(userid._body).insertId,
-                   student_id : JSON.parse(studentid._body).insertId
-                 })))))))))))))))))))
         .switchMap(studentid =>
           this.cvsService.addCvsFromStudentId(JSON.parse(studentid._body).insertId)
         .switchMap(educ =>

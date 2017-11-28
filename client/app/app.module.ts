@@ -126,7 +126,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    FileUploadModule
     FileUploadModule,
     DropdownModule,
     OrderListModule
@@ -148,7 +147,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ExperienceService,
     LanguageService,
     SkillService,
-    SocialmediaService
     SocialmediaService,
     ContactService
 

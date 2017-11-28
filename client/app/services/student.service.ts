@@ -63,7 +63,6 @@ export class StudentService {
   }
 
   addStudentMysql(student): Observable<any> {
-    return this.http.post('/api/students-insert', JSON.stringify(student), this.options);
     return this.http.post('/api/students-insert', student, this.options);
   }
 

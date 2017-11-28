@@ -8,13 +8,6 @@ import * as EmailTemplate from 'email-templates';
 import setRoutes from './routes';
 import * as  mysql from 'mysql';
 
-import sql_skills from './models_mysql/skills';
-import sql_socialmedia from './models_mysql/socialmedia';
-import sql_students from './models_mysql/students';
-import sql_users from './models_mysql/users';
-import contact from './models_mysql/contact';
-
-
 const app = express();
 
 
@@ -32,7 +25,7 @@ const db = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : 'root',
-    //port     : '8889',
+    port     : '8889',
     database  : 'industriaApp'
 });
 

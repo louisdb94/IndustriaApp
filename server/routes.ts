@@ -17,14 +17,6 @@ import Cv from './models/cv';
 import Image from './models/image';
 
 //MYSQL CONTROLLERS
-import CvsCtrl from './controllers_mysql/cvs';
-import ContactCtrl from './controllers_mysql/contact';
-import EducationCtrl from './controllers_mysql/education';
-import ExperienceCtrl from './controllers_mysql/experiences';
-import LanguageCtrl from './controllers_mysql/language';
-import SkillsCtrl from './controllers_mysql/skills';
-import SocialmediaCtrl from './controllers_mysql/socialmedia';
-import StudentsCtrl from './controllers_mysql/students';
 import CvsCtrl from './controllers_mysql/students/cvs';
 import ContactCtrl from './controllers_mysql/students/contact';
 import EducationCtrl from './controllers_mysql/students/education';
@@ -40,14 +32,6 @@ import VacaturesCtrl from './controllers_mysql/company/vacatures';
 
 
 //MYSQL MODELS
-import contacts from './models_mysql/contact';
-import cvs from './models_mysql/cvs';
-import education from './models_mysql/education';
-import experiences from './models_mysql/experiences';
-import language from './models_mysql/language';
-import skills from './models_mysql/skills';
-import socialmedia from './models_mysql/socialmedia';
-import students from './models_mysql/students';
 import contacts from './models_mysql/students/contact';
 import cvs from './models_mysql/students/cvs';
 import education from './models_mysql/students/education';
@@ -181,7 +165,7 @@ export default function setRoutes(app) {
   router.route('/experiences-updatefunction/:id').get(experienceCtrl.updateFunction);
   router.route('/experiences-updateuntil/:id').get(experienceCtrl.updateDateuntil);
   router.route('/experiences-updatedescription/:id').get(experienceCtrl.updateDescription);
-  
+
   //Language
   router.route('/language-get/:id').get(languageCtrl.getbyId);
   router.route('/language-getbystudentfk/:id').get(languageCtrl.getbyStudentId);
