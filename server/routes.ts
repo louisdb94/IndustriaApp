@@ -141,16 +141,18 @@ export default function setRoutes(app) {
   router.route('/education-update').put(educationCtrl.updateAll);
 
   //Experiences
-  router.route('/experiences-get/:id').get(experienceCtrl.getbyId);
+  //router.route('/experiences-get/:id').get(experienceCtrl.getbyId);
+  router.route('/experiences-get/:id').get(experienceCtrl.getbyFkExperience);
   router.route('/experiences-getall').get(experienceCtrl.select);
   router.route('/experiences-insert').post(experienceCtrl.insert);
+  router.route('/experience-insertform').post(experienceCtrl.insertForm);
   router.route('/experience-insert/:id').get(experienceCtrl.insertStudentFK);
-  router.route('/experiences-delete/:id').get(experienceCtrl.delete);
+  router.route('/experiences-delete/:id').delete(experienceCtrl.delete);
   router.route('/experiences-updatefrom/:id').get(experienceCtrl.updateDatefrom);
   router.route('/experiences-updatefunction/:id').get(experienceCtrl.updateFunction);
   router.route('/experiences-updateuntil/:id').get(experienceCtrl.updateDateuntil);
   router.route('/experiences-updatedescription/:id').get(experienceCtrl.updateDescription);
-
+  
   //Language
   router.route('/language-get/:id').get(languageCtrl.getbyId);
   router.route('/language-getall').get(languageCtrl.select);

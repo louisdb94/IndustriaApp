@@ -1,10 +1,12 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
+import { ExperienceService } from '../../services/experience.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataTableModule } from "ng2-data-table";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {StudentProfile} from '../profile.component';
+import { checkAndUpdateNode } from '@angular/core/src/view/view';
 
 
 @Component({
@@ -24,25 +26,76 @@ export class ExperiencesProfile {
   public addClicked = false;
   public deleteClicked = false;
 
+  registerForm: FormGroup;
+  exp1Form = new FormControl(String);
+  exp2Form = new FormControl(String);
+  exp3Form = new FormControl(String);
+  idForm = new FormControl(String);
+
   experience = {};
+  experiences = [];
+  id: Number;
+  lengthExperiences: any;
 
   @Input() student: {};
-  @Input() experiences: [String];
 
-  constructor(private studentService: StudentService, private studentProfile: StudentProfile,
+  constructor(private formBuilder: FormBuilder, private studentService: StudentService, private experienceService: ExperienceService, private studentProfile: StudentProfile,
     private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
+
+
+  ngOnInit() {
+
+    this.registerForm = this.formBuilder.group({
+      exp1Form: this.exp1Form,
+      exp2Form: this.exp2Form,
+      exp3Form: this.exp3Form,
+      idForm: this.idForm,
+    });
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.id = params['id'];
+      this.getExperiencesById(this.id, null, null, null);
+    });
+  }
+
+  getExperiencesById(id, exp1, exp2, exp3){
+    this.experienceService.getExperienceById(id).subscribe(
+      res => {this.experiences = res, this.lengthExperiences = Object.keys(res).length, this.changeExperience(exp1, exp2, exp3), console.log("length in getExperienceById: ", this.lengthExperiences), console.log("Experiences: ", this.experiences)}
+    )
+  }
+
+  changeExperience(exp1, exp2, exp3){
+
+    if(this.addClicked == true && exp1 != null && exp2 != null && exp3 != null){
+      console.log("length in callback: ", this.lengthExperiences)
+      let i = this.lengthExperiences--;
+      if(this.experiences[i]){
+        this.experiences[i].function = this.exp1;
+        this.experiences[i].description = this.exp2;
+        this.experiences[i].period = this.exp3;
+        console.log(this.experiences);
+      }
+    }
+  }
 
   save(student, exp1, exp2, exp3){
 
-    console.log(this.deleteClicked);
+    console.log("exp1", exp1);
+    console.log("exp2", exp2);
+    console.log("exp3", exp3);
+
+    this.registerForm.value.exp1Form = exp1;
+    this.registerForm.value.exp2Form = exp2;
+    this.registerForm.value.exp3Form = exp3;
+    this.registerForm.value.idForm = this.id;
 
     if(this.addClicked && exp1 != null && exp2 != null && exp3 != null){
-      this.experiences.push(this.exp1);
-      this.experiences.push(this.exp2);
-      this.experiences.push(this.exp3);
+      this.experienceService.addExperienceForm(this.registerForm.value).subscribe(
+        res => {this.getExperiencesById(this.id, exp1, exp2, exp3)}
+      )
     }
 
-    this.studentService.editStudent(student).subscribe(
+    this.studentService.editStudentMysql(student).subscribe(
       res => {
         this.student = student;
         this.toast.setMessage('item edited successfully.', 'success');
@@ -64,9 +117,14 @@ export class ExperiencesProfile {
 
   deleteExperience(){
     this.deleteClicked = true;
-    this.experiences.pop();
-    this.experiences.pop();
-    this.experiences.pop();
-    this.save(this.studentProfile.student, null, null, null);
+
+    let i = this.lengthExperiences - 1;
+    console.log("i: ", i);
+    let experienceId = this.experiences[i].id;
+    console.log("experience ID: ", experienceId);
+    this.experienceService.deleteExperience(experienceId).subscribe(
+      res => {this.getExperiencesById(this.id, null, null, null);},
+      error => console.log(error)
+    );
   }
 }

@@ -18,7 +18,8 @@ export class ExperienceService {
   //MYSQL
 
   getExperienceById(id): Observable<any> {
-    return this.http.get(`/api/experience-get/${id}`).map(res => res.json());
+    console.log("In de experiece service");
+    return this.http.get(`/api/experiences-get/${id}`).map(res => res.json());
   }
 
   getExperiences(): Observable<any> {
@@ -29,12 +30,16 @@ export class ExperienceService {
     return this.http.post('/api/experience-insert', JSON.stringify(education), this.options);
   }
 
-  deleteExperience(experience): Observable<any> {
-    return this.http.get(`/api/experience-delete/${experience.id}`, this.options);
+  deleteExperience(id): Observable<any> {
+    return this.http.delete(`/api/experiences-delete/${id}`, this.options);
   }
 
   addExperienceFromStudentId(id): Observable<any> {
     return this.http.get(`/api/experience-insert/${id}`, this.options);
+  }
+
+  addExperienceForm(form): Observable<any> {
+    return this.http.post('/api/experience-insertform', JSON.stringify(form), this.options);
   }
 
 

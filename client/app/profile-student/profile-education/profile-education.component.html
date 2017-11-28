@@ -33,7 +33,7 @@
                 </div>
             </li>
     
-            <li *ngIf="countEducation >= 1 && education[1]" class="timeline-inverted">
+            <li *ngIf="student.countEducation >= 1 && education[1]" class="timeline-inverted">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle invert" id=""></i></a>
                 </div>
@@ -63,7 +63,7 @@
             </li>
 
 
-            <li *ngIf="education[2] && countEducation >= 2" >
+            <li *ngIf="education[2] && student.countEducation >= 2" >
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle" id=""></i></a>
                 </div>

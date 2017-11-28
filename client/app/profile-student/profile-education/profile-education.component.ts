@@ -18,7 +18,7 @@ export class EducationProfile {
   student_id: Number;
   education = [];
   countEducation = 0;
-  student: {};
+  @Input() student: {};
 
   constructor(private studentService: StudentService, private educationService: EducationService,
     private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
@@ -27,15 +27,7 @@ export class EducationProfile {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.student_id = params['id'];
       this.getEducationById(this.student_id);
-      this.getStudentById(this.student_id);
     });
-  }
-
-  getStudentById(id){
-    this.studentService.getStudentByIdMysql(id).subscribe(
-      data => {this.student = data[0], this.countEducation = data[0].countEducation},
-      error => console.log("error")
-    )
   }
 
   getEducationById(id){
@@ -72,7 +64,7 @@ export class EducationProfile {
   add(student){
     console.log("student", this.student);
     console.log("student", this.countEducation);
-    if(this.countEducation < 8){
+    if(student.countEducation < 8){
       this.countEducation++;
       student.countEducation++;
     }
