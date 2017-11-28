@@ -26,7 +26,7 @@ export class ContactProfile {
   save(student){
     this.editMode = false;
 
-    this.studentService.editStudent(student).subscribe(
+
     this.studentService.editStudentMysql(student).subscribe(
       res => {
         this.student = student;

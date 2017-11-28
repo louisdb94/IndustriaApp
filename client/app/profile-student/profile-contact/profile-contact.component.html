@@ -1,8 +1,6 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 <div class="jumbotron">
-    <div class="container">
-        <button translate *ngIf="editMode && contactChecked" (click)="save(student)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
     <div *ngIf="contacts[0]" class="container">
         <button translate *ngIf="editMode && contactChecked" (click)="saveContact(contacts)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
         <button translate *ngIf="!editMode && contactChecked" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
@@ -12,19 +10,14 @@
         <div class="row" *ngIf="contactChecked">
             <label translate class="col-md-2 control-label" for="email">Email: </label>
             <div class="col-md-9">
-                <input id="email" name="email" class="form-control" *ngIf="editMode" [(ngModel)]="student.contact[0]" placeholder="Write your personal Email address" type="text" (keyup.enter)="save()">
-                <p *ngIf="!editMode">{{student.contact[0]}}</p>
                 <input id="email" name="email" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].email" placeholder="Write your personal Email address" type="text" (keyup.enter)="save()">
                 <p *ngIf="!editMode">{{contacts[0].email}}</p>
             </div>
         </div><br>
 
-        <div class="row" *ngIf="contactChecked">
         <div class="row" *ngIf="contactChecked ">
             <label translate class="col-md-2 control-label" for="phone">Phone number: </label>
             <div class="col-md-9">
-                <input id="phone" name="phone" class="form-control" *ngIf="editMode" [(ngModel)]="student.contact[1]" placeholder="Write your phone number" type="text" (keyup.enter)="save()">
-                <p *ngIf="!editMode">{{student.contact[1]}}</p>
                 <input id="phone" name="phone" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].phone" placeholder="Write your phone number" type="text" (keyup.enter)="save()">
                 <p *ngIf="!editMode">{{contacts[0].phone}}</p>
             </div>
@@ -33,8 +26,6 @@
         <div class="row" *ngIf="contactChecked">
             <label translate class="col-md-2 control-label" for="province">Province: </label>
             <div class="col-md-9">
-                <input id="province" name="province" class="form-control" *ngIf="editMode" [(ngModel)]="student.contact[2]" placeholder="Write your address" type="text" (keyup.enter)="save()">
-                <p *ngIf="!editMode">{{student.contact[2]}}</p>
                 <input id="province" name="province" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].county" placeholder="Write your address" type="text" (keyup.enter)="save()">
                 <p *ngIf="!editMode">{{contacts[0].county}}</p>
             </div>
@@ -43,8 +34,6 @@
         <div class="row" *ngIf="contactChecked">
             <label translate class="col-md-2 control-label" for="city">City: </label>
             <div class="col-md-9">
-                <input id="city" name="city" class="form-control" *ngIf="editMode" [(ngModel)]="student.contact[3]" placeholder="Write your address" type="text" (keyup.enter)="save()">
-                <p *ngIf="!editMode">{{student.contact[3]}}</p>
                 <input id="city" name="city" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].city" placeholder="Write your address" type="text" (keyup.enter)="save()">
                 <p *ngIf="!editMode">{{contacts[0].city}}</p>
             </div>
@@ -54,7 +43,6 @@
         <div class="text-center">
             <label class="custom-control custom-checkbox">
                 <input [checked]="contactChecked" class="custom-control-input" type="checkbox" [(ngModel)]="contactChecked" (change)= "changeChecked($event, student)"/>
-                <input [checked]="contactChecked" class="custom-control-input" type="checkbox" [(ngModel)]="contactChecked" (change)= "changeChecked($event, student, contacts)"/>
                 <span id="checkboxContact" class="custom-control-indicator"></span>
                 <span translate class="custom-control-description">Contact check</span>
             </label>

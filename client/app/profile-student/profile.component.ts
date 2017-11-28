@@ -21,8 +21,6 @@ import { ContactService} from '../services/contact.service';
 })
 export class StudentProfile implements OnInit {
 
-  constructor(private studentService: StudentService, public auth: AuthService, public dataService: DataService, private translate: TranslateService, private activatedRoute: ActivatedRoute,
-    public toast: ToastComponent) {}
   constructor(  private studentService: StudentService,
                 private skillService : SkillService,
                 private languageService : LanguageService,

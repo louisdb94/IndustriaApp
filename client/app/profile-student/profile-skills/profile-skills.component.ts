@@ -62,24 +62,6 @@ export class SkillsProfile {
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent){}
 
-  ngOnInit(){
-    this.activatedRoute.params.subscribe((params: Params) => {
-      let id = params['id'];
-      // this.getskillbyid(id);
-    });
-
-
-
-  }
-
-  save(student){
-
-  // getskillbyid(id){
-  //   this.skillService.getSkillByStudentId(id).subscribe(
-  //     data => {this.skills = data, console.log(data), this.skillvalue = data[0].value, console.log("value", this.skillvalue)},
-  //     error => console.log(error)
-  //   )
-  // }
 
   save(student, skills){
     this.editMode = false;
@@ -117,7 +99,6 @@ export class SkillsProfile {
     }
   }
 
-  updateProgressBar(event: any, x: number, student): void {
   updateProgressBar(event: any, x: number, skills): void {
     let args = event.args;
     let item = this.dropDownList1.getItem(args.index);
@@ -125,29 +106,21 @@ export class SkillsProfile {
     if(x == 1){
       if (item != null) {
         if(item.label == this.source[0]){
-          student.skillsValue[0] = 25;
-          student.skillsValue[1] = this.source[0];
           skills[0].value = 25;
           skills[0].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
-          student.skillsValue[0] = 50;
-          student.skillsValue[1] = this.source[1];
           skills[0].value = 50;
           skills[0].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
-          student.skillsValue[0] = 75;
-          student.skillsValue[1] = this.source[2];
           skills[0].value = 75;
           skills[0].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
-          student.skillsValue[0] = 100;
-          student.skillsValue[1] = this.source[3];
           skills[0].value = 100;
           skills[0].value_type = this.source[3];
           this.isUpdated = true;
@@ -158,29 +131,21 @@ export class SkillsProfile {
     if(x == 2){
       if (item != null) {
         if(item.label == this.source[0]){
-          student.skillsValue[2] = 25;
-          student.skillsValue[3] = this.source[0];
           skills[1].value = 25;
           skills[1].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
-          student.skillsValue[2] = 50;
-          student.skillsValue[3] = this.source[1];
           skills[1].value = 50;
           skills[1].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
-          student.skillsValue[2] = 75;
-          student.skillsValue[3] = this.source[2];
           skills[1].value = 75;
           skills[1].value = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
-          student.skillsValue[2] = 100;
-          student.skillsValue[3] = this.source[3];
           skills[1].value = 100;
           skills[1].value_type = this.source[3];
           this.isUpdated = true;
@@ -191,29 +156,21 @@ export class SkillsProfile {
     if(x == 3){
       if (item != null) {
         if(item.label == this.source[0]){
-          student.skillsValue[4] = 25;
-          student.skillsValue[5] = this.source[0];
           skills[2].value = 25;
           skills[2].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
-          student.skillsValue[4] = 50;
-          student.skillsValue[5] = this.source[1];
           skills[2].value = 50;
           skills[2].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
-          student.skillsValue[4] = 75;
-          student.skillsValue[5] = this.source[2];
           skills[2].value = 75;
           skills[2].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
-          student.skillsValue[4] = 100;
-          student.skillsValue[5] = this.source[3];
           skills[2].value = 100;
           skills[2].value_type = this.source[3];
           this.isUpdated = true;
@@ -223,29 +180,21 @@ export class SkillsProfile {
     if(x == 4){
       if (item != null) {
         if(item.label == this.source[0]){
-          student.skillsValue[6] = 25;
-          student.skillsValue[7] = this.source[0];
           skills[3].value = 25;
           skills[3].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
-          student.skillsValue[6] = 50;
-          student.skillsValue[7] = this.source[1];
           skills[3].value = 50;
           skills[3].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
-          student.skillsValue[6] = 75;
-          student.skillsValue[7] = this.source[2];
           skills[3].value = 75;
           skills[3].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
-          student.skillsValue[6] = 100;
-          student.skillsValue[7] = this.source[3];
           skills[3].value = 100;
           skills[3].value = this.source[3];
           this.isUpdated = true;
@@ -256,29 +205,21 @@ export class SkillsProfile {
     if(x == 5){
       if (item != null) {
         if(item.label == this.source[0]){
-          student.skillsValue[8] = 25;
-          student.skillsValue[9] = this.source[0];
           skills[4].value = 25;
           skills[4].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
-          student.skillsValue[8] = 50;
-          student.skillsValue[9] = this.source[1];
           skills[4].value = 50;
           skills[4].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
-          student.skillsValue[8] = 75;
-          student.skillsValue[9] = this.source[2];
           skills[4].value = 75;
           skills[4].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
-          student.skillsValue[8] = 100;
-          student.skillsValue[9] = this.source[3];
           skills[4].value = 100;
           skills[4].value_type = this.source[3];
           this.isUpdated = true;
@@ -289,29 +230,21 @@ export class SkillsProfile {
     if(x == 6){
       if (item != null) {
         if(item.label == this.source[0]){
-          student.skillsValue[10] = 25;
-          student.skillsValue[11] = this.source[0];
           skills[5].value = 25;
           skills[5].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
-          student.skillsValue[10] = 50;
-          student.skillsValue[11] = this.source[1];
           skills[5].value = 50;
           skills[5].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
-          student.skillsValue[10] = 75;
-          student.skillsValue[11] = this.source[2];
           skills[5].value = 75;
           skills[5].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
-          student.skillsValue[10] = 100;
-          student.skillsValue[11] = this.source[3];
           skills[5].value = 100;
           skills[5].value_type = this.source[3];
           this.isUpdated = true;
@@ -322,29 +255,21 @@ export class SkillsProfile {
     if(x == 7){
       if (item != null) {
         if(item.label == this.source[0]){
-          student.skillsValue[12] = 25;
-          student.skillsValue[13] = this.source[0];
           skills[6].value = 25;
           skills[6].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
-          student.skillsValue[12] = 50;
-          student.skillsValue[13] = this.source[1];
           skills[6].value = 50;
           skills[6].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
-          student.skillsValue[12] = 75;
-          student.skillsValue[13] = this.source[2];
           skills[6].value = 75;
           skills[6].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
-          student.skillsValue[12] = 100;
-          student.skillsValue[13] = this.source[3];
           skills[6].value = 100;
           skills[6].value_type = this.source[3];
           this.isUpdated = true;
@@ -355,29 +280,21 @@ export class SkillsProfile {
     if(x == 8){
       if (item != null) {
         if(item.label == this.source[0]){
-          student.skillsValue[14] = 25;
-          student.skillsValue[15] = this.source[0];
           skills[7].value = 25;
           skills[7].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
-          student.skillsValue[14] = 50;
-          student.skillsValue[15] = this.source[1];
           skills[7].value = 50;
           skills[7].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
-          student.skillsValue[14] = 75;
-          student.skillsValue[15] = this.source[2];
           skills[7].value = 75;
           skills[7].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
-          student.skillsValue[14] = 100;
-          student.skillsValue[15] = this.source[3];
           skills[7].value = 100;
           skills[7].value_type = this.source[3];
           this.isUpdated = true;
@@ -388,36 +305,26 @@ export class SkillsProfile {
     if(x == 9){
       if (item != null) {
         if(item.label == this.source[0]){
-          student.skillsValue[16] = 25;
-          student.skillsValue[17] = this.source[0];
           skills[8].value = 25;
           skills[8].value_type = this.source[0];
           this.isUpdated = true;
         }
         if(item.label == this.source[1]){
-          student.skillsValue[16] = 50;
-          student.skillsValue[17] = this.source[1];
           skills[8].value = 50;
           skills[8].value_type = this.source[1];
           this.isUpdated = true;
         }
         if(item.label == this.source[2]){
-          student.skillsValue[16] = 75;
-          student.skillsValue[17] = this.source[2];
           skills[8].value = 75;
           skills[8].value_type = this.source[2];
           this.isUpdated = true;
         }
         if(item.label == this.source[3]){
-          student.skillsValue[16] = 100;
-          student.skillsValue[17] = this.source[3];
           skills[8].value = 100;
           skills[8].value_type = this.source[3];
           this.isUpdated = true;
         }
       }
     }
-  }
-}}    }
   }
 }
