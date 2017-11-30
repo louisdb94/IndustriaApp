@@ -18,7 +18,6 @@
             <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <div id="login" class="input-group" [ngClass]="setClassEmail()">
                   <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                  <input class="form-control" [(ngModel)]="emailStudent" type="email" name="email" formControlName="email" placeholder="Email" email pattern="[r]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
                   <input class="form-control" [(ngModel)]="emailStudent" type="email" name="email" formControlName="email" placeholder="Email" email pattern="[r||s]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
                 </div>
                 <br>
@@ -35,7 +34,7 @@
 
                 <a href="/register">Do you want to register?</a>
             </form>
-    
+
 
         </div>
     </div>

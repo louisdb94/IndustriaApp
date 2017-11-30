@@ -31,7 +31,7 @@
                 <div class="file-upload" *ngIf="editMode">
                     <br>
                     <button (click)="add()">Upload</button>
-                    <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+                    <input id="custom-input" type="file" (change)="fileChangeListener($event, student)">
                 </div>
             </div>
         </div><br>

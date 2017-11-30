@@ -98,6 +98,9 @@ export class RegisterComponent implements OnInit {
     let student_result : any;
     let studentForm = this.formBuilder.group({
       rnumber: this.emailStudent.substring(0,8),
+      name : "Name",
+      degree : "Electronics",
+      id: Number,
       user_fk: Number
     });
 
@@ -170,7 +173,16 @@ export class RegisterComponent implements OnInit {
              student_id : JSON.parse(studentid._body).insertId,
            })))))))))))))))))))))))))))))))))
         .subscribe(
-          res => { this.toast.setMessage('you successfully registered!', 'success'); this.router.navigate(['/login']);},
+          res => {  this.toast.setMessage('you successfully registered!', 'success'),
+              //      this.router.navigate(['/login']),
+                    console.log("LOLO",res.user_id)
+                    studentForm.value.user_fk = res.user_id,
+                    studentForm.value.id = res.student_id,
+                    console.log(studentForm.value),
+                    this.studentService.editStudentMysql(studentForm.value).subscribe(
+                      res => {console.log("gelukt", res)},
+                      error => console.log(error)
+                    )},
           error => console.log(error)
         )
 

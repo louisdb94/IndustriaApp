@@ -47,10 +47,8 @@ export class LanguageProfile {
   save(student, languages){
     this.editMode = false;
 
-    let count = student.countLanguages;
-
+    let count = student.countLanguage;
     for(let i = 0; i <= count; i++){
-      console.log(this.languages[i]);
       if(this.languages[i]){
         this.languageService.editLanguage(this.languages[i]).subscribe(
           res => {},

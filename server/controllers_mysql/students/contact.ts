@@ -1,13 +1,13 @@
 import {db} from '../../app';
 import * as  mysql from 'mysql';
-import contact from '../../models_mysql/students/contact';
+import contacts from '../../models_mysql/students/contact';
 import BaseSqlCtrl from '../baseSql';
 
 
 export default class ContactCtrl extends BaseSqlCtrl {
 
   model = 'contact';
-  dummy = contact;
+  dummy = contacts;
 
 
   updateAll = (req, res) => {

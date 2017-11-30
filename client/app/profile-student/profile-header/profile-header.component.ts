@@ -107,14 +107,14 @@ export class HeaderProfile {
       console.log(this.socialmedia[i]);
       if(this.socialmedia[i] != null){
         this.socialmediaService.editSocialmediaMysql(this.socialmedia[i]).subscribe(
-          res => {}, 
+          res => {},
           error => console.log(error)
         );
       }
     }
   }
 
-  fileChangeListener($event) {
+  fileChangeListener($event, student) {
       // var image:any = new Image();
       // var file:File = $event.target.files[0];
       // var myReader:FileReader = new FileReader();
@@ -143,11 +143,11 @@ export class HeaderProfile {
       var file:File = $event.target.files[0];
       let formData: FormData = new FormData();
       formData.append('files', file, file.name);
-      let rnumber = this.rnumber;
+      let rnumber = student.rnumber;
       for(let i = 0; i<rnumber.length;i++){
            formData.append('students', rnumber[i]);
       }
-      let id = this.id;
+      let id = student.id;
       for(let i = 0; i<id.length;i++){
            formData.append('id', id[i]);
       }

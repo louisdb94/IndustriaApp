@@ -72,7 +72,16 @@ export default class ImageCtrl extends BaseCtrl {
          }
      });
 
-
+     // // Select single post
+     // getbyId = function (req, res) => {
+     //     let sql = `SELECT * FROM students WHERE id = '${req.params.id}'`;
+     //     let query = db.query(sql, (err, result) => {
+     //         if(err) throw err;
+     //         console.log(result);
+     //         res.json(result);
+     //
+     //     });
+     // };
 
 
 
