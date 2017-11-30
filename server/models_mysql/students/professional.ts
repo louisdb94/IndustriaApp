@@ -6,7 +6,7 @@ let sql_professional = `CREATE TABLE IF NOT EXISTS professional (
     value_type varchar(20) NOT NULL DEFAULT 'Intermediate',
     PRIMARY KEY (id),
     KEY student_fk (student_fk),
-    CONSTRAINT skills_ibfk_1 FOREIGN KEY (student_fk) REFERENCES students (id) ON UPDATE CASCADE
+    CONSTRAINT professional_ibfk_1 FOREIGN KEY (student_fk) REFERENCES students (id) ON UPDATE CASCADE
   )`
 
   export default sql_professional

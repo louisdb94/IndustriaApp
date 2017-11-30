@@ -22,6 +22,7 @@ import ContactCtrl from './controllers_mysql/students/contact';
 import EducationCtrl from './controllers_mysql/students/education';
 import ExperienceCtrl from './controllers_mysql/students/experiences';
 import LanguageCtrl from './controllers_mysql/students/language';
+import ProfessionalCtrl from './controllers_mysql/students/professional';
 import SkillsCtrl from './controllers_mysql/students/skills';
 import SocialmediaCtrl from './controllers_mysql/students/socialmedia';
 import StudentsCtrl from './controllers_mysql/students/students';
@@ -37,6 +38,7 @@ import cvs from './models_mysql/students/cvs';
 import education from './models_mysql/students/education';
 import experiences from './models_mysql/students/experiences';
 import language from './models_mysql/students/language';
+import professional from './models_mysql/students/professional';
 import skills from './models_mysql/students/skills';
 import socialmedia from './models_mysql/students/socialmedia';
 import students from './models_mysql/students/students';
@@ -62,6 +64,7 @@ export default function setRoutes(app) {
   const educationCtrl = new EducationCtrl();
   const experienceCtrl = new ExperienceCtrl();
   const languageCtrl = new LanguageCtrl();
+  const professionalCtrl = new ProfessionalCtrl();
   const skillsCtrl = new SkillsCtrl();
   const socialmediaCtrl = new SocialmediaCtrl();
   const studentsCtrl = new StudentsCtrl();
@@ -177,6 +180,15 @@ export default function setRoutes(app) {
   router.route('/language-updatevalue/:id').get(languageCtrl.updateValue);
   router.route('/language-updatevaluetype/:id').get(languageCtrl.updateValueType);
   router.route('/language-update').put(languageCtrl.updateAll);
+
+  //Professional
+  router.route('/professional-get/:id').get(professionalCtrl.getbyId);
+  router.route('/professional-getbystudentfk/:id').get(professionalCtrl.getbyStudentId);
+  router.route('/professional-getall').get(professionalCtrl.select);
+  router.route('/professional-insert').post(professionalCtrl.insert);
+  router.route('/professional-insert/:id').get(professionalCtrl.insertStudentFK);
+  router.route('/professional-delete/:id').get(professionalCtrl.delete);
+  router.route('/professional-update').put(professionalCtrl.updateAll);
 
   //Skill
   router.route('/skills-get/:id').get(skillsCtrl.getbyId);

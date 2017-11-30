@@ -19,6 +19,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
                                             cvChecked = '${req.body.cvChecked}',
                                             contactChecked = '${req.body.contactChecked}',
                                             countSkills = '${req.body.countSkills}',
+                                            countProfessional = '${req.body.countProfessional}',
                                             countLanguage = '${req.body.countLanguage}',
                                             countEducation = '${req.body.countEducation}',
                                             numberCv = '${req.body.numberCv}',

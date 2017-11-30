@@ -13,6 +13,7 @@ import { CvsService } from './services/cvs.service';
 import { EducationService } from './services/education.service';
 import { ExperienceService } from './services/experience.service';
 import { LanguageService } from './services/language.service';
+import { ProfessionalService } from './services/professional.service';
 import { SkillService } from './services/skill.service';
 import { SocialmediaService } from './services/socialmedia.service';
 import { ContactService } from './services/contact.service';
@@ -41,6 +42,7 @@ import { HeaderProfile } from './profile-student/profile-header';
 import { BioProfile } from './profile-student/profile-bio';
 import { EducationProfile } from './profile-student/profile-education';
 import { SkillsProfile } from './profile-student/profile-skills';
+import { ProfessionalProfile } from './profile-student/profile-professional';
 import { LanguageProfile } from './profile-student/profile-language';
 import { ContactProfile } from './profile-student/profile-contact';
 import { FooterProfile } from './profile-student/profile-footer';
@@ -100,6 +102,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EducationProfile,
     ExperiencesProfile,
     SkillsProfile,
+    ProfessionalProfile,
     LanguageProfile,
     ContactProfile,
     FooterProfile,
@@ -146,6 +149,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EducationService,
     ExperienceService,
     LanguageService,
+    ProfessionalService,
     SkillService,
     SocialmediaService,
     ContactService

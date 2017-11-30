@@ -12,6 +12,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SkillService} from '../services/skill.service';
 import { LanguageService} from '../services/language.service';
 import { ContactService} from '../services/contact.service';
+import { ProfessionalService} from '../services/professional.service';
+
 
 
 @Component({
@@ -23,6 +25,7 @@ export class StudentProfile implements OnInit {
 
   constructor(  private studentService: StudentService,
                 private skillService : SkillService,
+                private professionalService : ProfessionalService,
                 private languageService : LanguageService,
                 private contactService : ContactService,
                 public auth: AuthService,
@@ -39,6 +42,7 @@ export class StudentProfile implements OnInit {
   contactChecked: boolean;
 
   skills = [];
+  professional = [];
   languages = [];
   contacts = [];
 
@@ -59,6 +63,7 @@ export class StudentProfile implements OnInit {
       let id = params['id'];
       this.getStudentByIdMySql(id);
       this.getskillbyid(id);
+      this.getProfessionalbyid(id);
       this.getLanguagebyid(id);
       this.getContactbyid(id);
     });
@@ -92,6 +97,13 @@ export class StudentProfile implements OnInit {
   getContactbyid(id){
     this.contactService.getContactByStudentId(id).subscribe(
       data => {this.contacts = data},
+      error => console.log(error)
+    )
+  }
+
+  getProfessionalbyid(id){
+    this.professionalService.getProfessionalByStudentId(id).subscribe(
+      data => {this.professional = data},
       error => console.log(error)
     )
   }

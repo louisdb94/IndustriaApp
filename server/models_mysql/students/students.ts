@@ -8,6 +8,7 @@ let sql_students = `CREATE TABLE IF NOT EXISTS students (
     cvChecked tinyint(1) NOT NULL DEFAULT '0',
     contactChecked tinyint(1) NOT NULL DEFAULT '0',
     countSkills int(11) NOT NULL DEFAULT '0',
+    countProfessional int(11) NOT NULL DEFAULT '0',
     countLanguage int(11) NOT NULL DEFAULT '0',
     countEducation int(11) NOT NULL DEFAULT '0',
     numberCv int(11) NOT NULL DEFAULT '0',

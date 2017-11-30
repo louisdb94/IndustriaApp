@@ -9,6 +9,7 @@ import { EducationService} from '../services/education.service';
 import { ExperienceService} from '../services/experience.service';
 import { LanguageService} from '../services/language.service';
 import { ContactService} from '../services/contact.service';
+import { ProfessionalService} from '../services/professional.service';
 import { SkillService} from '../services/skill.service';
 import { SocialmediaService} from '../services/socialmedia.service';
 import { ToastComponent } from '../shared/toast/toast.component';
@@ -53,6 +54,7 @@ export class RegisterComponent implements OnInit {
               private educationService: EducationService,
               private experienceService: ExperienceService,
               private languageService: LanguageService,
+              private professionalService: ProfessionalService,
               private skillService: SkillService,
               private socialmediaService: SocialmediaService,
               private contactService : ContactService,
@@ -147,6 +149,18 @@ export class RegisterComponent implements OnInit {
           this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
         .switchMap(socia =>
           this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(prof =>
+          this.professionalService.addProfessionalFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(prof =>
+          this.professionalService.addProfessionalFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(prof =>
+          this.professionalService.addProfessionalFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(prof =>
+          this.professionalService.addProfessionalFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(prof =>
+          this.professionalService.addProfessionalFromStudentId(JSON.parse(studentid._body).insertId)
+        .switchMap(prof =>
+          this.professionalService.addProfessionalFromStudentId(JSON.parse(studentid._body).insertId)
         .switchMap(skil =>
           this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
         .switchMap(skil =>
@@ -171,7 +185,7 @@ export class RegisterComponent implements OnInit {
            .map(result => ({
              user_id : JSON.parse(userid._body).insertId,
              student_id : JSON.parse(studentid._body).insertId,
-           })))))))))))))))))))))))))))))))))
+           })))))))))))))))))))))))))))))))))))))))
         .subscribe(
           res => {  this.toast.setMessage('you successfully registered!', 'success'),
               //      this.router.navigate(['/login']),
