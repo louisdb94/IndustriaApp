@@ -44,9 +44,7 @@
             </label>
         </div>
 
-        <p-fileUpload *ngIf="student.cvChecked" name="cv" customUpload="true"  (uploadHandler)="myUploader($event)"></p-fileUpload>
-
-        <br><br>
+        <p-fileUpload *ngIf="student.cvChecked" name="cv" customUpload="true"  (uploadHandler)="myUploader($event, student)"></p-fileUpload>
 
         <div *ngIf="student.cvChecked">
             <table class="table table-bordered">

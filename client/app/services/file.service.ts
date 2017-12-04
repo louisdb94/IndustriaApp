@@ -25,19 +25,11 @@ export class FileService {
     return this.http.get(`/api/download/${cv._id}`);
   }
 
-  addCv(cv):Observable<any>{
-    return this.http.post('/api/cv', JSON.stringify(cv), this.options);
-  }
-
-  getCvFromStudent(id):Observable<any>{
-    return this.http.get(`/api/cv/${id}`).map(res => res.json());
-  }
-
   removeCv(cv):Observable<any>{
-    return this.http.delete(`/api/cv/${cv._id}`, this.options);
+    return this.http.delete(`/api/cv-delete/${cv.id}`, this.options);
   }
 
-  // IMAGE
+  // MYSQL
 
 
   addImage(image):Observable<any>{
@@ -54,5 +46,25 @@ export class FileService {
 
   downloadImage(id): Observable<any> {
     return this.http.get(`/api/downloadImage/${id}`);
+  }
+
+  uploadImage(image):Observable<any>{
+    console.log("1: ", JSON.stringify(image.get('students')));
+    console.log("2: ", image.get('files'));
+    console.log("3: ", JSON.stringify(image.get('id')));
+
+    let random = image.getAll('students');
+    var random1: File = image.getAll('files');
+
+    return this.http.post('/api/image/upload', image);
+  }
+
+  addCv(cv):Observable<any>{
+    return this.http.post('/api/cv-add', JSON.stringify(cv), this.options);
+  }
+
+  getCvFromStudent(id):Observable<any>{
+    console.log("dees is den id: ", id);
+    return this.http.get(`/api/cv/${id}`).map(res => res.json());
   }
 }

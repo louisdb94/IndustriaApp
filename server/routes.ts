@@ -239,17 +239,14 @@ export default function setRoutes(app) {
 
 
   // CV
-  router.route('/cv').get(cvCtrl.getAll);
-  router.route('/cv/:stud_id').get(cvCtrl.getAllFromStudent);
   router.route('/cv/count').get(cvCtrl.count);
-  router.route('/cv').post(cvCtrl.insert);
-  router.route('/cv/:id').get(cvCtrl.get);
-  router.route('/cv/:id').put(cvCtrl.update);
-  router.route('/cv/:id').delete(cvCtrl.delete);
+  router.route('/cv-add').post(cvCtrl.addCv);
+  router.route('/cv/:id').get(cvCtrl.getbyFk);
+  router.route('/cv-delete/:id').delete(cvCtrl.delete);
   //upload a pdf or image
   router.route('/cv/upload').post(cvCtrl.uploadCv);
   //download a cv of a student
-  router.route('/download/:cv_id').get(cvCtrl.downloadCv);
+  router.route('/download/:id').get(cvCtrl.downloadCv);
 
   router.route('/cv/remove/:id').post(cvCtrl.removeCv);
 

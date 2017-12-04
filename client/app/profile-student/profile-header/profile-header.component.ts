@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import { FileUploadModule } from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
+import {RequestOptions} from '@angular/http';
 import {formData} from 'form-data';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
@@ -115,44 +116,23 @@ export class HeaderProfile {
   }
 
   fileChangeListener($event, student) {
-      // var image:any = new Image();
-      // var file:File = $event.target.files[0];
-      // var myReader:FileReader = new FileReader();
-      // var that = this;
-      // myReader.onloadend = function (loadEvent:any) {
-      //     image.src = loadEvent.target.result;
-      //     that.cropper.setImage(image);
-      //
-      // };
-      // myReader.readAsDataURL(file);
-
-      // //Upload image to ImageModel -> DB
-      // this.addImageForm = this.formBuilder.group({
-      //   name: this.rnumber,
-      //   uploader: this.id,
-      //   mimetype: file.type.split('/')[1],
-      // });
-      // this.fileService.addImage(this.addImageForm.value).subscribe(
-      //   res => {
-      //     const newImage = res.json();
-      //     console.log("New image toegevoegd aan ImageModel", newImage)
-      //   }
-      // );
 
       //Upload image to server
       var file:File = $event.target.files[0];
       let formData: FormData = new FormData();
       formData.append('files', file, file.name);
-      let rnumber = student.rnumber;
-      for(let i = 0; i<rnumber.length;i++){
-           formData.append('students', rnumber[i]);
-      }
-      let id = student.id;
-      for(let i = 0; i<id.length;i++){
-           formData.append('id', id[i]);
-      }
+
+      formData.append('students', student.rnumber);
+      console.log("Formdata students: ", formData.get('students'));
+
+      formData.append('id', student.id);
+      console.log("Formdata id: ", formData.get('id'));
+      console.log("Formdata Files: ", formData.get('files'));
+
+      let random = formData.get('students');
+
       if(file) {
-        this.http.post('/api/image/upload', formData, {}).subscribe(
+        this.fileService.uploadImage(formData).subscribe(
           res => console.log('gelukt', res));
       }
 
@@ -162,25 +142,22 @@ export class HeaderProfile {
     window.location.reload();
   }
 
-  myUploader(event) {
-
-
+  myUploader(event, student) {
+    
     let files: File[] = event.files;
 
     let formData: FormData = new FormData();
     for(let i = 0; i<files.length;i++){
          formData.append('files', files[i], files[i].name);
     }
-    formData.append('cvnumber', (<any>this.numberCv))
-    let rnumber = this.rnumber;
-    for(let i = 0; i<rnumber.length;i++){
-         formData.append('students', rnumber[i]);
-    }
+    
+    formData.append('rnumber', student.rnumber);
+    formData.append('id', student.id);
 
-    let id = this.id;
-    for(let i = 0; i<id.length;i++){
-         formData.append('id', id[i]);
-    }
+    console.log("Formdata 1: ", formData.getAll('files'));
+    console.log("Formdata 2: ", formData.getAll('cvnumber'));
+    console.log("Formdata 3: ", formData.getAll('rnumber'));
+    console.log("Formdata 4: ", formData.getAll('id'));
 
     for(let i = 0; i < files.length; i++) {
         let file = (<any>files[i]);
@@ -190,28 +167,27 @@ export class HeaderProfile {
           this.files.push(file);
         }
 
-        this.addCvForm = this.formBuilder.group({
-          name: rnumber,
-          uploader: id,
-          mimetype: file.type.split('/')[1],
-          number: this.numberCv
-        });
-
         if(this.hasFiles()) {
-          this.http.post('/api/cv/upload', formData, {}).subscribe(res => console.log('gelukt', res));
+          student.numberCv++;
+          formData.append('cvnumber', (<any>student.numberCv));
+          this.http.post('/api/cv/upload', formData).subscribe(res => console.log('gelukt', res));
+
+          this.addCvForm = this.formBuilder.group({
+            name: student.rnumber,
+            uploader: student.id,
+            mimetype: file.type.split('/')[1],
+            size: file.size,
+            number: student.numberCv
+          });
+
+          this.fileService.addCv(this.addCvForm.value).subscribe(
+            res => {
+              const newCv = res.json();
+              this.cvs.push(newCv);
+            }
+          );
         }
     }
-    console.log("number before incrmeent", this.numberCv);
-    (<any>this.numberCv) ++;
-    console.log("number after incrmeent", this.numberCv);
-
-    this.fileService.addCv(this.addCvForm.value).subscribe(
-      res => {
-        const newCv = res.json();
-        this.cvs.push(newCv);
-      }
-    );
-
   }
 
 
@@ -231,7 +207,7 @@ export class HeaderProfile {
 
 
   downloadCv(cv){
-    window.open('/api/download/' + cv._id)
+    window.open('/api/download/' + cv.id)
   }
 
 
@@ -246,7 +222,7 @@ export class HeaderProfile {
   removeCv(cv){
     this.fileService.removeCv(cv).subscribe(
       res => {
-        const pos = this.cvs.map(elem => elem._id).indexOf(cv._id);
+        const pos = this.cvs.map(elem => elem.id).indexOf(cv.id);
         this.cvs.splice(pos, 1);
         this.toast.setMessage('item deleted successfully.', 'success');
       },
@@ -261,13 +237,13 @@ export class HeaderProfile {
     cvs.uploader = cv.uploader;
     cvs.mimetype = cv.mimetype;
 
-    this.http.post(`/api/cv/remove/${cv._id}`, cvs).subscribe();
+    this.http.post(`/api/cv/remove/${cv.id}`, cvs).subscribe();
 
   }
 
   getCvFromStudent(id){
     this.fileService.getCvFromStudent(id).subscribe(
-      data => {this.cvs = data},
+      data => {this.cvs = data, console.log("this is cvsssss: ", data)},
       error => console.log(error)
     )
   }

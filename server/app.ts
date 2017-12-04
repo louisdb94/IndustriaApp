@@ -8,6 +8,9 @@ import * as EmailTemplate from 'email-templates';
 import setRoutes from './routes';
 import * as  mysql from 'mysql';
 
+import * as fileupload from 'express-fileupload';
+
+
 const app = express();
 
 
@@ -19,6 +22,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.get('/*', function(req, res) {
 //   res.sendFile(path.join(__dirname, '../public/index.html'));
 // });
+
+app.use(fileupload({ safeFileNames: true }));
 
 // Create connection
 const db = mysql.createConnection({
