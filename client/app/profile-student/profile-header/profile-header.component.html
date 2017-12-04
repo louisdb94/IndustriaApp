@@ -15,10 +15,10 @@
                 <p  *ngIf="!editMode">{{student.degree}}</p>
             </h3>
 
-            <h3>
+            <div>
                 <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.gradYear" placeholder="Select your year of graduation" rows="1" (keyup.enter)="save()"></textarea>
-                <p *ngIf="!editMode">{{student.gradYear}}</p>
-            </h3>
+                <p *ngIf="!editMode">Expected graduation year: {{student.gradYear}}</p>
+            </div>
 
             <div class="row" style="float : right">
                 <button translate class="btn btn-sm btn-primary" *ngIf="!editMode" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
@@ -31,7 +31,7 @@
                 <div class="file-upload" *ngIf="editMode">
                     <br>
                     <button (click)="add()">Upload</button>
-                    <input id="custom-input" type="file" (change)="fileChangeListener($event, student)">
+                    <input id="custom-input" type="file" accept="image/*" (change)="fileChangeListener($event, student)">
                 </div>
             </div>
         </div><br>
@@ -40,11 +40,11 @@
             <label class="custom-control custom-checkbox">
                 <input [checked]="student.cvChecked" class="custom-control-input" type="checkbox" [(ngModel)]="student.cvChecked" (change)= "changeChecked($event, student)"/>
                 <span id="checkboxCV" class="custom-control-indicator"></span>
-                <span translate class="custom-control-description">CVcheck</span>
+                <span translate class="custom-control-description" style="color:#984444;">CVcheck</span>
             </label>
         </div>
 
-        <p-fileUpload *ngIf="student.cvChecked" name="cv" customUpload="true"  (uploadHandler)="myUploader($event, student)"></p-fileUpload>
+        <p-fileUpload *ngIf="student.cvChecked" name="cv" customUpload="true" accept="application/pdf" maxFileSize="1000000"  (uploadHandler)="myUploader($event, student)"></p-fileUpload>
 
         <div *ngIf="student.cvChecked">
             <table class="table table-bordered">

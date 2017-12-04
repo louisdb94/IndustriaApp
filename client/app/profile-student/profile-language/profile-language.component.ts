@@ -60,8 +60,7 @@ export class LanguageProfile {
     this.studentService.editStudentMysql(student).subscribe(
       res => {
         this.student = student;
-        this.toast.setMessage('item edited successfully.', 'success');
-      },
+            },
       error => console.log(error)
     );
   }
@@ -69,6 +68,10 @@ export class LanguageProfile {
   add(student){
     if(student.countLanguage < 4){
       student.countLanguage++;
+    }
+
+    if(student.countLanguage >= 4){
+      this.toast.setMessage('You have reached the maximum amount of languages', 'info');
     }
   }
 

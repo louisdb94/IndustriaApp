@@ -34,6 +34,6 @@
     </table>
 
     <button *ngIf="editMode && !addClicked" (click)="deleteExperience()"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
-    <button *ngIf="editMode" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>       
+    <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>       
   </div>
 </div>

@@ -119,23 +119,27 @@ export class HeaderProfile {
 
       //Upload image to server
       var file:File = $event.target.files[0];
-      let formData: FormData = new FormData();
-      formData.append('files', file, file.name);
-
-      formData.append('students', student.rnumber);
-      console.log("Formdata students: ", formData.get('students'));
-
-      formData.append('id', student.id);
-      console.log("Formdata id: ", formData.get('id'));
-      console.log("Formdata Files: ", formData.get('files'));
-
-      let random = formData.get('students');
-
-      if(file) {
-        this.fileService.uploadImage(formData).subscribe(
-          res => console.log('gelukt', res));
+      if(file.size < 2550594){
+        let formData: FormData = new FormData();
+        formData.append('files', file, file.name);
+  
+        formData.append('students', student.rnumber);
+        console.log("Formdata students: ", formData.get('students'));
+  
+        formData.append('id', student.id);
+        console.log("Formdata id: ", formData.get('id'));
+        console.log("Formdata Files: ", formData.get('files'));
+  
+        let random = formData.get('students');
+  
+        if(file) {
+          this.fileService.uploadImage(formData).subscribe(
+            res => console.log('gelukt', res));
+        }
       }
-
+      else{
+        alert('File is too large (< 2.5mb)');
+      }
   }
 
   add(){

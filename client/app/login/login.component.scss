@@ -1,6 +1,6 @@
 #loginpage{
     width: 800px;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 #languageselector{
@@ -15,3 +15,23 @@
     width:450px;
     margin: 0 auto;
 }
+
+#registerbutton{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#info{
+    margin-top: 1%;
+    font-size:24px;
+    margin-left: 3%;
+    color: lightgrey;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+ }

@@ -126,4 +126,8 @@ export class LoginComponent implements OnInit {
       error => this.toast.setMessage('invalid email or password!', 'danger')
     );
   }
+
+  addTip(){
+    this.toast.setMessage('Format is r0123456@kuleuven.be', 'info');
+  }
 }

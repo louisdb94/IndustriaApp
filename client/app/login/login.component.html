@@ -18,7 +18,7 @@
             <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <div id="login" class="input-group" [ngClass]="setClassEmail()">
                   <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                  <input class="form-control" [(ngModel)]="emailStudent" type="email" name="email" formControlName="email" placeholder="Email" email pattern="[r||s]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
+                  <input (click)="addTip()" class="form-control" [(ngModel)]="emailStudent" type="email" name="email" formControlName="email" placeholder="Email" email pattern="[r||s]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
                 </div>
                 <br>
                 <div id="login" class="input-group" [ngClass]="setClassPassword()">
@@ -27,19 +27,15 @@
                 </div>
                 <br>
                 <!-- <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid"><i class="fa fa-sign-in"></i> Login</button> -->
-                <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid"><i class="fa fa-sign-in"></i> Login</button>
-                <br><br>
-                <br>
-
-
-                <a href="/register">Do you want to register?</a>
+                <button  class="btn btn-primary" type="submit" [disabled]="!loginForm.valid"><i class="fa fa-sign-in"></i> Login</button>
+                <p style="margin-top: 3%">OR</p>
             </form>
-
-
+            <a id="registerbutton" translate href="/register"> RegisterButton</a>
+            <br>
         </div>
     </div>
 </div>
 
-<footer>
+<footer class="footer">
     <profile-footer></profile-footer>
 </footer>

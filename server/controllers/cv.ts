@@ -58,14 +58,6 @@ export default class CvCtrl extends BaseCtrl {
     });
   };
 
-
-   getAllFromStudent = (req, res) => {
-     this.model.find({"uploader": req.params.stud_id}, (err, docs) => {
-       if (err) { return console.error(err); }
-       res.json(docs);
-     });
-   }
-
    removeCv = (req, res) => {
      // //decrement number of cv in StudentModel -> NIET WANT ANDERS FOUT BIJ UPLOADEN
      // Student.findOneAndUpdate({ _id: req.body.uploader }, {$inc:{numberCv: -1 }}, (err, obj) => {

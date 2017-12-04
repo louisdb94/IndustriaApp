@@ -226,4 +226,8 @@ export class RegisterComponent implements OnInit {
     // );
   }
 
+  addTip(){
+    this.toast.setMessage('Format is r0123456@kuleuven.be', 'info');
+  }
+
 }

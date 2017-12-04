@@ -133,16 +133,15 @@ export default function setRoutes(app) {
   router.route('/student-update').put(studentsCtrl.updateAll);
 
   //Cvs
-  router.route('/cvs-get/:id').get(cvsCtrl.getbyId);
-  router.route('/cvs-getall').get(cvsCtrl.select);
-  router.route('/cvs-insert').post(cvsCtrl.insert);
+  router.route('/cv-add').post(cvsCtrl.addCv);
+  router.route('/cv/:id').get(cvsCtrl.getbyFk);
+  router.route('/cv-delete/:id').delete(cvsCtrl.delete);
+  //upload a pdf or image
+  router.route('/cv/upload').post(cvsCtrl.uploadCv);
+  //download a cv of a student
+  router.route('/download/:id').get(cvsCtrl.downloadCv);
+  router.route('/cv/remove/:id').post(cvsCtrl.removeCv);
   router.route('/cvs-insert/:id').get(cvsCtrl.insertStudentFK);
-  router.route('/cvs-delete/:id').get(cvsCtrl.delete);
-  router.route('/cvs-updatename/:id').get(cvsCtrl.updateName);
-  router.route('/cvs-updatesize/:id').get(cvsCtrl.updateSize);
-  router.route('/cvs-updatenumber/:id').get(cvsCtrl.updateNumber);
-  router.route('/cvs-updatemimetype/:id').get(cvsCtrl.updateMimetype);
-  router.route('/cvs-updatecustomname/:id').get(cvsCtrl.updateCustomName);
 
   //Education
   router.route('/education-get/:id').get(educationCtrl.getbyFk);
@@ -237,23 +236,11 @@ export default function setRoutes(app) {
   router.route('/vacatures-insert/:id').get(vacaturesCtrl.insertCompanyFK);
   router.route('/vacatures-delete/:id').get(vacaturesCtrl.delete);
 
-
-  // CV
-  router.route('/cv/count').get(cvCtrl.count);
-  router.route('/cv-add').post(cvCtrl.addCv);
-  router.route('/cv/:id').get(cvCtrl.getbyFk);
-  router.route('/cv-delete/:id').delete(cvCtrl.delete);
-  //upload a pdf or image
-  router.route('/cv/upload').post(cvCtrl.uploadCv);
-  //download a cv of a student
-  router.route('/download/:id').get(cvCtrl.downloadCv);
-
-  router.route('/cv/remove/:id').post(cvCtrl.removeCv);
+  
 
 
   // Image
   router.route('/image').get(imageCtrl.getAll);
-  router.route('/image/:stud_id').get(imageCtrl.getAllFromStudent);
   router.route('/image/count').get(imageCtrl.count);
   router.route('/image').post(imageCtrl.insert);
   router.route('/image/:id').get(imageCtrl.get);
@@ -263,7 +250,6 @@ export default function setRoutes(app) {
   router.route('/image/upload').post(imageCtrl.upload);
   //download a cv of a student
   router.route('/downloadImage/:id').get(imageCtrl.download);
-
   router.route('/image/remove/:id').post(imageCtrl.remove);
 
 

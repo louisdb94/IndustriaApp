@@ -41,6 +41,9 @@ export class StudentProfile implements OnInit {
   countExperiences: Number;
   contactChecked: boolean;
 
+  messageId: String;
+  messageNav: boolean;
+
   skills = [];
   professional = [];
   languages = [];
@@ -51,9 +54,12 @@ export class StudentProfile implements OnInit {
 
   ngOnInit() {
 
-    // if (this.auth.loggedIn && this.dataService.idMessage  == this.compareID) {
+    this.dataService.idMessage.subscribe(message => this.messageId = message);
+    this.dataService.navMessage.subscribe(message => this.messageNav = message);
+
+    // if (this.auth.loggedIn && this.dataService.idMessage  != this.compareID) {
     //   this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
-    //     data => (this.data.changeMessageId(data._id), this.data.changeMessageNav(true)),
+    //     data => (this.dataService.changeMessageId(data._id), this.dataService.changeMessageNav(true)),
     //     error => console.log("error")
     //   );
     // }
