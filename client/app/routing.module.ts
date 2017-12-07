@@ -13,6 +13,7 @@ import { StudentsComponent} from './students/students.component';
 import { CompanyComponent} from './company/company.component';
 import { FirstPageComponent} from './firstpage/firstpage.component';
 import { StudentProfile} from './profile-student/profile.component';
+import { CompanyProfile} from './company/profile/profile.component';
 import { StudentListComponent} from './student-list/student-list.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'students', component: StudentsComponent},
   { path: 'firstpage', component: FirstPageComponent},
   { path: 'profile-student/:id', component: StudentProfile},
+  { path: 'profile-company/:id', component: CompanyProfile},
   { path: 'company', component: CompanyComponent},
   { path: 'cats', component: CatsComponent },
   { path: 'register', component: RegisterComponent },

@@ -48,15 +48,16 @@ export class FileService {
     return this.http.get(`/api/downloadImage/${id}`);
   }
 
+  downloadImageCompany(id): Observable<any> {
+    return this.http.get(`/api/downloadImage-company/${id}`);
+  }
+
   uploadImage(image):Observable<any>{
-    console.log("1: ", JSON.stringify(image.get('students')));
-    console.log("2: ", image.get('files'));
-    console.log("3: ", JSON.stringify(image.get('id')));
-
-    let random = image.getAll('students');
-    var random1: File = image.getAll('files');
-
     return this.http.post('/api/image/upload', image);
+  }
+
+  uploadImageCompany(image):Observable<any>{
+    return this.http.post('/api/image/upload-company', image);
   }
 
   addCv(cv):Observable<any>{

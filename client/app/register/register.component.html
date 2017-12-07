@@ -21,11 +21,6 @@
             <input class="form-control" type="text" name="rnumber" formControlName="rnumber" placeholder="rnumber" autofocus>
           </div>
 
-          <!-- <div *ngIf="myVar" id="register" class="input-group">
-            <span class="input-group-addon"><i class="fa fa-user"></i></span>
-            <input class="form-control" name="user_fk" formControlName="user_fk" placeholder="user_fk" autofocus>
-          </div> -->
-
           <div id="register" class="input-group" [ngClass]="setClassEmail()">
             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
             <input (click)="addTip()" class="form-control" [(ngModel)]="emailStudent" type="email" name="email" formControlName="email" placeholder="r-number@kuleuven.be" email pattern="[r|s]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}">
@@ -36,6 +31,16 @@
             <span class="input-group-addon"><i class="fa fa-key"></i></span>
             <input class="form-control" [(ngModel)]="passwordStudent" type="password" name="password" formControlName="password" placeholder="Password">
           </div><br>
+
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-black-tie"></i></span>
+            <select class="form-control" name="role" formControlName="role">
+              <option value="" selected disabled>Role</option>
+              <option value="Student">Student</option>
+              <option value="Company">Company</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
 
           <button translate class="btn btn-primary" type="submit" [disabled]="!registerForm.valid"><i class="fa fa-user-plus"></i> RegisterButton</button>
         </form>

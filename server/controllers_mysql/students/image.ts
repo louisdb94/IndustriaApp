@@ -5,11 +5,10 @@ import * as fs from 'fs';
 
 export default class ImageCtrl extends BaseSqlCtrl {
   
-  model = Image;
+  model = 'image';
   dummy = null;
 
   upload = (req, res) => {
-
     console.log("this is rnumber: ", req.body.students);
     console.log("this is id: ", req.body.id);
     console.log("this is files: ", req.files);
@@ -28,6 +27,26 @@ export default class ImageCtrl extends BaseSqlCtrl {
      });
 
      let sql = `UPDATE students SET image = '1' WHERE id = '${req.body.id}'`;
+     let query = db.query(sql, (err, obj) => {
+       if (err) { return console.error(err); }
+     });
+   };
+
+   uploadCompany = (req, res) => {
+    //check if there is a file in formdata
+    if (!(<any>req.files).files)
+      return res.status(400).send('No files were uploaded.');
+
+    //add file to server
+    let name = req.body.name;
+    let newImage = (<any>req.files).files;
+    let type = newImage.mimetype.split('/')[1]
+    newImage.mv('./uploads/images/'+ name + '.jpg' ,function(err) {
+     if (err){return res.status(500).send(err);}
+     else{res.status(200).redirect('back');}
+     });
+
+     let sql = `UPDATE companies SET image = '1' WHERE id = '${req.body.id}'`;
      let query = db.query(sql, (err, obj) => {
        if (err) { return console.error(err); }
      });

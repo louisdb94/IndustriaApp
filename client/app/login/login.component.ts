@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   passwordStudent = "";
   id: any;
   messageId: String;
-  messageNav: boolean;
+  messageNav: String;
   dataRnumber: String;
   id_user: Number;
   value: Number;
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.auth.loggedIn) {
       this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
-        data => (this.id = data._id, this.data.changeMessageId(data._id), this.data.changeMessageNav(true), console.log("data: ", this.id)),
+        data => (this.id = data._id, this.data.changeMessageId(data._id), this.data.changeMessageNav("Student"), console.log("data: ", this.id)),
         error => console.log("error")
       );
 
@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
 
     this.userForm.value.rnumber = this.emailStudent.substring(0,8);
     this.studentService.getStudentByRnumberMysql(this.userForm.value.rnumber).subscribe(
-      data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), this.data.changeMessageNav(true), console.log("data: ", this.id)),
+      data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), this.data.changeMessageNav("Student"), console.log("data: ", this.id)),
       error => console.log("error")
     );
 
@@ -117,7 +117,7 @@ export class LoginComponent implements OnInit {
     console.log(this.userForm.value.rnumber);
     this.userForm.value.rnumber = this.emailStudent.substring(0,8);
     this.studentService.getStudentByRnumberMysql(this.userForm.value.rnumber).subscribe(
-      data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), this.data.changeMessageNav(true), console.log("data: ", this.id)),
+      data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), this.data.changeMessageNav("Student"), console.log("data: ", this.id)),
       error => console.log("error")
     );
 

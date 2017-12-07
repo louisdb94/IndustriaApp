@@ -11,7 +11,7 @@ import { DataService } from "../services/data.service";
 })
 export class FirstPageComponent implements OnInit {
 
-  messageNav: boolean;
+  messageNav: String;
   messageId: String;
 
   constructor(private appcomponent: AppComponent, private data: DataService) {}

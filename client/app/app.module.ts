@@ -49,6 +49,10 @@ import { FooterProfile } from './profile-student/profile-footer';
 import { ExperiencesProfile } from './profile-student/profile-experiences';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+import { CompanyProfile } from './company/profile/profile.component';
+import { CompanyHeaderProfile } from './company/profile/profile-header';
+
 import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/forms';
 
 import { jqxFileUploadComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxfileupload';
@@ -106,6 +110,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LanguageProfile,
     ContactProfile,
     FooterProfile,
+
+    CompanyProfile,
+    CompanyHeaderProfile,
 
     jqxFileUploadComponent,
     jqxEditorComponent,

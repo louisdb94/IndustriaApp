@@ -13,7 +13,7 @@ export class DataService {
   private user_Id = new BehaviorSubject<Number>(null);
   id_user = this.user_Id.asObservable();
 
-  private messageNav = new BehaviorSubject<boolean>(false);
+  private messageNav = new BehaviorSubject<String>("default message");
   navMessage = this.messageNav.asObservable();
 
   constructor() {}
@@ -30,7 +30,7 @@ export class DataService {
     this.user_Id.next(message);
   }
 
-  changeMessageNav(message: boolean) {
+  changeMessageNav(message: String) {
     this.messageNav.next(message);
   }
 }

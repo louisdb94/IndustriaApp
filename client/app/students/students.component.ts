@@ -120,7 +120,8 @@ export class StudentsComponent implements OnInit {
     this.userService.registerMysql(this.addUserForm.value)
         .switchMap( userid =>
           this.companyService.addCompanyFromUserId(JSON.parse(userid._body).insertId)
-            .switchMap(companyid => this.vacatureService.addVacatureFromCompanyId(JSON.parse(companyid._body).insertId)
+            .switchMap(companyid => 
+              this.vacatureService.addVacatureFromCompanyId(JSON.parse(companyid._body).insertId)
                  .map(result => ({
                    user_id : JSON.parse(userid._body).insertId,
                    companyid: JSON.parse(companyid._body).insertId

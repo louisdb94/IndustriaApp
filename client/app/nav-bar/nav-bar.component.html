@@ -1,4 +1,4 @@
-<nav id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
+<nav *ngIf="myVar" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
     <a class="navbar-brand" href="https://www2.industria.be/">
       <img src="../assets/img/Industria.PNG" width="45" height="60">
     </a>
@@ -32,3 +32,38 @@
       <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
     </select>
   </nav>
+
+  <nav id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
+      <a class="navbar-brand" href="https://www2.industria.be/">
+        <img src="../assets/img/Industria.PNG" width="45" height="60">
+      </a>
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="navbar-collapse collapse" id="navbarCollapse">
+        <ul class="navbar-nav text-md-center nav-justified w-100">
+          <li class="nav-item">
+              <a id="homeid" routerLink="/students" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                <i class="fa fa-home"></i> Home
+              </a>
+          </li>
+          <li class="nav-item dropdown active">
+            <a translate id="homeid" [routerLink] ="profileString + messageId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+              <i class="fa fa-list"></i> Profile
+            </a>
+          </li>
+          <li class="nav-item">
+            <a id="homeid" translate class=" ab nav-link" routerLink="/students"><i class="fa fa-briefcase" aria-hidden="true"></i> Student Search</a>
+          </li>
+          <li class="nav-item">
+            <a id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+          </li>
+        </ul>
+      </div>
+  
+      <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
+        <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
+        <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
+      </select>
+    </nav>

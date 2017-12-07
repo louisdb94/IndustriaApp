@@ -20,7 +20,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  messageNav: boolean;
+  messageNav: String;
   test = false;
 
   constructor(private translate: TranslateService, private data: DataService, private auth: AuthService){
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
 
   logout(){
     this.data.changeMessageId("");
-    this.data.changeMessageNav(false);
+    this.data.changeMessageNav("default message");
     this.auth.loggedIn = false;
     this.auth.logout();
   }

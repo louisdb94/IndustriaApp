@@ -1,6 +1,7 @@
 import {db} from '../../app';
 import * as  mysql from 'mysql';
 import cvs from '../../models_mysql/students/cvs';
+import * as fs from 'fs';
 
 import BaseSqlCtrl from '../baseSql';
 

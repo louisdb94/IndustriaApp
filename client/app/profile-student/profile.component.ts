@@ -42,7 +42,7 @@ export class StudentProfile implements OnInit {
   contactChecked: boolean;
 
   messageId: String;
-  messageNav: boolean;
+  messageNav: String;
 
   skills = [];
   professional = [];

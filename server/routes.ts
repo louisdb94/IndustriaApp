@@ -7,7 +7,6 @@ import * as  mysql from 'mysql';
 
 import CatCtrl from './controllers/cat';
 import CvCtrl from './controllers/cv';
-import ImageCtrl from './controllers/image';
 import UserCtrl from './controllers/user';
 import StudentCtrl from './controllers/student';
 import Cat from './models/cat';
@@ -21,6 +20,7 @@ import CvsCtrl from './controllers_mysql/students/cvs';
 import ContactCtrl from './controllers_mysql/students/contact';
 import EducationCtrl from './controllers_mysql/students/education';
 import ExperienceCtrl from './controllers_mysql/students/experiences';
+import ImageCtrl from './controllers_mysql/students/image';
 import LanguageCtrl from './controllers_mysql/students/language';
 import ProfessionalCtrl from './controllers_mysql/students/professional';
 import SkillsCtrl from './controllers_mysql/students/skills';
@@ -228,6 +228,9 @@ export default function setRoutes(app) {
   router.route('/companies-insert').post(companiesCtrl.insert);
   router.route('/companies-insert/:id').get(companiesCtrl.insertUser);
   router.route('/companies-delete/:id').get(companiesCtrl.delete);
+  router.route('/downloadImage-company/:id').get(companiesCtrl.download);
+
+  router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
 
   //Vacature
   router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyId);
@@ -240,14 +243,11 @@ export default function setRoutes(app) {
 
 
   // Image
-  router.route('/image').get(imageCtrl.getAll);
-  router.route('/image/count').get(imageCtrl.count);
   router.route('/image').post(imageCtrl.insert);
-  router.route('/image/:id').get(imageCtrl.get);
-  router.route('/image/:id').put(imageCtrl.update);
   router.route('/image/:id').delete(imageCtrl.delete);
   //upload a pdf or image
   router.route('/image/upload').post(imageCtrl.upload);
+  router.route('/image/upload-company').post(imageCtrl.uploadCompany);  
   //download a cv of a student
   router.route('/downloadImage/:id').get(imageCtrl.download);
   router.route('/image/remove/:id').post(imageCtrl.remove);

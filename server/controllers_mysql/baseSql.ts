@@ -49,7 +49,7 @@ abstract class BaseSqlCtrl {
 
       insertCompanyFK =  (req, res) => {
 
-            let sql = `INSERT INTO ${this.model} SET companies_fk = '${req.params.id}'`;
+            let sql = `INSERT INTO ${this.model} SET company_fk = '${req.params.id}'`;
             let query = db.query(sql, (err, result) => {
                 if(err) throw err;
                 console.log(result);
@@ -73,7 +73,7 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
+            //console.log(result);
             res.json(result);
 
         });
@@ -84,7 +84,7 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT * FROM ${this.model} WHERE role = 'company'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
+            //console.log(result);
             res.json(result);
 
         });
@@ -94,7 +94,7 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
+            //console.log(result);
             res.json(result);
 
         });

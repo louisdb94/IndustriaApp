@@ -11,12 +11,14 @@ import { DataService } from '../services/data.service';
 export class NavBarComponent {
 
   messageId: String;
-  profileString: String;
+  studentString: String;
+  companyString: String;
 
   constructor(public auth: AuthService, public data: DataService, private translate: TranslateService) {
     translate.setDefaultLang('en');
     this.data.idMessage.subscribe(message => this.messageId = message);
-    this.profileString = "/profile-student/";
+    this.studentString = "/profile-student/";
+    this.companyString = "/profile-company/";
    }
 
   switchLanguage(language) {
@@ -26,7 +28,7 @@ export class NavBarComponent {
 
   logout(){
     this.data.changeMessageId("");
-    this.data.changeMessageNav(false);
+    this.data.changeMessageNav("default message");
     this.auth.loggedIn = false;
     this.auth.logout();
   }

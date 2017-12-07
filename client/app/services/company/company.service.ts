@@ -37,5 +37,9 @@ export class CompanyService {
     return this.http.get(`/api/companies-insert/${id}`, this.options);
   }
 
+  innerJoin(id): Observable<any> {
+    return this.http.get(`/api/companies-innerJoin/${id}`, this.options);
+  }
+
 
 }
