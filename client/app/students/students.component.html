@@ -1,5 +1,6 @@
-<div class="jumbotron" style="background-color: white">
+<!-- BEGIN CALENDAR CODE -->
 
+<div class="jumbotron" style="background-color: white">
   <ng-template #modalContent let-close="close">
     <div class="modal-header">
       <h5 class="modal-title">Event action occurred</h5>
@@ -49,10 +50,13 @@
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-week-view>
     </div>
-  </div>
+  </div><br>
 
-  <br>
+<!-- END CALENDAR CODE -->
   
+
+<!-- BEGIN EDIT CALENDAR CODE -->
+
   <h3 *ngIf="false">
     Edit events
     <button *ngIf = "!editMode"
@@ -125,7 +129,13 @@
   </table>
 </div>
 
+<!-- END EDIT CALENDAR CODE -->
+
+
+<!-- BEGIN SPONSORS CODE -->
+
 <div class="jumbotron">
+  <hr style="height:2px;border:none;color:#333;background-color:#333;">
   <h1 style="text-align: center">Who we work with</h1>
   <hr style="height:2px;border:none;color:#333;background-color:#333;"><br>  
   <div class="row">
@@ -157,92 +167,57 @@
   </div>
 </div>
 
+<br><br>
 
-  <!-- <table>
-    <thead class="thead-default" >
-      <tr>
-        <th>Name</th>
-        <th>Degree</th>
-        <th>Gradyear</th>
-      </tr>
-    </thead>
-    <tr *ngFor="let student of students">
-      <td> <a md-line routerLink='/profile-student/{{student.id}}'> {{student.name}} </a> </td>
-      <td>{{student.degree}}</td>
-      <td>{{student.gradYear}}</td>
+<table>
+  <thead class="thead-default" >
+    <tr>
+      <th>Name</th>
     </tr>
-    <br><br>
-  </table>
+  </thead>
+  <tr *ngFor="let company of companies">
+    <td> <a md-line routerLink='/profile-company/{{company.id}}'> {{company.name}} </a> </td>
+  </tr>
+  <br><br>
+</table>
 
-  <div class="card">
-      <div class="card-header"><h4>Add new student</h4></div>
-      <div class="card-block">
-        <form class="form-inline" [formGroup]="addStudentForm" (ngSubmit)="addStudent()" style="text-align:center">
-          <div class="col-md-2">
+<!-- END SPONSORS CODE -->
+
+
+<!-- BEGIN ADD NEW COMPANY CODE -->
+
+<div class="card">
+    <div class="card-header"><h4>Add new company</h4></div>
+    <div class="card-block">
+      <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
+        <div class="col-md-2">
           <div class="form-group">
-            <input class="form-control" type="text" name="name" formControlName="name" placeholder="Name">
-          </div>
-          </div>
-          <div class="col-md-2">
-          <div class="form-group">
-            <input class="form-control" type="text" name="degree" formControlName="degree" placeholder="Degree">
+            <input class="form-control" type="text" name="email" formControlName="email" placeholder="Name Company">
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group">
-            <input class="form-control" type="text" name="gradyear" formControlName="gradYear" placeholder="gradYear">
+            <input class="form-control" type="text" name="rnumber" formControlName="rnumber" placeholder="Company Number">
           </div>
         </div>
         <div class="col-md-2">
-          <div class="form-group">
-            <input class="form-control" type="text" name="user_fk" formControlName="user_fk" placeholder="User FK">
-          </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
         </div>
-          <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Add</button>
-        </form>
       </div>
-    </div>
-
-    <br><br>
-
-    <table>
-      <thead class="thead-default" >
-        <tr>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tr *ngFor="let company of companies">
-        <td> <a md-line routerLink='/profile-student/{{company._id}}'> {{company.email}} </a> </td>
-      </tr>
-      <br><br>
-    </table>
-
-
-    <div class="card">
-        <div class="card-header"><h4>Add new company</h4></div>
-        <div class="card-block">
-          <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
-            <div class="col-md-2">
-            <div class="form-group">
-              <input class="form-control" type="text" name="email" formControlName="email" placeholder="Name">
-            </div>
-            </div>
-            <div class="col-md-2">
-            <div class="form-group">
-              <input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="form-group">
-                <select class="form-control" type="text" name="role" formControlName="role" placeholder="role">
-                    <option value="" selected disabled>Role</option>
-                    <option value="Student">Student</option>
-                    <option value="Company">Company</option>
-                    <option value="Admin">Admin</option>
-                  </select>
-            </div>
-          </div>
-            <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Add</button>
-          </form>
+      <div class="col-md-2">
+        <div class="form-group">
+            <select class="form-control" type="text" name="role" formControlName="role" placeholder="role">
+                <option value="" selected disabled>Role</option>
+                <option value="Student">Student</option>
+                <option value="Company">Company</option>
+                <option value="Admin">Admin</option>
+              </select>
         </div>
-      </div> -->
+      </div>
+        <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Add</button>
+      </form>
+    </div>
+  </div>
+
+<!-- END ADD NEW COMPANY CODE -->

@@ -11,6 +11,7 @@ import {RequestOptions} from '@angular/http';
 import {formData} from 'form-data';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { FileService } from '../../../services/file.service';
+import { CompanyService } from '../../../services/company/company.service';
 
 
 enableProdMode();
@@ -28,6 +29,8 @@ export class CompanyHeaderProfile {
   id: String;
   rnumber = String;
 
+  https = "https://";
+
   @Input() company;
 
   company_id = 0;
@@ -44,6 +47,7 @@ export class CompanyHeaderProfile {
   constructor(  private activatedRoute: ActivatedRoute,
                 private fileService: FileService,
                 private http: HttpClient,
+                private companyService: CompanyService,
                 private sanitizer: DomSanitizer,
                 private formBuilder: FormBuilder,){
 
@@ -59,10 +63,16 @@ export class CompanyHeaderProfile {
   }
 
 
-  save(student){
-
+  save(company){
     this.editMode = false;
     this.cropDone = true;
+
+    this.companyService.editCompany(company).subscribe(
+      res => {
+        this.company = company;
+      },
+      error => console.log(error)
+    );
   }
 
   fileChangeListener($event, company) {

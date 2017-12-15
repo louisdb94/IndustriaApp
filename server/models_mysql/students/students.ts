@@ -13,6 +13,7 @@ let sql_students = `CREATE TABLE IF NOT EXISTS students (
     countEducation int(11) NOT NULL DEFAULT '0',
     numberCv int(11) NOT NULL DEFAULT '0',
     image tinyint(1) NOT NULL DEFAULT '0',
+    alumni tinyint(1) NOT NULL DEFAULT '0',    
     user_fk int(11) NOT NULL,
     PRIMARY KEY (id),
     KEY user_fk (user_fk),

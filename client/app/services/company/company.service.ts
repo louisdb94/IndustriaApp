@@ -41,5 +41,9 @@ export class CompanyService {
     return this.http.get(`/api/companies-innerJoin/${id}`, this.options);
   }
 
+  editCompany(company): Observable<any> {
+    return this.http.put(`/api/companies-update`, JSON.stringify(company), this.options);
+  }
+
 
 }

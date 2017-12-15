@@ -11,6 +11,26 @@ export default class CompanyCtrl extends BaseSqlCtrl{
   model = 'companies';
   dummy = companies;
 
+  updateAll =  (req, res) => {
+    
+            let sql = `UPDATE ${this.model} SET rnumber = '${req.body.rnumber}',
+                                                whoami = '${req.body.whoami}',
+                                                url = '${req.body.url}',
+                                                name = '${req.body.name}',
+                                                feature1 = '${req.body.feature1}',
+                                                feature2 = '${req.body.feature2}',
+                                                feature3 = '${req.body.feature3}',
+                                                priority = '${req.body.priority}',
+                                                image = '${req.body.image}'
+    
+                                                WHERE id = ${req.body.id}`;
+            let query = db.query(sql, (err, result) => {
+                if(err) throw err;
+                console.log(result);
+                res.json(result);
+            });
+        };
+
   download =  (req, res) => {
     let sql = `SELECT * FROM companies WHERE id = '${req.params.id}'`;
     let query = db.query(sql, (err, obj) => {

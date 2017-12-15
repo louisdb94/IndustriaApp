@@ -56,7 +56,7 @@ export class StudentsComponent implements OnInit {
 
   students = [];
   student = {};
-  rnumber: String;
+  rnumberStudent: String;
   messageId: String;
 
   companies = [];
@@ -77,6 +77,7 @@ export class StudentsComponent implements OnInit {
   degree = new FormControl('', Validators.required);
   gradYear = new FormControl('', Validators.required);
   user_fk = new FormControl('', Validators.required);
+  rnumber = new FormControl('', Validators.required);  
   email = new FormControl('', Validators.required);
   password = new FormControl('', Validators.required);
   role = new FormControl('', Validators.required);
@@ -96,14 +97,14 @@ export class StudentsComponent implements OnInit {
   ngOnInit() {
 
   // if (this.auth.loggedIn) {
-  //   this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
+  //   this.studentService.getStudentByRnumber(this.auth.currentUser.rnumberStudent).subscribe(
   //     data => (this.data.changeMessageId(data._id), this.data.changeMessageNav(true)),
   //     error => console.log("error")
   //   );
   // }
 
   this.getEvents();
-  this.getCompanies1();
+  this.getCompanies();
 
   this.getStudentsMysql();
   this.addStudentForm = this.formBuilder.group({
@@ -114,6 +115,7 @@ export class StudentsComponent implements OnInit {
   });
 
   this.addUserForm = this.formBuilder.group({
+  rnumber: this.rnumber,
   email: this.email,
   password: this.password,
   role: this.role,
@@ -145,15 +147,6 @@ export class StudentsComponent implements OnInit {
 
     refresh: Subject<any> = new Subject();
     dateString = '2017-12-21T00:00:00'; 
-    
-      // events: CalendarEvent[] = [
-      //   {
-      //     start: startOfDay(new Date(this.dateString)),
-      //     end: addDays(new Date(this.dateString), 2),
-      //     title: 'A 3 day event',
-      //     color: colors.red,
-      //   },
-      // ];
 
       events: CalendarEvent[] = [];
     
@@ -275,7 +268,7 @@ export class StudentsComponent implements OnInit {
 
   }
 
-  getCompanies1(){
+  getCompanies(){
     this.companyService.getCompanies().subscribe(
       data => {this.sortCompaniesByPriority(data)},
       error => console.log(error)
@@ -283,6 +276,7 @@ export class StudentsComponent implements OnInit {
   }
 
   sortCompaniesByPriority(data){
+    this.companies = data;
     if(data.length != 0){
       console.log("data length: ", data.length);
       console.log("data: ", data);
@@ -316,10 +310,6 @@ export class StudentsComponent implements OnInit {
       console.log("highImg: ", this.highImg);
       console.log("mediumImg: ", this.middleImg);
       console.log("lowImg: ", this.lowImg);
-
-      // console.log("high: ", this.highPriority);
-      // console.log("medium: ", this.middlePriority);
-      // console.log("low: ", this.lowPriority);
     }
   }
 
@@ -349,7 +339,7 @@ export class StudentsComponent implements OnInit {
     this.refresh.next();
   }
 
-  addStudent() {
+  addAlumni() {
     this.studentService.addStudentMysql(this.addStudentForm.value).subscribe(
       res => {
         const newStudent = res.json();
@@ -362,18 +352,7 @@ export class StudentsComponent implements OnInit {
   }
 
   addCompany() {
-    // this.userService.registerMysql(this.addUserForm.value).subscribe(
-    //   res => {
-    //     const newStudent = res.json();
-    //     this.students.push(newStudent);
-    //     this.addStudentForm.reset();
-    //     this.toast.setMessage('item added successfully.', 'success');
-    //   },
-    //   error => console.log(error)
-    // );
-
     console.log(this.addUserForm.value);
-
     this.userService.registerMysql(this.addUserForm.value)
         .switchMap( userid =>
           this.companyService.addCompanyFromUserId(JSON.parse(userid._body).insertId)

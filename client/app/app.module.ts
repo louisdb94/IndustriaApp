@@ -54,6 +54,8 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 
 import { CompanyProfile } from './company/profile/profile.component';
 import { CompanyHeaderProfile } from './company/profile/profile-header';
+import { CompanyBioProfile } from './company/profile/profile-bio';
+
 
 import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/forms';
 
@@ -121,6 +123,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     CompanyProfile,
     CompanyHeaderProfile,
+    CompanyBioProfile,
 
     jqxFileUploadComponent,
     jqxEditorComponent,

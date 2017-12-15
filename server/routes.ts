@@ -235,7 +235,7 @@ export default function setRoutes(app) {
   router.route('/companies-insert/:id').get(companiesCtrl.insertUser);
   router.route('/companies-delete/:id').get(companiesCtrl.delete);
   router.route('/downloadImage-company/:id').get(companiesCtrl.download);
-
+  router.route('/companies-update').put(companiesCtrl.updateAll);
   router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
 
   //Vacature
