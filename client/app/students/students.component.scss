@@ -1,5 +1,16 @@
+#calendar {
+  margin: auto;
+  margin-top: 4%;
+  margin-bottom: 5%;
+  width: 50%;
+  height: 5%;
+  text-decoration-style: bold;
+}
 
-
+#calendarTitle {
+  text-align: center;
+  margin-top: 9%;
+}
 
 td {
   width: 20%;
@@ -10,6 +21,27 @@ table {
   width: 100%;
   margin-top: 10%;
   margin-bottom: 5%;
-
-
 }
+
+#tableEvents {
+  margin-top: 2%;
+}
+
+#highPriority{
+  max-height: 2800px;
+  max-width: 280px;
+  margin: auto;
+}
+
+#middlePriority{
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+}
+
+#lowPriority{
+  max-height: 120px;
+  max-width: 120px;
+  margin: auto;
+}
+

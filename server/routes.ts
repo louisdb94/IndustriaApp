@@ -31,6 +31,7 @@ import UsersCtrl from './controllers_mysql/users';
 import CompanyCtrl from './controllers_mysql/company/companies';
 import VacaturesCtrl from './controllers_mysql/company/vacatures';
 
+import EventsCtrl from './controllers_mysql/admin/events';
 
 //MYSQL MODELS
 import contacts from './models_mysql/students/contact';
@@ -46,6 +47,9 @@ import users from './models_mysql/users';
 
 import companies from './models_mysql/company/companies';
 import vacatures from './models_mysql/company/vacatures';
+
+import events from './models_mysql/admin/events';
+
 
 
 export default function setRoutes(app) {
@@ -72,6 +76,8 @@ export default function setRoutes(app) {
 
   const companiesCtrl = new CompanyCtrl();
   const vacaturesCtrl = new VacaturesCtrl();
+
+  const eventsCtrl = new EventsCtrl();
 
 
   // CREATE MYSQL TABLES
@@ -239,6 +245,11 @@ export default function setRoutes(app) {
   router.route('/vacatures-insert/:id').get(vacaturesCtrl.insertCompanyFK);
   router.route('/vacatures-delete/:id').get(vacaturesCtrl.delete);
 
+  //Events
+  router.route('/events-insert').post(eventsCtrl.insert);
+  router.route('/events-getall').get(eventsCtrl.selectAll);
+  router.route('/events-update').put(eventsCtrl.updateEvent);
+  router.route('/events-delete/:id').delete(eventsCtrl.delete);
   
 
 

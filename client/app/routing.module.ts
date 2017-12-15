@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'firstpage', component: FirstPageComponent},
   { path: 'profile-student/:id', component: StudentProfile},
   { path: 'profile-company/:id', component: CompanyProfile},
+  { path: 'students/profile-company/:id', component: CompanyProfile},
   { path: 'company', component: CompanyComponent},
   { path: 'cats', component: CatsComponent },
   { path: 'register', component: RegisterComponent },

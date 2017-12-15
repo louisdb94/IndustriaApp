@@ -41,7 +41,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
     let name = req.body.name;
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
-    newImage.mv('./uploads/images/'+ name + '.jpg' ,function(err) {
+    newImage.mv('./uploads/images/'+ name + '.png' ,function(err) {
      if (err){return res.status(500).send(err);}
      else{res.status(200).redirect('back');}
      });

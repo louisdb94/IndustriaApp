@@ -39,9 +39,9 @@ export class CompanyProfile implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.company_id = params['id'];
       this.getCompanyById(this.company_id);
-      this.companyService.innerJoin(this.company_id).subscribe(
-        data => {console.log("Tis gelukt: ", data)}
-      )
+      // this.companyService.innerJoin(this.company_id).subscribe(
+      //   data => {console.log("Tis gelukt: ", data)}
+      // )
     });
 
     this.dataService.idMessage.subscribe(message => this.messageId = message);

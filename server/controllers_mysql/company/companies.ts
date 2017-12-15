@@ -19,14 +19,14 @@ export default class CompanyCtrl extends BaseSqlCtrl{
        //console.log("obj.image: ", obj[0].image);
 
        if(obj[0].image == 1){
-           fs.readFile('./uploads/images/' + obj[0].name + '.jpg', 'base64', function(err, data){
+           fs.readFile('./uploads/images/' + obj[0].name + '.png', 'base64', function(err, data){
              if(err){console.log(err);}
              res.setHeader('Content-Disposition', 'attachment');
              res.send(data)
            })
          }
          else{
-           fs.readFile('./uploads/images/standard.jpg', 'base64', function(err, data){
+           fs.readFile('./uploads/images/standard.png', 'base64', function(err, data){
              if(err){console.log(err);}
              res.setHeader('Content-Disposition', 'attachment');
              res.send(data)
@@ -37,15 +37,15 @@ export default class CompanyCtrl extends BaseSqlCtrl{
 };
 
 innerJoin = (req, res) => {
-  let count;
-  let sql = `SELECT count(id) FROM companies`;
-  let query = db.query(sql, (err, result) => {
-      if(err) throw err;
-      console.log("length: ", JSON.stringify(result[0].count));
-      count = result;
-  });
+  // let count;
+  // let sql = `SELECT count(id) FROM companies`;
+  // let query = db.query(sql, (err, result) => {
+  //     if(err) throw err;
+  //     console.log("length: ", JSON.stringify(result[0].count));
+  //     count = result;
+  // });
 
-  for(let i = 1; i <= count; i++){
+  // for(let i = 1; i <= count; i++){
     let sql = `SELECT * FROM companies t1 INNER JOIN vacatures t2 ON t1.id = '${req.params.id}' AND t1.id = t2.company_fk`;
     let query = db.query(sql, (err, result) => {
         if(err) throw err;
@@ -56,9 +56,9 @@ innerJoin = (req, res) => {
         }
         result = type;
         console.log(JSON.stringify(result));      
-        res.send('Post updated...');
+        res.send(result);
     });
-  };
+  // };
   }
 
 }

@@ -19,6 +19,8 @@ import { SocialmediaService } from './services/socialmedia.service';
 import { ContactService } from './services/contact.service';
 import { CompanyService} from './services/company/company.service';
 import { VacatureService} from './services/company/vacature.service';
+import { EventsService} from './services/admin/events.service';
+
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -47,7 +49,7 @@ import { LanguageProfile } from './profile-student/profile-language';
 import { ContactProfile } from './profile-student/profile-contact';
 import { FooterProfile } from './profile-student/profile-footer';
 import { ExperiencesProfile } from './profile-student/profile-experiences';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 import { CompanyProfile } from './company/profile/profile.component';
@@ -74,6 +76,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {FileUploadModule} from 'primeng/primeng';
 import {DropdownModule} from 'primeng/primeng';
 import {OrderListModule} from 'primeng/primeng';
+import { CalendarModule } from 'angular-calendar';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CalendarHeaderComponent} from './students/utils/calendar-header.component';
+import { DateTimePickerComponent} from './students/utils/date-time-picker.component';
+import {UtilsModule} from './students/utils/module';
+
 
 
 
@@ -121,14 +129,21 @@ export function HttpLoaderFactory(http: HttpClient) {
     jqxDropDownListComponent,
     jqxDateTimeInputComponent,
     ImageCropperComponent,
+    CalendarHeaderComponent,
+    DateTimePickerComponent,
 
     FileSelectDirective
   ],
   imports: [
     RoutingModule,
     SharedModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     DataTableModule,
+    CalendarModule.forRoot(),
+    NgbModule.forRoot(),
+    NgbModalModule.forRoot(),
+    UtilsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -151,6 +166,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DataService,
     CompanyService,
     VacatureService,
+    EventsService,
 
     CvsService,
     EducationService,
