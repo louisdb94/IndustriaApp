@@ -2,6 +2,9 @@ import {db} from '../../app';
 import * as  mysql from 'mysql';
 import sql_students from '../../models_mysql/students/students';
 
+import ContactCtrl from './contact';
+import SkillsCtrl from './skills';
+
 import BaseSqlCtrl from '../baseSql';
 
 export default class StudentsCtrl extends BaseSqlCtrl {
@@ -33,6 +36,213 @@ export default class StudentsCtrl extends BaseSqlCtrl {
         });
     };
 
+    inner = (req,res) => {
+      let sql = `SELECT name, degree, gradYear FROM students GROUP BY (id)  `;
+
+      let query = db.query(sql, (err, result) => {
+          if(err) throw err;
+          console.log(result);
+          res.json(result);
+      });
+    }
+
+    innertje= (req,res) => {
+      let sql = `SELECT  DISTINCT students.id, name, degree, gradYear, skills.skill, language.type, contact.county FROM students
+
+                INNER JOIN skills  ON students.id = skills.student_fk
+                INNER JOIN language ON students.id = language.student_fk
+                INNER JOIN contact ON students.id = contact.student_fk`
+
+
+
+
+      let query = db.query(sql, (err, result) => {
+          if(err) throw err;
+          console.log(result);
+          res.json(result);
+      });
+    }
+
+    innerjoin =  (req, res) => {
+
+
+      let skills = [], values = [], value_types = [], email = [], phone = [],
+      city = [], county = [],educ_type = [],educ_institution = [],
+      educ_datefrom = [],educ_dateuntil = [],exp_function = [],
+      exp_description = [], exp_datefrom = [],exp_dateuntil = [],
+      social_type = [], social_url = [], social_checked = [],
+      language_types = [], language_values = [], language_value_types = [],
+      professional_skills = [], professional_values = [], professional_value_types = [],
+      id = [], name = [], rnumber = [], whoami = [], gradYear = [], degree = [],
+      cvChecked = [], contactChecked = [], countSkills = [], countProfessional = [],
+      countLanguage = [], countEducation = [], numberCv = [], image = [], user_fk = []
+
+      let test = {id, name, rnumber, whoami, gradYear, degree,
+                  cvChecked, contactChecked, countSkills, countProfessional,
+                  countLanguage, countEducation, numberCv, image, user_fk,
+                  skills, values, value_types, email,phone,city,county,
+                  educ_type, educ_institution,educ_datefrom, educ_dateuntil,
+                  exp_function,exp_datefrom,exp_dateuntil,exp_description,
+                  social_type, social_url, social_checked,
+                  language_types, language_values, language_value_types,
+                  professional_skills, professional_values, professional_value_types}
+
+      let sql = `SELECT DISTINCT skill, value, value_type FROM students t1
+
+                INNER JOIN skills t2
+                ON t1.id = '${req.params.id}'
+                  AND t1.id = t2.student_fk`
+                                                ;
+      let query = db.query(sql, (err, result) => {
+          if(err) throw err;
+
+
+          for(let i = 0; i < result.length; i++){
+            skills[i] = (result[i].skill);
+            values[i] = (result[i].value);
+            value_types[i] = (result[i].value_type);
+          }
+
+      })
+      let sql1 = `SELECT DISTINCT email, county, phone, city FROM students t1
+
+                INNER JOIN contact t2
+                ON t1.id = '${req.params.id}'
+                  AND t1.id = t2.student_fk`
+                                                ;
+      let query1 = db.query(sql1, (err, result) => {
+          if(err) throw err;
+
+          for(let i = 0; i < result.length; i++){
+            email[i] = (result[i].email);
+            phone[i] = (result[i].phone);
+            city[i] = (result[i].city);
+            county[i] = (result[i].county);
+          }
+
+
+    });
+
+    let sql2 = `SELECT DISTINCT type, institution, date_from, date_until FROM students t1
+
+              INNER JOIN education t2
+              ON t1.id = '${req.params.id}'
+                AND t1.id = t2.student_fk`
+                                              ;
+    let query2 = db.query(sql2, (err, result) => {
+        if(err) throw err;
+
+        for(let i = 0; i < result.length; i++){
+          educ_type[i] = (result[i].type);
+          educ_institution[i] = (result[i].institution);
+          educ_datefrom[i] = (result[i].date_from);
+          educ_dateuntil[i] = (result[i].date_until);
+        }
+
+  });
+
+  let sql3 = `SELECT DISTINCT function, description, date_from, date_until FROM students t1
+
+            INNER JOIN experiences t2
+            ON t1.id = '${req.params.id}'
+              AND t1.id = t2.student_fk`
+                                            ;
+  let query3 = db.query(sql3, (err, result) => {
+      if(err) throw err;
+
+      for(let i = 0; i < result.length; i++){
+        exp_function[i] = (result[i].function);
+        exp_description[i] = (result[i].description);
+        exp_datefrom[i] = (result[i].date_from);
+        exp_dateuntil[i] = (result[i].date_until);
+      }
+
+});
+
+let sql4 = `SELECT DISTINCT type, url, checked FROM students t1
+
+          INNER JOIN socialmedia t2
+          ON t1.id = '${req.params.id}'
+            AND t1.id = t2.student_fk`
+                                          ;
+let query4 = db.query(sql4, (err, result) => {
+    if(err) throw err;
+
+    for(let i = 0; i < result.length; i++){
+      social_url[i] = (result[i].url);
+      social_type[i] = (result[i].type);
+      social_checked[i] = (result[i].checked);
+    }
+
+
+
+});
+
+let sql5 = `SELECT type, value, value_type FROM students t1
+
+            INNER JOIN language t2
+
+            ON t1.id = '${req.params.id}'
+            AND t1.id = t2.student_fk`;
+                                          ;
+let query5 = db.query(sql5, (err, result) => {
+    if(err) throw err;
+
+    for(let i = 0; i < result.length; i++){
+      language_types[i] = result[i].type;
+      language_values[i] = result[i].value;
+      language_value_types[i] = result[i].value_type;
+    }
+
+
+});
+
+
+let sql6 = `SELECT skill, value, value_type FROM students t1
+
+            INNER JOIN professional t2
+
+            ON t1.id = '${req.params.id}'
+            AND t1.id = t2.student_fk`;
+                                          ;
+let query6 = db.query(sql6, (err, result) => {
+    if(err) throw err;
+
+    for(let i = 0; i < result.length; i++){
+      professional_skills[i] = result[i].skill;
+      professional_values[i] = result[i].value;
+      professional_value_types[i] = result[i].value_type;
+    }
+
+
+
+});
+
+let sql7 = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
+let query7 = db.query(sql7, (err, result) => {
+    if(err) throw err;
+
+    id[0] = result[0].id, name[0] = result[0].name, rnumber[0] = result[0].rnumber,
+    whoami[0] = result[0].whoami,gradYear[0] = result[0].gradYear,
+    degree[0] = result[0].degree,cvChecked[0] = result[0].cvChecked,
+    contactChecked[0] = result[0].contactChecked,
+    countSkills[0] = result[0].countSkills,
+    countProfessional[0] = result[0].countProfessional,
+    countLanguage[0] = result[0].countLanguage,
+    countEducation[0] = result[0].countEducation,
+    numberCv[0] = result[0].numberCv,
+    image[0] = result[0].image,
+    user_fk[0] = result[0].user_fk
+
+    res.send(test);
+
+});
+
+
+
+
+
+}
 
   insertUser =  (req, res) => {
 

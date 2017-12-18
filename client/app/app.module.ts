@@ -85,7 +85,13 @@ import { DateTimePickerComponent} from './students/utils/date-time-picker.compon
 import {UtilsModule} from './students/utils/module';
 
 
+import {NgxPaginationModule} from 'ngx-pagination';
 
+
+import { FilterPipe} from './pipes/student-list.pipe';
+import { FilterSkill} from './pipes/filterSkill.pipe';
+import { FilterProfessional} from './pipes/filterProfessional.pipe';
+import { FilterLanguage} from './pipes/filterLanguage.pipe';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -135,7 +141,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     CalendarHeaderComponent,
     DateTimePickerComponent,
 
-    FileSelectDirective
+    FileSelectDirective,
+    FilterPipe,
+    FilterSkill,
+    FilterProfessional,
+    FilterLanguage
+
   ],
   imports: [
     RoutingModule,
@@ -156,7 +167,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     FileUploadModule,
     DropdownModule,
-    OrderListModule
+    OrderListModule,
+    NgxPaginationModule
   ],
   providers: [
     AuthService,

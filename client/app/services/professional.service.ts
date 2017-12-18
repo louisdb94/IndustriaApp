@@ -19,7 +19,7 @@ export class ProfessionalService {
 
   getProfessionalById(id): Observable<any> {
     return this.http.get(`/api/professional-get/${id}`).map(res => res.json());}
-    
+
   getProfessionalByStudentId(id): Observable<any> {
     return this.http.get(`/api/professional-getbystudentfk/${id}`).map(res => res.json());
   }
@@ -27,6 +27,11 @@ export class ProfessionalService {
   getProfessional(): Observable<any> {
     return this.http.get(`/api/professional-getall`).map(res => res.json());
   }
+
+  getProfessionalDistinct(): Observable<any> {
+    return this.http.get(`/api/professional-getalldistinct`).map(res => res.json());
+  }
+
 
   addProfessional(professional): Observable<any> {
     return this.http.post('/api/professional-insert', JSON.stringify(professional), this.options);
@@ -42,6 +47,10 @@ export class ProfessionalService {
 
   editProfessional(professional): Observable<any> {
     return this.http.put(`/api/professional-update`, JSON.stringify(professional), this.options);
+  }
+
+  getFkbySkill(skill): Observable<any> {
+    return this.http.get(`api/professional-getfkbyskill/${skill}`).map(res => res.json());
   }
 
 

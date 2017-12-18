@@ -120,23 +120,15 @@ export default function setRoutes(app) {
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
   router.route('/students-getall').get(studentsCtrl.select);
+  router.route('/students-getallid').get(studentsCtrl.selectIds);
   router.route('/students-insert').post(studentsCtrl.insert);
   router.route('/students-insert/:id').get(studentsCtrl.insertUser);
   router.route('/student-delete/:id').get(studentsCtrl.delete);
-  router.route('/student-updatename/:id').get(studentsCtrl.updateName);
-  router.route('/student-updaternumber/:id').get(studentsCtrl.updateRnumber);
-  router.route('/student-updatewhoami/:id').get(studentsCtrl.updateWhoami);
-  router.route('/student-updategradyear/:id').get(studentsCtrl.updateGradyear);
-  router.route('/student-updatedegree/:id').get(studentsCtrl.updateDegree);
-  router.route('/student-updatecvchecked/:id').get(studentsCtrl.updateCvchecked);
-  router.route('/student-updatecountskills/:id').get(studentsCtrl.updateCountSkills);
-  router.route('/student-updatecontactchecked/:id').get(studentsCtrl.updateContactChecked);
-  router.route('/student-updatecountlanguage/:id').get(studentsCtrl.updateCountLanguage);
-  router.route('/student-updatecounteducation/:id').get(studentsCtrl.updateCountEduaction);
-  router.route('/student-updatenumbercv/:id').get(studentsCtrl.updateNumbercv);
-  router.route('/student-updateimage/:id').get(studentsCtrl.updateImage);
   router.route('/student-getbyrnumber/:rnumber').get(studentsCtrl.getStudentByRnumber);
   router.route('/student-update').put(studentsCtrl.updateAll);
+  router.route('/innerjoin/:id').get(studentsCtrl.innerjoin);
+  router.route('/inner').get(studentsCtrl.inner);
+  router.route('/innertje').get(studentsCtrl.innertje);
 
   //Cvs
   router.route('/cv-add').post(cvsCtrl.addCv);
@@ -178,6 +170,7 @@ export default function setRoutes(app) {
   router.route('/language-get/:id').get(languageCtrl.getbyId);
   router.route('/language-getbystudentfk/:id').get(languageCtrl.getbyStudentId);
   router.route('/language-getall').get(languageCtrl.select);
+  router.route('/language-getalldistinct').get(languageCtrl.selectLanguage);
   router.route('/language-insert').post(languageCtrl.insert);
   router.route('/language-insert/:id').get(languageCtrl.insertStudentFK);
   router.route('/languageCtrl-delete/:id').get(languageCtrl.delete);
@@ -185,20 +178,24 @@ export default function setRoutes(app) {
   router.route('/language-updatevalue/:id').get(languageCtrl.updateValue);
   router.route('/language-updatevaluetype/:id').get(languageCtrl.updateValueType);
   router.route('/language-update').put(languageCtrl.updateAll);
+  router.route('/language-getfkbylang/:lang').get(languageCtrl.getbyLanguage);
 
   //Professional
   router.route('/professional-get/:id').get(professionalCtrl.getbyId);
   router.route('/professional-getbystudentfk/:id').get(professionalCtrl.getbyStudentId);
   router.route('/professional-getall').get(professionalCtrl.select);
+  router.route('/professional-getalldistinct').get(professionalCtrl.selectProfessional);
   router.route('/professional-insert').post(professionalCtrl.insert);
   router.route('/professional-insert/:id').get(professionalCtrl.insertStudentFK);
   router.route('/professional-delete/:id').get(professionalCtrl.delete);
   router.route('/professional-update').put(professionalCtrl.updateAll);
+  router.route('/professional-getfkbyskill/:skill').get(professionalCtrl.getbySkill);
 
   //Skill
   router.route('/skills-get/:id').get(skillsCtrl.getbyId);
   router.route('/skills-getbystudentfk/:id').get(skillsCtrl.getbyStudentId);
   router.route('/skills-getall').get(skillsCtrl.select);
+  router.route('/skills-getalldistinct').get(skillsCtrl.selectSkill);
   router.route('/skills-insert').post(skillsCtrl.insert);
   router.route('/skills-insert/:id').get(skillsCtrl.insertStudentFK);
   router.route('/skills-delete/:id').get(skillsCtrl.delete);
@@ -206,6 +203,7 @@ export default function setRoutes(app) {
   router.route('/skills-updatevalue/:id').get(skillsCtrl.updateValue);
   router.route('/skills-updatevaluetype/:id').get(skillsCtrl.updateValueType);
   router.route('/skills-update').put(skillsCtrl.updateAll);
+  router.route('/skills-getfkbyskill/:skill').get(skillsCtrl.getbySkill);
 
 
   //SocialMedia
@@ -250,7 +248,7 @@ export default function setRoutes(app) {
   router.route('/events-getall').get(eventsCtrl.selectAll);
   router.route('/events-update').put(eventsCtrl.updateEvent);
   router.route('/events-delete/:id').delete(eventsCtrl.delete);
-  
+
 
 
   // Image
@@ -258,7 +256,7 @@ export default function setRoutes(app) {
   router.route('/image/:id').delete(imageCtrl.delete);
   //upload a pdf or image
   router.route('/image/upload').post(imageCtrl.upload);
-  router.route('/image/upload-company').post(imageCtrl.uploadCompany);  
+  router.route('/image/upload-company').post(imageCtrl.uploadCompany);
   //download a cv of a student
   router.route('/downloadImage/:id').get(imageCtrl.download);
   router.route('/image/remove/:id').post(imageCtrl.remove);

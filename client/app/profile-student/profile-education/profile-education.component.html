@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<!-- <div class="jumbotron">
     <div class="container">
         <button translate *ngIf="!editMode" (click)="editMode = true" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
         <button translate *ngIf="editMode" (click)="save(student, education)" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </li>
-    
+
             <li *ngIf="student.countEducation >= 1 && education[1]" class="timeline-inverted">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle invert" id=""></i></a>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="timeline-body">
                         <textarea *ngIf="editMode " [(ngModel)]="education[1].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode ">{{education[1].institution}}</p>                
+                        <p *ngIf="!editMode ">{{education[1].institution}}</p>
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
@@ -91,7 +91,7 @@
                     </div>
                 </div>
             </li>
-    
+
             <li *ngIf="student.countEducation >= 3 && education[3]" class="timeline-inverted">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle invert" id=""></i></a>
@@ -105,7 +105,7 @@
                     </div>
                     <div class="timeline-body">
                         <textarea *ngIf="editMode " [(ngModel)]="education[3].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode ">{{education[3].institution}}</p>                
+                        <p *ngIf="!editMode ">{{education[3].institution}}</p>
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
@@ -150,7 +150,7 @@
                     </div>
                 </div>
             </li>
-    
+
             <li *ngIf="student.countEducation >= 5 && education[5]" class="timeline-inverted">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle invert" id=""></i></a>
@@ -164,7 +164,7 @@
                     </div>
                     <div class="timeline-body">
                         <textarea *ngIf="editMode " [(ngModel)]="education[5].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode ">{{education[5].institution}}</p>                
+                        <p *ngIf="!editMode ">{{education[5].institution}}</p>
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
@@ -209,7 +209,7 @@
                     </div>
                 </div>
             </li>
-    
+
             <li *ngIf="student.countEducation >= 7 && education[7]" class="timeline-inverted">
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle invert" id=""></i></a>
@@ -223,7 +223,7 @@
                     </div>
                     <div class="timeline-body">
                         <textarea *ngIf="editMode " [(ngModel)]="education[7].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
-                        <p *ngIf="!editMode ">{{education[7].institution}}</p>                
+                        <p *ngIf="!editMode ">{{education[7].institution}}</p>
                     </div>
                     <div class="timeline-footer">
                         <div class="text-right">
@@ -241,7 +241,7 @@
 
             <li class="clearfix no-float"></li>
         </ul>
-        <button translate *ngIf="editMode" class="btn btn-sm btn-success" (click)="add(student)" style="float : right"><i class="fa fa-plus"></i>Add</button>        
+        <button translate *ngIf="editMode" class="btn btn-sm btn-success" (click)="add(student)" style="float : right"><i class="fa fa-plus"></i>Add</button>
         <button translate *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete(student)" style="float : right"><i class="fa fa-trash"></i>Delete</button>
     </div>
-</div>
+</div> -->

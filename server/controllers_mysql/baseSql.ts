@@ -68,6 +68,16 @@ abstract class BaseSqlCtrl {
         });
     };
 
+    // Select posts
+    selectIds = (req, res) => {
+        let sql = `SELECT id FROM ${this.model}`;
+        let query = db.query(sql, (err, results) => {
+            if(err) throw err;
+            console.log(results);
+            res.json(results);
+        });
+    };
+
     // Select single post
     getbyId =  (req, res) => {
         let sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;

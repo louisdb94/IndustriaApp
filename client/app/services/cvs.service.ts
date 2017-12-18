@@ -21,6 +21,10 @@ export class CvsService {
     return this.http.get(`/api/cvs-get/${id}`).map(res => res.json());
   }
 
+  getCvsByFk(id): Observable<any> {
+    return this.http.get(`/api/cv/${id}`).map(res => res.json());
+  }
+
   getCvs(): Observable<any> {
     return this.http.get(`/api/cvs-getall`).map(res => res.json());
   }

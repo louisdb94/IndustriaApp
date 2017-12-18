@@ -29,6 +29,9 @@ export class LanguageService {
     return this.http.get(`/api/language-getall`).map(res => res.json());
   }
 
+  getLanguagesDistinct(): Observable<any> {
+    return this.http.get(`/api/language-getalldistinct`).map(res => res.json());
+  }
   addLanguage(language): Observable<any> {
     return this.http.post('/api/language-insert', JSON.stringify(language), this.options);
   }
@@ -43,6 +46,10 @@ export class LanguageService {
 
   editLanguage(language): Observable<any> {
     return this.http.put(`/api/language-update`, JSON.stringify(language), this.options);
+  }
+
+  getFkbyLang(lang): Observable<any> {
+    return this.http.get(`api/language-getfkbylang/${lang}`).map(res => res.json());
   }
 
 

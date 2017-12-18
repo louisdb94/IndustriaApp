@@ -6,11 +6,12 @@ import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import * as EmailTemplate from 'email-templates';
 import setRoutes from './routes';
+import setAuthRoutes from './auth-routes';
 import * as  mysql from 'mysql';
 
 import * as fileupload from 'express-fileupload';
 
-
+const passportSetup = require('./config/passport-setup');
 const app = express();
 
 
