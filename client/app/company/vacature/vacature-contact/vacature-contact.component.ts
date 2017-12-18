@@ -9,11 +9,11 @@ import { MapsAPILoader } from '@agm/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'profile-contact-company',  // <home></home>
-  styleUrls: ['./profile-contact.component.scss'],
-  templateUrl: './profile-contact.component.html'
+  selector: 'vacature-contact-company',  // <home></home>
+  styleUrls: ['./vacature-contact.component.scss'],
+  templateUrl: './vacature-contact.component.html'
 })
-export class CompanyContactProfile implements OnInit {
+export class CompanyContactVacature implements OnInit {
 
   data: any;
 
@@ -26,7 +26,6 @@ export class CompanyContactProfile implements OnInit {
   public searchElementRef: ElementRef;
 
   @Input() company;
-  //@Input() contactChecked: {};
   @Input() contacts;
   editMode = false;
   clickMap = false;
@@ -93,16 +92,6 @@ export class CompanyContactProfile implements OnInit {
         this.zoom = 12;
       });
     }
-  }
-
-  save(company){
-    this.editMode = false;
-    this.companyService.editCompany(company).subscribe(
-      res => {
-        this.company = company;
-      },
-      error => console.log(error)
-    );
   }
 
   saveContact(contacts){

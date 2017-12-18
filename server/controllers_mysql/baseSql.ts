@@ -120,6 +120,16 @@ abstract class BaseSqlCtrl {
         });
     };
 
+    getbyCompanyId =  (req, res) => {
+        let sql = `SELECT * FROM ${this.model} WHERE company_fk = '${req.params.id}'`;
+        let query = db.query(sql, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.json(result);
+
+        });
+    };
+
     getbyUserId =  (req, res) => {
         let sql = `SELECT * FROM ${this.model} WHERE user_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {

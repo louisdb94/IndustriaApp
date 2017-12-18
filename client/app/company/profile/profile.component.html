@@ -1,10 +1,3 @@
-<!-- <profile-header class="component" [student]="student"></profile-header>
-<profile-bio class="component" [student]="student"></profile-bio>
-<profile-careers class="component"></profile-careers>
-<profile-contact class="component" [student]="student"></profile-contact>
-
-<profile-footer class="component"></profile-footer> -->
-
 <div *ngIf="company">
     <profile-header-company class="component" [company]="company"></profile-header-company>
 </div>
@@ -12,5 +5,11 @@
 <div *ngIf="company">
     <profile-bio-company class="component" [company]="company"></profile-bio-company>
 </div>
+
+<div *ngIf="company">
+    <profile-contact-company class="component" [company]="company" [contacts]="contacts"></profile-contact-company>
+</div>
+
+<profile-footer class="component"></profile-footer>
   
     

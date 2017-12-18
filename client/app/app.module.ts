@@ -55,7 +55,13 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { CompanyProfile } from './company/profile/profile.component';
 import { CompanyHeaderProfile } from './company/profile/profile-header';
 import { CompanyBioProfile } from './company/profile/profile-bio';
+import { CompanyContactProfile } from './company/profile/profile-contact';
+import { CompanyVacature } from './company/vacature/vacature.component';
+import { CompanyHeaderVacature } from './company/vacature/vacature-header';
+import { CompanyAboutVacature } from './company/vacature/vacature-about';
+import { CompanyContactVacature } from './company/vacature/vacature-contact';
 
+import {CompanyContactService} from './services/company/contact.service';
 
 import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/forms';
 
@@ -86,7 +92,7 @@ import {UtilsModule} from './students/utils/module';
 
 
 import {NgxPaginationModule} from 'ngx-pagination';
-
+import { AgmCoreModule } from '@agm/core';
 
 import { FilterPipe} from './pipes/student-list.pipe';
 import { FilterSkill} from './pipes/filterSkill.pipe';
@@ -130,6 +136,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     CompanyProfile,
     CompanyHeaderProfile,
     CompanyBioProfile,
+    CompanyContactProfile,
+    CompanyVacature,
+    CompanyHeaderVacature,
+    CompanyAboutVacature,
+    CompanyContactVacature,
 
     jqxFileUploadComponent,
     jqxEditorComponent,
@@ -154,6 +165,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     HttpClientModule,
     DataTableModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyD91Mh-sJ__BIEbxl-KhalMoEn64TviLwY",
+      libraries: ["places"]
+    }),
+    FormsModule,
+    ReactiveFormsModule,
     CalendarModule.forRoot(),
     NgbModule.forRoot(),
     NgbModalModule.forRoot(),
@@ -190,7 +207,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfessionalService,
     SkillService,
     SocialmediaService,
-    ContactService
+    ContactService,
+
+    CompanyContactService
 
 
 

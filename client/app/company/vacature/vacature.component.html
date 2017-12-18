@@ -1,0 +1,15 @@
+<div *ngIf="company">
+    <vacature-header class="component" [vacature]="vacature" [company]="company"></vacature-header>
+</div>
+
+<div *ngIf="company">
+    <vacature-about-company class="component" [vacature]="vacature"></vacature-about-company>
+</div>
+
+<div *ngIf="company">
+    <vacature-contact-company class="component" [contacts]="contacts"></vacature-contact-company>
+</div>
+
+<profile-footer class="component"></profile-footer>
+  
+    

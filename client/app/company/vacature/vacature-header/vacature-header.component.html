@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<div class="jumbotron">
+
+
+    <div class="container">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4 text-center" style="margin-top:5%">
+                <textarea id="editName" *ngIf="editMode" [(ngModel)]="vacature.name" placeholder="Vacature name" rows="1" (keyup.enter)="save(company, vacature)"></textarea>
+                <textarea id="editName" *ngIf="editMode" [(ngModel)]="vacature.type" placeholder="Vacature type" rows="1" (keyup.enter)="save(company, vacature)"></textarea>                
+                <b><p *ngIf="!editMode">{{vacature.name}} ({{vacature.type}})</p></b>
+            </h1>
+
+            <div id="divprofile" class="mx-auto" style="margin-top:3%">
+                <img id="profilepic" [src]="sanitizer.bypassSecurityTrustResourceUrl(im)">
+            </div>
+
+            <div class="row" style="float : right">
+                <button translate class="btn btn-sm btn-primary" *ngIf="!editMode" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
+                <button translate class="btn btn-sm btn-primary" *ngIf="editMode" (click)="save(company, vacature)"><i class="fa fa-floppy-o"></i> Save</button>
+            </div><br>
+
+            <div>
+                <button class="btn btn-sm btn-secondary">{{company.feature1}}</button>                
+                <button class="btn btn-sm btn-secondary">{{company.feature2}}</button>
+                <button class="btn btn-sm btn-secondary">{{company.feature3}}</button>
+            </div>
+        </div>
+    </div>
+</div>

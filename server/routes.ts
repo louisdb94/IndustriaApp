@@ -30,7 +30,7 @@ import UsersCtrl from './controllers_mysql/users';
 
 import CompanyCtrl from './controllers_mysql/company/companies';
 import VacaturesCtrl from './controllers_mysql/company/vacatures';
-
+import CompanyContactCtrl from './controllers_mysql/company/contact';
 import EventsCtrl from './controllers_mysql/admin/events';
 
 //MYSQL MODELS
@@ -47,6 +47,8 @@ import users from './models_mysql/users';
 
 import companies from './models_mysql/company/companies';
 import vacatures from './models_mysql/company/vacatures';
+import contact_company from './models_mysql/company/contact';
+
 
 import events from './models_mysql/admin/events';
 
@@ -76,6 +78,7 @@ export default function setRoutes(app) {
 
   const companiesCtrl = new CompanyCtrl();
   const vacaturesCtrl = new VacaturesCtrl();
+  const companyContactCtrl = new CompanyContactCtrl();
 
   const eventsCtrl = new EventsCtrl();
 
@@ -238,16 +241,28 @@ export default function setRoutes(app) {
 
   //Vacature
   router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyId);
+  router.route('/vacatures-getbycompany/:id').get(vacaturesCtrl.getbyCompanyId);  
   router.route('/vacatures-getall').get(vacaturesCtrl.select);
   router.route('/vacatures-insert').post(vacaturesCtrl.insert);
   router.route('/vacatures-insert/:id').get(vacaturesCtrl.insertCompanyFK);
   router.route('/vacatures-delete/:id').get(vacaturesCtrl.delete);
+  router.route('/vacatures-update').put(vacaturesCtrl.updateAll);
+  
 
   //Events
   router.route('/events-insert').post(eventsCtrl.insert);
   router.route('/events-getall').get(eventsCtrl.selectAll);
   router.route('/events-update').put(eventsCtrl.updateEvent);
   router.route('/events-delete/:id').delete(eventsCtrl.delete);
+
+  //Contact Company
+  router.route('/contacts-get/:id').get(companyContactCtrl.getbyId);
+  router.route('/contacts-getbycompanyfk/:id').get(companyContactCtrl.getbyCompanyId);
+  router.route('/contacts-getall').get(companyContactCtrl.select);
+  router.route('/contacts-insert').post(companyContactCtrl.insert);
+  router.route('/contacts-insert/:id').get(companyContactCtrl.insertStudentFK);
+  router.route('/contacts-delete/:id').get(companyContactCtrl.delete);
+  router.route('/contacts-update').put(companyContactCtrl.updateAll);
 
 
 

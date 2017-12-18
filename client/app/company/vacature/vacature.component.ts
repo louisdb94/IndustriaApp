@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { DataService } from '../../services/data.service';
 import { CompanyService } from '../../services/company/company.service';
 import { CompanyContactService } from '../../services/company/contact.service';
+import { VacatureService } from '../../services/company/vacature.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
@@ -13,24 +14,26 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 
 @Component({
-  selector: 'profile-company',  // <home></home>
-  styleUrls: [ './profile.component.scss' ],
-  templateUrl: './profile.component.html'
+  selector: 'vacature-company',  // <home></home>
+  styleUrls: [ './vacature.component.scss' ],
+  templateUrl: './vacature.component.html'
 })
-export class CompanyProfile implements OnInit {
+export class CompanyVacature implements OnInit {
 
   constructor(  public auth: AuthService,
                 public dataService: DataService,
                 public companyService: CompanyService,
                 public companyContactService: CompanyContactService,
+                public vacatureService: VacatureService,
                 private translate: TranslateService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent) {}
 
   data: any;
-  company_id: Number;
+  vacature_id: Number;
   company: {};
   contacts: {};
+  vacature: {};
 
   messageId: String;
   messageNav: String;
@@ -40,29 +43,32 @@ export class CompanyProfile implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.company_id = params['id'];
-      this.getCompanyById(this.company_id);
-      this.getContactById(this.company_id);
-      // this.companyService.innerJoin(this.company_id).subscribe(
-      //   data => {console.log("Tis gelukt: ", data)}
-      // )
+      this.vacature_id = params['id'];
+      this.getVacatureById(this.vacature_id);
     });
 
     this.dataService.idMessage.subscribe(message => this.messageId = message);
     this.dataService.navMessage.subscribe(message => this.messageNav = message);
   }
 
-  getCompanyById(id){
+  getVacatureById(id){
+    this.vacatureService.getVacatureById(id).subscribe(
+      data => {this.vacature = data[0], this.getCompanyByVacatureId(data[0].company_fk), this.getContactByCompanyId(data[0].company_fk), console.log("vacatures: ", this.vacature)},
+      error => console.log("error")
+    )
+  }
+
+  getCompanyByVacatureId(id){
     console.log("company id: ", id);
     this.companyService.getCompanyById(id).subscribe(
-      data => {this.company = data[0]},
+      data => {this.company = data[0], console.log("company: ", this.company)},
       error => console.log("error")
     );
   }
 
-  getContactById(id){
+  getContactByCompanyId(id){
     this.companyContactService.getContactByCompanyId(id).subscribe(
-      data => {this.contacts = data[0], console.log(this.contacts)},
+      data => {this.contacts = data[0]},
       error => console.log(error)
     )
   }

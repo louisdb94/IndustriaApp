@@ -21,6 +21,10 @@ export class VacatureService {
     return this.http.get(`/api/vacatures-get/${id}`).map(res => res.json());
   }
 
+  getVacatureByCompanyId(id): Observable<any> {
+    return this.http.get(`/api/vacatures-getbycompany/${id}`).map(res => res.json());
+  }
+
   getVacatures(): Observable<any> {
     return this.http.get(`/api/vacatures-getall`).map(res => res.json());
   }
@@ -35,6 +39,10 @@ export class VacatureService {
 
   addVacatureFromCompanyId(id): Observable<any> {
     return this.http.get(`/api/vacatures-insert/${id}`, this.options);
+  }
+
+  editVacature(vacature): Observable<any> {
+    return this.http.put(`/api/vacatures-update`, JSON.stringify(vacature), this.options);
   }
 
 

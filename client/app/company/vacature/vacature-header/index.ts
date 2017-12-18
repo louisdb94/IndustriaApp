@@ -1,0 +1,1 @@
+export * from './vacature-header.component';
