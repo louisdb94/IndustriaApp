@@ -233,19 +233,19 @@ export default function setRoutes(app) {
   router.route('/companies-delete/:id').get(companiesCtrl.delete);
   router.route('/downloadImage-company/:id').get(companiesCtrl.download);
   router.route('/companies-update').put(companiesCtrl.updateAll);
-  router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
+  router.route('/companies-innerjoin').get(companiesCtrl.innerJoin);
 
   //Vacature
   router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyId);
-  router.route('/vacatures-getbycompany/:id').get(vacaturesCtrl.getbyCompanyId);  
+  router.route('/vacatures-getbycompany/:id').get(vacaturesCtrl.getbyCompanyId);
   router.route('/vacatures-getall').get(vacaturesCtrl.select);
   router.route('/vacatures-insert').post(vacaturesCtrl.insert);
   router.route('/vacatures-insert/:id').get(vacaturesCtrl.insertCompanyFK);
   router.route('/vacatures-delete/:id').delete(vacaturesCtrl.delete);
   router.route('/vacatures-update').put(vacaturesCtrl.updateAll);
   router.route('/vacatures-insertform').post(vacaturesCtrl.insertForm);
-  
-  
+
+
 
   //Events
   router.route('/events-insert').post(eventsCtrl.insert);

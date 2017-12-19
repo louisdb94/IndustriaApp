@@ -57,7 +57,7 @@ export class StudentListComponent implements OnInit {
   //Get all students -> add to students[]
   getStudents(){
     this.studentService.getStudentsMysql().subscribe(
-      data => {this.students = data},
+      data => {this.students = data, console.log(this.students)},
       error => console.log(error)
     )
   }

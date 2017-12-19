@@ -12,7 +12,7 @@ export default class CompanyCtrl extends BaseSqlCtrl{
   dummy = companies;
 
   updateAll =  (req, res) => {
-    
+
             let sql = `UPDATE ${this.model} SET rnumber = '${req.body.rnumber}',
                                                 whoami = '${req.body.whoami}',
                                                 url = '${req.body.url}',
@@ -22,7 +22,7 @@ export default class CompanyCtrl extends BaseSqlCtrl{
                                                 feature3 = '${req.body.feature3}',
                                                 priority = '${req.body.priority}',
                                                 image = '${req.body.image}'
-    
+
                                                 WHERE id = ${req.body.id}`;
             let query = db.query(sql, (err, result) => {
                 if(err) throw err;
@@ -57,25 +57,20 @@ export default class CompanyCtrl extends BaseSqlCtrl{
 };
 
 innerJoin = (req, res) => {
-  // let count;
-  // let sql = `SELECT count(id) FROM companies`;
-  // let query = db.query(sql, (err, result) => {
-  //     if(err) throw err;
-  //     console.log("length: ", JSON.stringify(result[0].count));
-  //     count = result;
-  // });
 
-  // for(let i = 1; i <= count; i++){
-    let sql = `SELECT * FROM companies t1 INNER JOIN vacatures t2 ON t1.id = '${req.params.id}' AND t1.id = t2.company_fk`;
+  let dummy = []
+
+    let sql = `SELECT companies.id , companies.name AS company_name , companies.url, vacatures.name AS vacature_name, vacatures.type FROM companies
+
+                  INNER JOIN vacatures
+                    ON  companies.id = vacatures.company_fk`;
     let query = db.query(sql, (err, result) => {
         if(err) throw err;
-        console.log(result.length)
-        let type = [];
-        for(let i = 0; i < result.length; i++){
-          type[i] = (result[i]);
+
+        for(let i = 0 ; i < result.length; i++){
+          dummy[i] = {id : result[i].id, type:result[i].type, company_name: result[i].company_name, vacature_name: result[i].vacature_name, url: result[i].url}
         }
-        result = type;
-        console.log(JSON.stringify(result));      
+        console.log(dummy)
         res.send(result);
     });
   // };

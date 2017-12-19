@@ -5,10 +5,10 @@
 
     <div class="container">
         <div class="col-md-12 text-center">
-            <!-- <h1 class="display-4 text-center" style="margin-top:4%">
+            <h1 class="display-4 text-center" style="margin-top:4%">
                 <textarea id="editName" *ngIf="editMode" [(ngModel)]="company.name" placeholder="Company name" rows="1" (keyup.enter)="save(company)"></textarea>
                 <p *ngIf="!editMode">{{company.name}}</p>
-            </h1> -->
+            </h1>
 
             <div id="divprofile" class="mx-auto" style="margin-top:6%">
                 <img id="profilepic" [src]="sanitizer.bypassSecurityTrustResourceUrl(im)">
@@ -32,13 +32,13 @@
             </div><br>
 
             <div>
-                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature1" placeholder="Feature 1" rows="1" (keyup.enter)="save(company)"></textarea>                    
+                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature1" placeholder="Feature 1" rows="1" (keyup.enter)="save(company)"></textarea>
                 <button class="btn btn-sm btn-secondary" *ngIf="!editMode">{{company.feature1}}</button>
-                
-                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature2" placeholder="Feature 2" rows="1" (keyup.enter)="save(company)"></textarea>                    
+
+                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature2" placeholder="Feature 2" rows="1" (keyup.enter)="save(company)"></textarea>
                 <button class="btn btn-sm btn-secondary" *ngIf="!editMode">{{company.feature2}}</button>
 
-                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature3" placeholder="Feature 3" rows="1" (keyup.enter)="save(company)"></textarea>                    
+                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature3" placeholder="Feature 3" rows="1" (keyup.enter)="save(company)"></textarea>
                 <button class="btn btn-sm btn-secondary" *ngIf="!editMode">{{company.feature3}}</button>
             </div>
         </div>

@@ -1,0 +1,18 @@
+td {
+  padding: 20px;
+}
+
+.list1  tr:hover {
+  // background-color: #cecece;
+  cursor: pointer;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+    margin-top: 3%;
+
+  }
+
+md-list.make-scrollable {
+    height: 20px; //Or any other height you wish
+    overflow-y: scroll;
+}

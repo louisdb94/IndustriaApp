@@ -38,6 +38,8 @@ import { CompanyComponent} from './company/company.component';
 import { NavBarComponent} from './nav-bar/nav-bar.component';
 import { FirstPageComponent} from './firstpage/firstpage.component';
 import { StudentListComponent} from './student-list/student-list.component';
+import { VacatureListComponent} from './vacature-list/vacature-list.component';
+
 
 import { StudentProfile } from './profile-student';
 import { HeaderProfile } from './profile-student/profile-header';
@@ -101,6 +103,7 @@ import { FilterPipe} from './pipes/student-list.pipe';
 import { FilterSkill} from './pipes/filterSkill.pipe';
 import { FilterProfessional} from './pipes/filterProfessional.pipe';
 import { FilterLanguage} from './pipes/filterLanguage.pipe';
+import {FilterVacature} from './pipes/filterVacatures.pipe';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -124,6 +127,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavBarComponent,
     FirstPageComponent,
     StudentListComponent,
+    VacatureListComponent,
 
     StudentProfile,
     HeaderProfile,
@@ -161,7 +165,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterPipe,
     FilterSkill,
     FilterProfessional,
-    FilterLanguage
+    FilterLanguage,
+    FilterVacature
 
   ],
   imports: [

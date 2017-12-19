@@ -16,6 +16,7 @@ import { StudentProfile} from './profile-student/profile.component';
 import { CompanyProfile} from './company/profile/profile.component';
 import { CompanyVacature} from './company/vacature/vacature.component';
 import { StudentListComponent} from './student-list/student-list.component';
+import { VacatureListComponent} from './vacature-list/vacature-list.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'cats', component: CatsComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'student-list', component: StudentListComponent },
+  { path: 'vacature-list', component: VacatureListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
