@@ -28,11 +28,11 @@ app.use(fileupload({ safeFileNames: true }));
 
 // Create connection
 const db = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    port     : '8889',
-    database  : 'industriaApp'
+    host     : 'sql11.freesqldatabase.com',
+    user     : 'sql11211584',
+    password : 'VUS4iaLWgG',
+    port     : '3306',
+    database  : 'sql11211584'
 });
 
 // Connect
@@ -45,7 +45,7 @@ db.connect((err) => {
 
 // Create DB
 app.get('/createdb', (req, res) => {
-    let sql = 'CREATE DATABASE IF NOT EXISTS industriaApp';
+    let sql = 'CREATE DATABASE IF NOT EXISTS sql11211584';
     db.query(sql, (err, result) => {
         if(err) throw err;
         console.log(result);

@@ -241,13 +241,13 @@ export default function setRoutes(app) {
 
   //Vacature
   router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyId);
-  router.route('/vacatures-getbycompany/:id').get(vacaturesCtrl.getbyCompanyId);  
+  router.route('/vacatures-getbycompany/:id').get(vacaturesCtrl.getbyCompanyId);
   router.route('/vacatures-getall').get(vacaturesCtrl.select);
   router.route('/vacatures-insert').post(vacaturesCtrl.insert);
   router.route('/vacatures-insert/:id').get(vacaturesCtrl.insertCompanyFK);
   router.route('/vacatures-delete/:id').get(vacaturesCtrl.delete);
   router.route('/vacatures-update').put(vacaturesCtrl.updateAll);
-  
+
 
   //Events
   router.route('/events-insert').post(eventsCtrl.insert);
