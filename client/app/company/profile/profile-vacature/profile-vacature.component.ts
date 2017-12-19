@@ -18,7 +18,8 @@ export class CompanyVacatureProfile {
   vac2: String;
   vac3: String;
 
-  refresh: Subject<any> = new Subject();  
+  refresh: Subject<any> = new Subject();
+  companyVacature = "/vacature-company/";  
 
   public valueInput : number;
   public isUpdated = false;

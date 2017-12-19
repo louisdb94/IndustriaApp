@@ -14,13 +14,13 @@
         </thead>
         <tr *ngFor="let vacature of vacatures; let i = index">
             <td>
-              <p>{{vacature.name}}</p>
+              <a [href] ="companyVacature + vacature.id"><p>{{vacature.name}}</p></a>
             </td>
             <td>
-              <p>{{vacature.type}}</p>
+                <a [href] ="companyVacature + vacature.id"><p>{{vacature.type}}</p></a>
             </td>
             <td>
-              <p>{{vacature.about}}</p>
+                <a [href] ="companyVacature + vacature.id"><p>{{vacature.about}}</p></a>
             </td>
             <td>
                 <button (click)="deleteVacature(vacatures, vacature)"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>                

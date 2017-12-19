@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: 'profile-student/:id', component: StudentProfile},
   { path: 'profile-company/:id', component: CompanyProfile},
   { path: 'home-students/profile-company/:id', component: CompanyProfile},
+  { path: 'profile-company/:id/vacature-company/:id', component: CompanyVacature},
   { path: 'vacature-company/:id', component: CompanyVacature},
   { path: 'company', component: CompanyComponent},
   { path: 'cats', component: CatsComponent },
