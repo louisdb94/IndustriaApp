@@ -243,6 +243,7 @@ export default function setRoutes(app) {
   router.route('/vacatures-insert/:id').get(vacaturesCtrl.insertCompanyFK);
   router.route('/vacatures-delete/:id').delete(vacaturesCtrl.delete);
   router.route('/vacatures-update').put(vacaturesCtrl.updateAll);
+<<<<<<< HEAD
   router.route('/vacatures-insertform').post(vacaturesCtrl.insertForm);
   
   
