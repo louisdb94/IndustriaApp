@@ -112,8 +112,6 @@ export class RegisterComponent implements OnInit {
       .switchMap( userid =>
         this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId)
       .switchMap(studentid =>
-        this.cvsService.addCvsFromStudentId(JSON.parse(studentid._body).insertId)
-      .switchMap(educ =>
         this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
       .switchMap(educ =>
         this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
@@ -187,7 +185,7 @@ export class RegisterComponent implements OnInit {
          .map(result => ({
            user_id : JSON.parse(userid._body).insertId,
            student_id : JSON.parse(studentid._body).insertId,
-         })))))))))))))))))))))))))))))))))))))))
+         }))))))))))))))))))))))))))))))))))))))
       .subscribe(
         res => {  this.toast.setMessage('you successfully registered!', 'success'),
             //      this.router.navigate(['/login']),
