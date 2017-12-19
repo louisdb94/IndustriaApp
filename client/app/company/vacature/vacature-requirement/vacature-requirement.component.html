@@ -1,0 +1,25 @@
+<div class="jumbotron">
+    <div class="container">
+      <button translate *ngIf="editMode" (click)="save(vacature, req1)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+      <button translate *ngIf="!editMode" (click)="edit()" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+      <h2 translate>Requirements</h2>
+      <table data-toggle="table" data-striped="true">
+        <tr *ngFor="let requirement of requirements; let i = index">
+            <td style="width: 5%; margin-top: 5%">
+              <p>- </p>
+            </td>
+            <td style="width: 80%; margin-top: 5%">
+              <p>{{requirement.name}}</p>
+            </td>
+        </tr><br>
+        <div class="row">
+            <tr *ngIf="addClicked">
+                <td style="margin-top: 5%"><textarea *ngIf="editMode" rows="1" cols="100" [(ngModel)]="req1"></textarea></td>
+            </tr>
+        </div>
+      </table>
+  
+      <button *ngIf="editMode && !addClicked" (click)="deleteRequirement()"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
+      <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>       
+    </div>
+  </div>

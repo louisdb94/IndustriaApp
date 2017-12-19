@@ -7,6 +7,10 @@
 </div>
 
 <div *ngIf="company">
+    <vacature-requirement-company class="component" [vacature]="vacature"></vacature-requirement-company>
+</div>
+
+<div *ngIf="company">
     <vacature-contact-company class="component" [contacts]="contacts"></vacature-contact-company>
 </div>
 

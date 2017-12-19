@@ -37,25 +37,35 @@ abstract class BaseSqlCtrl {
           });
       };
 
-      insertUser =  (req, res) => {
+    insertCompanyFK =  (req, res) => {
 
-            let sql = `INSERT INTO ${this.model} SET user_fk = '${req.params.id}'`;
-            let query = db.query(sql, (err, result) => {
-                if(err) throw err;
-                console.log(result);
-                res.json(result);
-            });
-        };
+        let sql = `INSERT INTO ${this.model} SET company_fk = '${req.params.id}'`;
+        let query = db.query(sql, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.json(result);
+        });
+    };
 
-      insertCompanyFK =  (req, res) => {
+    insertVacatureFK =  (req, res) => {
+        
+        let sql = `INSERT INTO ${this.model} SET vacature_fk = '${req.params.id}'`;
+        let query = db.query(sql, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.json(result);
+        });
+    };
 
-            let sql = `INSERT INTO ${this.model} SET company_fk = '${req.params.id}'`;
-            let query = db.query(sql, (err, result) => {
-                if(err) throw err;
-                console.log(result);
-                res.json(result);
-            });
-        };
+    insertUser =  (req, res) => {
+
+        let sql = `INSERT INTO ${this.model} SET user_fk = '${req.params.id}'`;
+        let query = db.query(sql, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.json(result);
+        });
+    };
 
 
     // Select posts

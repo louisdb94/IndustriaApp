@@ -33,8 +33,8 @@ export class VacatureService {
     return this.http.post('/api/vacatures-insert', JSON.stringify(vacature), this.options);
   }
 
-  deleteVacature(vacature): Observable<any> {
-    return this.http.get(`/api/vacatures-delete/${vacature.id}`, this.options);
+  deleteVacature(id): Observable<any> {
+    return this.http.delete(`/api/vacatures-delete/${id}`, this.options);
   }
 
   addVacatureFromCompanyId(id): Observable<any> {
@@ -45,5 +45,8 @@ export class VacatureService {
     return this.http.put(`/api/vacatures-update`, JSON.stringify(vacature), this.options);
   }
 
+  addVacatureForm(form): Observable<any> {
+    return this.http.post('/api/vacatures-insertform', JSON.stringify(form), this.options);
+  }
 
 }

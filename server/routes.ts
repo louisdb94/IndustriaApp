@@ -31,6 +31,7 @@ import UsersCtrl from './controllers_mysql/users';
 import CompanyCtrl from './controllers_mysql/company/companies';
 import VacaturesCtrl from './controllers_mysql/company/vacatures';
 import CompanyContactCtrl from './controllers_mysql/company/contact';
+import CompanyRequirementCtrl from './controllers_mysql/company/requirement';
 import EventsCtrl from './controllers_mysql/admin/events';
 
 //MYSQL MODELS
@@ -48,8 +49,7 @@ import users from './models_mysql/users';
 import companies from './models_mysql/company/companies';
 import vacatures from './models_mysql/company/vacatures';
 import contact_company from './models_mysql/company/contact';
-
-
+import requirement from './models_mysql/company/requirement';
 import events from './models_mysql/admin/events';
 
 
@@ -79,7 +79,7 @@ export default function setRoutes(app) {
   const companiesCtrl = new CompanyCtrl();
   const vacaturesCtrl = new VacaturesCtrl();
   const companyContactCtrl = new CompanyContactCtrl();
-
+  const companyRequirementCtrl = new CompanyRequirementCtrl();
   const eventsCtrl = new EventsCtrl();
 
 
@@ -164,10 +164,6 @@ export default function setRoutes(app) {
   router.route('/experience-insertform').post(experienceCtrl.insertForm);
   router.route('/experience-insert/:id').get(experienceCtrl.insertStudentFK);
   router.route('/experiences-delete/:id').delete(experienceCtrl.delete);
-  router.route('/experiences-updatefrom/:id').get(experienceCtrl.updateDatefrom);
-  router.route('/experiences-updatefunction/:id').get(experienceCtrl.updateFunction);
-  router.route('/experiences-updateuntil/:id').get(experienceCtrl.updateDateuntil);
-  router.route('/experiences-updatedescription/:id').get(experienceCtrl.updateDescription);
 
   //Language
   router.route('/language-get/:id').get(languageCtrl.getbyId);
@@ -245,8 +241,10 @@ export default function setRoutes(app) {
   router.route('/vacatures-getall').get(vacaturesCtrl.select);
   router.route('/vacatures-insert').post(vacaturesCtrl.insert);
   router.route('/vacatures-insert/:id').get(vacaturesCtrl.insertCompanyFK);
-  router.route('/vacatures-delete/:id').get(vacaturesCtrl.delete);
+  router.route('/vacatures-delete/:id').delete(vacaturesCtrl.delete);
   router.route('/vacatures-update').put(vacaturesCtrl.updateAll);
+  router.route('/vacatures-insertform').post(vacaturesCtrl.insertForm);
+  
   
 
   //Events
@@ -260,9 +258,17 @@ export default function setRoutes(app) {
   router.route('/contacts-getbycompanyfk/:id').get(companyContactCtrl.getbyCompanyId);
   router.route('/contacts-getall').get(companyContactCtrl.select);
   router.route('/contacts-insert').post(companyContactCtrl.insert);
-  router.route('/contacts-insert/:id').get(companyContactCtrl.insertStudentFK);
+  router.route('/contacts-insert/:id').get(companyContactCtrl.insertCompanyFK);
   router.route('/contacts-delete/:id').get(companyContactCtrl.delete);
   router.route('/contacts-update').put(companyContactCtrl.updateAll);
+
+  //Requirements
+  router.route('/requirements-get/:id').get(companyRequirementCtrl.getbyFkExperience);
+  router.route('/requirements-getall').get(companyRequirementCtrl.select);
+  router.route('/requirements-insert').post(companyRequirementCtrl.insert);
+  router.route('/requirements-insertform').post(companyRequirementCtrl.insertForm);
+  router.route('/requirements-insert/:id').get(companyRequirementCtrl.insertVacatureFK);
+  router.route('/requirements-delete/:id').delete(companyRequirementCtrl.delete);
 
 
 

@@ -1,0 +1,39 @@
+<div class="jumbotron">
+    <div class="container">
+      <button translate *ngIf="editMode" (click)="save(vacatures, vac1, vac2, vac3, vacature)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+      <button translate *ngIf="!editMode" (click)="edit()" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+      <h2 translate>Vacatures</h2>
+      <table class="table table-bordered">
+        <thead class="thead-default" >
+          <tr>
+            <th translate>Function</th>
+            <th translate>Type of Employment</th>
+            <th translate>About</th>
+            <th translate>Delete</th>
+          </tr>
+        </thead>
+        <tr *ngFor="let vacature of vacatures; let i = index">
+            <td>
+              <p>{{vacature.name}}</p>
+            </td>
+            <td>
+              <p>{{vacature.type}}</p>
+            </td>
+            <td>
+              <p>{{vacature.about}}</p>
+            </td>
+            <td>
+                <button (click)="deleteVacature(vacatures, vacature)"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>                
+            </td>
+        </tr>
+  
+        <tr *ngIf="addClicked">
+            <td><textarea *ngIf="editMode" [(ngModel)]="vac1"></textarea></td>
+            <td><textarea *ngIf="editMode" [(ngModel)]="vac2"></textarea></td>
+            <td><textarea *ngIf="editMode" [(ngModel)]="vac3"></textarea></td>
+            <td></td>                            
+        </tr>
+      </table>
+      <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>       
+    </div>
+  </div>

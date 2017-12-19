@@ -56,12 +56,15 @@ import { CompanyProfile } from './company/profile/profile.component';
 import { CompanyHeaderProfile } from './company/profile/profile-header';
 import { CompanyBioProfile } from './company/profile/profile-bio';
 import { CompanyContactProfile } from './company/profile/profile-contact';
+import { CompanyVacatureProfile } from './company/profile/profile-vacature';
 import { CompanyVacature } from './company/vacature/vacature.component';
 import { CompanyHeaderVacature } from './company/vacature/vacature-header';
 import { CompanyAboutVacature } from './company/vacature/vacature-about';
 import { CompanyContactVacature } from './company/vacature/vacature-contact';
+import { CompanyRequirementVacature } from './company/vacature/vacature-requirement';
 
 import {CompanyContactService} from './services/company/contact.service';
+import { CompanyRequirementService } from './services/company/requirement.service';
 
 import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/forms';
 
@@ -137,10 +140,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     CompanyHeaderProfile,
     CompanyBioProfile,
     CompanyContactProfile,
+    CompanyVacatureProfile,
     CompanyVacature,
     CompanyHeaderVacature,
     CompanyAboutVacature,
     CompanyContactVacature,
+    CompanyRequirementVacature,
 
     jqxFileUploadComponent,
     jqxEditorComponent,
@@ -209,9 +214,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SocialmediaService,
     ContactService,
 
-    CompanyContactService
-
-
+    CompanyContactService,
+    CompanyRequirementService
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

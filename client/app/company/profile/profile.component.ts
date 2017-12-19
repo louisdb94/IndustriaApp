@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { DataService } from '../../services/data.service';
 import { CompanyService } from '../../services/company/company.service';
+import { VacatureService } from '../../services/company/vacature.service';
 import { CompanyContactService } from '../../services/company/contact.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
@@ -23,6 +24,7 @@ export class CompanyProfile implements OnInit {
                 public dataService: DataService,
                 public companyService: CompanyService,
                 public companyContactService: CompanyContactService,
+                public vacatureService: VacatureService,
                 private translate: TranslateService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent) {}
@@ -31,6 +33,7 @@ export class CompanyProfile implements OnInit {
   company_id: Number;
   company: {};
   contacts: {};
+  vacatures: {};
 
   messageId: String;
   messageNav: String;
@@ -42,10 +45,8 @@ export class CompanyProfile implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.company_id = params['id'];
       this.getCompanyById(this.company_id);
+      this.getVacaturesByCompanyId(this.company_id);
       this.getContactById(this.company_id);
-      // this.companyService.innerJoin(this.company_id).subscribe(
-      //   data => {console.log("Tis gelukt: ", data)}
-      // )
     });
 
     this.dataService.idMessage.subscribe(message => this.messageId = message);
@@ -56,6 +57,13 @@ export class CompanyProfile implements OnInit {
     console.log("company id: ", id);
     this.companyService.getCompanyById(id).subscribe(
       data => {this.company = data[0]},
+      error => console.log("error")
+    );
+  }
+
+  getVacaturesByCompanyId(id){
+    this.vacatureService.getVacatureByCompanyId(id).subscribe(
+      data => {this.vacatures = data, console.log("vacatures: ", this.vacatures)},
       error => console.log("error")
     );
   }
