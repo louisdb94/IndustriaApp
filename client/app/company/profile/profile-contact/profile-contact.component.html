@@ -30,7 +30,7 @@
                 <div>
                     <input [hidden]="!editMode" id="address" class="form-control" #search [formControl]="searchControl" placeholder="Fill in an address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
                 </div>
-                <agm-map *ngIf="!editMode && clickMap" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                <agm-map [hiddden]="!clickMap" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
                     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
                 </agm-map>
             </div>

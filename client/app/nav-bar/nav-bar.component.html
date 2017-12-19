@@ -1,4 +1,4 @@
-<nav *ngIf="myVar" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
+<nav *ngIf="messageNav == 'student'" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
     <a class="navbar-brand" href="https://www2.industria.be/">
       <img src="../assets/img/Industria.PNG" width="45" height="60">
     </a>
@@ -9,12 +9,12 @@
     <div class="navbar-collapse collapse" id="navbarCollapse">
       <ul class="navbar-nav text-md-center nav-justified w-100">
         <li class="nav-item">
-            <a id="homeid" routerLink="/students" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <a id="homeid" routerLink="/home-students" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
               <i class="fa fa-home"></i> Home
             </a>
         </li>
         <li class="nav-item dropdown active">
-          <a translate id="homeid" [routerLink] ="profileString + messageId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <a translate id="homeid" [routerLink] ="studentString + messageId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
             <i class="fa fa-list"></i> Profile
           </a>
         </li>
@@ -33,7 +33,7 @@
     </select>
   </nav>
 
-  <nav id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
+  <nav *ngIf="messageNav == 'company'" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
       <a class="navbar-brand" href="https://www2.industria.be/">
         <img src="../assets/img/Industria.PNG" width="45" height="60">
       </a>
@@ -44,12 +44,12 @@
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <ul class="navbar-nav text-md-center nav-justified w-100">
           <li class="nav-item">
-              <a id="homeid" routerLink="/home-students" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+              <a id="homeid" routerLink="/home-companies" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                 <i class="fa fa-home"></i> Home
               </a>
           </li>
           <li class="nav-item dropdown active">
-            <a translate id="homeid" [routerLink] ="profileString + messageId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <a translate id="homeid" [routerLink] ="companyString + messageId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
               <i class="fa fa-list"></i> Profile
             </a>
           </li>

@@ -140,7 +140,7 @@
   <hr style="height:2px;border:none;color:#333;background-color:#333;"><br>  
   <div class="row">
     <p  *ngFor="let item of highImg; let index = index" style="margin: auto">
-      <a [href] ="companyProfile + item.id">
+      <a class=" ab nav-link" [routerLink] ="companyProfile + item.id">
         <img id="highPriority" [src]='sanitizer.bypassSecurityTrustResourceUrl(item.im)'>
       </a>
     </p>
@@ -150,7 +150,7 @@
 
   <div class="row">
     <p  *ngFor="let item of middleImg; let index = index" style="margin: auto">
-      <a [href] ="companyProfile + item.id">
+      <a class=" ab nav-link" [routerLink] ="companyProfile + item.id">
         <img id="middlePriority" [src]='sanitizer.bypassSecurityTrustResourceUrl(item.im)'>
       </a>
     </p>
@@ -160,7 +160,7 @@
 
   <div class="row">
     <p  *ngFor="let item of lowImg; let index = index" style="margin: auto">
-      <a [href] ="companyProfile + item.id">
+      <a class=" ab nav-link" [routerLink] ="companyProfile + item.id">
         <img id="lowPriority" [src]='sanitizer.bypassSecurityTrustResourceUrl(item.im)'>
       </a>
     </p>
@@ -169,7 +169,12 @@
 
 <br><br>
 
-<table>
+<!-- END SPONSORS CODE -->
+
+
+<!-- BEGIN ADD NEW COMPANY CODE -->
+
+<!-- <table>
   <thead class="thead-default" >
     <tr>
       <th>Name</th>
@@ -180,11 +185,6 @@
   </tr>
   <br><br>
 </table>
-
-<!-- END SPONSORS CODE -->
-
-
-<!-- BEGIN ADD NEW COMPANY CODE -->
 
 <div class="card">
     <div class="card-header"><h4>Add new company</h4></div>
@@ -218,6 +218,6 @@
         <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Add</button>
       </form>
     </div>
-  </div>
+  </div> -->
 
 <!-- END ADD NEW COMPANY CODE -->

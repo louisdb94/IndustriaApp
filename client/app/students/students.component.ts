@@ -58,6 +58,7 @@ export class StudentsComponent implements OnInit {
   student = {};
   rnumberStudent: String;
   messageId: String;
+  messageNav: String;
 
   companies = [];
   highPriority = [];
@@ -121,8 +122,9 @@ export class StudentsComponent implements OnInit {
   role: this.role,
   });
 
-  this.data.idMessage.subscribe(message => this.messageId = message)
-  }
+  this.data.idMessage.subscribe(message => this.messageId = message);
+  this.data.navMessage.subscribe(message => this.messageNav = message);  
+}
 
 
   //BEGIN OF CALENDAR CODE

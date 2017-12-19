@@ -22,29 +22,48 @@ import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
 const routes: Routes = [
-  // { path: '', component: AboutComponent },
-  // { path: '', component: FirstPageComponent },
-  { path: '', component: RegisterComponent },
+  //First page when you redirect to our website
+  { path: '', component: FirstPageComponent},
+
+  //Login for Companies
+  { path: 'login/:status', component: LoginComponent },
+
+  //Register for companies and alumni students
+  { path: 'register', component: RegisterComponent },
+
+  //Home pages for respectively the students and companies
   { path: 'home-students', component: StudentsComponent},
-  { path: 'firstpage', component: FirstPageComponent},
+  { path: 'home-companies', component: StudentsComponent},
+  
+  //Profile pages for respectively the students and companies
   { path: 'profile-student/:id', component: StudentProfile},
   { path: 'profile-company/:id', component: CompanyProfile},
+  
+  //This is the way for a student to go to a company profile page from the home page
   { path: 'home-students/profile-company/:id', component: CompanyProfile},
-  { path: 'profile-company/:id/vacature-company/:id', component: CompanyVacature},
+
+  //This is the way for a student/company to go to a specific vacature page
   { path: 'vacature-company/:id', component: CompanyVacature},
-  { path: 'company', component: CompanyComponent},
-  { path: 'cats', component: CatsComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'profile-company/:id/vacature-company/:id', component: CompanyVacature},
+
+  //Student list for the companies
   { path: 'student-list', component: StudentListComponent },
+<<<<<<< Updated upstream
   { path: 'vacature-list', component: VacatureListComponent },
   { path: 'login', component: LoginComponent },
+=======
+
+  //Redirection to the logout
+>>>>>>> Stashed changes
   { path: 'logout', component: LogoutComponent },
-  { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuardAdmin] },
+
+  //Safety for if a page is routed to that is not found
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: '/notfound' },
 
-
+  //{ path: 'cats', component: CatsComponent },
+  //{ path: 'admin', component: AdminComponent, canActivate: [AuthGuardAdmin] },
+  //{ path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] }, 
 
 ];
 

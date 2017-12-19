@@ -233,7 +233,13 @@ export default function setRoutes(app) {
   router.route('/companies-delete/:id').get(companiesCtrl.delete);
   router.route('/downloadImage-company/:id').get(companiesCtrl.download);
   router.route('/companies-update').put(companiesCtrl.updateAll);
+<<<<<<< Updated upstream
   router.route('/companies-innerjoin').get(companiesCtrl.innerJoin);
+=======
+  router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
+  router.route('/companies-getbyrnumber/:rnumber').get(companiesCtrl.getCompanyByRnumber);
+  
+>>>>>>> Stashed changes
 
   //Vacature
   router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyId);

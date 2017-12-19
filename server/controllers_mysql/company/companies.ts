@@ -56,6 +56,17 @@ export default class CompanyCtrl extends BaseSqlCtrl{
     });
 };
 
+getCompanyByRnumber =  (req, res) => {
+  console.log("joooooow", req.params.rnumber);
+  let sql = `SELECT id FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
+  let query = db.query(sql, (err, result) => {
+      if(err) throw err;
+      console.log(result);
+      res.json(result);
+
+  });
+};
+
 innerJoin = (req, res) => {
 
   let dummy = []

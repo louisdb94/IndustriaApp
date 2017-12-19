@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { StudentService } from '../services/student.service';
+import { CompanyService } from '../services/company/company.service';
 import { DataService } from "../services/data.service";
 import { ToastComponent } from '../shared/toast/toast.component';
 import { AppComponent } from '../app.component';
@@ -46,18 +47,25 @@ export class LoginComponent implements OnInit {
   constructor(private auth: AuthService,
               private userService: UserService,
               private studentService: StudentService,
+              private companyService: CompanyService,
               private data: DataService,
               private formBuilder: FormBuilder,
               private router: Router,
               private appcomponent: AppComponent,
+              private activatedRoute: ActivatedRoute,
               public toast: ToastComponent) { }
 
   ngOnInit() {
     if (this.auth.loggedIn) {
       this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
-        data => (this.id = data._id, this.data.changeMessageId(data._id), this.data.changeMessageNav("Student"), console.log("data: ", this.id)),
+        data => (this.id = data._id, this.data.changeMessageId(data._id), this.data.changeMessageNav(data._id), console.log("data: ", this.id)),
         error => console.log("error")
       );
+
+      this.activatedRoute.params.subscribe((params: Params) => {
+        this.data.changeMessageNav(params['status']);
+        this.messageNav = params['status'];
+      });
 
       this.router.navigate(['/students']);
     }
@@ -101,30 +109,42 @@ export class LoginComponent implements OnInit {
   login() {
 
     this.userForm.value.rnumber = this.emailStudent.substring(0,8);
-    this.studentService.getStudentByRnumberMysql(this.userForm.value.rnumber).subscribe(
-      data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), this.data.changeMessageNav("Student"), console.log("data: ", this.id)),
-      error => console.log("error")
-    );
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.data.changeMessageNav(params['status']);
+      if(params['status'] == "student"){
+        this.studentService.getStudentByRnumberMysql(this.userForm.value.rnumber).subscribe(
+          data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), console.log("data: ", this.id)),
+          error => console.log("error")
+        );
+      }
+
+      if(params['status'] == "company"){
+        this.companyService.getCompanyByRnumberMysql(this.userForm.value.rnumber).subscribe(
+          data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), console.log("data: ", this.id)),
+          error => console.log("error")
+        );
+      }
+    });
 
     this.auth.login(this.loginForm.value).subscribe(
-      res => this.router.navigate(['/students']),
+      res => {this.navigate()},
       error => this.toast.setMessage('invalid email or password!', 'danger')
     );
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      
+    });
+    console.log("messageNav: ", this.messageNav);
 
   }
 
-  test(){
-    console.log(this.userForm.value.rnumber);
-    this.userForm.value.rnumber = this.emailStudent.substring(0,8);
-    this.studentService.getStudentByRnumberMysql(this.userForm.value.rnumber).subscribe(
-      data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), this.data.changeMessageNav("Student"), console.log("data: ", this.id)),
-      error => console.log("error")
-    );
-
-    this.auth.login(this.loginForm.value).subscribe(
-      res => this.router.navigate(['/students']),
-      error => this.toast.setMessage('invalid email or password!', 'danger')
-    );
+  navigate(){
+    if(this.messageNav == "student"){
+      this.router.navigate(['/home-students'])
+    }
+    if(this.messageNav == "company"){
+      this.router.navigate(['/home-companies'])
+    }
   }
 
   addTip(){
