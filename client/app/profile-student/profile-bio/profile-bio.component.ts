@@ -19,10 +19,10 @@ export class BioProfile {
   save(student){
     this.editMode = false;
 
-    this.studentService.editStudent(student).subscribe(
+    this.studentService.editStudentMysql(student).subscribe(
       res => {
         this.student = student;
-        this.toast.setMessage('item edited successfully.', 'success');
+        console.log("this.student: ", this.student);
       },
       error => console.log(error)
     );

@@ -26,7 +26,7 @@
             </div>
 
         <div id="divprofile" class="mx-auto">
-            <img id="profilepic" class="rounded-circle" [src]="im">
+            <img id="profilepic" class="rounded-circle" [src]="sanitizer.bypassSecurityTrustResourceUrl(im)">
             <div class="file-upload">
                 <div class="file-upload" *ngIf="editMode">
                     <br>
