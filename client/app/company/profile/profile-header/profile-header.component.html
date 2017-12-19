@@ -5,10 +5,10 @@
 
     <div class="container">
         <div class="col-md-12 text-center">
-            <h1 class="display-4 text-center" style="margin-top:4%">
+            <!-- <h1 class="display-4 text-center" style="margin-top:4%">
                 <textarea id="editName" *ngIf="editMode" [(ngModel)]="company.name" placeholder="Company name" rows="1" (keyup.enter)="save(company)"></textarea>
                 <p *ngIf="!editMode">{{company.name}}</p>
-            </h1>
+            </h1> -->
 
             <div id="divprofile" class="mx-auto" style="margin-top:6%">
                 <img id="profilepic" [src]="sanitizer.bypassSecurityTrustResourceUrl(im)">

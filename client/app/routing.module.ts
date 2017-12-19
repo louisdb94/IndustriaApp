@@ -46,15 +46,11 @@ const routes: Routes = [
   { path: 'vacature-company/:id', component: CompanyVacature},
   { path: 'profile-company/:id/vacature-company/:id', component: CompanyVacature},
 
-  //Student list for the companies
+  //Student list (for the companies) and vacature list (for the students)
   { path: 'student-list', component: StudentListComponent },
-<<<<<<< Updated upstream
   { path: 'vacature-list', component: VacatureListComponent },
-  { path: 'login', component: LoginComponent },
-=======
 
   //Redirection to the logout
->>>>>>> Stashed changes
   { path: 'logout', component: LogoutComponent },
 
   //Safety for if a page is routed to that is not found

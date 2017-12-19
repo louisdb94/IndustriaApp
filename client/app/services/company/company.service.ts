@@ -45,16 +45,13 @@ export class CompanyService {
     return this.http.put(`/api/companies-update`, JSON.stringify(company), this.options);
   }
 
-<<<<<<< Updated upstream
   getinnerjoin(): Observable<any> {
     return this.http.get('api/companies-innerjoin').map(res => res.json());
   }
 
-=======
   getCompanyByRnumberMysql(rnumber): Observable<any> {
     console.log(rnumber);
     return this.http.get(`/api/companies-getbyrnumber/${rnumber}`).map(res => res.json());
   }
->>>>>>> Stashed changes
 
 }
