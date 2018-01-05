@@ -4,7 +4,7 @@ import BaseSqlCtrl from '../baseSql';
 import * as fs from 'fs';
 
 export default class ImageCtrl extends BaseSqlCtrl {
-  
+
   model = 'image';
   dummy = null;
 
@@ -59,29 +59,29 @@ export default class ImageCtrl extends BaseSqlCtrl {
 
    }
 
-     // Select single post
-     download =  (req, res) => {
-         let sql = `SELECT * FROM students WHERE id = '${req.params.id}'`;
-         let query = db.query(sql, (err, obj) => {
-          if (err) { return console.error(err); }
-          else{
-            console.log("obj.image: ", obj[0].image);
+   // Select single post
+   download =  (req, res) => {
+       let sql = `SELECT * FROM students WHERE id = '${req.params.id}'`;
+       let query = db.query(sql, (err, obj) => {
+        if (err) { return console.error(err); }
+        else{
+          console.log("obj.image: ", obj[0].image);
 
-            if(obj[0].image == 1){
-                fs.readFile('./uploads/images/' + obj[0].rnumber + '.jpg', 'base64', function(err, data){
-                  if(err){console.log(err);}
-                  res.setHeader('Content-Disposition', 'attachment');
-                  res.send(data)
-                })
-              }
-              else{
-                fs.readFile('./uploads/images/standard.jpg', 'base64', function(err, data){
-                  if(err){console.log(err);}
-                  res.setHeader('Content-Disposition', 'attachment');
-                  res.send(data)
-                })
-              }
-          }
-         });
-     };
+          if(obj[0].image == 1){
+              fs.readFile('./uploads/images/' + obj[0].rnumber + '.jpg', 'base64', function(err, data){
+                if(err){console.log(err);}
+                res.setHeader('Content-Disposition', 'attachment');
+                res.send(data)
+              })
+            }
+            else{
+              fs.readFile('./uploads/images/standard.jpg', 'base64', function(err, data){
+                if(err){console.log(err);}
+                res.setHeader('Content-Disposition', 'attachment');
+                res.send(data)
+              })
+            }
+        }
+       });
+   };
 }

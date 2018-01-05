@@ -48,7 +48,7 @@ abstract class BaseSqlCtrl {
     };
 
     insertVacatureFK =  (req, res) => {
-        
+
         let sql = `INSERT INTO ${this.model} SET vacature_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
@@ -148,16 +148,6 @@ abstract class BaseSqlCtrl {
             res.json(result);
         });
     };
-
-    // // Update post
-    // update = (req, res) => {
-    //     let sql = `UPDATE ${this.model} SET field = '${req.body}' WHERE id = ${req.params.id}`;
-    //     let query = db.query(sql, (err, result) => {
-    //         if(err) throw err;
-    //         console.log(result);
-    //         res.send('Post updated...');
-    //     });
-    // };
 
     // Delete post
     delete = (req, res) => {

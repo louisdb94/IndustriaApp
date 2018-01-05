@@ -50,7 +50,6 @@ export class CompanyService {
   }
 
   getCompanyByRnumberMysql(rnumber): Observable<any> {
-    console.log(rnumber);
     return this.http.get(`/api/companies-getbyrnumber/${rnumber}`).map(res => res.json());
   }
 

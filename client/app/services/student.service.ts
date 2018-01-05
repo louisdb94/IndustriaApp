@@ -35,7 +35,6 @@ export class StudentService {
   }
 
   getStudentByRnumber(rnumber): Observable<any> {
-    console.log(rnumber);
     return this.http.get(`/api/user/${rnumber}`).map(res => res.json());
   }
 
@@ -70,16 +69,11 @@ export class StudentService {
     return this.http.post('/api/students-insert', student, this.options);
   }
 
-  // addStudentFromUserIdMysql(user_id): Observable<any> {
-  //   return this.http.post('/api/students-insertUserFk', JSON.stringify(user_id), this.options);
-  // }
-
   addStudentFromUserId(id): Observable<any> {
     return this.http.get(`/api/students-insert/${id}`, this.options);
   }
 
   getStudentByRnumberMysql(rnumber): Observable<any> {
-    console.log(rnumber);
     return this.http.get(`/api/student-getbyrnumber/${rnumber}`).map(res => res.json());
   }
 

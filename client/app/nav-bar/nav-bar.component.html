@@ -1,28 +1,39 @@
-<nav *ngIf="messageNav == 'student'" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
+<nav *ngIf="auth.currentUser.role == 'Student'" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
     <a class="navbar-brand" href="https://www2.industria.be/">
       <img src="../assets/img/Industria.PNG" width="45" height="60">
     </a>
     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="navbar-collapse collapse" id="navbarCollapse">
       <ul class="navbar-nav text-md-center nav-justified w-100">
         <li class="nav-item">
             <a id="homeid" routerLink="/home-students" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-              <i class="fa fa-home"></i> Home
+              <i class="fa fa-home"> Home</i>
             </a>
         </li>
-        <li class="nav-item dropdown active">
-          <a translate id="homeid" [routerLink] ="studentString + messageId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-            <i class="fa fa-list"></i> Profile
+        <li class="nav-item dropdown active" style="font-size:147%">
+          <a translate id="navbarDropdownMenuLink" data-toggle="dropdown" [routerLink] ="studentString + this.auth.currentUser.studentId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <i class="fa fa-list" > Profile </i><i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
           </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-header">header</a>
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-bio">bio</a>
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-education">education</a>
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-experiences">experience</a>
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-skills">skills</a>
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-professional">professional skills</a>
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-language">language knowledge</a>
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-contact">contact</a>
+          </div>
+
         </li>
         <li class="nav-item">
-          <a id="homeid" translate class=" ab nav-link" routerLink="/vacature-list"><i class="fa fa-briefcase" aria-hidden="true"></i> JobOpenings</a>
+          <a id="homeid" translate class=" ab nav-link" routerLink="/vacature-list"><i class="fa fa-briefcase" aria-hidden="true"> Job Openings</i> </a>
         </li>
         <li class="nav-item">
-          <a id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+          <a id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i class="fa fa-sign-out" aria-hidden="true"> Logout</i> </a>
         </li>
       </ul>
     </div>
@@ -33,14 +44,14 @@
     </select>
   </nav>
 
-  <nav *ngIf="messageNav == 'company'" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
+  <nav *ngIf="auth.currentUser.role == 'Company'" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
       <a class="navbar-brand" href="https://www2.industria.be/">
         <img src="../assets/img/Industria.PNG" width="45" height="60">
       </a>
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
+
       <div class="navbar-collapse collapse" id="navbarCollapse">
         <ul class="navbar-nav text-md-center nav-justified w-100">
           <li class="nav-item">
@@ -49,7 +60,7 @@
               </a>
           </li>
           <li class="nav-item dropdown active">
-            <a translate id="homeid" [routerLink] ="companyString + messageId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <a translate id="homeid" [routerLink] ="companyString + auth.currentUser.companyId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
               <i class="fa fa-list"></i> Profile
             </a>
           </li>
@@ -61,7 +72,7 @@
           </li>
         </ul>
       </div>
-  
+
       <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
         <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
         <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>

@@ -25,44 +25,26 @@ export default class UserCtrl extends BaseSqlCtrl {
   login =  (req, res) => {
     let sql = `SELECT * FROM user WHERE email = '${req.body.email}'`;
     let query = db.query(sql, (err, user) => {
-        console.log(req.body.password);
-        console.log(user[0].password);
         if (!user) { return res.sendStatus(403); }
             else if(user[0].password == req.body.password){
             const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
             res.status(200).json({ token: token });
         }
-
         else{
-            console.log("fail");
+            console.log("failed to log in");
         }
-        // user.comparePassword(req.body.password, (error, isMatch) => {
-        //   if (!isMatch) { return res.sendStatus(403); }
-        //   const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
-        //   res.status(200).json({ token: token });
-        // });
-
     });
   };
 
-  // Update post
-  updateRnumber = (req, res) => {
-      let sql = `UPDATE '${this.model}' SET rnumber = '${req.body}' WHERE id = ${req.params.id}`;
+  resetPass = (req, res) => {
+    console.log("WERKT");
+    console.log(req.params)
+      let sql = `UPDATE '${this.model}' SET password = '${req.body.password}' WHERE email = ${req.body.email}`;
       let query = db.query(sql, (err, result) => {
           if(err) throw err;
-          console.log(result);
           res.send('Post updated...');
       });
   };
 
-  // Update post
-  updateEmail = (req, res) => {
-      let sql = `UPDATE '${this.model}' SET email = '${req.body}' WHERE id = ${req.params.id}`;
-      let query = db.query(sql, (err, result) => {
-          if(err) throw err;
-          console.log(result);
-          res.send('Post updated...');
-      });
-  };
 
 }

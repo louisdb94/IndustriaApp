@@ -10,26 +10,18 @@ import { DataService } from '../services/data.service';
 })
 export class NavBarComponent {
 
-  messageId: String;
   messageNav: String;
   studentString: String;
   companyString: String;
 
   constructor(public auth: AuthService, public data: DataService, private translate: TranslateService) {
     translate.setDefaultLang('en');
-    this.data.idMessage.subscribe(message => this.messageId = message);
-    this.data.navMessage.subscribe(message => this.messageNav = message);
     this.studentString = "/profile-student/";
     this.companyString = "/profile-company/";
-    console.log(this.messageId);
-    console.log(this.messageNav);
    }
 
   switchLanguage(language) {
-    console.log(language);
     this.translate.use(language);
-    console.log(this.messageId);
-    console.log(this.messageNav);
   }
 
   logout(){

@@ -5,11 +5,9 @@ import * as fs from 'fs';
 import {db} from './app';
 import * as  mysql from 'mysql';
 
-import CatCtrl from './controllers/cat';
 import CvCtrl from './controllers/cv';
 import UserCtrl from './controllers/user';
 import StudentCtrl from './controllers/student';
-import Cat from './models/cat';
 import User from './models/user';
 import Student from './models/student';
 import Cv from './models/cv';
@@ -51,6 +49,7 @@ import vacatures from './models_mysql/company/vacatures';
 import contact_company from './models_mysql/company/contact';
 import requirement from './models_mysql/company/requirement';
 import events from './models_mysql/admin/events';
+import SendmailCtrl from './config/sendmail';
 
 
 
@@ -58,7 +57,6 @@ export default function setRoutes(app) {
 
   const router = express.Router();
 
-  const catCtrl = new CatCtrl();
   const userCtrl = new UserCtrl();
   const studentCtrl = new StudentCtrl();
   const cvCtrl = new CvCtrl();
@@ -81,6 +79,7 @@ export default function setRoutes(app) {
   const companyContactCtrl = new CompanyContactCtrl();
   const companyRequirementCtrl = new CompanyRequirementCtrl();
   const eventsCtrl = new EventsCtrl();
+  const sendmail = new SendmailCtrl();
 
 
   // CREATE MYSQL TABLES
@@ -97,28 +96,15 @@ export default function setRoutes(app) {
   router.route('/create-companies').get(companiesCtrl.getsql);
   router.route('/create-vacatures').get(vacaturesCtrl.getsql);
 
-   // CREATE MYSQL TABLES
-  // router.route('/create-users')
-  //       .get(usersCtrl.getsql)
-  //       .get(studentsCtrl.getsql)
-  //       .get(cvsCtrl.getsql)
-  //       .get(contactsCtrl.getsql)
-  //       .get(educationCtrl.getsql)
-  //       .get(experienceCtrl.getsql)
-  //       .get(languageCtrl.getsql)
-  //       .get(skillsCtrl.getsql)
-  //       .get(socialmediaCtrl.getsql);
-
   //User
   router.route('/user-get/:id').get(usersCtrl.getbyId);
   router.route('/user-getbyrole').get(usersCtrl.getbyRole);
   router.route('/users-getall').get(usersCtrl.select);
   router.route('/users-insert').post(usersCtrl.insert);
   router.route('/user-delete/:id').get(usersCtrl.delete);
-  router.route('/user-updateemail/:id').get(usersCtrl.updateEmail);
-  router.route('/users-updaternumber/:id').get(usersCtrl.updateRnumber);
   router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);
   router.route('/users-login').post(usersCtrl.login);
+  router.route('/user-resetpass/:id').get(usersCtrl.resetPass);
 
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
@@ -150,10 +136,6 @@ export default function setRoutes(app) {
   router.route('/education-insert').post(educationCtrl.insert);
   router.route('/education-insert/:id').get(educationCtrl.insertStudentFK);
   router.route('/education-delete/:id').get(educationCtrl.delete);
-  router.route('/education-updatetype/:id').get(educationCtrl.updateType);
-  router.route('/education-updateinstitution/:id').get(educationCtrl.updateInstitution);
-  router.route('/education-updatefrom/:id').get(educationCtrl.updateDatefrom);
-  router.route('/education-updateuntil/:id').get(educationCtrl.updateDateuntil);
   router.route('/education-update').put(educationCtrl.updateAll);
 
   //Experiences
@@ -173,9 +155,6 @@ export default function setRoutes(app) {
   router.route('/language-insert').post(languageCtrl.insert);
   router.route('/language-insert/:id').get(languageCtrl.insertStudentFK);
   router.route('/languageCtrl-delete/:id').get(languageCtrl.delete);
-  router.route('/language-updatetype/:id').get(languageCtrl.updateType);
-  router.route('/language-updatevalue/:id').get(languageCtrl.updateValue);
-  router.route('/language-updatevaluetype/:id').get(languageCtrl.updateValueType);
   router.route('/language-update').put(languageCtrl.updateAll);
   router.route('/language-getfkbylang/:lang').get(languageCtrl.getbyLanguage);
 
@@ -198,9 +177,6 @@ export default function setRoutes(app) {
   router.route('/skills-insert').post(skillsCtrl.insert);
   router.route('/skills-insert/:id').get(skillsCtrl.insertStudentFK);
   router.route('/skills-delete/:id').get(skillsCtrl.delete);
-  router.route('/skills-updateskill/:id').get(skillsCtrl.updateSkill);
-  router.route('/skills-updatevalue/:id').get(skillsCtrl.updateValue);
-  router.route('/skills-updatevaluetype/:id').get(skillsCtrl.updateValueType);
   router.route('/skills-update').put(skillsCtrl.updateAll);
   router.route('/skills-getfkbyskill/:skill').get(skillsCtrl.getbySkill);
 
@@ -211,9 +187,6 @@ export default function setRoutes(app) {
   router.route('/socialmedia-insert').post(socialmediaCtrl.insert);
   router.route('/socialmedia-insert/:id').get(socialmediaCtrl.insertStudentFK);
   router.route('/socialmedia-delete/:id').get(socialmediaCtrl.delete);
-  router.route('/socialmedia-updateskill/:id').get(socialmediaCtrl.updateUrl);
-  router.route('/socialmedia-updatetype/:id').get(socialmediaCtrl.updateType);
-  router.route('/socialmedia-updatechecked/:id').get(socialmediaCtrl.updateChecked);
   router.route('/socialmedia-update').put(socialmediaCtrl.updateAll);
 
   //Contact
@@ -236,7 +209,7 @@ export default function setRoutes(app) {
   router.route('/companies-innerjoin').get(companiesCtrl.innerJoin);
   router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
   router.route('/companies-getbyrnumber/:rnumber').get(companiesCtrl.getCompanyByRnumber);
-  
+
 
   //Vacature
   router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyId);
@@ -286,14 +259,6 @@ export default function setRoutes(app) {
   router.route('/image/remove/:id').post(imageCtrl.remove);
 
 
-  // Cats
-  router.route('/cats').get(catCtrl.getAll);
-  router.route('/cats/count').get(catCtrl.count);
-  router.route('/cat').post(catCtrl.insert);
-  router.route('/cat/:id').get(catCtrl.get);
-  router.route('/cat/:id').put(catCtrl.update);
-  router.route('/cat/:id').delete(catCtrl.delete);
-
   // Students
   router.route('/students').get(studentCtrl.getAll);
   router.route('/students/count').get(studentCtrl.count);
@@ -312,7 +277,11 @@ export default function setRoutes(app) {
   router.route('/user/:rnumber').get(userCtrl.getByRnumber);
   router.route('/user/:id').put(userCtrl.update);
   router.route('/user/:id').delete(userCtrl.delete);
-  router.route('/send').post(userCtrl.sendMail);
+
+  //sendmail
+  router.route('/sendmail/:email').get(sendmail.mailToken)
+
+
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);

@@ -1,22 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { CatsComponent } from './cats/cats.component';
-import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component';
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+import { SendMailComponent } from './login/send-mail/send-mail.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
-import { AccountComponent } from './account/account.component';
-import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { StudentsComponent} from './students/students.component';
+import { HomepageComponent} from './homepage/homepage.component';
 import { CompanyComponent} from './company/company.component';
 import { FirstPageComponent} from './firstpage/firstpage.component';
-import { StudentProfile} from './profile-student/profile.component';
+import { StudentProfile} from './student/profile.component';
 import { CompanyProfile} from './company/profile/profile.component';
 import { CompanyVacature} from './company/vacature/vacature.component';
-import { StudentListComponent} from './student-list/student-list.component';
-import { VacatureListComponent} from './vacature-list/vacature-list.component';
+import { StudentListComponent} from './student/student-list/student-list.component';
+import { VacatureListComponent} from './company/vacature-list/vacature-list.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -30,15 +28,16 @@ const routes: Routes = [
 
   //Register for companies and alumni students
   { path: 'register', component: RegisterComponent },
-
+  { path: 'resetpassword', component: ResetPasswordComponent },
+  { path: 'sendmail/:token', component: SendMailComponent },
   //Home pages for respectively the students and companies
-  { path: 'home-students', component: StudentsComponent},
-  { path: 'home-companies', component: StudentsComponent},
-  
+  { path: 'home-students', component: HomepageComponent},
+  { path: 'home-companies', component: HomepageComponent},
+
   //Profile pages for respectively the students and companies
   { path: 'profile-student/:id', component: StudentProfile},
   { path: 'profile-company/:id', component: CompanyProfile},
-  
+
   //This is the way for a student to go to a company profile page from the home page
   { path: 'home-students/profile-company/:id', component: CompanyProfile},
 
@@ -56,10 +55,6 @@ const routes: Routes = [
   //Safety for if a page is routed to that is not found
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: '/notfound' },
-
-  //{ path: 'cats', component: CatsComponent },
-  //{ path: 'admin', component: AdminComponent, canActivate: [AuthGuardAdmin] },
-  //{ path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] }, 
 
 ];
 

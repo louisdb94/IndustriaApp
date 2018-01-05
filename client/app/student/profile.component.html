@@ -1,0 +1,38 @@
+<div class="profile-component">
+<div *ngIf="student">
+    <profile-header class="component" [student]="student" id="profile-header"></profile-header>
+</div>
+
+<div *ngIf="student">
+    <profile-bio class="component" [student]="student" id="profile-bio"></profile-bio>
+</div>
+
+<div *ngIf="student">
+    <profile-education class="component" [student]="student" id="profile-education"></profile-education>
+</div>
+
+
+<div *ngIf="student">
+    <profile-experiences class="component" [student]="student" id="profile-experiences"></profile-experiences>
+</div>
+
+
+<div *ngIf="student">
+    <profile-skills class="component" [student]="student" [skills]="skills" id="profile-skills"></profile-skills>
+</div>
+
+<div *ngIf="student">
+    <profile-professional class="component" [student]="student" [professional]="professional" id="profile-professional"></profile-professional>
+</div>
+
+<div *ngIf="student">
+    <profile-language class="component" [student]="student" [languages]="languages" id="profile-language"></profile-language>
+</div>
+
+<div *ngIf="student">
+    <profile-contact class="component" [student]="student" [contactChecked]="contactChecked" [contacts]="contacts" id="profile-contact"></profile-contact>
+</div><hr>
+
+<profile-footer class="component"></profile-footer>
+
+</div>

@@ -55,12 +55,16 @@ export class UserService {
   }
 
   getUserMysql(rnumber): Observable<any> {
-    console.log(rnumber);
     return this.http.get(`/api/users-getbyrnumber/${rnumber}`).map(res => res.json());
   }
 
   loginMysql(credentials): Observable<any> {
     return this.http.post('/api/users-login', JSON.stringify(credentials), this.options);
   }
+
+  resetpassword(credentials): Observable<any> {
+    return this.http.get(`/api/user-resetpass/${credentials.id}`).map(res => res.json());
+  }
+
 
 }

@@ -31,8 +31,6 @@ export default class ProfessionalCtrl extends BaseSqlCtrl{
       });
   };
 
-
-
   updateAll = (req, res) => {
     let sql = `UPDATE ${this.model} SET skill = '${req.body.skill}', value = '${req.body.value}', value_type = '${req.body.value_type}'  WHERE id = ${req.body.id}`;
     let query = db.query(sql, (err, result) => {

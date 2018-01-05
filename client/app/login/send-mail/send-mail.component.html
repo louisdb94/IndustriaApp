@@ -1,0 +1,40 @@
+<app-toast [message]="toast.message"></app-toast>
+<div class="jumbotron" style="background: white">
+    <div id="loginpage" class="mx-auto">
+        <div class="card text-center">
+            <div class="card-header" style="font-size: 30px">
+                <img src="../assets/img/Industria.PNG" width="45" height="60">
+                <p translate style="margin-left:8%">
+                    Reset Password
+                    <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
+                        <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
+                        <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
+                    </select>
+                </p>
+
+            </div>
+            <br><br>
+
+            <form [formGroup]="resetForm">
+              <p style="font-weight: bold"> {{currentUser.email}} </p>
+              <div id="login" class="input-group" [ngClass]="setClassPassword()">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input class="form-control" [(ngModel)]="pass" type="password" name="password" formControlName="password"  placeholder="password (at least 6 characters)" autofocus>
+              </div>
+              <div id="login" class="input-group" [ngClass]="setClassPassword()" >
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input class="form-control" [(ngModel)]="pass2" type="password" name="password2" formControlName="password2"  placeholder="confirm password" autofocus>
+              </div>
+              <br>
+              <br>
+              <button  style="margin-bottom: 2%;"class="btn btn-primary" type="submit" (click)="check()"><i class="fa fa-sign-in"></i> Reset Password</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <profile-footer></profile-footer>
+</footer>

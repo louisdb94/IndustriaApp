@@ -18,7 +18,7 @@ export default class EventsCtrl extends BaseSqlCtrl{
         console.log(results);
         res.json(results);
     });
-  };//
+  };
 
   updateEvent =  (req, res) => {
       let sql = `UPDATE ${this.model} SET title = '${req.body.title}',

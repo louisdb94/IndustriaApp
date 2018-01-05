@@ -85,13 +85,12 @@ export class LoginComponent implements OnInit {
     this.data.id_user.subscribe(message => this.id_user = message);
     this.data.dataRnumber.subscribe(message => this.dataRnumber = message);
 
-    console.log(this.data.id_user);
     this.data.id_user.subscribe(
-      value => {console.log("user_fk: ",value), this.userForm.value.user_fk = value}
+      value => {this.userForm.value.user_fk = value}
     );
 
     this.data.dataRnumber.subscribe(
-      value => {console.log("rnumber: ", value), this.userForm.value.rnumber = value}
+      value => {this.userForm.value.rnumber = value}
     );
   }
 
@@ -113,14 +112,14 @@ export class LoginComponent implements OnInit {
       this.data.changeMessageNav(params['status']);
       if(params['status'] == "student"){
         this.studentService.getStudentByRnumberMysql(this.userForm.value.rnumber).subscribe(
-          data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), console.log("data: ", this.id)),
+          data => (this.id = data[0].id, this.data.changeMessageId(data[0].id)),
           error => console.log("error")
         );
       }
 
       if(params['status'] == "company"){
         this.companyService.getCompanyByRnumberMysql(this.userForm.value.rnumber).subscribe(
-          data => (this.id = data[0].id, this.data.changeMessageId(data[0].id), console.log("data: ", this.id)),
+          data => (this.id = data[0].id, this.data.changeMessageId(data[0].id)),
           error => console.log("error")
         );
       }
@@ -132,9 +131,8 @@ export class LoginComponent implements OnInit {
     );
 
     this.activatedRoute.params.subscribe((params: Params) => {
-      
+
     });
-    console.log("messageNav: ", this.messageNav);
 
   }
 

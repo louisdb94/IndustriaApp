@@ -63,13 +63,7 @@ app.listen('3000', () => {
 // app.set('port', (process.env.PORT || 3000));
 
 
-let transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: '',
-    pass: ''
-  }
-});
+
 
 
 export { app, db };

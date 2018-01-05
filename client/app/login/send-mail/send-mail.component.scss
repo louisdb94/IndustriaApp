@@ -1,0 +1,37 @@
+#loginpage{
+    width: 800px;
+    margin-top: 10px;
+}
+
+#languageselector{
+    width: 60px;
+    height: 30px;
+    font-size: 13px;
+    float: right;
+    margin-top: 2%;
+  }
+
+#login{
+    width:450px;
+    margin: 0 auto;
+}
+
+#registerbutton{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#info{
+    margin-top: 1%;
+    font-size:24px;
+    margin-left: 3%;
+    color: lightgrey;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+ }

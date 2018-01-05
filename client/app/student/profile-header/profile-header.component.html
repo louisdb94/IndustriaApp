@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<div class="jumbotron">
+
+
+    <div class="container">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4 text-center" >
+                <textarea id="editName" *ngIf="editMode" [(ngModel)]="student.name" placeholder="Write your name" rows="1" (keyup.enter)="save()"></textarea>
+                <p *ngIf="!editMode">{{student.name}}</p>
+            </h1>
+
+            <h3>
+                <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.degree" placeholder="Select your major" rows="1" (keyup.enter)="save()"></textarea>
+                <p  *ngIf="!editMode">{{student.degree}}</p>
+            </h3>
+
+            <div>
+                <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.gradYear" placeholder="Select your year of graduation" rows="1" (keyup.enter)="save()"></textarea>
+                <p *ngIf="!editMode">Expected graduation year: {{student.gradYear}}</p>
+            </div>
+
+            <div class="row" style="float : right">
+                <button translate class="btn btn-sm btn-primary" *ngIf="!editMode" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
+                <button translate class="btn btn-sm btn-primary" *ngIf="editMode" (click)="save(student)"><i class="fa fa-floppy-o"></i> Save</button>
+            </div>
+
+        <div id="divprofile" class="mx-auto">
+            <img id="profilepic" class="rounded-circle" [src]="sanitizer.bypassSecurityTrustResourceUrl(im)">
+            <div class="file-upload">
+                <div class="file-upload" *ngIf="editMode">
+                    <br>
+                    <button (click)="add()">Upload</button>
+                    <input id="custom-input" type="file" accept="image/*" (change)="fileChangeListener($event, student)">
+                </div>
+            </div>
+        </div><br>
+
+        <div class="text-center">
+            <label class="custom-control custom-checkbox">
+                <input [checked]="student.cvChecked" class="custom-control-input" type="checkbox" [(ngModel)]="student.cvChecked" (change)= "changeChecked($event, student)"/>
+                <span id="checkboxCV" class="custom-control-indicator"></span>
+                <span translate class="custom-control-description" style="color:#984444;">CVcheck</span>
+            </label>
+        </div>
+
+        <p-fileUpload *ngIf="student.cvChecked" name="cv" customUpload="true" accept="application/pdf" maxFileSize="1000000"  (uploadHandler)="myUploader($event, student)"></p-fileUpload>
+
+        <div *ngIf="student.cvChecked">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Download CV</th>
+                        <th>Remove CV</th>
+                    </tr>
+                </thead>
+                <tr *ngFor="let cv of cvs">
+                    <td><p style="float: left"> {{cv.customName}}  </p> </td>
+                    <td><p style="float: left"><button (click)="downloadCv(cv)" class="btn btn-sm btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download</button></p> </td>
+                    <td><p style="float: left"><button (click)="removeCv(cv)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Remove</button></p> </td>
+                </tr>
+            </table>
+        </div>
+
+
+
+        <div *ngIf="!editMode" class="text-center">
+            <a *ngIf="socialmedia[0]"><a *ngIf="socialmedia[0].checked == 1" [(href)]="socialmedia[0].url" class="btn-facebook" target="_blank">Facebook</a></a>
+            <a *ngIf="socialmedia[1]"><a *ngIf="socialmedia[1].checked == 1" [(href)]="socialmedia[1].url" class="btn-twitter" target="_blank">Twitter</a></a>
+            <a *ngIf="socialmedia[2]"><a *ngIf="socialmedia[2].checked == 1" [(href)]="socialmedia[2].url" class="btn-google-plus" target="_blank">Google+</a></a>
+            <a *ngIf="socialmedia[3]"><a *ngIf="socialmedia[3].checked == 1" [(href)]="socialmedia[3].url" class="btn-linkedin" target="_blank">LinkedIn</a></a>
+        </div>
+
+        <div *ngIf="editMode" class="text-center">
+            <div>
+                <label class="custom-control custom-checkbox">
+                    <input *ngIf="socialmedia[0]" [checked]="socialmedia[0].checked" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, student, socialmedia, 0)"/>
+                    <span class="custom-control-indicator"></span>
+                </label>
+                <a href="#" class="btn-facebook">Facebook</a>
+                <input *ngIf="socialmedia[0]" [(ngModel)]="socialmedia[0].url" placeholder="Link your Facebook page">
+            </div>
+            <div>
+                <label class="custom-control custom-checkbox">
+                    <input *ngIf="socialmedia[1]" [checked]="socialmedia[1].checked" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, student, socialmedia, 1)"/>
+                    <span class="custom-control-indicator"></span>
+                </label>
+                <a href="#" class="btn-twitter">Twitter</a>
+                <input *ngIf="socialmedia[1]" [(ngModel)]="socialmedia[1].url" placeholder="Link your Twitter page">
+            </div>
+            <div>
+                <label class="custom-control custom-checkbox">
+                    <input *ngIf="socialmedia[2]" [checked]="socialmedia[2].checked" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, student, socialmedia, 2)"/>
+                    <span class="custom-control-indicator"></span>
+                </label>
+                <a href="#" class="btn-google-plus">Google+</a>
+                <input *ngIf="socialmedia[2]" [(ngModel)]="socialmedia[2].url" placeholder="Link your Google+ page">
+            </div>
+            <div>
+                <label class="custom-control custom-checkbox">
+                    <input *ngIf="socialmedia[3]" [checked]="socialmedia[3].checked" class="custom-control-input" type="checkbox" (change)= "changeSocialMediaChecked($event, student, socialmedia, 3)"/>
+                    <span class="custom-control-indicator"></span>
+                </label>
+                <a href="#" class="btn-linkedin">LinkedIn</a>
+                <input *ngIf="socialmedia[3]" [(ngModel)]="socialmedia[3].url" placeholder="Link your LinkedIn page">
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
