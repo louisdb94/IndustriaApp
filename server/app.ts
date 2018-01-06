@@ -8,8 +8,9 @@ import * as EmailTemplate from 'email-templates';
 import setRoutes from './routes';
 import setAuthRoutes from './auth-routes';
 import * as  mysql from 'mysql';
-
 import * as fileupload from 'express-fileupload';
+
+import * as fs from 'fs';
 
 const passportSetup = require('./config/passport-setup');
 const app = express();
@@ -58,6 +59,9 @@ setRoutes(app);
 app.listen('3000', () => {
     console.log('Server started on port 3000');
 });
+
+
+
 
 
 // app.set('port', (process.env.PORT || 3000));
