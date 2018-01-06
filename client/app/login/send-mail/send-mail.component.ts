@@ -4,6 +4,8 @@ import { MailService} from '../../services/mail.service';
 import { UserService} from '../../services/user.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ToastComponent } from '../../shared/toast/toast.component';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-send-mail',
@@ -30,7 +32,9 @@ export class SendMailComponent implements OnInit {
                 private mailService: MailService,
                 private formBuilder: FormBuilder,
                 public toast: ToastComponent,
-                private userService: UserService) { }
+                private userService: UserService,
+                private http: HttpClient,
+                private router: Router) { }
 
   ngOnInit() {
 
@@ -63,8 +67,8 @@ export class SendMailComponent implements OnInit {
   check(){
     if(this.resetForm.value.password == this.resetForm.value.password2){
       this.currentUser.password = this.resetForm.value.password;
-      this.userService.resetpassword(this.currentUser);
-      console.log(this.currentUser)
+      this.http.put('/api/resetpass', this.currentUser).subscribe();
+      this.router.navigate(['']);
     }else{
       this.toast.setMessage("please check if passwords are equal.", 'info');
     }

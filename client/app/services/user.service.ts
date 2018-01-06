@@ -62,9 +62,6 @@ export class UserService {
     return this.http.post('/api/users-login', JSON.stringify(credentials), this.options);
   }
 
-  resetpassword(credentials): Observable<any> {
-    return this.http.get(`/api/user-resetpass/${credentials.id}`).map(res => res.json());
-  }
 
 
 }

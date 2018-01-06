@@ -37,12 +37,9 @@ export default class UserCtrl extends BaseSqlCtrl {
   };
 
   resetPass = (req, res) => {
-    console.log("WERKT");
-    console.log(req.params)
-      let sql = `UPDATE '${this.model}' SET password = '${req.body.password}' WHERE email = ${req.body.email}`;
+      let sql = `UPDATE ${this.model} SET password = '${req.body.password}' WHERE email = '${req.body.email}'`;
       let query = db.query(sql, (err, result) => {
           if(err) throw err;
-          res.send('Post updated...');
       });
   };
 

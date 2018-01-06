@@ -27,7 +27,7 @@ let query = db.query(sql, (err, user) => {
           from: 'bedrijvenrelaties2018@gmail.com', // sender address
           to: req.params.email, // list of receivers
           subject: 'Password reset', // Subject line
-          html: 'Dear user, set here you new password via this link:  ' + token// plain text body
+          html: 'Dear user, set here you new password via this link:  ' + 'http://localhost:4200/sendmail/' + token// plain text body
           };
 
          transporter.sendMail(mailOptions, function (err, info) {
