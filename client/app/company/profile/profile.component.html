@@ -1,4 +1,4 @@
-<div class="profile-component">
+<div class="profile-component" *ngIf="auth.currentUser.companyId == company_id || auth.currentUser.role =='Student'">
 
 
 <div *ngIf="company">
@@ -19,4 +19,8 @@
 
 <profile-footer class="component"></profile-footer>
 
+</div>
+
+<div  *ngIf="auth.currentUser.companyId != company_id ">
+  <app-not-found> </app-not-found>
 </div>

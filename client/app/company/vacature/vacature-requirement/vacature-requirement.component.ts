@@ -55,7 +55,7 @@ export class CompanyRequirementVacature {
 
   getRequirementsById(id, req1){
     this.companyRequirementService.getRequirementById(id).subscribe(
-      res => {this.requirements = res, this.lengthRequirements = Object.keys(res).length, this.changeRequirement(req1), console.log("length in getExperienceById: ", this.lengthRequirements), console.log("Experiences: ", this.requirements)}
+      res => {this.requirements = res, this.lengthRequirements = Object.keys(res).length, this.changeRequirement(req1)}
     )
   }
 
@@ -65,7 +65,6 @@ export class CompanyRequirementVacature {
       let i = this.lengthRequirements--;
       if(this.requirements[i]){
         this.requirements[i].name = this.req1;
-        console.log(this.requirements);
       }
     }
   }
