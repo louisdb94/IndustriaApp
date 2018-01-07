@@ -34,9 +34,11 @@ export class CompanyVacature implements OnInit {
   company: {};
   contacts: {};
   vacature: {};
+  company_fk: Number;
 
   messageId: String;
   messageNav: String;
+
 
   private compare = new BehaviorSubject<String>("default message");
   compareID = this.compare.asObservable();
@@ -53,7 +55,7 @@ export class CompanyVacature implements OnInit {
 
   getVacatureById(id){
     this.vacatureService.getVacatureById(id).subscribe(
-      data => {this.vacature = data[0], this.getCompanyByVacatureId(data[0].company_fk), this.getContactByCompanyId(data[0].company_fk)},
+      data => {this.vacature = data[0], this.company_fk = data[0].company_fk, this.getCompanyByVacatureId(data[0].company_fk), this.getContactByCompanyId(data[0].company_fk)},
       error => console.log("error")
     )
   }

@@ -13,6 +13,8 @@ export class FilterVacature implements PipeTransform {
         return category.type.toLowerCase().indexOf(searchText.toLowerCase()) > -1;}
       else if (type == 'Company'){
         return category.company_name.toLowerCase().indexOf(searchText.toLowerCase()) > -1;}
+      else if (type == 'Com'){
+        return category.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1;}
 
 
     })

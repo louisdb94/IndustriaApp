@@ -48,6 +48,7 @@ export class StudentProfile implements OnInit {
   professional = [];
   languages = [];
   contacts = [];
+  id : Number;
 
   private compare = new BehaviorSubject<String>("default message");
   compareID = this.compare.asObservable();
@@ -67,12 +68,12 @@ export class StudentProfile implements OnInit {
     this.translate.setDefaultLang('en');
     this.activatedRoute.params.subscribe((params: Params) => {
       let id1 = params['id'];
-      let id = JSON.parse(id1);
-      this.getStudentByIdMySql(id);
-      this.getskillbyid(id);
-      this.getProfessionalbyid(id);
-      this.getLanguagebyid(id);
-      this.getContactbyid(id);
+      this.id = JSON.parse(id1);
+      this.getStudentByIdMySql(this.id);
+      this.getskillbyid(this.id);
+      this.getProfessionalbyid(this.id);
+      this.getLanguagebyid(this.id);
+      this.getContactbyid(this.id);
     });
   }
 
