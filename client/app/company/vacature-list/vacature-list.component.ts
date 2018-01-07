@@ -24,6 +24,7 @@ export class VacatureListComponent implements OnInit {
                   private http : HttpClient) { }
 
     vacatures = [];
+    companies = [];
 
     filters = ['Vacature', 'Type', 'Company'];
     model = {
@@ -33,7 +34,27 @@ export class VacatureListComponent implements OnInit {
 
     ngOnInit() {
       this.getinnerjoin();
+      this.getCompanies();
 
+    }
+
+    getCompanies(){
+      this.companyService.getCompanies().subscribe(
+        data => {this.companies = data, this.sort(this.companies)},
+        error => console.log(error)
+       )
+    }
+    //sort array on companies alphabetically
+    sort(array){
+      array.sort( function(name1, name2) {
+        if ( name1.name < name2.name ){
+          return -1;
+        }else if( name1.name > name2.name ){
+            return 1;
+        }else{
+          return 0;
+        }
+     });
     }
 
     //Get all students -> add to students[]
