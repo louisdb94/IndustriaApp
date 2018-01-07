@@ -3,6 +3,7 @@ import { VacatureService } from '../../../services/company/vacature.service';
 import { ToastComponent } from '../../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataTableModule } from "ng2-data-table";
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'vacature-about-company',  // <home></home>
@@ -13,8 +14,10 @@ export class CompanyAboutVacature {
   public editMode = false;
   @Input() vacature: {};
 
-  constructor(private vacatureService: VacatureService,
-    private activatedRoute: ActivatedRoute, public toast: ToastComponent) {}
+  constructor(  private vacatureService: VacatureService,
+                private activatedRoute: ActivatedRoute,
+                public toast: ToastComponent,
+                private auth: AuthService) {}
 
   save(vacature){
     this.editMode = false;

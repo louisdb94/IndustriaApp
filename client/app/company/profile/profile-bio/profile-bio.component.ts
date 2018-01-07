@@ -3,6 +3,8 @@ import { CompanyService } from '../../../services/company/company.service';
 import { ToastComponent } from '../../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataTableModule } from "ng2-data-table";
+import { AuthService } from '../../../services/auth.service';
+
 
 @Component({
   selector: 'profile-bio-company',  // <home></home>
@@ -13,8 +15,10 @@ export class CompanyBioProfile {
   public editMode = false;
   @Input() company: {};
 
-  constructor(private companyService: CompanyService,
-    private activatedRoute: ActivatedRoute, public toast: ToastComponent) {}
+  constructor(  private companyService: CompanyService,
+                private activatedRoute: ActivatedRoute,
+                public toast: ToastComponent,
+                private auth: AuthService) {}
 
   save(company){
     this.editMode = false;

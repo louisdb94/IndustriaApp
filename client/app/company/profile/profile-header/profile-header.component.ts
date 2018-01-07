@@ -12,6 +12,8 @@ import {formData} from 'form-data';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { FileService } from '../../../services/file.service';
 import { CompanyService } from '../../../services/company/company.service';
+import { AuthService } from '../../../services/auth.service';
+
 
 
 enableProdMode();
@@ -49,7 +51,8 @@ export class CompanyHeaderProfile {
                 private http: HttpClient,
                 private companyService: CompanyService,
                 private sanitizer: DomSanitizer,
-                private formBuilder: FormBuilder,){
+                private formBuilder: FormBuilder,
+                private auth: AuthService){
 
                     this.data = {};
                 }
@@ -84,7 +87,7 @@ export class CompanyHeaderProfile {
         formData.append('files', file, file.name);
         formData.append('name', company.name);
         formData.append('id', company.id);
-  
+
         if(file) {
           this.fileService.uploadImageCompany(formData).subscribe(
             res => console.log('gelukt', res));
@@ -99,7 +102,7 @@ export class CompanyHeaderProfile {
     window.location.reload();
   }
 
-  
+
 
 
   downloadImage(id){

@@ -6,6 +6,8 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataTableModule } from "ng2-data-table";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
+import { AuthService } from '../../../services/auth.service';
+
 
 @Component({
   selector: 'profile-vacature-company',  // <home></home>
@@ -19,7 +21,7 @@ export class CompanyVacatureProfile {
   vac3: String;
 
   refresh: Subject<any> = new Subject();
-  companyVacature = "/vacature-company/";  
+  companyVacature = "/vacature-company/";
 
   public valueInput : number;
   public isUpdated = false;
@@ -34,10 +36,14 @@ export class CompanyVacatureProfile {
   idForm = new FormControl(String);
 
   @Input() vacatures;
-  @Input() company; 
+  @Input() company;
 
-  constructor(private formBuilder: FormBuilder, private zone:NgZone, private vacatureService: VacatureService,
-    private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
+  constructor(  private formBuilder: FormBuilder,
+                private zone:NgZone,
+                private vacatureService: VacatureService,
+                private activatedRoute: ActivatedRoute,
+                public toast: ToastComponent,
+                private auth: AuthService){}
 
 
   ngOnInit() {
@@ -48,7 +54,7 @@ export class CompanyVacatureProfile {
       vac3Form: this.vac3Form,
       idForm: this.idForm,
     });
-    
+
     this.changeVacature(this.vacatures, null, null, null, null);
   }
 

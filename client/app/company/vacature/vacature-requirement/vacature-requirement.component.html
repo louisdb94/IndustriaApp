@@ -1,7 +1,7 @@
 <div class="jumbotron">
     <div class="container">
-      <button translate *ngIf="editMode" (click)="save(vacature, req1)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-      <button translate *ngIf="!editMode" (click)="edit()" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+      <button translate *ngIf="editMode  && auth.currentUser.role == 'Company'" (click)="save(vacature, req1)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+      <button translate *ngIf="!editMode  && auth.currentUser.role == 'Company'" (click)="edit()" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
       <h2 translate>Requirements</h2>
       <table data-toggle="table" data-striped="true">
         <tr *ngFor="let requirement of requirements; let i = index">
@@ -18,8 +18,8 @@
             </tr>
         </div>
       </table>
-  
+
       <button *ngIf="editMode && !addClicked" (click)="deleteRequirement()"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
-      <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>       
+      <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>
     </div>
   </div>

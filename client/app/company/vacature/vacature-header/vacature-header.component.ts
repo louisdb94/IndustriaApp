@@ -13,6 +13,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { FileService } from '../../../services/file.service';
 import { CompanyService } from '../../../services/company/company.service';
 import { VacatureService } from '../../../services/company/vacature.service';
+import { AuthService } from '../../../services/auth.service';
 
 
 enableProdMode();
@@ -51,7 +52,8 @@ export class CompanyHeaderVacature {
                 private companyService: CompanyService,
                 private vacatureService: VacatureService,
                 private sanitizer: DomSanitizer,
-                private formBuilder: FormBuilder,){
+                private formBuilder: FormBuilder,
+                private auth: AuthService){
 
                     this.data = {};
                 }

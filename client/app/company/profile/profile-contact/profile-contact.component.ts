@@ -7,6 +7,8 @@ import { ContactService} from '../../../services/contact.service';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { FormControl } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
+
 
 @Component({
   selector: 'profile-contact-company',  // <home></home>
@@ -37,7 +39,8 @@ export class CompanyContactProfile implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private mapsAPILoader: MapsAPILoader,
-                private ngZone: NgZone){}
+                private ngZone: NgZone,
+                private auth: AuthService){}
 
 
   ngOnInit(){

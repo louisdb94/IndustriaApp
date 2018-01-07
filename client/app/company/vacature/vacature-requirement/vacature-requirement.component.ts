@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { checkAndUpdateNode } from '@angular/core/src/view/view';
 import {CompanyRequirementService} from '../../../services/company/requirement.service';
 import { VacatureService } from '../../../services/company/vacature.service';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -34,8 +35,12 @@ export class CompanyRequirementVacature {
 
   @Input() vacature
 
-  constructor(private formBuilder: FormBuilder, private companyRequirementService: CompanyRequirementService, private vacatureService: VacatureService,
-    private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
+  constructor(  private formBuilder: FormBuilder,
+                private companyRequirementService: CompanyRequirementService,
+                private vacatureService: VacatureService,
+                private activatedRoute: ActivatedRoute,
+                public toast: ToastComponent,
+                private auth: AuthService){}
 
 
   ngOnInit() {

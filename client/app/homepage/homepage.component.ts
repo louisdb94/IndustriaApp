@@ -104,6 +104,7 @@ export class HomepageComponent implements OnInit {
   //   );
   // }
 
+
   this.getEvents();
   this.getCompanies();
 

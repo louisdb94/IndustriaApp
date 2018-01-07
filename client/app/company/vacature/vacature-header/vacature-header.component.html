@@ -6,8 +6,8 @@
     <div class="container">
         <div class="col-md-12 text-center">
             <h1 class="display-4 text-center" style="margin-top:5%">
-                <textarea id="editName" *ngIf="editMode" [(ngModel)]="vacature.name" placeholder="Vacature name" rows="1" (keyup.enter)="save(company, vacature)"></textarea>
-                <textarea id="editName" *ngIf="editMode" [(ngModel)]="vacature.type" placeholder="Vacature type" rows="1" (keyup.enter)="save(company, vacature)"></textarea>                
+                <textarea id="editName" *ngIf="editMode  && auth.currentUser.role == 'Company'" [(ngModel)]="vacature.name" placeholder="Vacature name" rows="1" (keyup.enter)="save(company, vacature)"></textarea>
+                <textarea id="editName" *ngIf="editMode  && auth.currentUser.role == 'Company'" [(ngModel)]="vacature.type" placeholder="Vacature type" rows="1" (keyup.enter)="save(company, vacature)"></textarea>                
                 <b><p *ngIf="!editMode">{{vacature.name}} ({{vacature.type}})</p></b>
             </h1>
 
@@ -21,7 +21,7 @@
             </div><br>
 
             <div>
-                <button class="btn btn-sm btn-secondary">{{company.feature1}}</button>                
+                <button class="btn btn-sm btn-secondary">{{company.feature1}}</button>
                 <button class="btn btn-sm btn-secondary">{{company.feature2}}</button>
                 <button class="btn btn-sm btn-secondary">{{company.feature3}}</button>
             </div>

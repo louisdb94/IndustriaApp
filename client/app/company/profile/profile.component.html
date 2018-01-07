@@ -1,19 +1,22 @@
+<div class="profile-component">
+
+
 <div *ngIf="company">
-    <profile-header-company class="component" [company]="company"></profile-header-company>
+    <profile-header-company class="component" [company]="company" id="company-header"></profile-header-company>
 </div>
 
 <div *ngIf="company">
-    <profile-bio-company class="component" [company]="company"></profile-bio-company>
+    <profile-bio-company class="component" [company]="company" id="company-bio"></profile-bio-company>
 </div>
 
 <div *ngIf="company">
-    <profile-vacature-company class="component" [company]="company" [vacatures]="vacatures"></profile-vacature-company>
+    <profile-vacature-company class="component" [company]="company" [vacatures]="vacatures" id="company-vacature"></profile-vacature-company>
 </div>
 
 <div *ngIf="company">
-    <profile-contact-company class="component" [company]="company" [contacts]="contacts"></profile-contact-company>
+    <profile-contact-company class="component" [company]="company" [contacts]="contacts" id="company-contact"></profile-contact-company>
 </div>
 
 <profile-footer class="component"></profile-footer>
-  
-    
+
+</div>
