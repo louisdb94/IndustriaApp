@@ -96,7 +96,6 @@ export class RegisterComponent implements OnInit {
     this.registerForm.value.rnumber = this.emailStudent.substring(0,8);
     this.registerForm.value.email = this.emailStudent;
     this.registerForm.value.password = this.passwordStudent;
-    console.log(this.registerForm.value);
 
     let student_result : any;
     let studentForm = this.formBuilder.group({
@@ -189,10 +188,8 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         res => {  this.toast.setMessage('you successfully registered!', 'success'),
             //      this.router.navigate(['/login']),
-                  console.log("LOLO",res.user_id)
                   studentForm.value.user_fk = res.user_id,
                   studentForm.value.id = res.student_id,
-                  console.log(studentForm.value),
                   this.studentService.editStudentMysql(studentForm.value).subscribe(
                     res => {console.log("gelukt", res)},
                     error => console.log(error)
@@ -205,7 +202,6 @@ export class RegisterComponent implements OnInit {
       this.userService.registerMysql(this.registerForm.value)
       .switchMap( userid =>
         this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId));
-      console.log("This is a company");
     }
   }
 

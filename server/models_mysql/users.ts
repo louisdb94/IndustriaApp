@@ -6,6 +6,7 @@ let sql_users = `CREATE TABLE IF NOT EXISTS user (
     email varchar(20) NOT NULL,
     password varchar(30) NOT NULL,
     role varchar(20) NOT NULL,
+    admin tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
   )`
 

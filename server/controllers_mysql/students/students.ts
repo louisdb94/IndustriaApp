@@ -254,7 +254,6 @@ let query7 = db.query(sql7, (err, result) => {
 
 
   getStudentByRnumber =  (req, res) => {
-      console.log("joooooow", req.params.rnumber);
       let sql = `SELECT id FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
       let query = db.query(sql, (err, result) => {
           if(err) throw err;

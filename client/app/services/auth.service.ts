@@ -13,7 +13,7 @@ export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
 
-  currentUser = { id: '', rnumber: '', role: '', studentId: '' , companyId: ''};
+  currentUser = { id: '', rnumber: '', role: '', studentId: '' , companyId: '', admin: ''};
 
   constructor(private userService: UserService,
               private router: Router,
@@ -41,7 +41,7 @@ export class AuthService {
     localStorage.removeItem('token');
     this.loggedIn = false;
     this.isAdmin = false;
-    this.currentUser = { id: '', rnumber: '', role: '', studentId: '' , companyId: ''};
+    this.currentUser = { id: '', rnumber: '', role: '', studentId: '' , companyId: '', admin:''};
     this.router.navigate(['/']);
   }
 
@@ -54,6 +54,7 @@ export class AuthService {
     this.currentUser.id = decodedUser[0].id;
     this.currentUser.rnumber = decodedUser[0].rnumber;
     this.currentUser.role = decodedUser[0].role;
+    this.currentUser.admin = decodedUser[0].admin;
     if(decodedUser[0].role == 'Student'){
     this.studentService.getStudentByRnumberMysql(decodedUser[0].rnumber).subscribe(
       data => {this.currentUser.studentId = data[0].id},
