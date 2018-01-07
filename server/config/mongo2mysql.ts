@@ -688,67 +688,67 @@ app.get('/api/filesync-other', (req,res) => {
 
         //SOCIALMEDIA
 
-        if(filesync[i].socialMedia[0] ){
-          let sql1 = `INSERT INTO socialmedia SET type = 'null',
-                                              url = '${filesync[i].socialMedia[0]}',
-                                              checked = '1',
-                                              student_fk = '${result[0].id}'`;
-          let query1 = db.query(sql1, (err, result) => {
-              if(err) throw err;
+        // if(filesync[i].socialMedia[0] ){
+        //   let sql1 = `INSERT INTO socialmedia SET type = 'null',
+        //                                       url = '${filesync[i].socialMedia[0]}',
+        //                                       checked = '1',
+        //                                       student_fk = '${result[0].id}'`;
+        //   let query1 = db.query(sql1, (err, result) => {
+        //       if(err) throw err;
 
-          });
-        }else{
-          let sql3 = `INSERT INTO socialmedia SET student_fk = '${result[0].id}'`;
-          let query3 = db.query(sql3, (err, result) => {
-              if(err) throw err;
-          });
-        }
+        //   });
+        // }else{
+        //   let sql3 = `INSERT INTO socialmedia SET student_fk = '${result[0].id}'`;
+        //   let query3 = db.query(sql3, (err, result) => {
+        //       if(err) throw err;
+        //   });
+        // }
 
-        if(filesync[i].socialMedia[1] ){
-          let sql1 = `INSERT INTO socialmedia SET type = 'null',
-                                              url = '${filesync[i].socialMedia[1]}',
-                                              checked = '1',
-                                              student_fk = '${result[0].id}'`;
-          let query1 = db.query(sql1, (err, result) => {
-              if(err) throw err;
+        // if(filesync[i].socialMedia[1] ){
+        //   let sql1 = `INSERT INTO socialmedia SET type = 'null',
+        //                                       url = '${filesync[i].socialMedia[1]}',
+        //                                       checked = '1',
+        //                                       student_fk = '${result[0].id}'`;
+        //   let query1 = db.query(sql1, (err, result) => {
+        //       if(err) throw err;
 
-          });
-        }else{
-          let sql3 = `INSERT INTO socialmedia SET student_fk = '${result[0].id}'`;
-          let query3 = db.query(sql3, (err, result) => {
-              if(err) throw err;
-          });
-        }
-        if(filesync[i].socialMedia[2] ){
-          let sql1 = `INSERT INTO socialmedia SET type = 'null',
-                                              url = '${filesync[i].socialMedia[2]}',
-                                              checked = '1',
-                                              student_fk = '${result[0].id}'`;
-          let query1 = db.query(sql1, (err, result) => {
-              if(err) throw err;
+        //   });
+        // }else{
+        //   let sql3 = `INSERT INTO socialmedia SET student_fk = '${result[0].id}'`;
+        //   let query3 = db.query(sql3, (err, result) => {
+        //       if(err) throw err;
+        //   });
+        // }
+        // if(filesync[i].socialMedia[2] ){
+        //   let sql1 = `INSERT INTO socialmedia SET type = 'null',
+        //                                       url = '${filesync[i].socialMedia[2]}',
+        //                                       checked = '1',
+        //                                       student_fk = '${result[0].id}'`;
+        //   let query1 = db.query(sql1, (err, result) => {
+        //       if(err) throw err;
 
-          });
-        }else{
-          let sql3 = `INSERT INTO socialmedia SET student_fk = '${result[0].id}'`;
-          let query3 = db.query(sql3, (err, result) => {
-              if(err) throw err;
-          });
-        }
-        if(filesync[i].socialMedia[3] ){
-          let sql1 = `INSERT INTO socialmedia SET type = 'null',
-                                              url = '${filesync[i].socialMedia[3]}',
-                                              checked = '1',
-                                              student_fk = '${result[0].id}'`;
-          let query1 = db.query(sql1, (err, result) => {
-              if(err) throw err;
+        //   });
+        // }else{
+        //   let sql3 = `INSERT INTO socialmedia SET student_fk = '${result[0].id}'`;
+        //   let query3 = db.query(sql3, (err, result) => {
+        //       if(err) throw err;
+        //   });
+        // }
+        // if(filesync[i].socialMedia[3] ){
+        //   let sql1 = `INSERT INTO socialmedia SET type = 'null',
+        //                                       url = '${filesync[i].socialMedia[3]}',
+        //                                       checked = '1',
+        //                                       student_fk = '${result[0].id}'`;
+        //   let query1 = db.query(sql1, (err, result) => {
+        //       if(err) throw err;
 
-          });
-        }else{
-          let sql3 = `INSERT INTO socialmedia SET student_fk = '${result[0].id}'`;
-          let query3 = db.query(sql3, (err, result) => {
-              if(err) throw err;
-          });
-        }
+        //   });
+        // }else{
+        //   let sql3 = `INSERT INTO socialmedia SET student_fk = '${result[0].id}'`;
+        //   let query3 = db.query(sql3, (err, result) => {
+        //       if(err) throw err;
+        //   });
+        // }
 
 
 
