@@ -6,8 +6,8 @@
     <div class="container">
         <div class="col-md-12 text-center">
             <h1 class="display-4 text-center" style="margin-top:5%">
-                <textarea id="editName" *ngIf="editMode  && auth.currentUser.role == 'Company'" [(ngModel)]="vacature.name" placeholder="Vacature name" rows="1" (keyup.enter)="save(company, vacature)"></textarea>
-                <textarea id="editName" *ngIf="editMode  && auth.currentUser.role == 'Company'" [(ngModel)]="vacature.type" placeholder="Vacature type" rows="1" (keyup.enter)="save(company, vacature)"></textarea>                
+                <textarea id="editName" *ngIf="editMode" [(ngModel)]="vacature.name" placeholder="Vacature name" rows="1" (keyup.enter)="save(company, vacature)"></textarea>
+                <textarea id="editName" *ngIf="editMode" [(ngModel)]="vacature.type" placeholder="Vacature type" rows="1" (keyup.enter)="save(company, vacature)"></textarea>
                 <b><p *ngIf="!editMode">{{vacature.name}} ({{vacature.type}})</p></b>
             </h1>
 
@@ -16,8 +16,8 @@
             </div>
 
             <div class="row" style="float : right">
-                <button translate class="btn btn-sm btn-primary" *ngIf="!editMode" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
-                <button translate class="btn btn-sm btn-primary" *ngIf="editMode" (click)="save(company, vacature)"><i class="fa fa-floppy-o"></i> Save</button>
+                <button translate class="btn btn-sm btn-primary" *ngIf="!editMode  && auth.currentUser.role == 'Company'" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
+                <button translate class="btn btn-sm btn-primary" *ngIf="editMode  && auth.currentUser.role == 'Company'" (click)="save(company, vacature)"><i class="fa fa-floppy-o"></i> Save</button>
             </div><br>
 
             <div>
