@@ -1,7 +1,7 @@
 <div class="jumbotron" style="background-color:white">
     <div class="container">
-        <button translate *ngIf="!editMode" (click)="editMode = true" style="float: right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
-        <button translate *ngIf="editMode" (click)="save(student)"style="float: right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+        <button translate *ngIf="!editMode && auth.currentUser.role == 'Student'" (click)="editMode = true" style="float: right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
+        <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student)"style="float: right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
         <h2 translate style="margin-bottom : 25px">WhoAmI</h2>
         <div class="row">
             <textarea *ngIf="editMode" [(ngModel)]="student.whoami" rows="7" cols="400" placeholder="Write a short bio about yourself" (keyup.enter)="save()"></textarea>

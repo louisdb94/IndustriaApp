@@ -3,6 +3,7 @@ import { StudentService } from '../../services/student.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataTableModule } from "ng2-data-table";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'profile-bio',  // <home></home>
@@ -13,8 +14,10 @@ export class BioProfile {
   public editMode = false;
   @Input() student: {};
 
-  constructor(private studentService: StudentService,
-    private activatedRoute: ActivatedRoute, public toast: ToastComponent) {}
+  constructor(  private studentService: StudentService,
+                private activatedRoute: ActivatedRoute,
+                public toast: ToastComponent,
+                private auth : AuthService) {}
 
   save(student){
     this.editMode = false;

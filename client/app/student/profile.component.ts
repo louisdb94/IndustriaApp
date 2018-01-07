@@ -54,8 +54,6 @@ export class StudentProfile implements OnInit {
 
   ngOnInit() {
 
-  console.log("CURRENT USER" , this.auth.currentUser) ;
-
     this.dataService.idMessage.subscribe(message => this.messageId = message);
     this.dataService.navMessage.subscribe(message => this.messageNav = message);
 

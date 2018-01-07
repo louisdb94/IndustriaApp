@@ -1,7 +1,7 @@
 <div class="jumbotron" style="background-color:white">
   <div class="container">
-    <button translate *ngIf="editMode" (click)="save(student, exp1, exp2, exp3)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-    <button translate *ngIf="!editMode" (click)="edit()" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+    <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student, exp1, exp2, exp3)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+    <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="edit()" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
     <h2 translate>Experience</h2>
     <table class="table table-bordered">
       <thead class="thead-default" >
@@ -34,6 +34,6 @@
     </table>
 
     <button *ngIf="editMode && !addClicked" (click)="deleteExperience()"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
-    <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>       
+    <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>
   </div>
 </div>

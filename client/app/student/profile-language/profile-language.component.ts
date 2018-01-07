@@ -6,6 +6,7 @@ import { StudentService } from '../../services/student.service';
 import { LanguageService} from '../../services/language.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -42,7 +43,8 @@ export class LanguageProfile {
   constructor(  private studentService: StudentService,
                 private languageService: LanguageService,
                 private activatedRoute: ActivatedRoute,
-                public toast: ToastComponent){}
+                public toast: ToastComponent,
+                private auth : AuthService){}
 
   save(student, languages){
     this.editMode = false;

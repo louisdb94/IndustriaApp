@@ -6,6 +6,7 @@ import { StudentService } from '../../services/student.service';
 import { ProfessionalService} from '../../services/professional.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -60,7 +61,8 @@ export class ProfessionalProfile {
   constructor(  private studentService: StudentService,
                 private activatedRoute: ActivatedRoute,
                 private professionalService: ProfessionalService,
-                public toast: ToastComponent){}
+                public toast: ToastComponent,
+                private auth : AuthService){}
 
 
   save(student, professional){

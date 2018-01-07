@@ -3,6 +3,7 @@ import { StudentService } from '../../services/student.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ContactService} from '../../services/contact.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'profile-contact',  // <home></home>
@@ -21,7 +22,8 @@ export class ContactProfile {
   constructor(  private studentService: StudentService,
                 private contactService: ContactService,
                 private activatedRoute: ActivatedRoute,
-                public toast: ToastComponent){}
+                public toast: ToastComponent,
+                private auth : AuthService){}
 
   save(student){
     this.editMode = false;

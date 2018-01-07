@@ -4,6 +4,7 @@ import { StudentService } from '../../services/student.service';
 import { EducationService } from '../../services/education.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -20,8 +21,11 @@ export class EducationProfile {
   countEducation = 0;
   @Input() student: {};
 
-  constructor(private studentService: StudentService, private educationService: EducationService,
-    private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
+  constructor(  private studentService: StudentService,
+                private educationService: EducationService,
+                private activatedRoute: ActivatedRoute,
+                public toast: ToastComponent,
+                private auth : AuthService){}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -38,7 +42,7 @@ export class EducationProfile {
   }
 
   save(student, education){
-    
+
         this.editMode = false;
         let count = student.countEducation;
 
@@ -46,12 +50,12 @@ export class EducationProfile {
           console.log(this.education[i]);
           if(this.education[i]){
             this.educationService.editEducation(this.education[i]).subscribe(
-              res => {}, 
+              res => {},
               error => console.log(error)
             );
           }
         }
-    
+
         this.studentService.editStudentMysql(student).subscribe(
           res => {
             this.student = student;
@@ -76,5 +80,5 @@ export class EducationProfile {
       this.countEducation--;
     }
   }
-    
+
 }

@@ -7,6 +7,7 @@ import { DataTableModule } from "ng2-data-table";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import {StudentProfile} from '../profile.component';
 import { checkAndUpdateNode } from '@angular/core/src/view/view';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -39,8 +40,13 @@ export class ExperiencesProfile {
 
   @Input() student: {};
 
-  constructor(private formBuilder: FormBuilder, private studentService: StudentService, private experienceService: ExperienceService, private studentProfile: StudentProfile,
-    private activatedRoute: ActivatedRoute, public toast: ToastComponent){}
+  constructor(  private formBuilder: FormBuilder,
+                private studentService: StudentService,
+                private experienceService: ExperienceService,
+                private studentProfile: StudentProfile,
+                private activatedRoute: ActivatedRoute,
+                public toast: ToastComponent,
+                private auth : AuthService){}
 
 
   ngOnInit() {

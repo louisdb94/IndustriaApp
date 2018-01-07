@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import {RequestOptions} from '@angular/http';
 import {formData} from 'form-data';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 enableProdMode();
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -58,7 +59,8 @@ export class HeaderProfile {
                 public toast: ToastComponent,
                 private http: HttpClient,
                 private sanitizer: DomSanitizer,
-                private formBuilder: FormBuilder,){
+                private formBuilder: FormBuilder,
+                private auth : AuthService){
 
                     this.cropperSettings = new CropperSettings();
                     this.cropperSettings.width = 200;

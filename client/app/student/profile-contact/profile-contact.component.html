@@ -2,8 +2,8 @@
 
 <div class="jumbotron" style="background-color: white">
     <div *ngIf="contacts[0]" class="container">
-        <button translate *ngIf="editMode && contactChecked" (click)="saveContact(contacts)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-        <button translate *ngIf="!editMode && contactChecked" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+        <button translate *ngIf="editMode && contactChecked  && auth.currentUser.role == 'Student'" (click)="saveContact(contacts)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+        <button translate *ngIf="!editMode && contactChecked && auth.currentUser.role == 'Student'" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
         <h2 translate>Contact</h2><br><br>
 
 

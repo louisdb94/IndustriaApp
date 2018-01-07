@@ -1,7 +1,7 @@
 <div class="jumbotron" style="background-color: white">
     <div class="container">
-        <button translate *ngIf="editMode" (click)="save(student,professional)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-        <button translate *ngIf="!editMode" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+        <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student,professional)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+        <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
         <h2 translate>Professional</h2><br>
 
         <div class="row">
