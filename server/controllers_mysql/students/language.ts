@@ -23,6 +23,11 @@ export default class LanguageCtrl extends BaseSqlCtrl{
       let sql = `SELECT DISTINCT type FROM ${this.model}`;
       let query = db.query(sql, (err, results) => {
           if(err) throw err;
+          for(let i = 0; i < results.length ; i++){
+            if(results[i].type == '') {
+              results.splice(i,1);
+            }
+          }
           res.json(results);
       });
   };

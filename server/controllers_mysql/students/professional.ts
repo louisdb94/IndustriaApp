@@ -15,6 +15,11 @@ export default class ProfessionalCtrl extends BaseSqlCtrl{
       let sql = `SELECT DISTINCT skill FROM ${this.model}`;
       let query = db.query(sql, (err, results) => {
           if(err) throw err;
+          for(let i = 0; i < results.length ; i++){
+            if(results[i].skill == '') {
+              results.splice(i,1);
+            }
+          }
           res.json(results);
       });
   };
