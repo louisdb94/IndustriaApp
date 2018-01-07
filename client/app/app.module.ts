@@ -20,6 +20,7 @@ import { ContactService } from './services/contact.service';
 import { CompanyService} from './services/company/company.service';
 import { VacatureService} from './services/company/vacature.service';
 import { EventsService} from './services/admin/events.service';
+import { PrivacylogService} from './services/admin/privacylog.service';
 
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
@@ -207,6 +208,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CompanyService,
     VacatureService,
     EventsService,
+    PrivacylogService,
     MailService,
 
     CvsService,

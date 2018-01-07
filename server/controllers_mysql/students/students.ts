@@ -13,8 +13,6 @@ export default class StudentsCtrl extends BaseSqlCtrl {
   dummy = sql_students;
 
   updateAll =  (req, res) => {
-
-    console.log("randooom: ",req.body);
         let sql = `UPDATE ${this.model} SET name = '${req.body.name}',
                                             rnumber = '${req.body.rnumber}',
                                             whoami = '${req.body.whoami}',

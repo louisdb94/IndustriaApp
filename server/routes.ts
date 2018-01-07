@@ -31,6 +31,7 @@ import VacaturesCtrl from './controllers_mysql/company/vacatures';
 import CompanyContactCtrl from './controllers_mysql/company/contact';
 import CompanyRequirementCtrl from './controllers_mysql/company/requirement';
 import EventsCtrl from './controllers_mysql/admin/events';
+import PrivacylogCtrl from './controllers_mysql/admin/privacylog';
 
 //MYSQL MODELS
 import contacts from './models_mysql/students/contact';
@@ -49,6 +50,7 @@ import vacatures from './models_mysql/company/vacatures';
 import contact_company from './models_mysql/company/contact';
 import requirement from './models_mysql/company/requirement';
 import events from './models_mysql/admin/events';
+import privacylog from './models_mysql/admin/privacylog';
 import SendmailCtrl from './config/sendmail';
 
 
@@ -79,6 +81,7 @@ export default function setRoutes(app) {
   const companyContactCtrl = new CompanyContactCtrl();
   const companyRequirementCtrl = new CompanyRequirementCtrl();
   const eventsCtrl = new EventsCtrl();
+  const privacylogCtrl = new PrivacylogCtrl();
   const sendmail = new SendmailCtrl();
 
 
@@ -229,6 +232,10 @@ export default function setRoutes(app) {
   router.route('/events-update').put(eventsCtrl.updateEvent);
   router.route('/events-delete/:id').delete(eventsCtrl.delete);
 
+  //Privacylog
+  router.route('/privacylog-insert').post(privacylogCtrl.insertPrivacylog);
+  router.route('/privacylog-delete/:id').delete(privacylogCtrl.delete);
+
   //Contact Company
   router.route('/contacts-get/:id').get(companyContactCtrl.getbyId);
   router.route('/contacts-getbycompanyfk/:id').get(companyContactCtrl.getbyCompanyId);
@@ -237,6 +244,8 @@ export default function setRoutes(app) {
   router.route('/contacts-insert/:id').get(companyContactCtrl.insertCompanyFK);
   router.route('/contacts-delete/:id').get(companyContactCtrl.delete);
   router.route('/contacts-update').put(companyContactCtrl.updateAll);
+
+  
 
   //Requirements
   router.route('/requirements-get/:id').get(companyRequirementCtrl.getbyFkExperience);

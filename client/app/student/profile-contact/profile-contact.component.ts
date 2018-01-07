@@ -3,7 +3,9 @@ import { StudentService } from '../../services/student.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ContactService} from '../../services/contact.service';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { PrivacylogService } from '../../services/admin/privacylog.service';
 
 @Component({
   selector: 'profile-contact',  // <home></home>
@@ -18,10 +20,13 @@ export class ContactProfile {
   @Input() contactChecked: {};
   @Input() contacts = [];
   editMode = false;
+  privacylog = { student_fk: '', cvCheck: '', contactCheck: '', timestamp_cv: '' , timestamp_contact: ''};
 
   constructor(  private studentService: StudentService,
                 private contactService: ContactService,
+                private privacylogService: PrivacylogService,
                 private activatedRoute: ActivatedRoute,
+                private http: HttpClient,
                 public toast: ToastComponent,
                 private auth : AuthService){}
 
@@ -48,8 +53,17 @@ export class ContactProfile {
   changeChecked(e, student){
     this.contactChecked = e.target.checked;
     student.contactChecked = e.target.checked;
+
+    this.privacylog.student_fk = student.id;
+    this.privacylog.timestamp_contact = JSON.parse(JSON.stringify(new Date(Date.now())));
+
     if(e.target.checked){this.contactChecked = 1; student.contactChecked = 1}
     if(!e.target.checked){this.contactChecked = 0; student.contactChecked = 0}
+
+    this.privacylog.contactCheck = student.contactChecked;
+    this.privacylog.cvCheck = student.cvChecked;
+    this.http.post('/api/privacylog-insert', this.privacylog).subscribe();
+
     this.save(student);
   }
 }

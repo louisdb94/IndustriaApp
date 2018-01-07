@@ -15,6 +15,7 @@ import {RequestOptions} from '@angular/http';
 import {formData} from 'form-data';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { PrivacylogService } from '../../services/admin/privacylog.service';
 
 enableProdMode();
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
@@ -48,6 +49,7 @@ export class HeaderProfile {
   height: number | string = '100px';
 
   im = 'data:image/JPEG;base64,';
+  privacylog = { student_fk: '', cvCheck: '', contactCheck: '', timestamp_cv: '' , timestamp_contact: ''};
 
   @ViewChild('cropper', undefined)
   cropper:ImageCropperComponent;
@@ -55,6 +57,7 @@ export class HeaderProfile {
   constructor(  private studentService: StudentService,
                 private fileService: FileService,
                 private socialmediaService: SocialmediaService,
+                private privacylogService: PrivacylogService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private http: HttpClient,
@@ -246,12 +249,17 @@ export class HeaderProfile {
   }
 
   changeChecked(e, student){
+    this.privacylog.student_fk = student.id;
+    this.privacylog.timestamp_cv = JSON.parse(JSON.stringify(new Date(Date.now())));
     if(e.target.checked){
       student.cvChecked = 1;
     }
     else{
       student.cvChecked = 0;
     }
+    this.privacylog.contactCheck = student.contactChecked;
+    this.privacylog.cvCheck = student.cvChecked;
+    this.http.post('/api/privacylog-insert', this.privacylog).subscribe();
     this.save(student, null);
   }
 
