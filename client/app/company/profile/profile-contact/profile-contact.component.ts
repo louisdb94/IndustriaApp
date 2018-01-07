@@ -32,7 +32,7 @@ export class CompanyContactProfile implements OnInit {
   clickMap = false;
 
   constructor(  private companyService: CompanyService,
-                private companyContactService: CompanyContactService,    
+                private companyContactService: CompanyContactService,
                 private contactService: ContactService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
@@ -50,7 +50,6 @@ export class CompanyContactProfile implements OnInit {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          console.log("autocomplete place", autocomplete.getPlace());
 
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
@@ -73,11 +72,10 @@ export class CompanyContactProfile implements OnInit {
 
 
   showMap(){
-    
+
     //set google maps defaults
-    console.log(this.contacts);
     this.clickMap = true;
-    this.zoom = 10;    
+    this.zoom = 10;
     this.latitude = this.contacts.latitude;
     this.longitude = this.contacts.longitude;
 
@@ -107,7 +105,7 @@ export class CompanyContactProfile implements OnInit {
 
   saveContact(contacts){
     this.companyContactService.editContact(contacts).subscribe(
-      res => {console.log("kakakakakkaka",res)},
+      res => {},
       error => console.log(error)
     );
 

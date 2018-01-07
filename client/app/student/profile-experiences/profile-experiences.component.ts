@@ -60,29 +60,23 @@ export class ExperiencesProfile {
 
   getExperiencesById(id, exp1, exp2, exp3){
     this.experienceService.getExperienceById(id).subscribe(
-      res => {this.experiences = res, this.lengthExperiences = Object.keys(res).length, this.changeExperience(exp1, exp2, exp3), console.log("length in getExperienceById: ", this.lengthExperiences), console.log("Experiences: ", this.experiences)}
+      res => {this.experiences = res, this.lengthExperiences = Object.keys(res).length, this.changeExperience(exp1, exp2, exp3)}
     )
   }
 
   changeExperience(exp1, exp2, exp3){
 
     if(this.addClicked == true && exp1 != null && exp2 != null && exp3 != null){
-      console.log("length in callback: ", this.lengthExperiences)
       let i = this.lengthExperiences--;
       if(this.experiences[i]){
         this.experiences[i].function = this.exp1;
         this.experiences[i].description = this.exp2;
         this.experiences[i].period = this.exp3;
-        console.log(this.experiences);
       }
     }
   }
 
   save(student, exp1, exp2, exp3){
-
-    console.log("exp1", exp1);
-    console.log("exp2", exp2);
-    console.log("exp3", exp3);
 
     this.registerForm.value.exp1Form = exp1;
     this.registerForm.value.exp2Form = exp2;
@@ -119,9 +113,7 @@ export class ExperiencesProfile {
     this.deleteClicked = true;
 
     let i = this.lengthExperiences - 1;
-    console.log("i: ", i);
     let experienceId = this.experiences[i].id;
-    console.log("experience ID: ", experienceId);
     this.experienceService.deleteExperience(experienceId).subscribe(
       res => {this.getExperiencesById(this.id, null, null, null);},
       error => console.log(error)

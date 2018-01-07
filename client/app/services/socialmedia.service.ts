@@ -38,7 +38,6 @@ export class SocialmediaService {
   }
 
   editSocialmediaMysql(socialmedia): Observable<any> {
-    console.log("in edit social media")
     return this.http.put(`/api/socialmedia-update`, JSON.stringify(socialmedia), this.options);
   }
 

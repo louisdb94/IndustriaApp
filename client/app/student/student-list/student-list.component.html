@@ -25,7 +25,7 @@
                 <th> Download CV </th>
               </tr>
               <tr *ngFor="let item of students | FilterPipe : searchText : model.filter |  paginate: { itemsPerPage: 5, currentPage: p }" style="width:100%">
-                <td>{{item.name}}</td>
+                <td> <a href="/profile-student/{{item.id}}">{{item.name}} </a> </td>
                 <td>{{item.degree}}</td>
                 <td>{{item.gradYear}}</td>
                 <td> <button class="btn btn-primary" (click)="downloadCv(item)"> CV </button> </td>

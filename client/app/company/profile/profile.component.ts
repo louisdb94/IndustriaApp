@@ -54,7 +54,6 @@ export class CompanyProfile implements OnInit {
   }
 
   getCompanyById(id){
-    console.log("company id: ", id);
     this.companyService.getCompanyById(id).subscribe(
       data => {this.company = data[0]},
       error => console.log("error")
@@ -63,14 +62,14 @@ export class CompanyProfile implements OnInit {
 
   getVacaturesByCompanyId(id){
     this.vacatureService.getVacatureByCompanyId(id).subscribe(
-      data => {this.vacatures = data, console.log("vacatures: ", this.vacatures)},
+      data => {this.vacatures = data},
       error => console.log("error")
     );
   }
 
   getContactById(id){
     this.companyContactService.getContactByCompanyId(id).subscribe(
-      data => {this.contacts = data[0], console.log(this.contacts)},
+      data => {this.contacts = data[0]},
       error => console.log(error)
     )
   }

@@ -67,7 +67,7 @@ export class CompanyHeaderVacature {
     this.cropDone = true;
 
     this.companyService.editCompany(company).subscribe(
-      res => {this.company = company, this.saveVacature(vacature), console.log("company: ", company), console.log("vacature: ", vacature)},
+      res => {this.company = company, this.saveVacature(vacature)},
       error => console.log(error)
     );
   }

@@ -105,7 +105,6 @@ export class HeaderProfile {
     );
 
     for(let i = 0; i < 4; i++){
-      console.log(this.socialmedia[i]);
       if(this.socialmedia[i] != null){
         this.socialmediaService.editSocialmediaMysql(this.socialmedia[i]).subscribe(
           res => {},
@@ -122,16 +121,13 @@ export class HeaderProfile {
       if(file.size < 2550594){
         let formData: FormData = new FormData();
         formData.append('files', file, file.name);
-  
+
         formData.append('students', student.rnumber);
-        console.log("Formdata students: ", formData.get('students'));
-  
+
         formData.append('id', student.id);
-        console.log("Formdata id: ", formData.get('id'));
-        console.log("Formdata Files: ", formData.get('files'));
-  
+
         let random = formData.get('students');
-  
+
         if(file) {
           this.fileService.uploadImage(formData).subscribe(
             res => console.log('gelukt', res));
@@ -147,21 +143,16 @@ export class HeaderProfile {
   }
 
   myUploader(event, student) {
-    
+
     let files: File[] = event.files;
 
     let formData: FormData = new FormData();
     for(let i = 0; i<files.length;i++){
          formData.append('files', files[i], files[i].name);
     }
-    
+
     formData.append('rnumber', student.rnumber);
     formData.append('id', student.id);
-
-    console.log("Formdata 1: ", formData.getAll('files'));
-    console.log("Formdata 2: ", formData.getAll('cvnumber'));
-    console.log("Formdata 3: ", formData.getAll('rnumber'));
-    console.log("Formdata 4: ", formData.getAll('id'));
 
     for(let i = 0; i < files.length; i++) {
         let file = (<any>files[i]);
@@ -247,7 +238,7 @@ export class HeaderProfile {
 
   getCvFromStudent(id){
     this.fileService.getCvFromStudent(id).subscribe(
-      data => {this.cvs = data, console.log("this is cvsssss: ", data)},
+      data => {this.cvs = data},
       error => console.log(error)
     )
   }

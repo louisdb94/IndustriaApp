@@ -54,6 +54,8 @@ export class StudentProfile implements OnInit {
 
   ngOnInit() {
 
+  console.log("CURRENT USER" , this.auth.currentUser) ;
+
     this.dataService.idMessage.subscribe(message => this.messageId = message);
     this.dataService.navMessage.subscribe(message => this.messageNav = message);
 
@@ -82,7 +84,7 @@ export class StudentProfile implements OnInit {
 
   getStudentByIdMySql(id) {
     this.studentService.getStudentByIdMysql(id).subscribe(
-      data => {console.log(data), this.student = data[0], this.countEducation = data[0].countEducation, this.countExperiences = data[0].countExperiences, this.contactChecked = data[0].contactChecked},
+      data => {this.student = data[0], this.countEducation = data[0].countEducation, this.countExperiences = data[0].countExperiences, this.contactChecked = data[0].contactChecked},
       error => console.log(error),
     );
   }

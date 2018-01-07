@@ -17,7 +17,6 @@ export class FileService {
   // CV
 
   addUpload(fileupload): Observable<any> {
-    console.log("danny");
     return this.http.post('/api/upload', JSON.stringify(fileupload), this.options);
   }
 
@@ -65,7 +64,6 @@ export class FileService {
   }
 
   getCvFromStudent(id):Observable<any>{
-    console.log("dees is den id: ", id);
     return this.http.get(`/api/cv/${id}`).map(res => res.json());
   }
 }

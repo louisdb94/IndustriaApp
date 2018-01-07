@@ -18,7 +18,6 @@ export class ExperienceService {
   //MYSQL
 
   getExperienceById(id): Observable<any> {
-    console.log("In de experiece service");
     return this.http.get(`/api/experiences-get/${id}`).map(res => res.json());
   }
 

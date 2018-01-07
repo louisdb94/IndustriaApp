@@ -57,7 +57,6 @@ export class CompanyRequirementVacature {
   changeRequirement(req1){
 
     if(this.addClicked == true && req1 != null){
-      console.log("length in callback: ", this.lengthRequirements)
       let i = this.lengthRequirements--;
       if(this.requirements[i]){
         this.requirements[i].name = this.req1;
@@ -68,7 +67,6 @@ export class CompanyRequirementVacature {
 
   save(vacature, req1){
 
-    console.log("req1", req1);
 
     this.registerForm.value.req1Form = req1;
     this.registerForm.value.idForm = this.vacature.id;
@@ -102,9 +100,7 @@ export class CompanyRequirementVacature {
     this.deleteClicked = true;
 
     let i = this.lengthRequirements - 1;
-    console.log("i: ", i);
     let requirementId = this.requirements[i].id;
-    console.log("requirement ID: ", requirementId);
     this.companyRequirementService.deleteRequirement(requirementId).subscribe(
       res => {this.getRequirementsById(this.vacature.id, null);},
       error => console.log(error)

@@ -57,7 +57,7 @@ export class StudentListComponent implements OnInit {
   //Get all students -> add to students[]
   getStudents(){
     this.studentService.getStudentsMysql().subscribe(
-      data => {this.students = data, console.log(this.students)},
+      data => {this.students = data},
       error => console.log(error)
     )
   }
@@ -447,7 +447,6 @@ export class StudentListComponent implements OnInit {
   advancedSearch(){
 
     //ADVANCED SEARCH
-    console.log(this.nieuwelijstLangFk, this.nieuwelijstSkillsFk, this.nieuwelijstProfskillsFk)
 
     if(this.nieuwelijstLangFk.length > 0 && this.nieuwelijstSkillsFk.length == 0 && this.nieuwelijstProfskillsFk.length == 0 ){
       this.students = [];
@@ -576,7 +575,6 @@ export class StudentListComponent implements OnInit {
   refresh: Subject<any> = new Subject();
   download(id){
       this.refresh.next()
-      console.log(id);
       if(id){
 
     //  window.open(`/api/download/${id}`);
@@ -588,8 +586,6 @@ export class StudentListComponent implements OnInit {
   innerjoin (){
 
     for(let id of this.ids){
-
-      console.log(id.id)
       this.http.get(`/api/innerjoin/${id.id}`).subscribe(
         data => {this.studentjes += data, console.log(data)},
         error => {console.log("gelukt")}

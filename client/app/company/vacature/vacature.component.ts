@@ -53,15 +53,14 @@ export class CompanyVacature implements OnInit {
 
   getVacatureById(id){
     this.vacatureService.getVacatureById(id).subscribe(
-      data => {this.vacature = data[0], this.getCompanyByVacatureId(data[0].company_fk), this.getContactByCompanyId(data[0].company_fk), console.log("vacatures: ", this.vacature)},
+      data => {this.vacature = data[0], this.getCompanyByVacatureId(data[0].company_fk), this.getContactByCompanyId(data[0].company_fk)},
       error => console.log("error")
     )
   }
 
   getCompanyByVacatureId(id){
-    console.log("company id: ", id);
     this.companyService.getCompanyById(id).subscribe(
-      data => {this.company = data[0], console.log("company: ", this.company)},
+      data => {this.company = data[0]},
       error => console.log("error")
     );
   }

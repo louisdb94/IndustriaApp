@@ -20,7 +20,7 @@
                 <p *ngIf="!editMode">Expected graduation year: {{student.gradYear}}</p>
             </div>
 
-            <div class="row" style="float : right">
+            <div  class="row" style="float : right">
                 <button translate class="btn btn-sm btn-primary" *ngIf="!editMode" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
                 <button translate class="btn btn-sm btn-primary" *ngIf="editMode" (click)="save(student)"><i class="fa fa-floppy-o"></i> Save</button>
             </div>

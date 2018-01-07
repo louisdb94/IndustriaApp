@@ -36,7 +36,6 @@ export class MailService {
 
 
   sendMail(credentials): Observable<any> {
-    console.log("posting mail")
     return this.http.get(`/api/sendmail/${credentials}`, this.options);
   }
 
@@ -44,13 +43,12 @@ export class MailService {
 
     return this.sendMail(email).map(res => res.json()).map(
       res => {
-        console.log("gelukt")
         localStorage.setItem('token', res.token);
         const decodedUser = this.decodeUserFromToken(res.token);
         this.setCurrentUser(decodedUser);
         return this.loggedIn;
       },
-      error => console.log("niet gelukt")
+      error => console.log(error)
     );
   }
 
