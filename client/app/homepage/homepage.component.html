@@ -52,12 +52,15 @@
     </div>
   </div><br>
 
+
+
 <!-- END CALENDAR CODE -->
 
 
 <!-- BEGIN EDIT CALENDAR CODE -->
 
-  <h3 *ngIf="false">
+<div style="width: 50%; margin:auto">
+  <h3 *ngIf="auth.currentUser.admin == '1'">
     Edit events
     <button *ngIf = "!editMode"
       class="btn btn-primary pull-right"
@@ -72,7 +75,7 @@
     <div class="clearfix"></div>
   </h3>
 
-  <table id="tableEvents" *ngIf="false" class="table table-bordered">
+  <table id="tableEvents" *ngIf="auth.currentUser.admin == '1'" class="table table-bordered">
 
     <thead>
       <tr>
@@ -129,12 +132,15 @@
   </table>
 </div>
 
+</div>
+
 <!-- END EDIT CALENDAR CODE -->
 
 
 <!-- BEGIN SPONSORS CODE -->
 
-<div class="jumbotron">
+<div class="jumbotron" style="">
+  <div style="width: 50%; margin:auto">
   <hr style="height:2px;border:none;color:#333;background-color:#333;">
   <h1 style="text-align: center">Who we work with</h1>
   <hr style="height:2px;border:none;color:#333;background-color:#333;"><br>
@@ -166,6 +172,7 @@
     </p>
   </div>
 </div>
+</div>
 
 <br><br>
 
@@ -173,7 +180,7 @@
 
 
 <!-- BEGIN ADD NEW COMPANY CODE -->
-<div *ngIf="auth.currentUser.admin == '1'" >
+<div *ngIf="auth.currentUser.admin == '1'" style="width: 50%; margin:auto" >
  <table>
   <thead class="thead-default" >
     <tr>
