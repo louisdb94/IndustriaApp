@@ -11,7 +11,6 @@ abstract class BaseSqlCtrl {
     getsql = (req, res) => {
       db.query(this.dummy, (err, result) => {
         if (err) throw err;
-        console.log(result);
         res.send('Posts table created...');
       });
     }
@@ -22,7 +21,6 @@ abstract class BaseSqlCtrl {
         let sql = `INSERT INTO ${this.model} SET ?`;
         let query = db.query(sql, req.body, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.json(result);
         });
     };
@@ -32,7 +30,6 @@ abstract class BaseSqlCtrl {
           let sql = `INSERT INTO ${this.model} SET student_fk = '${req.params.id}'`;
           let query = db.query(sql, (err, result) => {
               if(err) throw err;
-              console.log(result);
               res.json(result);
           });
       };
@@ -42,7 +39,6 @@ abstract class BaseSqlCtrl {
         let sql = `INSERT INTO ${this.model} SET company_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.json(result);
         });
     };
@@ -52,7 +48,6 @@ abstract class BaseSqlCtrl {
         let sql = `INSERT INTO ${this.model} SET vacature_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.json(result);
         });
     };
@@ -62,7 +57,6 @@ abstract class BaseSqlCtrl {
         let sql = `INSERT INTO ${this.model} SET user_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.json(result);
         });
     };
@@ -73,7 +67,6 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT * FROM ${this.model}`;
         let query = db.query(sql, (err, results) => {
             if(err) throw err;
-            console.log(results);
             res.json(results);
         });
     };
@@ -83,7 +76,6 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT id FROM ${this.model}`;
         let query = db.query(sql, (err, results) => {
             if(err) throw err;
-            console.log(results);
             res.json(results);
         });
     };
@@ -93,7 +85,6 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            //console.log(result);
             res.json(result);
 
         });
@@ -104,7 +95,6 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT * FROM ${this.model} WHERE role = 'company'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            //console.log(result);
             res.json(result);
 
         });
@@ -114,7 +104,6 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            //console.log(result);
             res.json(result);
 
         });
@@ -124,7 +113,6 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.json(result);
 
         });
@@ -134,7 +122,6 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT * FROM ${this.model} WHERE company_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.json(result);
 
         });
@@ -144,7 +131,6 @@ abstract class BaseSqlCtrl {
         let sql = `SELECT * FROM ${this.model} WHERE user_fk = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.json(result);
         });
     };
@@ -154,7 +140,6 @@ abstract class BaseSqlCtrl {
         let sql = `DELETE FROM ${this.model} WHERE id = '${req.params.id}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.send('Post deleted...');
         });
     };

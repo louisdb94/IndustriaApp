@@ -9,9 +9,6 @@ export default class ImageCtrl extends BaseSqlCtrl {
   dummy = null;
 
   upload = (req, res) => {
-    console.log("this is rnumber: ", req.body.students);
-    console.log("this is id: ", req.body.id);
-    console.log("this is files: ", req.files);
 
     //check if there is a file in formdata
     if (!(<any>req.files).files)
@@ -65,7 +62,6 @@ export default class ImageCtrl extends BaseSqlCtrl {
        let query = db.query(sql, (err, obj) => {
         if (err) { return console.error(err); }
         else{
-          console.log("obj.image: ", obj[0].image);
 
           if(obj[0].image == 1){
               fs.readFile('./uploads/images/' + obj[0].rnumber + '.jpg', 'base64', function(err, data){

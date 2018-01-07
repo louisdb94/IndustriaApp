@@ -17,7 +17,6 @@ export default class VacaturesCtrl extends BaseSqlCtrl{
                                           WHERE id = ${req.body.id}`;
       let query = db.query(sql, (err, result) => {
           if(err) throw err;
-          console.log(result);
           res.json(result);
       });
   };
@@ -26,7 +25,6 @@ export default class VacaturesCtrl extends BaseSqlCtrl{
     let sql = `INSERT INTO ${this.model} SET name = '${req.body.vac1Form}', type = '${req.body.vac2Form}', about = '${req.body.vac3Form}', company_fk = '${req.body.idForm}'`;
     let query = db.query(sql, req.body, (err, result) => {
         if(err) throw err;
-        console.log(result);
         res.json(result);
     });
    };

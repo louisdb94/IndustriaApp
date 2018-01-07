@@ -26,7 +26,6 @@ export default class CompanyCtrl extends BaseSqlCtrl{
                                                 WHERE id = ${req.body.id}`;
             let query = db.query(sql, (err, result) => {
                 if(err) throw err;
-                console.log(result);
                 res.json(result);
             });
         };
@@ -61,7 +60,6 @@ getCompanyByRnumber =  (req, res) => {
   let sql = `SELECT id FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
   let query = db.query(sql, (err, result) => {
       if(err) throw err;
-      console.log(result);
       res.json(result);
 
   });
@@ -81,7 +79,6 @@ innerJoin = (req, res) => {
         for(let i = 0 ; i < result.length; i++){
           dummy[i] = {id : result[i].id, type:result[i].type, company_name: result[i].company_name, vacature_name: result[i].vacature_name, url: result[i].url}
         }
-        console.log(dummy)
         res.send(result);
     });
   // };

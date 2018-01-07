@@ -14,7 +14,6 @@ export default class ExperienceCtrl extends BaseSqlCtrl {
         let sql = `INSERT INTO ${this.model} SET function = '${req.body.exp1Form}', description = '${req.body.exp2Form}', period = '${req.body.exp3Form}', student_fk = '${req.body.idForm}'`;
         let query = db.query(sql, req.body, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.json(result);
         });
     };
@@ -25,7 +24,6 @@ export default class ExperienceCtrl extends BaseSqlCtrl {
         if(err){
             throw err;
         }
-        console.log(result);
         res.json(result);
 
     });

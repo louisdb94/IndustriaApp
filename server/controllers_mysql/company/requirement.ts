@@ -14,7 +14,6 @@ export default class CompanyRequirementCtrl extends BaseSqlCtrl {
         let sql = `INSERT INTO ${this.model} SET name = '${req.body.req1Form}', vacatures_fk = '${req.body.idForm}'`;
         let query = db.query(sql, req.body, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.json(result);
         });
     };
@@ -25,7 +24,6 @@ export default class CompanyRequirementCtrl extends BaseSqlCtrl {
         if(err){
             throw err;
         }
-        console.log(result);
         res.json(result);
 
         });

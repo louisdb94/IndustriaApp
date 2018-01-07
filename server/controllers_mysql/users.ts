@@ -15,7 +15,6 @@ export default class UserCtrl extends BaseSqlCtrl {
         let sql = `SELECT id FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
-            console.log(result);
             res.json(result);
 
         });

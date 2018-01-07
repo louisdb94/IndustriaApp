@@ -24,7 +24,6 @@ export default class SkillsCtrl extends BaseSqlCtrl{
       let sql = `SELECT skill, student_fk FROM ${this.model} WHERE skill = '${req.params.skill}'`;
       let query = db.query(sql, (err, result) => {
           if(err) throw err;
-          console.log(result);
           res.json(result);
 
       });
@@ -35,7 +34,6 @@ export default class SkillsCtrl extends BaseSqlCtrl{
     let sql = `UPDATE ${this.model} SET skill = '${req.body.skill}', value = '${req.body.value}', value_type = '${req.body.value_type}'  WHERE id = ${req.body.id}`;
     let query = db.query(sql, (err, result) => {
         if(err) throw err;
-        console.log(result);
         res.send('Post updated...');
     });
   };

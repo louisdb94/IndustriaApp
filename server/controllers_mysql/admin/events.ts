@@ -15,7 +15,6 @@ export default class EventsCtrl extends BaseSqlCtrl{
     let sql = `SELECT id, title, start, end, color FROM ${this.model}`;
     let query = db.query(sql, (err, results) => {
         if(err) throw err;
-        console.log(results);
         res.json(results);
     });
   };
@@ -30,7 +29,6 @@ export default class EventsCtrl extends BaseSqlCtrl{
 
       let query = db.query(sql, (err, result) => {
           if(err) throw err;
-          console.log(result);
           res.json(result);
       });
   };
