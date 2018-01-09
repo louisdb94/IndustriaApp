@@ -1,5 +1,5 @@
 import {db} from '../app';
-
+import * as fs from 'fs';
 abstract class BaseSqlCtrl {
 
     abstract model: any;
@@ -150,8 +150,18 @@ abstract class BaseSqlCtrl {
         let query = db.query(sql, (err, result) => {
             if(err) throw err;
         });
-        let sql1 = `DELETE FROM cvs WHERE student_fk = '${req.params.student_fk}'`;
+        let sql1 = `SELECT * FROM cvs WHERE student_fk = '${req.params.student_fk}'`;
         let query1 = db.query(sql1, (err, result) => {
+            if(err) throw err;
+            if(result[0]){
+            fs.unlink('./uploads/cvs/'+ result[0].name + "("+ result[0].number +")" +'.' + result[0].mimetype);}
+            let sql1 = `DELETE FROM cvs WHERE student_fk = '${req.params.student_fk}'`;
+            let query1 = db.query(sql1, (err, result) => {
+                if(err) throw err;
+            });
+        });
+        let sql9 = `DELETE FROM privacylog WHERE student_fk = '${req.params.student_fk}'`;
+        let query9 = db.query(sql9, (err, result) => {
             if(err) throw err;
         });
         let sql2 = `DELETE FROM education WHERE student_fk = '${req.params.student_fk}'`;
@@ -193,6 +203,7 @@ abstract class BaseSqlCtrl {
         });
         res.send("user deleted");
     };
+
 
 }
 

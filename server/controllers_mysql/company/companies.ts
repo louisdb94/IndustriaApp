@@ -76,9 +76,25 @@ innerJoin = (req, res) => {
         if(err) throw err;
 
         for(let i = 0 ; i < result.length; i++){
+
+          if(result[i].vacature_name == '') {
+            result.splice(i,1);
+          }
           dummy[i] = {id : result[i].id, type:result[i].type, company_name: result[i].company_name, vacature_name: result[i].vacature_name, url: result[i].url}
+          
         }
         res.send(result);
+    });
+  }
+
+  updatePriority = (req, res) => {
+    let sql = `UPDATE ${this.model} SET priority = '${req.body.priority}',
+                                        email = '${req.body.email}',
+                                        name = '${req.body.name}'
+                                                WHERE id = ${req.body.id}`;
+    let query = db.query(sql, (err, result) => {
+        if(err) throw err;
+        res.json(result);
     });
   }
 }

@@ -53,4 +53,9 @@ export class CompanyService {
     return this.http.get(`/api/companies-getbyemail/${email}`).map(res => res.json());
   }
 
+  editPriority(priority): Observable<any> {
+    console.log(priority);
+    return this.http.put(`/api/companies-updatepriority`, JSON.stringify(priority), this.options);
+  }
+
 }

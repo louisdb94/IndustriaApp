@@ -72,16 +72,13 @@ export class HomepageComponent implements OnInit {
   https = "https://";
   companyProfile = "/profile-company/";
 
-  addStudentForm: FormGroup;
   addUserForm: FormGroup;
   name = new FormControl('', Validators.required);
-  degree = new FormControl('', Validators.required);
-  gradYear = new FormControl('', Validators.required);
-  user_fk = new FormControl('', Validators.required);
-  rnumber = new FormControl('', Validators.required);
   email = new FormControl('', Validators.required);
   password = new FormControl('', Validators.required);
+  priority = new FormControl('', Validators.required);
   role = new FormControl('', Validators.required);
+
 
   constructor(private studentService: StudentService,
     private data: DataService,
@@ -96,31 +93,17 @@ export class HomepageComponent implements OnInit {
     public toast: ToastComponent, private modal: NgbModal) { }
 
   ngOnInit() {
-
-  // if (this.auth.loggedIn) {
-  //   this.studentService.getStudentByRnumber(this.auth.currentUser.rnumberStudent).subscribe(
-  //     data => (this.data.changeMessageId(data._id), this.data.changeMessageNav(true)),
-  //     error => console.log("error")
-  //   );
-  // }
-
-
   this.getEvents();
   this.getCompanies();
 
   this.getStudentsMysql();
-  this.addStudentForm = this.formBuilder.group({
-  name: this.name,
-  degree: this.degree,
-  gradYear: this.gradYear,
-  user_fk : this.user_fk
-  });
 
   this.addUserForm = this.formBuilder.group({
-  rnumber: this.rnumber,
   email: this.email,
   password: this.password,
+  priority: this.priority,
   role: this.role,
+  name: this.name
   });
 
   this.data.idMessage.subscribe(message => this.messageId = message);
@@ -333,31 +316,54 @@ export class HomepageComponent implements OnInit {
     this.refresh.next();
   }
 
-  addAlumni() {
-    this.studentService.addStudentMysql(this.addStudentForm.value).subscribe(
-      res => {
-        const newStudent = res.json();
-        this.students.push(newStudent);
-        this.addStudentForm.reset();
-        this.toast.setMessage('item added successfully.', 'success');
-      },
-      error => console.log(error)
-    );
-  }
+  // addAlumni() {
+  //   this.studentService.addStudentMysql(this.addStudentForm.value).subscribe(
+  //     res => {
+  //       const newStudent = res.json();
+  //       this.students.push(newStudent);
+  //       this.addStudentForm.reset();
+  //       this.toast.setMessage('item added successfully.', 'success');
+  //     },
+  //     error => console.log(error)
+  //   );
+  // }
 
   addCompany() {
-    this.userService.registerMysql(this.addUserForm.value)
+    let addCompanyForm = {email: '', password: '', role: 'Company'};
+    addCompanyForm.email = this.addUserForm.value.email;
+    addCompanyForm.password = this.addUserForm.value.password;
+
+    let editPriority = {name: '', email: '', priority: '', id: ''};
+    editPriority.priority = this.addUserForm.value.priority;
+    editPriority.email = this.addUserForm.value.email;
+    editPriority.name = this.addUserForm.value.name;
+
+
+    this.userService.registerMysql(addCompanyForm)
         .switchMap( userid =>
           this.companyService.addCompanyFromUserId(JSON.parse(userid._body).insertId)
             .switchMap(companyid =>
               this.vacatureService.addVacatureFromCompanyId(JSON.parse(companyid._body).insertId)
                  .map(result => ({
                    user_id : JSON.parse(userid._body).insertId,
-                   companyid: JSON.parse(companyid._body).insertId
+                   companyid: JSON.parse(companyid._body).insertId,
                  }))))
         .subscribe(
-          res => { this.toast.setMessage('successfully added!', 'success'); console.log(res)},
+          res => { this.toast.setMessage('successfully added!', 'success'), editPriority.id = res.companyid, this.updatePriority(editPriority)},
           error => console.log(error)
         )
+  }
+
+  updatePriority(editPriority){
+    this.companyService.editPriority(editPriority).subscribe(
+      data =>
+      error => console.log("error")
+    );
+  }
+  makeAdmin(student){
+    this.userService.makeAdmin(student).subscribe(
+      res => {},
+      error => console.log(error)
+    );
   }
 }
