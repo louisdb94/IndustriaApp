@@ -95,8 +95,8 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
   this.getEvents();
   this.getCompanies();
-
   this.getStudentsMysql();
+  this.getAdmins();
 
   this.addUserForm = this.formBuilder.group({
   email: this.email,
@@ -360,6 +360,22 @@ export class HomepageComponent implements OnInit {
       error => console.log("error")
     );
   }
+
+  admins = [];
+  getAdmins(){
+      this.userService.getadmin().subscribe(
+        data => {this.admins = data},
+        error => console.error
+      );
+  }
+
+  deleteAdmin(item){
+    this.userService.makeAdmin(item).subscribe(
+      res => {},
+      error => console.log(error)
+    );
+  }
+
   makeAdmin(student){
     this.userService.makeAdmin(student).subscribe(
       res => {},

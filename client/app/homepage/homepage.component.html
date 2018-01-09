@@ -181,71 +181,82 @@
 
 <!-- BEGIN ADD NEW COMPANY CODE -->
 <div *ngIf="auth.currentUser.admin == '1'" style="width: 50%; margin:auto" >
- <table>
-  <thead class="thead-default" >
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>URL</th>
-      <th>Priority</th>
-    </tr>
-  </thead>
-  <tr *ngFor="let company of companies">
-    <td> <a md-line routerLink='/profile-company/{{company.id}}'> {{company.name}} </a> </td>
-    <td>{{company.email}}</td>
-    <td>{{company.url}}</td>
-    <td *ngIf="!editMode" (click)="editMode = true">{{company.priority}}</td>
-  </tr>
-  <br><br>
-</table>
 
-<div class="card">
-    <div class="card-header"><h4>Add new company</h4></div>
-    <div class="card-block">
-      <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
-        <div class="form-group">
-          <input class="form-control" type="text" name="name" formControlName="name" placeholder="Company name">
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
-        </div>
-        <div class="form-group">
-          <input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <select class="form-control" type="text" name="priority" formControlName="priority" placeholder="priority">
-                <option value="" selected disabled>Priority</option>
-                <option value="HIGH">HIGH</option>
-                <option value="MIDDLE">MIDDLE</option>
-                <option value="LOW">LOW</option>
-              </select>
-        </div>
-        <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
-      </form>
-    </div>
-  </div>
+        <!-- Nav tabs -->
+      <div style="margin-top: 5%; margin-bottom: 10%; border: 1px solid #dfdfdf; border-radius=0.25rem">
+      <ul class="nav nav-tabs" role="tablist" style="background-color: #f7f7f9;">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#admin" role="tab">Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#company" role="tab">Companies</a>
+        </li>
+      </ul>
 
-  <!-- Nav tabs -->
-<div style="margin-top: 5%; margin-bottom: 10%; border: 1px solid #dfdfdf; border-radius=0.25rem">
-<ul class="nav nav-tabs" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#admin" role="tab">Admin</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#student" role="tab">Students</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#company" role="tab">Companies</a>
-  </li>
-</ul>
+      <!-- Tab panes -->
+      <div class="tab-content" style="padding:2%">
+        <div class="tab-pane active" id="admin" role="tabpanel">
+          <table>
+           <thead class="thead-default" >
+             <tr>
+               <th>Username</th>
+               <th>Remove as admin</th>
+             </tr>
+           </thead>
+           <tr *ngFor="let item of admins">
+             <td>{{item.email}}</td>
+             <td> <button class="btn btn-danger" (click)="deleteAdmin(item)"> Delete </button> </td>
+           </tr>
+           <br><br>
+         </table>
+        </div>
+        <div class="tab-pane" id="company" role="tabpanel">
+          <table>
+           <thead class="thead-default" >
+             <tr>
+               <th>Name</th>
+               <th>Email</th>
+               <th>URL</th>
+               <th>Priority</th>
+             </tr>
+           </thead>
+           <tr *ngFor="let company of companies">
+             <td> <a md-line routerLink='/profile-company/{{company.id}}'> {{company.name}} </a> </td>
+             <td>{{company.email}}</td>
+             <td>{{company.url}}</td>
+             <td *ngIf="!editMode" (click)="editMode = true">{{company.priority}}</td>
+           </tr>
+           <br><br>
+         </table>
 
-<!-- Tab panes -->
-<div class="tab-content" style="padding:2%">
-  <div class="tab-pane active" id="home" role="tabpanel"> Robin is lelijk</div>
-  <div class="tab-pane" id="student" role="tabpanel">Robin is lelijker</div>
-  <div class="tab-pane" id="company" role="tabpanel">Robin is het lelijkst</div>
-</div>
-</div>
+         <div class="card">
+             <div class="card-header"><h4>Add new company</h4></div>
+             <div class="card-block">
+               <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
+                 <div class="form-group">
+                   <input class="form-control" type="text" name="name" formControlName="name" placeholder="Company name">
+                 </div>
+                 <div class="form-group">
+                   <input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
+                 </div>
+                 <div class="form-group">
+                   <input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
+                 </div>
+                 <div class="form-group">
+                     <select class="form-control" type="text" name="priority" formControlName="priority" placeholder="priority">
+                         <option value="" selected disabled>Priority</option>
+                         <option value="HIGH">HIGH</option>
+                         <option value="MIDDLE">MIDDLE</option>
+                         <option value="LOW">LOW</option>
+                       </select>
+                 </div>
+                 <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
+               </form>
+             </div>
+           </div>
+        </div>
+      </div>
+      </div>
 
 </div>
 
