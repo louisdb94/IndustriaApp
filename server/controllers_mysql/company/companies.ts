@@ -13,7 +13,7 @@ export default class CompanyCtrl extends BaseSqlCtrl{
 
   updateAll =  (req, res) => {
 
-            let sql = `UPDATE ${this.model} SET rnumber = '${req.body.rnumber}',
+            let sql = `UPDATE ${this.model} SET email = '${req.body.email}',
                                                 whoami = '${req.body.whoami}',
                                                 url = '${req.body.url}',
                                                 name = '${req.body.name}',
@@ -55,8 +55,8 @@ export default class CompanyCtrl extends BaseSqlCtrl{
     });
 };
 
-getCompanyByRnumber =  (req, res) => {
-  let sql = `SELECT id FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
+getCompanyByEmail =  (req, res) => {
+  let sql = `SELECT id FROM ${this.model} WHERE email = '${req.params.email}'`;
   let query = db.query(sql, (err, result) => {
       if(err) throw err;
       res.json(result);
@@ -80,7 +80,5 @@ innerJoin = (req, res) => {
         }
         res.send(result);
     });
-  // };
   }
-
 }

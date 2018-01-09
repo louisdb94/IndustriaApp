@@ -49,8 +49,8 @@ export class CompanyService {
     return this.http.get('api/companies-innerjoin').map(res => res.json());
   }
 
-  getCompanyByRnumberMysql(rnumber): Observable<any> {
-    return this.http.get(`/api/companies-getbyrnumber/${rnumber}`).map(res => res.json());
+  getCompanyByEmailMysql(email): Observable<any> {
+    return this.http.get(`/api/companies-getbyemail/${email}`).map(res => res.json());
   }
 
 }

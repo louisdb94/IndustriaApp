@@ -211,7 +211,7 @@ export default function setRoutes(app) {
   router.route('/companies-update').put(companiesCtrl.updateAll);
   router.route('/companies-innerjoin').get(companiesCtrl.innerJoin);
   router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
-  router.route('/companies-getbyrnumber/:rnumber').get(companiesCtrl.getCompanyByRnumber);
+  router.route('/companies-getbyemail/:email').get(companiesCtrl.getCompanyByEmail);
 
 
   //Vacature

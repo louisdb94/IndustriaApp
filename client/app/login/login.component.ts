@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-
+    let company_email = this.emailStudent;
     this.userForm.value.rnumber = this.emailStudent.substring(0,8);
     this.activatedRoute.params.subscribe((params: Params) => {
       this.data.changeMessageNav(params['status']);
@@ -118,7 +118,7 @@ export class LoginComponent implements OnInit {
       }
 
       if(params['status'] == "company"){
-        this.companyService.getCompanyByRnumberMysql(this.userForm.value.rnumber).subscribe(
+        this.companyService.getCompanyByEmailMysql(this.emailStudent).subscribe(
           data => (this.id = data[0].id, this.data.changeMessageId(data[0].id)),
           error => console.log("error")
         );
