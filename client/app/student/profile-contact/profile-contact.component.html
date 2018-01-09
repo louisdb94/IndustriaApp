@@ -40,7 +40,7 @@
         </div><br>
 
         <br><br>
-        <div class="text-center">
+        <div *ngIf="auth.currentUser.role == 'Student'" class="text-center">
             <label class="custom-control custom-checkbox">
                 <input [checked]="contactChecked" class="custom-control-input" type="checkbox" [(ngModel)]="contactChecked" (change)= "changeChecked($event, student)"/>
                 <span id="checkboxContact" class="custom-control-indicator"></span>

@@ -62,6 +62,10 @@ export class UserService {
     return this.http.post('/api/users-login', JSON.stringify(credentials), this.options);
   }
 
+  deleteWholeUser(user): Observable<any> {
+    return this.http.get(`api/delete-user/${user.id}`, this.options);
+  }
+
 
 
 }

@@ -52,13 +52,13 @@
                     <tr>
                         <th>Name</th>
                         <th>Download CV</th>
-                        <th>Remove CV</th>
+                        <th *ngIf="auth.currentUser.role == 'Student'">Remove CV</th>
                     </tr>
                 </thead>
                 <tr *ngFor="let cv of cvs">
                     <td><p style="float: left"> {{cv.customName}}  </p> </td>
                     <td><p style="float: left"><button (click)="downloadCv(cv)" class="btn btn-sm btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download</button></p> </td>
-                    <td><p style="float: left"><button (click)="removeCv(cv)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Remove</button></p> </td>
+                    <td *ngIf="auth.currentUser.role == 'Student'"><p style="float: left"><button (click)="removeCv(cv)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Remove</button></p> </td>
                 </tr>
             </table>
         </div>

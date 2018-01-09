@@ -108,6 +108,7 @@ export default function setRoutes(app) {
   router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);
   router.route('/users-login').post(usersCtrl.login);
   router.route('/resetpass').put(usersCtrl.resetPass);
+  router.route('/delete-user/:student_fk').get(usersCtrl.deleteStudent);
 
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
@@ -245,7 +246,7 @@ export default function setRoutes(app) {
   router.route('/contacts-delete/:id').get(companyContactCtrl.delete);
   router.route('/contacts-update').put(companyContactCtrl.updateAll);
 
-  
+
 
   //Requirements
   router.route('/requirements-get/:id').get(companyRequirementCtrl.getbyFkExperience);

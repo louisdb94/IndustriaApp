@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentService} from '../../services/student.service';
+import {UserService} from '../../services/user.service';
 import {SkillService} from '../../services/skill.service';
 import {ProfessionalService} from '../../services/professional.service';
 import {LanguageService} from '../../services/language.service';
@@ -7,6 +8,7 @@ import {CvsService} from '../../services/cvs.service';
 import {OrderListModule} from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import {AccordionModule} from 'primeng/primeng';
+import { AuthService } from '../../services/auth.service';
 
 import { Subject } from 'rxjs/Subject';
 
@@ -26,11 +28,13 @@ import { FilterLanguage} from '../../pipes/filterLanguage.pipe';
 export class StudentListComponent implements OnInit {
 
   constructor(  private studentService: StudentService,
+                private userService: UserService,
                 private skillService : SkillService,
                 private languageService: LanguageService,
                 private professionalService : ProfessionalService,
                 private cvsService : CvsService,
-                private http : HttpClient) { }
+                private http : HttpClient,
+                private auth : AuthService) { }
 
   students = [];
   ids = [];
@@ -566,7 +570,7 @@ export class StudentListComponent implements OnInit {
       data => { this.download(data[0].id)},
       error => console.log(error)
     )
-  // window.open(`/api/download/25`);
+   window.open(`/api/download/25`);
   }else{
     alert("This students hasn't yet uploaded a CV.")
   }
@@ -581,6 +585,13 @@ export class StudentListComponent implements OnInit {
     }
 
 
+  }
+
+  deleteStudent(student){
+    this.userService.deleteWholeUser(student).subscribe(
+      data => {},
+      error => console.error
+    );
   }
 
   innerjoin (){
