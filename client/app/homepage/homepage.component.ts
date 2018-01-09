@@ -332,7 +332,7 @@ export class HomepageComponent implements OnInit {
     let addCompanyForm = {email: '', password: '', role: 'Company'};
     addCompanyForm.email = this.addUserForm.value.email;
     addCompanyForm.password = this.addUserForm.value.password;
-    
+
     let editPriority = {name: '', email: '', priority: '', id: ''};
     editPriority.priority = this.addUserForm.value.priority;
     editPriority.email = this.addUserForm.value.email;
@@ -356,8 +356,14 @@ export class HomepageComponent implements OnInit {
 
   updatePriority(editPriority){
     this.companyService.editPriority(editPriority).subscribe(
-      data => 
+      data =>
       error => console.log("error")
+    );
+  }
+  makeAdmin(student){
+    this.userService.makeAdmin(student).subscribe(
+      res => {},
+      error => console.log(error)
     );
   }
 }

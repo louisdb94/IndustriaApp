@@ -9,6 +9,7 @@ import {OrderListModule} from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import {AccordionModule} from 'primeng/primeng';
 import { AuthService } from '../../services/auth.service';
+import { ToastComponent } from '../../shared/toast/toast.component';
 
 import { Subject } from 'rxjs/Subject';
 
@@ -34,7 +35,8 @@ export class StudentListComponent implements OnInit {
                 private professionalService : ProfessionalService,
                 private cvsService : CvsService,
                 private http : HttpClient,
-                private auth : AuthService) { }
+                private auth : AuthService,
+                public toast: ToastComponent) { }
 
   students = [];
   ids = [];
@@ -583,13 +585,14 @@ export class StudentListComponent implements OnInit {
 
     //  window.open(`/api/download/${id}`);
     }
-
-
   }
 
   deleteStudent(student){
     this.userService.deleteWholeUser(student).subscribe(
-      data => {},
+      data => {const pos = this.students.map(elem => elem.id).indexOf(student.id);
+                    this.students.splice(pos,1);
+                    this.toast.setMessage('item deleted successfully.', 'success');
+      },
       error => console.error
     );
   }

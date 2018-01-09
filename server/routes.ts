@@ -109,6 +109,7 @@ export default function setRoutes(app) {
   router.route('/users-login').post(usersCtrl.login);
   router.route('/resetpass').put(usersCtrl.resetPass);
   router.route('/delete-user/:student_fk').get(usersCtrl.deleteStudent);
+  router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
 
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
