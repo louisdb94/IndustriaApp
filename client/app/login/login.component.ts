@@ -119,8 +119,15 @@ export class LoginComponent implements OnInit {
 
       if(params['status'] == "company"){
         this.companyService.getCompanyByEmailMysql(this.emailStudent).subscribe(
-          data => (this.id = data[0].id, this.data.changeMessageId(data[0].id)),
-          error => console.log("error")
+          data => {
+            if(data[0]){
+              this.id = data[0].id; 
+              this.data.changeMessageId(data[0].id);
+            }
+            else{
+              this.toast.setMessage('invalid email or password!', 'danger');
+            }
+          }
         );
       }
     });

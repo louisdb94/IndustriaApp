@@ -24,7 +24,7 @@ export default class UserCtrl extends BaseSqlCtrl {
   login =  (req, res) => {
     let sql = `SELECT * FROM user WHERE email = '${req.body.email}'`;
     let query = db.query(sql, (err, user) => {
-        if (!user) { return res.sendStatus(403); }
+        if (!user[0]) {}
             else if(user[0].password == req.body.password){
             const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
             res.status(200).json({ token: token });

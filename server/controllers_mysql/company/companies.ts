@@ -81,4 +81,15 @@ innerJoin = (req, res) => {
         res.send(result);
     });
   }
+
+  updatePriority = (req, res) => {
+    let sql = `UPDATE ${this.model} SET priority = '${req.body.priority}',
+                                        email = '${req.body.email}',
+                                        name = '${req.body.name}'
+                                                WHERE id = ${req.body.id}`;
+    let query = db.query(sql, (err, result) => {
+        if(err) throw err;
+        res.json(result);
+    });
+  }
 }

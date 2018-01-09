@@ -185,10 +185,16 @@
   <thead class="thead-default" >
     <tr>
       <th>Name</th>
+      <th>Email</th>
+      <th>URL</th>
+      <th>Priority</th>
     </tr>
   </thead>
   <tr *ngFor="let company of companies">
     <td> <a md-line routerLink='/profile-company/{{company.id}}'> {{company.name}} </a> </td>
+    <td>{{company.email}}</td>
+    <td>{{company.url}}</td>
+    <td *ngIf="!editMode" (click)="editMode = true">{{company.priority}}</td>
   </tr>
   <br><br>
 </table>
@@ -197,32 +203,24 @@
     <div class="card-header"><h4>Add new company</h4></div>
     <div class="card-block">
       <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
-        <div class="col-md-2">
-          <div class="form-group">
-            <input class="form-control" type="text" name="email" formControlName="email" placeholder="Name Company">
-          </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="name" formControlName="name" placeholder="Company name">
         </div>
-        <div class="col-md-2">
-          <div class="form-group">
-            <input class="form-control" type="text" name="rnumber" formControlName="rnumber" placeholder="Company Number">
-          </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
         </div>
-        <div class="col-md-2">
         <div class="form-group">
           <input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
         </div>
-      </div>
-      <div class="col-md-2">
         <div class="form-group">
-            <select class="form-control" type="text" name="role" formControlName="role" placeholder="role">
-                <option value="" selected disabled>Role</option>
-                <option value="Student">Student</option>
-                <option value="Company">Company</option>
-                <option value="Admin">Admin</option>
+            <select class="form-control" type="text" name="priority" formControlName="priority" placeholder="priority">
+                <option value="" selected disabled>Priority</option>
+                <option value="HIGH">HIGH</option>
+                <option value="MIDDLE">MIDDLE</option>
+                <option value="LOW">LOW</option>
               </select>
         </div>
-      </div>
-        <button class="btn btn-primary" type="submit"><i class="fa fa-floppy-o"></i> Add</button>
+        <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
       </form>
     </div>
   </div>
