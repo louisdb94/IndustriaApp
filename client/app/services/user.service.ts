@@ -67,9 +67,17 @@ export class UserService {
   }
 
   makeAdmin(user): Observable<any> {
-    console.log(user);
     return this.http.put(`/api/user-makeadmin`, JSON.stringify(user), this.options);
   }
+  deleteAdmin(user): Observable<any> {
+    return this.http.put(`/api/user-deleteadmin`, JSON.stringify(user), this.options);
+  }
+
+  getadmin(): Observable<any> {
+    return this.http.get(`/api/user-getadmin`).map(res => res.json());
+  }
+
+
 
 
 

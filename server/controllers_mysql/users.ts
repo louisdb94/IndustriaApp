@@ -19,6 +19,14 @@ export default class UserCtrl extends BaseSqlCtrl {
 
         });
     };
+    getAdmins =  (req, res) => {
+          let sql = `SELECT * FROM ${this.model} WHERE admin = '1'`;
+          let query = db.query(sql, (err, result) => {
+              if(err) throw err;
+              res.json(result);
+
+          });
+      };
 
     // Select single post
   login =  (req, res) => {
