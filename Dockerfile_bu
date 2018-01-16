@@ -1,0 +1,24 @@
+FROM node:8-alpine
+
+EXPOSE 3000
+
+ARG NODE_ENV
+ENV NODE_ENV $NODE_ENV
+
+RUN mkdir /app
+
+# RUN mkdir /opt
+
+WORKDIR /app
+ADD package.json  /app/
+
+RUN npm install
+
+ADD . /app
+
+COPY entrypoint.sh /opt/entrypoint.sh
+
+RUN chmod -R 700 /opt/*
+
+ENTRYPOINT ["/opt/entrypoint.sh"]
+

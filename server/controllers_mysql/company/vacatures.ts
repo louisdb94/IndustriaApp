@@ -1,4 +1,4 @@
-import {db} from '../../app';
+import {connection} from '../../app';
 import * as  mysql from 'mysql';
 import vacatures from '../../models_mysql/company/vacatures';
 
@@ -15,7 +15,7 @@ export default class VacaturesCtrl extends BaseSqlCtrl{
                                           about = '${req.body.about}'
 
                                           WHERE id = ${req.body.id}`;
-      let query = db.query(sql, (err, result) => {
+      let query = connection.query(sql, (err, result) => {
           if(err) throw err;
           res.json(result);
       });
@@ -23,7 +23,7 @@ export default class VacaturesCtrl extends BaseSqlCtrl{
 
   insertForm =  (req, res) => {
     let sql = `INSERT INTO ${this.model} SET name = '${req.body.vac1Form}', type = '${req.body.vac2Form}', about = '${req.body.vac3Form}', company_fk = '${req.body.idForm}'`;
-    let query = db.query(sql, req.body, (err, result) => {
+    let query = connection.query(sql, req.body, (err, result) => {
         if(err) throw err;
         res.json(result);
     });

@@ -13,7 +13,9 @@ export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
 
-  currentUser = { id: '', email: '', rnumber: '', role: '', studentId: '' , companyId: '', admin: ''};
+  // review Tom: you need to type these properties. IF you assign id to '' it becomes a String and must be number...
+  // currentUser = { id: '', email: '', rnumber: '', role: '', studentId: '' , companyId: '', admin: ''};
+  currentUser = { id: 0, email: '', rnumber: '', role: '', studentId: 0 , companyId: 0, admin: ''};
 
   constructor(private userService: UserService,
               private router: Router,
@@ -41,7 +43,7 @@ export class AuthService {
     localStorage.removeItem('token');
     this.loggedIn = false;
     this.isAdmin = false;
-    this.currentUser = { id: '', email: '', rnumber: '', role: '', studentId: '' , companyId: '', admin:''};
+    this.currentUser = { id: 0, email: '', rnumber: '', role: '', studentId: 0 , companyId: 0, admin:''};
     this.router.navigate(['/']);
   }
 
@@ -56,13 +58,13 @@ export class AuthService {
     this.currentUser.role = decodedUser[0].role;
     this.currentUser.admin = decodedUser[0].admin;
     this.currentUser.email = decodedUser[0].email;
-    if(decodedUser[0].role == 'Student'){
+    if(decodedUser[0].role === 'Student'){
     this.studentService.getStudentByRnumberMysql(decodedUser[0].rnumber).subscribe(
       data => {this.currentUser.studentId = data[0].id},
       error => console.log(error)
     );
     }
-    if(decodedUser[0].role == 'Company'){
+    if(decodedUser[0].role === 'Company'){
     this.companyService.getCompanyByEmailMysql(decodedUser[0].email).subscribe(
       data => {this.currentUser.companyId = data[0].id},
       error => console.log(error)

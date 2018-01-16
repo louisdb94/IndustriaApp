@@ -1,4 +1,4 @@
-import {db} from '../app';
+import {connection} from '../app';
 import * as  mysql from 'mysql';
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
@@ -13,7 +13,7 @@ export default class UserCtrl extends BaseSqlCtrl {
 
   getByRnumber =  (req, res) => {
         let sql = `SELECT id FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
-        let query = db.query(sql, (err, result) => {
+        let query = connection.query(sql, (err, result) => {
             if(err) throw err;
             res.json(result);
 
@@ -21,7 +21,7 @@ export default class UserCtrl extends BaseSqlCtrl {
     };
     getAdmins =  (req, res) => {
           let sql = `SELECT * FROM ${this.model} WHERE admin = '1'`;
-          let query = db.query(sql, (err, result) => {
+          let query = connection.query(sql, (err, result) => {
               if(err) throw err;
               res.json(result);
 
@@ -31,7 +31,7 @@ export default class UserCtrl extends BaseSqlCtrl {
     // Select single post
   login =  (req, res) => {
     let sql = `SELECT * FROM user WHERE email = '${req.body.email}'`;
-    let query = db.query(sql, (err, user) => {
+    let query = connection.query(sql, (err, user) => {
         if (!user[0]) {}
             else if(user[0].password == req.body.password){
             const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
@@ -45,14 +45,14 @@ export default class UserCtrl extends BaseSqlCtrl {
 
   resetPass = (req, res) => {
       let sql = `UPDATE ${this.model} SET password = '${req.body.password}' WHERE email = '${req.body.email}'`;
-      let query = db.query(sql, (err, result) => {
+      let query = connection.query(sql, (err, result) => {
           if(err) throw err;
       });
   };
 
   makeAdmin = (req, res) => {
     let sql = `INSERT INTO ${this.model} SET admin = '${req.body.admin}' WHERE email = '${req.body.email}'`;
-    let query = db.query(sql, (err, result) => {
+    let query = connection.query(sql, (err, result) => {
         if(err) throw err;
         console.log("makeadmin");
     });

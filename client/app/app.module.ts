@@ -69,12 +69,12 @@ import { CompanyRequirementService } from './services/company/requirement.servic
 
 import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/forms';
 
-import { jqxFileUploadComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxfileupload';
-import { jqxEditorComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxeditor';
-import { jqxProgressBarComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxprogressbar';
-import { jqxInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxinput';
-import { jqxDropDownListComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDropDownList';
-import { jqxDateTimeInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDateTimeInput';
+// import { jqxFileUploadComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxfileupload';
+// import { jqxEditorComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxeditor';
+// import { jqxProgressBarComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxprogressbar';
+// import { jqxInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxinput';
+// import { jqxDropDownListComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDropDownList';
+// import { jqxDateTimeInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDateTimeInput';
 
 import { DataTableModule } from "ng2-data-table";
 
@@ -148,12 +148,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     CompanyContactVacature,
     CompanyRequirementVacature,
 
-    jqxFileUploadComponent,
-    jqxEditorComponent,
-    jqxProgressBarComponent,
-    jqxInputComponent,
-    jqxDropDownListComponent,
-    jqxDateTimeInputComponent,
+    // jqxFileUploadComponent,
+    // jqxEditorComponent,
+    // jqxProgressBarComponent,
+    // jqxInputComponent,
+    // jqxDropDownListComponent,
+    // jqxDateTimeInputComponent,
     CalendarHeaderComponent,
     DateTimePickerComponent,
 

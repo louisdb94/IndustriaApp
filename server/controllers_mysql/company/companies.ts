@@ -1,4 +1,4 @@
-import {db} from '../../app';
+import {connection} from '../../app';
 import * as  mysql from 'mysql';
 import companies from '../../models_mysql/company/companies';
 import * as fs from 'fs';
@@ -24,7 +24,7 @@ export default class CompanyCtrl extends BaseSqlCtrl{
                                                 image = '${req.body.image}'
 
                                                 WHERE id = ${req.body.id}`;
-            let query = db.query(sql, (err, result) => {
+            let query = connection.query(sql, (err, result) => {
                 if(err) throw err;
                 res.json(result);
             });
@@ -32,7 +32,7 @@ export default class CompanyCtrl extends BaseSqlCtrl{
 
   download =  (req, res) => {
     let sql = `SELECT * FROM companies WHERE id = '${req.params.id}'`;
-    let query = db.query(sql, (err, obj) => {
+    let query = connection.query(sql, (err, obj) => {
      if (err) { return console.error(err); }
      else{
        //console.log("obj.image: ", obj[0].image);
@@ -57,7 +57,7 @@ export default class CompanyCtrl extends BaseSqlCtrl{
 
 getCompanyByEmail =  (req, res) => {
   let sql = `SELECT id FROM ${this.model} WHERE email = '${req.params.email}'`;
-  let query = db.query(sql, (err, result) => {
+  let query = connection.query(sql, (err, result) => {
       if(err) throw err;
       res.json(result);
 
@@ -72,7 +72,7 @@ innerJoin = (req, res) => {
 
                   INNER JOIN vacatures
                     ON  companies.id = vacatures.company_fk`;
-    let query = db.query(sql, (err, result) => {
+    let query = connection.query(sql, (err, result) => {
         if(err) throw err;
 
         for(let i = 0 ; i < result.length; i++){
@@ -92,7 +92,7 @@ innerJoin = (req, res) => {
                                         email = '${req.body.email}',
                                         name = '${req.body.name}'
                                                 WHERE id = ${req.body.id}`;
-    let query = db.query(sql, (err, result) => {
+    let query = connection.query(sql, (err, result) => {
         if(err) throw err;
         res.json(result);
     });

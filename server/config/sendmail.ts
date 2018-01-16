@@ -1,6 +1,6 @@
 import * as nodemailer from 'nodemailer';
 import {app} from '../app';
-import {db} from '../app';
+import {connection} from '../app';
 import * as jwt from 'jsonwebtoken';
 
 let transporter = nodemailer.createTransport({
@@ -18,7 +18,7 @@ export default class MailCtrl {
 // Select single post
 mailToken =  (req, res) => {
 let sql = `SELECT * FROM user WHERE email = '${req.params.email}'`;
-let query = db.query(sql, (err, user) => {
+let query = connection.query(sql, (err, user) => {
     if (user) {
 
           const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds

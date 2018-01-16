@@ -31,9 +31,9 @@ export class CompanyProfile implements OnInit {
 
   data: any;
   company_id: Number;
-  company: {};
-  contacts: {};
-  vacatures: {};
+  company: any;
+  contacts: any;
+  vacatures: any;
 
   messageId: String;
   messageNav: String;

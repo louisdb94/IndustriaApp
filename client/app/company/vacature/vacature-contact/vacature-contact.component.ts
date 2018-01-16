@@ -38,7 +38,7 @@ export class CompanyContactVacature implements OnInit {
                 public toast: ToastComponent,
                 private mapsAPILoader: MapsAPILoader,
                 private ngZone: NgZone,
-                private auth: AuthService){}
+                public auth: AuthService){}
 
 
   ngOnInit(){

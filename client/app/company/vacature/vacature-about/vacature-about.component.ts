@@ -12,12 +12,12 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class CompanyAboutVacature {
   public editMode = false;
-  @Input() vacature: {};
+  @Input() vacature: any;
 
   constructor(  private vacatureService: VacatureService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
-                private auth: AuthService) {}
+                public auth: AuthService) {}
 
   save(vacature){
     this.editMode = false;

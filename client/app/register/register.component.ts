@@ -40,8 +40,8 @@ export class RegisterComponent implements OnInit {
     Validators.minLength(6)
   ]);
 
-  emailStudent = "";
-  passwordStudent = "";
+  public emailStudent = '';
+  passwordStudent = '';
   id_user: Number;
   messageId: String;
   dataRnumber: String;
@@ -87,7 +87,7 @@ export class RegisterComponent implements OnInit {
     return { 'has-danger': !this.password.pristine && !this.password.valid };
   }
 
-  switchLanguage(language) {
+  public switchLanguage(language) {
     this.appcomponent.switchLanguage(language);
   }
 

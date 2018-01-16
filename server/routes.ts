@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as mime from 'mime';
 import * as fs from 'fs';
-import {db} from './app';
+import {connection} from './app';
 import * as  mysql from 'mysql';
 
 import CvCtrl from './controllers/cv';

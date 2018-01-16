@@ -38,7 +38,7 @@ export class ExperiencesProfile {
   id: Number;
   lengthExperiences: any;
 
-  @Input() student: {};
+  @Input() student: any;
 
   constructor(  private formBuilder: FormBuilder,
                 private studentService: StudentService,
@@ -46,7 +46,7 @@ export class ExperiencesProfile {
                 private studentProfile: StudentProfile,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
-                private auth : AuthService){}
+                public auth : AuthService){}
 
 
   ngOnInit() {

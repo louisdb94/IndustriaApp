@@ -21,7 +21,7 @@ export class VacatureListComponent implements OnInit {
 
 
     constructor(  private companyService: CompanyService,
-                  private http : HttpClient) { }
+                  private http: HttpClient) { }
 
     vacatures = [];
     companies = [];
@@ -30,7 +30,8 @@ export class VacatureListComponent implements OnInit {
     model = {
       filter: this.filters[0]
     };
-
+    // review tom: added variable p
+    public p: any;
 
     ngOnInit() {
       this.getinnerjoin();
@@ -69,7 +70,7 @@ export class VacatureListComponent implements OnInit {
     //order by gradYear in searchBox when clicking on 'GradYear'
     clickGrad = 0;
     sortVacature(){
-        if(this.clickGrad == 0){
+        if(this.clickGrad === 0){
           this.vacatures.sort( function(name1, name2) {
             if ( name1.vacature_name < name2.vacature_name ){
               return -1;
@@ -97,7 +98,7 @@ export class VacatureListComponent implements OnInit {
     //order by Name in searchBox when clicking on 'Name'
     clickName = 0;
     sortType(){
-      if(this.clickName == 0){
+      if(this.clickName === 0){
         this.vacatures.sort( function(name1, name2) {
           if ( name1.type < name2.type ){
             return -1;
@@ -126,7 +127,7 @@ export class VacatureListComponent implements OnInit {
     //order by Name in searchBox when clicking on 'Name'
     clickDegree = 0;
     sortCompanyName(){
-      if(this.clickDegree == 0){
+      if(this.clickDegree === 0){
         this.vacatures.sort( function(name1, name2) {
           if ( name1.company_name < name2.company_name ){
             return -1;

@@ -31,9 +31,9 @@ export class CompanyVacature implements OnInit {
 
   data: any;
   vacature_id: Number;
-  company: {};
-  contacts: {};
-  vacature: {};
+  company: any;
+  contacts: any;
+  vacature: any;
   company_fk: Number;
 
   messageId: String;

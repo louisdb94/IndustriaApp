@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     Validators.maxLength(50)
   ]);
 
-  constructor(private auth: AuthService,
+  constructor(public auth: AuthService,
               private userService: UserService,
               private studentService: StudentService,
               private companyService: CompanyService,

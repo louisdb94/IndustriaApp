@@ -6,7 +6,7 @@
       <div class="card-header" style="font-size: 30px">
           <img src="../assets/img/Industria.PNG" width="45" height="60">
           <p translate style="margin-left:8%">
-            Register
+            Register            
             <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
                 <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
                 <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
@@ -15,8 +15,9 @@
       </div><br>
       <div class="card-block">
         <form method="POST" action="api/send" [formGroup]="registerForm" (ngSubmit)="register()">
-
-          <div *ngIf="myVar" id="register" class="input-group">
+          <!-- review Tom: myVar does not exist!-->
+          <!-- <div *ngIf="myVar" id="register" class="input-group"> -->
+          <div id="register" class="input-group">
             <span class="input-group-addon"><i class="fa fa-user"></i></span>
             <input class="form-control" type="text" name="rnumber" formControlName="rnumber" placeholder="rnumber" autofocus>
           </div>

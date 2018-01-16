@@ -35,7 +35,7 @@ export class StudentProfile implements OnInit {
                 public toast: ToastComponent) {}
 
   data: any;
-  student: {};
+  student: any;
   experiences = [];
   countEducation: Number;
   countExperiences: Number;

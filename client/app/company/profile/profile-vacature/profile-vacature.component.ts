@@ -43,7 +43,7 @@ export class CompanyVacatureProfile {
                 private vacatureService: VacatureService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
-                private auth: AuthService){}
+                public auth: AuthService){}
 
 
   ngOnInit() {

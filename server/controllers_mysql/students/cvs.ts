@@ -1,4 +1,4 @@
-import {db} from '../../app';
+import {connection} from '../../app';
 import * as  mysql from 'mysql';
 import cvs from '../../models_mysql/students/cvs';
 import * as fs from 'fs';
@@ -32,14 +32,14 @@ export default class CvsCtrl extends BaseSqlCtrl {
          res.status(200).redirect('back');
 
         let sql = `UPDATE students SET numberCv = '${cvnumber}' WHERE id = '${req.body.id}'`;
-        let query = db.query(sql, (err, obj) => {
+        let query = connection.query(sql, (err, obj) => {
           if (err) { return console.error(err); }
         });
        };
 
        getbyFk =  (req, res) => {
         let sql = `SELECT * FROM cvs WHERE student_fk = '${req.params.id}'`;
-        let query = db.query(sql, (err, result) => {
+        let query = connection.query(sql, (err, result) => {
             if(err) throw err;
             res.json(result);
         });
@@ -47,7 +47,7 @@ export default class CvsCtrl extends BaseSqlCtrl {
 
       addCv =  (req, res) => {
         let sql = `INSERT INTO cvs SET name = '${req.body.name}', mimetype = '${req.body.mimetype}', number = '${req.body.number}', size = '${req.body.size}', student_fk = '${req.body.uploader}'`;
-        let query = db.query(sql, (err, result) => {
+        let query = connection.query(sql, (err, result) => {
             if(err) throw err;
             res.json(result);
         });
@@ -61,7 +61,7 @@ export default class CvsCtrl extends BaseSqlCtrl {
        downloadCv = (req, res) => {
 
         let sql = `SELECT * FROM cvs WHERE id = '${req.params.id}'`;
-        let query = db.query(sql, (err, obj) => {
+        let query = connection.query(sql, (err, obj) => {
            if (err) { return console.error(err); }
            else{
                res.download('./uploads/cvs/'+obj[0].name + '(' + obj[0].number +')' + '.' + obj[0].mimetype, function(err){
@@ -77,7 +77,7 @@ export default class CvsCtrl extends BaseSqlCtrl {
 
        delete = (req, res) => {
         let sql = `DELETE FROM cvs WHERE id = '${req.params.id}'`;
-        let query = db.query(sql, (err, result) => {
+        let query = connection.query(sql, (err, result) => {
             if(err) throw err;
             res.send('Post deleted...');
         });

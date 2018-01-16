@@ -16,8 +16,8 @@ export class ContactProfile {
 
   data: any;
 
-  @Input() student: {};
-  @Input() contactChecked: {};
+  @Input() student: any;
+  @Input() contactChecked: any;
   @Input() contacts = [];
   editMode = false;
   privacylog = { student_fk: '', cvCheck: '', contactCheck: '', timestamp_cv: '' , timestamp_contact: ''};
@@ -28,7 +28,7 @@ export class ContactProfile {
                 private activatedRoute: ActivatedRoute,
                 private http: HttpClient,
                 public toast: ToastComponent,
-                private auth : AuthService){}
+                public auth : AuthService){}
 
   save(student){
     this.editMode = false;

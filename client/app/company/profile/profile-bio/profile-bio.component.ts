@@ -13,12 +13,12 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class CompanyBioProfile {
   public editMode = false;
-  @Input() company: {};
+  @Input() company: any;
 
   constructor(  private companyService: CompanyService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
-                private auth: AuthService) {}
+                public auth: AuthService) {}
 
   save(company){
     this.editMode = false;

@@ -28,7 +28,7 @@ export class CompanyContactProfile implements OnInit {
   public searchElementRef: ElementRef;
 
   @Input() company;
-  //@Input() contactChecked: {};
+  //@Input() contactChecked: any;
   @Input() contacts;
   editMode = false;
   clickMap = false;
@@ -40,7 +40,7 @@ export class CompanyContactProfile implements OnInit {
                 public toast: ToastComponent,
                 private mapsAPILoader: MapsAPILoader,
                 private ngZone: NgZone,
-                private auth: AuthService){}
+                public auth: AuthService){}
 
 
   ngOnInit(){

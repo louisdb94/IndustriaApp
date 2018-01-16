@@ -1,4 +1,4 @@
-import {db} from '../../app';
+import {connection} from '../../app';
 import * as  mysql from 'mysql';
 import education from '../../models_mysql/students/education';
 
@@ -11,7 +11,7 @@ export default class EducationCtrl extends BaseSqlCtrl {
 
   updateAll = (req, res) => {
     let sql = `UPDATE ${this.model} SET type = '${req.body.type}', institution = '${req.body.institution}', date_from = '${req.body.date_from}', date_until = '${req.body.date_until}' WHERE id = ${req.body.id}`;
-    let query = db.query(sql, (err, result) => {
+    let query = connection.query(sql, (err, result) => {
         if(err) throw err;
         res.send('Post updated...');
     });

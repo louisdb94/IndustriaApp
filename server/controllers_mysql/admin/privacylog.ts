@@ -1,4 +1,4 @@
-import {db} from '../../app';
+import {connection} from '../../app';
 import * as  mysql from 'mysql';
 import privacylog from '../../models_mysql/admin/privacylog';
 
@@ -11,7 +11,7 @@ export default class PrivacylogCtrl extends BaseSqlCtrl{
 
   insertPrivacylog =  (req, res) => {
       let sql = `INSERT INTO ${this.model} SET ?`;
-      let query = db.query(sql, req.body, (err, result) => {
+      let query = connection.query(sql, req.body, (err, result) => {
           if(err) throw err;
           res.json(result);
       });

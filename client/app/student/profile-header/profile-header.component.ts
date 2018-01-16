@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, enableProdMode, Input } from '@angular/core';
+import { Component, ViewChild, OnInit, enableProdMode, Input} from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { SocialmediaService } from '../../services/socialmedia.service';
 import { FileService } from '../../services/file.service';
@@ -6,7 +6,6 @@ import { ToastComponent } from '../../shared/toast/toast.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, NgModelGroup, NgForm } from '@angular/forms';
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
-import { jqxFileUploadComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxfileupload';
 import { Location } from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
 import { FileUploadModule } from 'primeng/primeng';
@@ -20,13 +19,14 @@ import { PrivacylogService } from '../../services/admin/privacylog.service';
 enableProdMode();
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
+// review Tom -> components should end with Component so HeaderProfile ===> HeaderProfileComponent
 @Component({
   selector: 'profile-header',  // <home></home>
   styleUrls: ['./profile-header.component.scss'],
   templateUrl: './profile-header.component.html'
 })
-export class HeaderProfile {
-
+export class HeaderProfile implements OnInit { 
+  // --> review Tom: added OnInit interface
   files: File[];
   data: any;
   id: String;
@@ -34,10 +34,11 @@ export class HeaderProfile {
   numberCv = Number;
 
   socialmedia = [];
-
-  @Input() student: {};
-  cv= {};
-  cvs=[];
+  // review Tom: bad pratice -> you must type this student object..
+  @Input() student: any;
+  // review Tom: bad pratice -> you must type this cv object..
+  cv= <any>{};
+  cvs= [];
   student_id = 0;
   marked = false;
   cropperSettings: CropperSettings;
@@ -52,7 +53,7 @@ export class HeaderProfile {
   privacylog = { student_fk: '', cvCheck: '', contactCheck: '', timestamp_cv: '' , timestamp_contact: ''};
 
   @ViewChild('cropper', undefined)
-  cropper:ImageCropperComponent;
+  cropper: ImageCropperComponent;
 
   constructor(  private studentService: StudentService,
                 private fileService: FileService,
@@ -61,9 +62,9 @@ export class HeaderProfile {
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private http: HttpClient,
-                private sanitizer: DomSanitizer,
+                public sanitizer: DomSanitizer,
                 private formBuilder: FormBuilder,
-                private auth : AuthService){
+                public auth: AuthService) {
 
                     this.cropperSettings = new CropperSettings();
                     this.cropperSettings.width = 200;
@@ -76,8 +77,7 @@ export class HeaderProfile {
 
                     this.data = {};
                 }
-
-
+  // tom review: if you use ngOnInit you need to implement OnInit interface!                
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.student_id = params['id'];

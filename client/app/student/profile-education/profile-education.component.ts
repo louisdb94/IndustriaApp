@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { jqxDateTimeInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDateTimeInput';
 import { StudentService } from '../../services/student.service';
 import { EducationService } from '../../services/education.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
@@ -19,13 +18,13 @@ export class EducationProfile {
   student_id: Number;
   education = [];
   countEducation = 0;
-  @Input() student: {};
+  @Input() student: any;
 
   constructor(  private studentService: StudentService,
                 private educationService: EducationService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
-                private auth : AuthService){}
+                public auth : AuthService){}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {

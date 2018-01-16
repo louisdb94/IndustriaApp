@@ -2,7 +2,7 @@ import Cv from '../models/cv';
 import Student from '../models/student';
 import BaseCtrl from './base';
 import * as fs from 'fs';
-import {db} from '../app';
+import {connection} from '../app';
 
 export default class CvCtrl extends BaseCtrl {
   model = Cv;
@@ -34,7 +34,7 @@ export default class CvCtrl extends BaseCtrl {
      res.status(200).redirect('back');
 
     let sql = `UPDATE students SET numberCv = '${cvnumber}' WHERE id = '${req.body.id}'`;
-    let query = db.query(sql, (err, obj) => {
+    let query = connection.query(sql, (err, obj) => {
       if (err) { return console.error(err); }
     });
    };
@@ -42,7 +42,7 @@ export default class CvCtrl extends BaseCtrl {
    getbyFk =  (req, res) => {
      console.log("id id id id: ", req.params.id);
     let sql = `SELECT * FROM cvs WHERE student_fk = '${req.params.id}'`;
-    let query = db.query(sql, (err, result) => {
+    let query = connection.query(sql, (err, result) => {
         if(err) throw err;
         console.log(result);
         res.json(result);
@@ -51,7 +51,7 @@ export default class CvCtrl extends BaseCtrl {
 
   addCv =  (req, res) => {
     let sql = `INSERT INTO cvs SET name = '${req.body.name}', mimetype = '${req.body.mimetype}', number = '${req.body.number}', size = '${req.body.size}', student_fk = '${req.body.uploader}'`;
-    let query = db.query(sql, (err, result) => {
+    let query = connection.query(sql, (err, result) => {
         if(err) throw err;
         console.log(result);
         res.json(result);
@@ -74,7 +74,7 @@ export default class CvCtrl extends BaseCtrl {
 
     console.log("zekoifenjnke: ", req.params.id)
     let sql = `SELECT * FROM cvs WHERE id = '${req.params.id}'`;
-    let query = db.query(sql, (err, obj) => {
+    let query = connection.query(sql, (err, obj) => {
        if (err) { return console.error(err); }
        else{
            res.download('./uploads/cvs/'+obj[0].name + '(' + obj[0].number +')' + '.' + obj[0].mimetype, function(err){
@@ -90,7 +90,7 @@ export default class CvCtrl extends BaseCtrl {
 
    delete = (req, res) => {
     let sql = `DELETE FROM cvs WHERE id = '${req.params.id}'`;
-    let query = db.query(sql, (err, result) => {
+    let query = connection.query(sql, (err, result) => {
         if(err) throw err;
         console.log(result);
         res.send('Post deleted...');

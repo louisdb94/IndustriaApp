@@ -1,4 +1,4 @@
-import {db} from '../../app';
+import {connection} from '../../app';
 import * as  mysql from 'mysql';
 import sql_students from '../../models_mysql/students/students';
 
@@ -28,7 +28,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
                                             image = '${req.body.image}'
 
                                             WHERE id = ${req.body.id}`;
-        let query = db.query(sql, (err, result) => {
+        let query = connection.query(sql, (err, result) => {
             if(err) throw err;
             res.json(result);
         });
@@ -37,7 +37,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
     inner = (req,res) => {
       let sql = `SELECT name, degree, gradYear FROM students GROUP BY (id)  `;
 
-      let query = db.query(sql, (err, result) => {
+      let query = connection.query(sql, (err, result) => {
           if(err) throw err;
           res.json(result);
       });
@@ -53,7 +53,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
 
 
 
-      let query = db.query(sql, (err, result) => {
+      let query = connection.query(sql, (err, result) => {
           if(err) throw err;
           res.json(result);
       });
@@ -89,7 +89,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
                 ON t1.id = '${req.params.id}'
                   AND t1.id = t2.student_fk`
                                                 ;
-      let query = db.query(sql, (err, result) => {
+      let query = connection.query(sql, (err, result) => {
           if(err) throw err;
 
 
@@ -106,7 +106,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
                 ON t1.id = '${req.params.id}'
                   AND t1.id = t2.student_fk`
                                                 ;
-      let query1 = db.query(sql1, (err, result) => {
+      let query1 = connection.query(sql1, (err, result) => {
           if(err) throw err;
 
           for(let i = 0; i < result.length; i++){
@@ -125,7 +125,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
               ON t1.id = '${req.params.id}'
                 AND t1.id = t2.student_fk`
                                               ;
-    let query2 = db.query(sql2, (err, result) => {
+    let query2 = connection.query(sql2, (err, result) => {
         if(err) throw err;
 
         for(let i = 0; i < result.length; i++){
@@ -143,7 +143,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
             ON t1.id = '${req.params.id}'
               AND t1.id = t2.student_fk`
                                             ;
-  let query3 = db.query(sql3, (err, result) => {
+  let query3 = connection.query(sql3, (err, result) => {
       if(err) throw err;
 
       for(let i = 0; i < result.length; i++){
@@ -161,7 +161,7 @@ let sql4 = `SELECT DISTINCT type, url, checked FROM students t1
           ON t1.id = '${req.params.id}'
             AND t1.id = t2.student_fk`
                                           ;
-let query4 = db.query(sql4, (err, result) => {
+let query4 = connection.query(sql4, (err, result) => {
     if(err) throw err;
 
     for(let i = 0; i < result.length; i++){
@@ -181,7 +181,7 @@ let sql5 = `SELECT type, value, value_type FROM students t1
             ON t1.id = '${req.params.id}'
             AND t1.id = t2.student_fk`;
                                           ;
-let query5 = db.query(sql5, (err, result) => {
+let query5 = connection.query(sql5, (err, result) => {
     if(err) throw err;
 
     for(let i = 0; i < result.length; i++){
@@ -201,7 +201,7 @@ let sql6 = `SELECT skill, value, value_type FROM students t1
             ON t1.id = '${req.params.id}'
             AND t1.id = t2.student_fk`;
                                           ;
-let query6 = db.query(sql6, (err, result) => {
+let query6 = connection.query(sql6, (err, result) => {
     if(err) throw err;
 
     for(let i = 0; i < result.length; i++){
@@ -215,7 +215,7 @@ let query6 = db.query(sql6, (err, result) => {
 });
 
 let sql7 = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
-let query7 = db.query(sql7, (err, result) => {
+let query7 = connection.query(sql7, (err, result) => {
     if(err) throw err;
 
     id[0] = result[0].id, name[0] = result[0].name, rnumber[0] = result[0].rnumber,
@@ -243,7 +243,7 @@ let query7 = db.query(sql7, (err, result) => {
   insertUser =  (req, res) => {
 
         let sql = `INSERT INTO ${this.model} SET user_fk = '${req.params.id}'`;
-        let query = db.query(sql, (err, result) => {
+        let query = connection.query(sql, (err, result) => {
             if(err) throw err;
             res.json(result);
         });
@@ -253,7 +253,7 @@ let query7 = db.query(sql7, (err, result) => {
 
   getStudentByRnumber =  (req, res) => {
       let sql = `SELECT id FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
-      let query = db.query(sql, (err, result) => {
+      let query = connection.query(sql, (err, result) => {
           if(err) throw err;
           res.json(result);
 

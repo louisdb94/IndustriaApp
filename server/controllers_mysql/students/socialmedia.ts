@@ -1,4 +1,4 @@
-import {db} from '../../app';
+import {connection} from '../../app';
 import * as  mysql from 'mysql';
 import sql_socialmedia from '../../models_mysql/students/socialmedia';
 
@@ -11,7 +11,7 @@ export default class SocialmediaCtrl extends BaseSqlCtrl {
 
   updateAll = (req, res) => {
     let sql = `UPDATE ${this.model} SET type = '${req.body.type}', url = '${req.body.url}', checked = '${req.body.checked}' WHERE id = ${req.body.id}`;
-    let query = db.query(sql, (err, result) => {
+    let query = connection.query(sql, (err, result) => {
         if(err) throw err;
         res.send('Post updated...');
     });

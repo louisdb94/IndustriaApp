@@ -1,4 +1,4 @@
-import {db} from '../../app';
+import {connection} from '../../app';
 import * as  mysql from 'mysql';
 import BaseSqlCtrl from '../baseSql';
 import * as fs from 'fs';
@@ -24,7 +24,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
      });
 
      let sql = `UPDATE students SET image = '1' WHERE id = '${req.body.id}'`;
-     let query = db.query(sql, (err, obj) => {
+     let query = connection.query(sql, (err, obj) => {
        if (err) { return console.error(err); }
      });
    };
@@ -44,7 +44,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
      });
 
      let sql = `UPDATE companies SET image = '1' WHERE id = '${req.body.id}'`;
-     let query = db.query(sql, (err, obj) => {
+     let query = connection.query(sql, (err, obj) => {
        if (err) { return console.error(err); }
      });
    };
@@ -59,7 +59,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
    // Select single post
    download =  (req, res) => {
        let sql = `SELECT * FROM students WHERE id = '${req.params.id}'`;
-       let query = db.query(sql, (err, obj) => {
+       let query = connection.query(sql, (err, obj) => {
         if (err) { return console.error(err); }
         else{
 
