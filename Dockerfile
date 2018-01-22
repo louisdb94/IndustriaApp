@@ -3,17 +3,23 @@ FROM node:8-alpine as builder
 
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
+ENV APP_URL ""
 
 RUN mkdir /app
 
 WORKDIR /app
-ADD package.json  /app/
+# ADD package.json  /app/
+COPY package.json package.json
 
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 
-RUN npm install
+RUN npm install --silent
 
-ADD . /app
+COPY . .
+
+# ADD dist/public /app
+# ADD dist/server /app
+
 
 COPY entrypoint.sh /opt/entrypoint.sh
 
@@ -26,12 +32,15 @@ RUN rm -rf /var/cache/apk/* && \
 RUN apk update
 RUN apk add nginx
 
-RUN mkdir -p /run/nginx
+# RUN mkdir -p /run/nginx
 
 # RUN adduser -g 'Nginx www user' -h /home/www/ wwwcbz
 ADD nginx /templates
 
 EXPOSE 80
+
+#create angular build and move to dist folder
+RUN npm run prod
 ENTRYPOINT ["/opt/entrypoint.sh"]
 
 

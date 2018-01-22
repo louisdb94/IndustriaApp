@@ -4,6 +4,8 @@
 mkdir -p /var/cache/nginx
 chown nginx:nginx /var/cache/nginx
 
+mkdir -p /run/nginx
+
 mkdir -p /var/tmp/nginx
 chown nginx:nginx /var/tmp/nginx
 
@@ -23,9 +25,9 @@ cat "$src" > "$dest"
 # Launch nginx in the foreground
 /usr/sbin/nginx -g "daemon off;"
 
-
-
 cd "/app"
-npm run prod
+npm run start
+
 
 echo "Ready"
+
