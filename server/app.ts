@@ -35,6 +35,7 @@ const db_config = {
     database: 'sql11211584'
 };
 
+
 // const db_config = {
 //     host: 'http://industria-staging.cloud.interhostsolutions.be',
 //     user: 'root',

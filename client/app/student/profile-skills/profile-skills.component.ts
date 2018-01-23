@@ -42,17 +42,14 @@ export class SkillsProfile {
   save(student, skills) {
     this.editMode = false;
 
-    // for (let i = 0; i < this.skills.length; i++) {
-    //   console.log('lenght',this.skills.length);
-    //
-    //   console.log(this.skills[i]);
-    //   if (this.skills[i]) {
-    //     this.skillService.editSkill(this.skills[i]).subscribe(
-    //       res => {},
-    //       error => console.log(error)
-    //     );
-    //   }
-    // }
+    for (let i = 0; i < this.skills.length; i++) {
+        if (this.skills[i]) {
+        this.skillService.editSkill(this.skills[i]).subscribe(
+          res => {},
+          error => console.log(error)
+        );
+      }
+    }
 
     this.studentService.editStudentMysql(student).subscribe(
       res => {
@@ -64,23 +61,33 @@ export class SkillsProfile {
   }
 
   add(student) {
-    if (student.countSkills <= 8) {
+    if (student.countSkills <= 7) {
+      this.http.get(`/api/skills-insert/${student.id}`).subscribe(
+        res => {this.getSkills(student.id)},
+        error => {console.log("error")}
+      );
+      // let add_skill = {id: '', student_fk: '', value: '50', value_type: 'Intermediate'};
+      // this.skills.push(add_skill);
       student.countSkills++;
-      // this.http.get(`/api/skills-insert/${student.id}`).subscribe({
-      //   res =>{this.getSkills(student.id)}
-      // });
-      let add_skill = {id: '', student_fk: '', value: '50', value_type: 'Intermediate'};
-      console.log('length before', this.skills.length);
-      this.skills.push(add_skill);
-      console.log('length after', this.skills.length);
     }
+  }
+
+  getSkills(id){
+    this.skillService.getSkillByStudentId(id).subscribe(
+      res => {this.skills = res}
+    )
   }
 
   delete(student, skills) {
     if (student.countSkills > 0) {
-      this.http.get(`/api/skills-delete/${skills[skills.length - 1].id}`).subscribe();
+      let id = skills[skills.length - 1].id;
+      console.log("countskills before: ", student.countSkills);
       student.countSkills--;
+      console.log("countskills after: ", student.countSkills);
       this.skills.splice(skills.length - 1, 1);
+      this.http.get(`/api/skills-delete/${id}`).subscribe(
+        res => {this.save(student, skills)}
+      );
     }
   }
 

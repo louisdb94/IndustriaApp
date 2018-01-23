@@ -160,7 +160,7 @@ export default function setRoutes(app) {
   router.route('/language-getalldistinct').get(languageCtrl.selectLanguage);
   router.route('/language-insert').post(languageCtrl.insert);
   router.route('/language-insert/:id').get(languageCtrl.insertStudentFK);
-  router.route('/languageCtrl-delete/:id').get(languageCtrl.delete);
+  router.route('/language-delete/:id').get(languageCtrl.delete);
   router.route('/language-update').put(languageCtrl.updateAll);
   router.route('/language-getfkbylang/:lang').get(languageCtrl.getbyLanguage);
 

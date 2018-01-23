@@ -10,7 +10,6 @@
     <br>
 
         <tr *ngFor="let item of skills; let i = index" style="width:33%; float:left ">
-
             <div *ngIf="skills[i]" >
               <div style='margin-top: 10px;'>
                 <textarea *ngIf="editMode" [(ngModel)]="skills[i].skill" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
@@ -25,14 +24,8 @@
                 <div *ngIf="!editMode" id="skillsText" class="text-center">
                   <p>{{skills[i].value_type}}</p>
                 </div>
-
-
             </div>
-
         </tr>
-
-
-
 
     <button *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete(student, skills)" style="float : right">
       <i class="fa fa-trash"></i> Delete</button>

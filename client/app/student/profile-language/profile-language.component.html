@@ -4,156 +4,25 @@
         <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
         <h2 translate>Language knowledge</h2><br>
 
-        <div class="row">
-            <div *ngIf= "languages[0]" class="col-md-4">
-                <div style='margin-top: 10px;'>
-                    <textarea *ngIf="editMode" [(ngModel)]="languages[0].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
-                    <p id="languageTitle" *ngIf="!editMode" style="font-size : 20px">{{languages[0].type}}</p>
-                </div>
-                <!-- review tom: removed jqxProgressbar -->
-                <!-- <jqxProgressBar #jqxProgressBar1
-                    [animationDuration]="1000"
-                    [width]="250"
-                    [height]="50"
-                    [(value)]="languages[0].value"
-                    [showText]="true"
-                    [renderText]="renderText"
-                    [template]="'primary'">
-                </jqxProgressBar> -->
-                <div id="languageText" class="text-center">
-                    <p *ngIf="!editMode">{{languages[0].value_type}}</p>
-                </div>
-                <br>
-                <p class="text-center">
-                    <!-- review tom: removed jqxProgressbar -->
-                    <!-- <jqxDropDownList #jqxDropDownList1 *ngIf="editMode" (onSelect)="updateProgressBar($event, 1, languages)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList> -->
-                </p>
+        <tr *ngFor="let item of languages; let i = index" style="width:33%; float:left ">
+            <div *ngIf="languages[i]" >
+              <div style='margin-top: 10px;'>
+                <textarea *ngIf="editMode" [(ngModel)]="languages[i].type" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
+                <p id="languageTitle" *ngIf="!editMode" style="font-size : 20px">{{languages[i].type}}</p>
+              </div>
+              <p-progressBar #progressBar1 [style]="{'height': '50px', 'width': '250px'}" [(value)]="languages[i].value"></p-progressBar>
 
+                <select  *ngIf="editMode" style="width:250px" class="form-control" id="filters" required [(ngModel)]="languages[i].value_type" name="filter" (change)="onChange(languages[i])" >
+                  <option *ngFor="let pow of filters" [value]="pow" >{{pow}}</option>
+                </select>
+
+                <div *ngIf="!editMode" id="languageText" class="text-center">
+                  <p>{{languages[i].value_type}}</p>
+                </div>
             </div>
-            <div *ngIf= "languages[1] && student.countLanguage >= 1" class="col-md-4">
-                <div style='margin-top: 10px;'>
-                    <textarea *ngIf="editMode" [(ngModel)]="languages[1].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
-                    <p id="languageTitle" *ngIf="!editMode">{{languages[1].type}}</p>
-                </div>
-                <!-- review tom: removed jqxProgressbar -->
-                <!-- <jqxProgressBar #jqxProgressBar2
-                    [animationDuration]="1000"
-                    [width]="250"
-                    [height]="50"
-                    [(value)]="languages[1].value"
-                    [showText]="true"
-                    [renderText]="renderText"
-                    [template]="'primary'">
-                </jqxProgressBar> -->
-                <div id="languageText" class="text-center">
-                    <p *ngIf="!editMode">{{languages[1].value_type}}</p>
-                </div>
-                <br>
-                <p class="text-center">
-                    <!-- review tom: removed jqxProgressbar -->
-                    <!-- <jqxDropDownList #jqxDropDownList2 *ngIf="editMode" (onSelect)="updateProgressBar($event, 2, languages)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList> -->
-                </p>
-            </div>
-            <div *ngIf= "languages[2] && student.countLanguage >= 2" class="col-md-4">
-                <div style='margin-top: 10px;'>
-                    <textarea *ngIf="editMode" [(ngModel)]="languages[2].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
-                    <p id="languageTitle" *ngIf="!editMode">{{languages[2].type}}</p>
-                </div>
-                <!-- review tom: removed jqxProgressbar -->
-                <!-- <jqxProgressBar #jqxProgressBar3
-                    [animationDuration]="1000"
-                    [width]="250"
-                    [height]="50"
-                    [(value)]="languages[2].value"
-                    [showText]="true"
-                    [renderText]="renderText"
-                    [template]="'primary'">
-                </jqxProgressBar> -->
-                <div id="languageText" class="text-center">
-                    <p *ngIf="!editMode">{{languages[2].value_type}}</p>
-                </div>
-                <br>
-                <p class="text-center">
-                    <!-- review tom: removed jqxProgressbar -->
-                    <!-- <jqxDropDownList #jqxDropDownList3 *ngIf="editMode" (onSelect)="updateProgressBar($event, 3, languages)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList> -->
-                </p>
-            </div>
-        </div>
-        <div *ngIf= "languages[3] && student.countLanguage >= 3" class="row">
-            <div class="col-md-4" *ngIf="student.countLanguage >= 2">
-                <div style='margin-top: 10px;'>
-                    <textarea *ngIf="editMode" [(ngModel)]="languages[3].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
-                    <p id="languageTitle" *ngIf="!editMode">{{languages[3].type}}</p>
-                </div>
-                <!-- review tom: removed jqxProgressbar -->
-                <!-- <jqxProgressBar #jqxProgressBar4
-                    [animationDuration]="1000"
-                    [width]="250"
-                    [height]="50"
-                    [(value)]="languages[3].value"
-                    [showText]="true"
-                    [renderText]="renderText"
-                    [template]="'primary'">
-                </jqxProgressBar> -->
-                <div id="languageText" class="text-center">
-                    <p *ngIf="!editMode">{{languages[3].value_type}}</p>
-                </div>
-                <br>
-                <p class="text-center">
-                    <!-- review tom: removed jqxProgressbar -->
-                    <!-- <jqxDropDownList #jqxDropDownList4 *ngIf="editMode" (onSelect)="updateProgressBar($event, 4, languages)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList> -->
-                </p>
-            </div>
-            <div class="col-md-4" *ngIf="student.countLanguage >= 4">
-                <div style='margin-top: 10px;'>
-                    <textarea *ngIf="editMode" [(ngModel)]="languages[4].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
-                    <p id="languageTitle" *ngIf="!editMode">{{languages[4].type}}</p>
-                </div>
-                <!-- review tom: removed jqxProgressbar -->
-                <!-- <jqxProgressBar #jqxProgressBar5
-                    [animationDuration]="1000"
-                    [width]="250"
-                    [height]="50"
-                    [(value)]="languages[4].value"
-                    [showText]="true"
-                    [renderText]="renderText"
-                    [template]="'primary'">
-                </jqxProgressBar> -->
-                <div id="languageText" class="text-center">
-                    <p *ngIf="!editMode">{{languages[4].value_type}}</p>
-                </div>
-                <br>
-                <p class="text-center">
-                    <!-- review tom: removed jqxProgressbar -->
-                    <!-- <jqxDropDownList #jqxDropDownList5 *ngIf="editMode" (onSelect)="updateProgressBar($event, 5, languages)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList> -->
-                </p>
-            </div>
-            <div *ngIf= "languages[5] && student.countLanguage >= 5" class="col-md-4">
-                <div style='margin-top: 10px;'>
-                    <textarea *ngIf="editMode" [(ngModel)]="languages[5].type" placeholder="Insert a language" rows="1" (keyup.enter)="save()"></textarea>
-                    <p id="languageTitle" *ngIf="!editMode">{{languages[5].type}}</p>
-                </div>
-                <!-- review tom: removed jqxProgressbar -->
-                <!-- <jqxProgressBar #jqxProgressBar6
-                    [animationDuration]="1000"
-                    [width]="250"
-                    [height]="50"
-                    [(value)]="languages[5].value"
-                    [showText]="true"
-                    [renderText]="renderText"
-                    [template]="'primary'">
-                </jqxProgressBar> -->
-                <div id="languageText" class="text-center">
-                    <p *ngIf="!editMode">{{languages[5].value_type}}</p>
-                </div>
-                <br>
-                <p class="text-center">
-                    <!--review Tom removed progressbar -->
-                    <!-- <jqxDropDownList #jqxDropDownList6 *ngIf="editMode" (onSelect)="updateProgressBar($event, 6, languages)" [width]="200" [height]="25" [source]="source" [selectedIndex]="0"></jqxDropDownList> -->
-                </p>
-            </div>
-        </div>
-        <button *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete(student)" style="float : right"><i class="fa fa-trash"></i> Delete</button>
+        </tr>
+        
+        <button *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete(student, languages)" style="float : right"><i class="fa fa-trash"></i> Delete</button>
         <button *ngIf="editMode" class="btn btn-sm btn-success" (click)="add(student)" style="float : right"><i class="fa fa-plus"></i> Add</button>
     </div>
 </div>
