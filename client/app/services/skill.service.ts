@@ -37,7 +37,7 @@ export class SkillService {
   }
 
   deleteSkill(skill): Observable<any> {
-    return this.http.get(`/api/skills-delete/${skill.id}`, this.options);
+    return this.http.get(`/api/skills-delete/${skill}`, this.options);
   }
 
   addSkillFromStudentId(id): Observable<any> {

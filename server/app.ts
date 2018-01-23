@@ -43,6 +43,15 @@ const db_config = {
 //     database: 'br_industria'
 // };
 
+// const db_config = {
+//     host: 'node5390-industria-staging.cloud.interhostsolutions.be:11011',
+//     user: 'root',
+//     password: 'HAJzfboxsR',
+//     port: '11011',
+//     database: 'br_industria'
+// };
+
+
 let connection;
 
 function handleDisconnect() {
