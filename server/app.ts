@@ -35,6 +35,14 @@ const db_config = {
     database: 'sql11211584'
 };
 
+// const db_config = {
+//     host: 'http://industria-staging.cloud.interhostsolutions.be',
+//     user: 'root',
+//     password: 'HAJzfboxsR',
+//     port: '11011',
+//     database: 'br_industria'
+// };
+
 let connection;
 
 function handleDisconnect() {
@@ -45,7 +53,8 @@ function handleDisconnect() {
         if (err) {                                     // or restarting (takes a while sometimes).
             console.log('error when connecting to db:', err);
             setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-        }                                     // to avoid a hot loop, and to allow our node script to
+        }
+        console.log("db connected");                               // to avoid a hot loop, and to allow our node script to
     });                                     // process asynchronous requests in the meantime.
     // If you're also serving http, display a 503 error.
     connection.on('error', function (err) {
@@ -62,7 +71,7 @@ handleDisconnect();
 
 // Create DB
 app.get('/createdb', (req, res) => {
-    let sql = 'CREATE DATABASE IF NOT EXISTS sql11211584';
+    let sql = 'CREATE DATABASE IF NOT EXISTS br_industria';
     connection.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
