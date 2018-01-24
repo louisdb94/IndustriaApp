@@ -30,6 +30,10 @@ export class VacatureListComponent implements OnInit {
     model = {
       filter: this.filters[0]
     };
+
+    public searchText : any;
+    public searchSkill : any;
+    
     // review tom: added variable p
     public p: any;
 
