@@ -140,7 +140,6 @@ abstract class BaseSqlCtrl {
         let sql = `DELETE FROM ${this.model} WHERE id = '${req.params.id}'`;
         let query = connection.query(sql, (err, result) => {
             if(err) throw err;
-            res.send('Post deleted...');
         });
     };
 
