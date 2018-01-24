@@ -1,4 +1,4 @@
-<!-- <div class="jumbotron">
+<div class="jumbotron">
     <div class="container">
         <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="editMode = true" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
         <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student, education)" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
@@ -21,12 +21,12 @@
                     </div>
                     <div *ngIf="education[0]" class="timeline-footer">
                         <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[0].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
-                            </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[0].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
-                            </jqxDateTimeInput>
+                            <textarea *ngIf="editMode" [(ngModel)]="education[0].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                                style="float: left">
+                            </textarea>
+                            <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[0].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                                style="float: right">
+                            </textarea>
                             <p *ngIf="!editMode">{{education[0].date_from}} - {{education[0].date_until}}</p>
                         </div>
                     </div>
@@ -49,15 +49,15 @@
                         <p *ngIf="!editMode ">{{education[1].institution}}</p>
                     </div>
                     <div class="timeline-footer">
-                        <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[1].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
-                            </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[1].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
-                            </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{education[1].date_from}} - {{education[1].date_until}}</p>
-                        </div>
+                      <div class="text-right">
+                          <textarea *ngIf="editMode" [(ngModel)]="education[1].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: left">
+                          </textarea>
+                          <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[1].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: right">
+                          </textarea>
+                          <p *ngIf="!editMode">{{education[1].date_from}} - {{education[1].date_until}}</p>
+                      </div>
                     </div>
                 </div>
             </li>
@@ -79,15 +79,15 @@
                         <p *ngIf="!editMode">{{education[2].institution}}</p>
                     </div>
                     <div class="timeline-footer">
-                        <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[2].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
-                            </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[2].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
-                            </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{education[2].date_from}} - {{education[2].date_until}}</p>
-                        </div>
+                      <div class="text-right">
+                          <textarea *ngIf="editMode" [(ngModel)]="education[0].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: left">
+                          </textarea>
+                          <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[2].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: right">
+                          </textarea>
+                          <p *ngIf="!editMode">{{education[2].date_from}} - {{education[2].date_until}}</p>
+                      </div>
                     </div>
                 </div>
             </li>
@@ -108,15 +108,15 @@
                         <p *ngIf="!editMode ">{{education[3].institution}}</p>
                     </div>
                     <div class="timeline-footer">
-                        <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[3].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
-                            </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[3].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
-                            </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{education[3].date_from}} - {{education[3].date_until}}</p>
-                        </div>
+                      <div class="text-right">
+                          <textarea *ngIf="editMode" [(ngModel)]="education[3].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: left">
+                          </textarea>
+                          <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[3].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: right">
+                          </textarea>
+                          <p *ngIf="!editMode">{{education[3].date_from}} - {{education[3].date_until}}</p>
+                      </div>
                     </div>
                 </div>
             </li>
@@ -138,15 +138,15 @@
                         <p *ngIf="!editMode">{{education[4].institution}}</p>
                     </div>
                     <div class="timeline-footer">
-                        <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[4].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
-                            </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[4].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
-                            </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{education[4].date_from}} - {{education[4].date_until}}</p>
-                        </div>
+                      <div class="text-right">
+                          <textarea *ngIf="editMode" [(ngModel)]="education[4].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: left">
+                          </textarea>
+                          <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[4].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: right">
+                          </textarea>
+                          <p *ngIf="!editMode">{{education[4].date_from}} - {{education[4].date_until}}</p>
+                      </div>
                     </div>
                 </div>
             </li>
@@ -167,15 +167,15 @@
                         <p *ngIf="!editMode ">{{education[5].institution}}</p>
                     </div>
                     <div class="timeline-footer">
-                        <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[5].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
-                            </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[5].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
-                            </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{education[5].date_from}} - {{education[5].date_until}}</p>
-                        </div>
+                      <div class="text-right">
+                          <textarea *ngIf="editMode" [(ngModel)]="education[5].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: left">
+                          </textarea>
+                          <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[5].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: right">
+                          </textarea>
+                          <p *ngIf="!editMode">{{education[5].date_from}} - {{education[5].date_until}}</p>
+                      </div>
                     </div>
                 </div>
             </li>
@@ -197,15 +197,15 @@
                         <p *ngIf="!editMode">{{education[6].institution}}</p>
                     </div>
                     <div class="timeline-footer">
-                        <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[6].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
-                            </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[6].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
-                            </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{education[6].date_from}} - {{education[6].date_until}}</p>
-                        </div>
+                      <div class="text-right">
+                          <textarea *ngIf="editMode" [(ngModel)]="education[6].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: left">
+                          </textarea>
+                          <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[6].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: right">
+                          </textarea>
+                          <p *ngIf="!editMode">{{education[6].date_from}} - {{education[6].date_until}}</p>
+                      </div>
                     </div>
                 </div>
             </li>
@@ -226,15 +226,15 @@
                         <p *ngIf="!editMode ">{{education[7].institution}}</p>
                     </div>
                     <div class="timeline-footer">
-                        <div class="text-right">
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[7].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: left">
-                            </jqxDateTimeInput>
-                            <jqxDateTimeInput #myDateTimeInput *ngIf="editMode " [(ngModel)]="education[7].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                [width]="300" [height]="25" [formatString]="'Y'" style="float: right">
-                            </jqxDateTimeInput>
-                            <p *ngIf="!editMode">{{education[7].date_from}} - {{education[7].date_until}}</p>
-                        </div>
+                      <div class="text-right">
+                          <textarea *ngIf="editMode" [(ngModel)]="education[7].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: left">
+                          </textarea>
+                          <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[7].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                              style="float: right">
+                          </textarea>
+                          <p *ngIf="!editMode">{{education[7].date_from}} - {{education[7].date_until}}</p>
+                      </div>
                     </div>
                 </div>
             </li>
@@ -244,4 +244,4 @@
         <button translate *ngIf="editMode" class="btn btn-sm btn-success" (click)="add(student)" style="float : right"><i class="fa fa-plus"></i>Add</button>
         <button translate *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete(student)" style="float : right"><i class="fa fa-trash"></i>Delete</button>
     </div>
-</div> -->
+</div>

@@ -1,7 +1,4 @@
 import { Component,ViewChild, OnInit, Input } from '@angular/core';
-// import { jqxProgressBarComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxprogressbar';
-// import { jqxInputComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxinput';
-// import { jqxDropDownListComponent } from 'jqwidgets-framework/jqwidgets-ts/angular_jqxDropDownList';
 import { StudentService } from '../../services/student.service';
 import { LanguageService} from '../../services/language.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
@@ -12,7 +9,7 @@ import language from '../../../../server/models_mysql/students/language';
 
 
 @Component({
-  selector: 'profile-language',  // <home></home>
+  selector: 'profile-language',  
   styleUrls: [ './profile-language.component.scss' ],
   templateUrl: './profile-language.component.html'
 })

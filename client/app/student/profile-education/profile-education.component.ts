@@ -46,7 +46,6 @@ export class EducationProfile {
         let count = student.countEducation;
 
         for(let i = 0; i <= count; i++){
-          console.log(this.education[i]);
           if(this.education[i]){
             this.educationService.editEducation(this.education[i]).subscribe(
               res => {},
@@ -65,8 +64,6 @@ export class EducationProfile {
       }
 
   add(student){
-    console.log("student", this.student);
-    console.log("student", this.countEducation);
     if(student.countEducation < 8){
       this.countEducation++;
       student.countEducation++;
