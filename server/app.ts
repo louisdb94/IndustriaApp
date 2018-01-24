@@ -33,8 +33,8 @@ const db_config = {
     password: 'VUS4iaLWgG',
     port: '3306',
     database: 'sql11211584'
-};
-// 
+}
+//
 // const db_config = {
 //     host: 'localhost',
 //     user: 'root',
