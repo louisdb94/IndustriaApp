@@ -89,8 +89,8 @@ export class CompanyHeaderProfile {
 
         if(file) {
           this.fileService.uploadImageCompany(formData).subscribe(
-            res => console.log('gelukt', res));
-        }
+            res => {} 
+          );}
       }
       else{
         alert('File is too large (< 2.5mb)');

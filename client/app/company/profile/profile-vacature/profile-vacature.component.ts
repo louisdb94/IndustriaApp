@@ -68,7 +68,6 @@ export class CompanyVacatureProfile {
         this.vacatures[i].name = this.vac1;
         this.vacatures[i].type = this.vac2;
         this.vacatures[i].about = this.vac3;
-        console.log(this.vacatures);
       }
     }
 
@@ -77,7 +76,6 @@ export class CompanyVacatureProfile {
       for(let x = 0; x < this.vacatures.length; x++){
         if(this.vacatures[x].id == vacature.id){
           this.vacatures.splice(x,1);
-          console.log(this.vacatures);
         }
       }
     }
@@ -86,10 +84,6 @@ export class CompanyVacatureProfile {
   }
 
   save(vacatures, vac1, vac2, vac3, vacature){
-
-    console.log("vac1", vac1);
-    console.log("vac2", vac2);
-    console.log("vac3", vac3);
 
     this.registerForm.value.vac1Form = vac1;
     this.registerForm.value.vac2Form = vac2;
