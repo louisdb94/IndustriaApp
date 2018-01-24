@@ -4,6 +4,8 @@ import { EducationService } from '../../services/education.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import education from '../../../../server/models_mysql/students/education';
 
 
 @Component({
@@ -24,6 +26,7 @@ export class EducationProfile {
                 private educationService: EducationService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
+                private http: HttpClient,
                 public auth : AuthService){}
 
   ngOnInit() {
@@ -64,17 +67,29 @@ export class EducationProfile {
       }
 
   add(student){
-    if(student.countEducation < 8){
-      this.countEducation++;
+    if (student.countEducation <= 6) {
+      this.http.get(`/api/education-insert/${student.id}`).subscribe(
+        res => {this.getEducation(student.id)},
+        error => {console.log("error")}
+      );
       student.countEducation++;
     }
   }
 
-  delete(student){
-    if(student.countEducation > 0){
-      student.countEducation--;
-      this.countEducation--;
-    }
+  getEducation(id){
+    this.educationService.getEducationById(id).subscribe(
+      res => {this.education = res}
+    )
   }
 
+  delete(student, education){
+    if (student.countEducation > 0) {
+      let id = education[education.length - 1].id;
+      student.countEducation--;
+      this.education.splice(education.length - 1, 1);
+      this.http.get(`/api/education-delete/${id}`).subscribe(
+        res => {this.save(student, education)}
+      );
+    }
+  }
 }

@@ -89,7 +89,7 @@ handleDisconnect();
 
 // Create DB
 app.get('/createdb', (req, res) => {
-    let sql = 'CREATE DATABASE IF NOT EXISTS br_industria';
+    let sql = 'CREATE DATABASE IF NOT EXISTS sql11211584';
     connection.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
