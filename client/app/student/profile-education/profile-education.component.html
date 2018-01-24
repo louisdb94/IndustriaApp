@@ -3,7 +3,7 @@
         <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="editMode = true" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
         <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student, education)" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
         <h2 translate>Education</h2>
-        <ul *ngFor="let item of education; let i = index;" class="timeline">
+        <ul *ngFor="let item of education; let i = index;" class="timeline" style="margin-bottom: -5%;">
             <li *ngIf="i == 0 || i == 2 || i == 4 || i == 6  "  >
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle " id=""></i></a>
