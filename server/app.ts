@@ -27,12 +27,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(fileupload({ safeFileNames: true }));
 
+// const db_config = {
+//     host: 'sql11.freesqldatabase.com',
+//     user: 'sql11211584',
+//     password: 'VUS4iaLWgG',
+//     port: '3306',
+//     database: 'sql11211584'
+// };
+
 const db_config = {
-    host: 'sql11.freesqldatabase.com',
-    user: 'sql11211584',
-    password: 'VUS4iaLWgG',
-    port: '3306',
-    database: 'sql11211584'
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    port: '8889',
+    database: 'br_industria'
 };
 
 
