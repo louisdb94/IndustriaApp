@@ -66,6 +66,7 @@ getCompanyByEmail =  (req, res) => {
 
 innerJoin = (req, res) => {
 
+
   let dummy = []
 
     let sql = `SELECT companies.id , companies.name AS company_name , companies.url, vacatures.name AS vacature_name, vacatures.type FROM companies
@@ -80,8 +81,10 @@ innerJoin = (req, res) => {
           if(result[i].vacature_name == '') {
             result.splice(i,1);
           }
-          dummy[i] = {id : result[i].id, type:result[i].type, company_name: result[i].company_name, vacature_name: result[i].vacature_name, url: result[i].url}
-          
+
+          //  dummy[i] = {id : result[i].id, type:result[i].type, company_name: result[i].company_name, vacature_name: result[i].vacature_name, url: result[i].url}
+
+
         }
         res.send(result);
     });

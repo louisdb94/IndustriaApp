@@ -49,6 +49,14 @@ export class StudentListComponent implements OnInit {
   model = {
     filter: this.filters[0]
   };
+
+  public searchText: any;
+  public searchSkill: any;
+  public searchProf: any;
+  public searchLang: any;
+
+
+
   // review tom: added variable p
   public p: any;
 

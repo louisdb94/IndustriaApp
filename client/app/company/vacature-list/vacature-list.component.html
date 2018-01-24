@@ -8,9 +8,7 @@
         <div style="padding:1%;margin-bottom:3%">
 
           <div class="form-group">
-            <!-- review tom: searchText does not exist -->
             <input style="float:left; width:70%" type="text" class="form-control" id="filter" placeholder="Filter on {{model.filter}} " [(ngModel)]="searchText">
-            <input style="float:left; width:70%" type="text" class="form-control" id="filter" placeholder="Filter on {{model.filter}} ">
             <select style="float:left;width:30%" class="form-control" id="filters" required [(ngModel)]="model.filter" name="filter">
               <option *ngFor="let pow of filters" [value]="pow">{{pow}}</option>
             </select>
@@ -25,7 +23,6 @@
             <th (click)="sortType()">Type</th>
             <th (click)="sortCompanyName()">Company</th>
           </tr>
-          <!-- review tom: searchText does not exist -->
           <tr *ngFor="let item of vacatures  |  paginate: { itemsPerPage: 5, currentPage: p }" style="width:100%">
           <tr *ngFor="let item of vacatures | FilterVacature : searchText : model.filter |  paginate: { itemsPerPage: 5, currentPage: p }">
             <td>
@@ -54,7 +51,6 @@
 
           <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
             <div class="card-block">
-              <!-- review TOM: searchSkill does not exist -->
               <input style="float:left; width:100%; margin-bottom: 10px" type="text" class="form-control" id="filterskill" placeholder="Filter" [(ngModel)]="searchSkill">
               <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 110px; width:200px">
                   <ul class="form-check-label"  *ngFor="let item of companies | FilterVacature : searchSkill : 'Com'  ">

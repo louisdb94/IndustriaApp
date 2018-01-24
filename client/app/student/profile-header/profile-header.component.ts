@@ -19,14 +19,12 @@ import { PrivacylogService } from '../../services/admin/privacylog.service';
 enableProdMode();
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
-// review Tom -> components should end with Component so HeaderProfile ===> HeaderProfileComponent
 @Component({
   selector: 'profile-header',  // <home></home>
   styleUrls: ['./profile-header.component.scss'],
   templateUrl: './profile-header.component.html'
 })
-export class HeaderProfile implements OnInit { 
-  // --> review Tom: added OnInit interface
+export class HeaderProfile implements OnInit {
   files: File[];
   data: any;
   id: String;
@@ -34,9 +32,7 @@ export class HeaderProfile implements OnInit {
   numberCv = Number;
 
   socialmedia = [];
-  // review Tom: bad pratice -> you must type this student object..
   @Input() student: any;
-  // review Tom: bad pratice -> you must type this cv object..
   cv= <any>{};
   cvs= [];
   student_id = 0;
@@ -77,7 +73,6 @@ export class HeaderProfile implements OnInit {
 
                     this.data = {};
                 }
-  // tom review: if you use ngOnInit you need to implement OnInit interface!                
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.student_id = params['id'];

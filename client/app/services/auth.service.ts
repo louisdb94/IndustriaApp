@@ -13,8 +13,6 @@ export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
 
-  // review Tom: you need to type these properties. IF you assign id to '' it becomes a String and must be number...
-  // currentUser = { id: '', email: '', rnumber: '', role: '', studentId: '' , companyId: '', admin: ''};
   currentUser = { id: 0, email: '', rnumber: '', role: '', studentId: 0 , companyId: 0, admin: ''};
 
   constructor(private userService: UserService,

@@ -21,6 +21,6 @@
 
 </div>
 
-<div  *ngIf="auth.currentUser.companyId !== company_id ">
+<div  *ngIf="auth.currentUser.companyId != company_id ">
   <app-not-found> </app-not-found>
 </div>
