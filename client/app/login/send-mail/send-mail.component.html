@@ -6,15 +6,10 @@
         <img src="../assets/img/Industria.PNG" width="45" height="60">
         <p translate style="margin-left:8%">
           Reset Password
-          <!-- review Tom switchLanguage does not exist! -->
-          <!-- review Tom review this select -> ngModelChange is not needed on option -> you need to bind the 
-                option value to the select. Catch the change event only on select (not on option), now you have
-                3 events going off for 1 select
-            -->
-          <!-- <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
-                        <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
-                        <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
-                    </select> -->
+          <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
+              <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
+              <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
+          </select>
           <select id="languageselector" class="custom-select" >
             <option selected value="en" >EN</option>
             <option value="nl" >NL</option>
@@ -31,17 +26,15 @@
           <span class="input-group-addon">
             <i class="fa fa-key"></i>
           </span>
-          <!-- review Tom: pass variable does not exist -->
-          <!-- <input class="form-control" [(ngModel)]="pass" type="password" name="password" formControlName="password" placeholder="password (at least 6 characters)"
-            autofocus> -->
+          <input class="form-control" [(ngModel)]="pass" type="password" name="password" formControlName="password" placeholder="password (at least 6 characters)"
+            autofocus>
         </div>
         <div id="login" class="input-group" [ngClass]="setClassPassword()">
           <span class="input-group-addon">
             <i class="fa fa-key"></i>
           </span>
-          <!-- review Tom: pass2 variable does not exist -->
-          <!-- <input class="form-control" [(ngModel)]="pass2" type="password" name="password2" formControlName="password2" placeholder="confirm password"
-            autofocus> -->
+          <input class="form-control" [(ngModel)]="pass2" type="password" name="password2" formControlName="password2" placeholder="confirm password"
+            autofocus>
         </div>
         <br>
         <br>

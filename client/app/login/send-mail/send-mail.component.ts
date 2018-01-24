@@ -5,6 +5,7 @@ import { UserService} from '../../services/user.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { HttpClient } from '@angular/common/http';
+import { AppComponent } from '../../app.component';
 
 
 @Component({
@@ -14,6 +15,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SendMailComponent implements OnInit {
 
+  public pass: any;
+  public pass2: any;
   token = String;
   currentUser = { id: '', email: '', rnumber: '', password: ''};
   resetForm: FormGroup;
@@ -34,6 +37,7 @@ export class SendMailComponent implements OnInit {
                 public toast: ToastComponent,
                 private userService: UserService,
                 private http: HttpClient,
+                private appcomponent: AppComponent,
                 private router: Router) { }
 
   ngOnInit() {
@@ -62,6 +66,10 @@ export class SendMailComponent implements OnInit {
     this.currentUser.email = decodedUser[0].email;
     this.currentUser.rnumber = decodedUser[0].rnumber;
     this.currentUser.password = '';
+  }
+
+  switchLanguage(language) {
+    this.appcomponent.switchLanguage(language);
   }
 
   check(){
