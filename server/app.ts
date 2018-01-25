@@ -27,21 +27,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(fileupload({ safeFileNames: true }));
 
-// const db_config = {
-//     host: 'sql11.freesqldatabase.com',
-//     user: 'sql11211584',
-//     password: 'VUS4iaLWgG',
-//     port: '3306',
-//     database: 'sql11211584'
-// }
-//
 const db_config = {
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    port: '8889',
-    database: 'br_industria'
-};
+    host: 'sql11.freesqldatabase.com',
+    user: 'sql11211584',
+    password: 'VUS4iaLWgG',
+    port: '3306',
+    database: 'sql11211584'
+}
+//
+// const db_config = {
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'root',
+//     port: '8889',
+//     database: 'br_industria'
+// };
 
 //
 // const db_config = {
@@ -100,7 +100,7 @@ app.get('/createdb', (req, res) => {
 
 setRoutes(app);
 app.listen(process.env.PORT || 3000, () => {
-    console.log('Server started on port ', process.env.PORT);
+    console.log('Server started on port', process.env.PORT || 3000);
 });
 
 

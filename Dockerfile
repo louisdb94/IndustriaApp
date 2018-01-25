@@ -39,6 +39,7 @@ ADD nginx /templates
 
 EXPOSE 80
 
+VOLUME ["/app/uploads"]
 #create angular build and move to dist folder
 RUN npm run prod
 ENTRYPOINT ["/opt/entrypoint.sh"]
