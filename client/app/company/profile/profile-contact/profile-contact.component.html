@@ -2,8 +2,8 @@
 
 <div class="jumbotron" style="background-color: white">
     <div *ngIf="contacts" class="container">
-        <button translate *ngIf="editMode && auth.currentUser.role == 'Company' && company.priority == 'HIGH' && company.priority == 'MIDDLE'" (click)="saveContact(contacts)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-        <button translate *ngIf="!editMode && auth.currentUser.role == 'Company' && company.priority == 'HIGH' && company.priority == 'MIDDLE'" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+        <button translate *ngIf="editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE')" (click)="saveContact(contacts)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+        <button translate *ngIf="!editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE')" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
         <h2 translate>Contact</h2><br><br>
 
 

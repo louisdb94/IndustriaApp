@@ -22,8 +22,8 @@
             </h3>
 
             <div class="row" style="float : right">
-                <button translate class="btn btn-sm btn-primary" *ngIf="!editMode && auth.currentUser.role == 'Company' && company.priority == 'HIGH' && company.priority == 'MIDDLE'" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
-                <button translate class="btn btn-sm btn-primary" *ngIf="editMode && auth.currentUser.role == 'Company' && company.priority == 'HIGH' && company.priority == 'MIDDLE'" (click)="save(company)"><i class="fa fa-floppy-o"></i> Save</button>
+                <button translate class="btn btn-sm btn-primary" *ngIf="!editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE')" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
+                <button translate class="btn btn-sm btn-primary" *ngIf="editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE')" (click)="save(company)"><i class="fa fa-floppy-o"></i> Save</button>
             </div><br>
 
             <div>

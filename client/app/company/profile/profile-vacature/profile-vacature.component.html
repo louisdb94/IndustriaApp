@@ -1,7 +1,7 @@
 <div class="jumbotron">
     <div class="container">
-      <button translate *ngIf="editMode && auth.currentUser.role == 'Company' && company.priority == 'HIGH'&& company.priority == 'MIDDLE'" (click)="save(vacatures, vac1, vac2, vac3, vacature)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-      <button translate *ngIf="!editMode && auth.currentUser.role == 'Company' && company.priority == 'HIGH' && company.priority == 'MIDDLE'" (click)="edit()" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+      <button translate *ngIf="editMode && auth.currentUser.role == 'Company' &&(company.priority == 'HIGH' || company.priority == 'MIDDLE')" (click)="save(vacatures, vac1, vac2, vac3, vacature)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+      <button translate *ngIf="!editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE')" (click)="edit()" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
       <h2 translate>Vacatures</h2>
       <table class="table table-bordered">
         <thead class="thead-default" >
@@ -23,7 +23,7 @@
                 <a [routerLink] ="companyVacature + vacature.id"><p>{{vacature.about}}</p></a>
             </td>
             <td>
-                <button *ngIf="company.priority == 'HIGH' && company.priority == 'MIDDLE'"(click)="deleteVacature(vacatures, vacature)"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
+                <button *ngIf="company.priority == 'HIGH' || company.priority == 'MIDDLE'"(click)="deleteVacature(vacatures, vacature)"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
             </td>
         </tr>
 
