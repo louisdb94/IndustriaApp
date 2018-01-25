@@ -1,10 +1,6 @@
 {
   "/api": {
-    "target": "http://industria-staging.cloud.interhostsolutions.be",
-    "secure": false,
-    "pathRewrite": {
-      "^/api": ""
-    },
-    "changeOrigin": true
+    "target": "http://localhost:3000",
+    "secure": false
   }
 }
