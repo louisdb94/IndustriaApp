@@ -1,7 +1,10 @@
 
-{
+
+
+
+ {
   "/api": {
-    "target": "industria-staging.cloud.interhostsolutions.be",
+    "target": "http://industria-staging.cloud.interhostsolutions.be",
     "secure": false,
     "changeOrigin": true,
     "ws": true
