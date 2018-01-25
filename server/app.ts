@@ -27,13 +27,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(fileupload({ safeFileNames: true }));
 
-const db_config = {
-    host: 'sql11.freesqldatabase.com',
-    user: 'sql11211584',
-    password: 'VUS4iaLWgG',
-    port: '3306',
-    database: 'sql11211584'
-}
+// const db_config = {
+//     host: 'sql11.freesqldatabase.com',
+//     user: 'sql11211584',
+//     password: 'VUS4iaLWgG',
+//     port: '3306',
+//     database: 'sql11211584'
+// }
 //
 // const db_config = {
 //     host: 'localhost',
@@ -59,6 +59,14 @@ const db_config = {
 //     port: '11011',
 //     database: 'br_industria'
 // };
+
+const db_config = {
+    host: 'node5390-industria-staging.cloud.interhostsolutions.be',
+    user: 'industria',
+    password: 'Industria2017',
+    port: '11011',
+    database: 'br_industria'
+};
 
 
 let connection;
