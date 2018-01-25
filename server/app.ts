@@ -105,7 +105,7 @@ app.get('/createdb', (req, res) => {
     });
 });
 
-
+let port = process.env.PORT;
 setRoutes(app);
 app.listen(process.env.PORT || 3000, () => {
     console.log('Server started on port', process.env.PORT || 3000);
@@ -113,4 +113,4 @@ app.listen(process.env.PORT || 3000, () => {
 
 
 
-export { app, connection };
+export { app, connection , port};

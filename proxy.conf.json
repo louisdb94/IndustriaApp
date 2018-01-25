@@ -1,7 +1,9 @@
+
 {
   "/api": {
-    "target": "http://localhost:3000",
+    "target": "industria-staging.cloud.interhostsolutions.be",
     "secure": false,
+    "changeOrigin": true,
     "ws": true
   }
 }
