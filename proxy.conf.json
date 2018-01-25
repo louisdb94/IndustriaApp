@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://industria-staging.cloud.interhostsolutions.be/",
+    "target": "http://industria-staging.cloud.interhostsolutions.be",
     "secure": false,
     "pathRewrite": {
       "^/api": ""
