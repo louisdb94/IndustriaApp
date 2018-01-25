@@ -27,23 +27,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(fileupload({ safeFileNames: true }));
 
-const db_config = {
-    host: 'sql11.freesqldatabase.com',
-    user: 'sql11211584',
-    password: 'VUS4iaLWgG',
-    port: '3306',
-    database: 'sql11211584'
-}
-//
 // const db_config = {
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'root',
-//     port: '8889',
-//     database: 'br_industria'
-// };
+//     host: 'sql11.freesqldatabase.com',
+//     user: 'sql11211584',
+//     password: 'VUS4iaLWgG',
+//     port: '3306',
+//     database: 'sql11211584'
+// }
+//
+const db_config = {
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    port: '8889',
+    database: 'br_industria'
+};
 
-
+//
 // const db_config = {
 //     host: 'http://industria-staging.cloud.interhostsolutions.be',
 //     user: 'root',
@@ -53,7 +53,7 @@ const db_config = {
 // };
 
 // const db_config = {
-//     host: 'node5390-industria-staging.cloud.interhostsolutions.be:11011',
+//     host: 'node5390-industria-staging.cloud.interhostsolutions.be',
 //     user: 'root',
 //     password: 'HAJzfboxsR',
 //     port: '11011',

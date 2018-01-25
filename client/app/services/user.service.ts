@@ -46,6 +46,10 @@ export class UserService {
 
   //MYSQL
 
+  getAllUsers(): Observable<any> {
+    return this.http.get('/api/users-getall').map(res => res.json());
+  }
+
   getUserByRoleMysql(): Observable<any> {
     return this.http.get(`/api/user-getbyrole`).map(res => res.json());
   }
@@ -64,6 +68,10 @@ export class UserService {
 
   deleteWholeUser(user): Observable<any> {
     return this.http.get(`api/delete-user/${user.id}`, this.options);
+  }
+
+  deleteWholeCompany(user): Observable<any> {
+    return this.http.post(`api/delete-company`,JSON.stringify(user), this.options);
   }
 
   makeAdmin(user): Observable<any> {

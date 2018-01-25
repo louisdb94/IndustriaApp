@@ -79,6 +79,10 @@ export class HomepageComponent implements OnInit {
   priority = new FormControl('', Validators.required);
   role = new FormControl('', Validators.required);
 
+  addAdminForm: FormGroup;
+  admin = new FormControl('1');
+  admin_email = new FormControl('', Validators.required);
+
 
   constructor(private studentService: StudentService,
     private data: DataService,
@@ -97,6 +101,7 @@ export class HomepageComponent implements OnInit {
   this.getCompanies();
   this.getStudentsMysql();
   this.getAdmins();
+  this.getUsers();
 
   this.addUserForm = this.formBuilder.group({
   email: this.email,
@@ -104,6 +109,11 @@ export class HomepageComponent implements OnInit {
   priority: this.priority,
   role: this.role,
   name: this.name
+  });
+
+  this.addAdminForm = this.formBuilder.group({
+  email: this.admin_email,
+  admin: this.admin,
   });
 
   this.data.idMessage.subscribe(message => this.messageId = message);
@@ -352,6 +362,14 @@ export class HomepageComponent implements OnInit {
           res => { this.toast.setMessage('successfully added!', 'success'), editPriority.id = res.companyid, this.updatePriority(editPriority)},
           error => console.log(error)
         )
+
+        this.companies.push(addCompanyForm);
+  }
+
+  editPriority = false;
+
+  save(users, companies){
+    this.editPriority = false;
   }
 
   updatePriority(editPriority){
@@ -361,7 +379,19 @@ export class HomepageComponent implements OnInit {
     );
   }
 
+  deleteCompany(user) {
+    this.userService.deleteWholeCompany(user).subscribe(
+      data => {
+        this.toast.setMessage('item deleted successfully.', 'success');
+      },
+      error => console.error
+    );
+    const pos = this.companies.map(elem => elem.id).indexOf(user.id);
+    this.companies.splice(pos, 1);
+  }
+
   admins = [];
+  users = [];
   getAdmins(){
       this.userService.getadmin().subscribe(
         data => {this.admins = data},
@@ -369,17 +399,40 @@ export class HomepageComponent implements OnInit {
       );
   }
 
-  deleteAdmin(item){
-    this.userService.makeAdmin(item).subscribe(
-      res => {},
-      error => console.log(error)
-    );
+  getUsers(){
+      this.userService.getAllUsers().subscribe(
+        data => {this.users = data},
+        error => console.error
+      );
   }
 
-  makeAdmin(student){
-    this.userService.makeAdmin(student).subscribe(
+  deleteAdmin(user){
+    user.admin = '0';
+    this.userService.makeAdmin(user).subscribe(
       res => {},
       error => console.log(error)
     );
+    this.admins.splice(this.admins.indexOf(user.email), 1);
+
   }
+
+  makeAdmin(user){
+    let found = false;
+    for(let i = 0; i< this.users.length;i++){
+      if(this.users[i].email == user.email ){
+        user.admin = '1';
+        this.userService.makeAdmin(user).subscribe(
+          res => {},
+          err => {}
+          );
+        this.admins.push(user);
+        found = true;
+      }
+    }
+    if(!found){
+      this.toast.setMessage('invalid user', 'danger');
+
+    }
+  }
+
 }

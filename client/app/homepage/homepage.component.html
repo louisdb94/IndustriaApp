@@ -1,4 +1,5 @@
 <!-- BEGIN CALENDAR CODE -->
+<app-toast [message]="toast.message"></app-toast>
 
 <div class="jumbotron" style="background-color: white">
   <ng-template #modalContent let-close="close">
@@ -209,6 +210,19 @@
            </tr>
            <br><br>
          </table>
+
+         <div class="card">
+             <div class="card-header"><h4>Add Admin</h4></div>
+             <div class="card-block">
+               <form class="form-inline" [formGroup]="addAdminForm" (ngSubmit)="makeAdmin(addAdminForm._value)" style="text-align:center">
+                 <div class="form-group">
+                   <input class="form-control" type="text" name="email" formControlName="email" placeholder="Admin email">
+                 </div>
+
+                 <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
+               </form>
+             </div>
+           </div>
         </div>
         <div class="tab-pane" id="company" role="tabpanel">
           <table>
@@ -217,14 +231,30 @@
                <th>Name</th>
                <th>Email</th>
                <th>URL</th>
-               <th>Priority</th>
+               <th>Priority
+                 <button *ngIf="!editPriority" class="btn btn-primary" (click)="editPriority = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
+                 <button *ngIf="editPriority" class="btn btn-primary" (click)="save(users, companies)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
+               </th>
+               <th>Delete </th>
              </tr>
            </thead>
-           <tr *ngFor="let company of companies">
+           <tr *ngFor="let company of companies; let i = index">
              <td> <a md-line routerLink='/profile-company/{{company.id}}'> {{company.name}} </a> </td>
              <td>{{company.email}}</td>
              <td>{{company.url}}</td>
-             <td *ngIf="!editMode" (click)="editMode = true">{{company.priority}}</td>
+             <td ><span *ngIf="!editPriority ">{{company.priority}}</span>
+                  <span *ngIf="editPriority ">
+                       <select placeholder="priority">
+                           <option value="" selected disabled>Priority</option>
+                           <option value="HIGH">HIGH</option>
+                           <option value="MIDDLE">MIDDLE</option>
+                           <option value="LOW">LOW</option>
+                        </select>
+                 </span>
+            </td>
+
+             <td> <button class="btn btn-danger" (click)="deleteCompany(company)"> Delete </button> </td>
+
            </tr>
            <br><br>
          </table>

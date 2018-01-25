@@ -51,10 +51,9 @@ export default class UserCtrl extends BaseSqlCtrl {
   };
 
   makeAdmin = (req, res) => {
-    let sql = `INSERT INTO ${this.model} SET admin = '${req.body.admin}' WHERE email = '${req.body.email}'`;
+    let sql = `UPDATE ${this.model} SET admin = '${req.body.admin}' WHERE email = '${req.body.email}'`;
     let query = connection.query(sql, (err, result) => {
         if(err) throw err;
-        console.log("makeadmin");
     });
   }
 
