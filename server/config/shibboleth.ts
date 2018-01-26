@@ -4,19 +4,20 @@ import {app} from '../app';
 
 // Create service provider
 var sp_options = {
-  entity_id: "https://sp.example.com/metadata.xml",
-  private_key: fs.readFileSync("key-file.pem").toString(),
-  certificate: fs.readFileSync("cert-file.crt").toString(),
-  assert_endpoint: "https://sp.example.com/assert"
+  entity_id: "https://industria-staging.cloud.interhostsolutions.be",
+  private_key: fs.readFileSync("../saml2/sp.key").toString(),
+  certificate: fs.readFileSync("../saml2/sp.crt").toString(),
+  assert_endpoint: "https://industria-staging.cloud.interhostsolutions.be/assert"
 };
 var sp = new saml2.ServiceProvider(sp_options);
 
 
 // Create identity provider
 var idp_options = {
-  sso_login_url: "https://idp.example.com/login",
-  sso_logout_url: "https://idp.example.com/logout",
-  certificates: [fs.readFileSync("cert-file1.crt").toString(), fs.readFileSync("cert-file2.crt").toString()]
+  issuer: "urn:mace:kuleuven.be:kulassoc:kuleuven.be",
+  sso_login_url: "https://idp.kuleuven.be/idp/profile/SAML2/Redirect/SSO",
+  sso_logout_url: "https://idp.kuleuven.be/idp/profile/SAML2/Redirect/SLO",
+  certificates: [fs.readFileSync("../saml2/idp.crt").toString()]
 };
 var idp = new saml2.IdentityProvider(idp_options);
 
