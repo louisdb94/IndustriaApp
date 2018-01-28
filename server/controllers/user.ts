@@ -5,7 +5,6 @@ import User from '../models/user';
 import Student from '../models/student'
 import BaseCtrl from './base';
 
-import {connection} from '../app';
 import cvs from '../models_mysql/students/cvs';
 import * as  mysql from 'mysql';
 

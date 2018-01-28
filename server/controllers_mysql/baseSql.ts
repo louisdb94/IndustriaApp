@@ -1,224 +1,263 @@
-import {connection} from '../app';
+import { pool } from '../app';
 import * as fs from 'fs';
 abstract class BaseSqlCtrl {
 
     abstract model: any;
-    abstract dummy : any;
+    abstract dummy: any;
 
     // abstract field: any;
 
+    executeQuery(sql, req, res, param, resultString) {
+        pool.getConnection(function (error, connection) {
+            if (param) {
+                connection.query(sql, param, (err, result) => {
+                    if (err) {
+                        connection.release();
+                        throw err;
+                    }
+                    if (resultString) {
+                        res.send(resultString);
+                    } else {
+                        res.json(result);
+                    }
+
+                    connection.release();
+                });
+            } else {
+                connection.query(sql, (err, result) => {
+                    if (err) {
+                        connection.release();
+                        throw err;
+                    }
+                    if (resultString) {
+                        res.send(resultString);
+                    } else {
+                        res.json(result);
+                    }
+                    connection.release();
+                });
+            }
+        });
+    }
 
     getsql = (req, res) => {
-      connection.query(this.dummy, (err, result) => {
-        if (err) throw err;
-        res.send('Posts table created...');
-      });
+        const resultString = 'Posts table created...';
+        this.executeQuery(this.dummy, req, res, null, resultString);
     }
 
     // Insert post 1
-    insert =  (req, res) => {
+    insert = (req, res) => {
 
-        let sql = `INSERT INTO ${this.model} SET ?`;
-        let query = connection.query(sql, req.body, (err, result) => {
-            if(err) throw err;
-            res.json(result);
-        });
-    };
+        const sql = `INSERT INTO ${this.model} SET ?`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
-    insertStudentFK =  (req, res) => {
+    insertStudentFK = (req, res) => {
 
-          let sql = `INSERT INTO ${this.model} SET student_fk = '${req.params.id}'`;
-          let query = connection.query(sql, (err, result) => {
-              if(err) throw err;
-              res.json(result);
-          });
-      };
+        const sql = `INSERT INTO ${this.model} SET student_fk = '${req.params.id}'`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
-    insertCompanyFK =  (req, res) => {
+    insertCompanyFK = (req, res) => {
 
-        let sql = `INSERT INTO ${this.model} SET company_fk = '${req.params.id}'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-            res.json(result);
-        });
-    };
+        const sql = `INSERT INTO ${this.model} SET company_fk = '${req.params.id}'`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
-    insertVacatureFK =  (req, res) => {
+    insertVacatureFK = (req, res) => {
 
-        let sql = `INSERT INTO ${this.model} SET vacature_fk = '${req.params.id}'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-            res.json(result);
-        });
-    };
+        const sql = `INSERT INTO ${this.model} SET vacature_fk = '${req.params.id}'`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
-    insertUser =  (req, res) => {
+    insertUser = (req, res) => {
 
-        let sql = `INSERT INTO ${this.model} SET user_fk = '${req.params.id}'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-            res.json(result);
-        });
-    };
-
+        const sql = `INSERT INTO ${this.model} SET user_fk = '${req.params.id}'`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
     // Select posts
     select = (req, res) => {
-        let sql = `SELECT * FROM ${this.model}`;
-        let query = connection.query(sql, (err, results) => {
-            if(err) throw err;
-            res.json(results);
-        });
-    };
+        const sql = `SELECT * FROM ${this.model}`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
     // Select posts
     selectIds = (req, res) => {
-        let sql = `SELECT id FROM ${this.model}`;
-        let query = connection.query(sql, (err, results) => {
-            if(err) throw err;
-            res.json(results);
-        });
-    };
+        const sql = `SELECT id FROM ${this.model}`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
     // Select single post
-    getbyId =  (req, res) => {
-        let sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-            res.json(result);
-
-        });
-    };
+    getbyId = (req, res) => {
+        const sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
     // Select single post
-    getbyRole =  (req, res) => {
-        let sql = `SELECT * FROM ${this.model} WHERE role = 'company'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-            res.json(result);
+    getbyRole = (req, res) => {
+        const sql = `SELECT * FROM ${this.model} WHERE role = 'company'`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
-        });
-    };
+    getbyFk = (req, res) => {
+        const sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
-    getbyFk =  (req, res) => {
-        let sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-            res.json(result);
+    getbyStudentId = (req, res) => {
+        const sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
-        });
-    };
+    getbyCompanyId = (req, res) => {
+        const sql = `SELECT * FROM ${this.model} WHERE company_fk = '${req.params.id}'`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
 
-    getbyStudentId =  (req, res) => {
-        let sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-            res.json(result);
-
-        });
-    };
-
-    getbyCompanyId =  (req, res) => {
-        let sql = `SELECT * FROM ${this.model} WHERE company_fk = '${req.params.id}'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-            res.json(result);
-
-        });
-    };
-
-    getbyUserId =  (req, res) => {
-        let sql = `SELECT * FROM ${this.model} WHERE user_fk = '${req.params.id}'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-            res.json(result);
-        });
-    };
-
-    // Delete post
-    delete = (req, res) => {
-        let sql = `DELETE FROM ${this.model} WHERE id = '${req.params.id}'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-        });
-    };
-
-    deleteCompany = (req,res) => {
-      let sql = `DELETE FROM vacatures WHERE company_fk = '${req.body.id}'`;
-      let query = connection.query(sql, (err, result) => {
-          if(err) throw err;
-      });
-      let sql1 = `DELETE FROM companies WHERE id = '${req.body.id}'`;
-      let query1 = connection.query(sql1, (err, result) => {
-          if(err) throw err;
-          let sql2 = `DELETE FROM user WHERE id = '${req.body.user_fk}'`;
-          let query2 = connection.query(sql2, (err, result) => {
-              if(err) throw err;
-          });
-      });
+    getbyUserId = (req, res) => {
+        const sql = `SELECT * FROM ${this.model} WHERE user_fk = '${req.params.id}'`;
+        this.executeQuery(sql, req, res, req.body, null);
     }
 
     // Delete post
+    delete = (req, res) => {
+        const sql = `DELETE FROM ${this.model} WHERE id = '${req.params.id}'`;
+        this.executeQuery(sql, req, res, req.body, null);
+    }
+
+    deleteCompany = (req, res) => {
+        const sql = `DELETE FROM vacatures WHERE company_fk = '${req.body.id}'`;
+
+        pool.getConnection(function (error, connection) {
+            const query = connection.query(sql, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+            });
+            const sql1 = `DELETE FROM companies WHERE id = '${req.body.id}'`;
+            const query1 = connection.query(sql1, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+            });
+            const sql2 = `DELETE FROM user WHERE id = '${req.body.user_fk}'`;
+            const query2 = connection.query(sql2, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+            });
+
+            connection.release();
+        });
+    }
+
+
+    // Delete post
     deleteStudent = (req, res) => {
-        let sql = `DELETE FROM contact WHERE student_fk = '${req.params.student_fk}'`;
-        let query = connection.query(sql, (err, result) => {
-            if(err) throw err;
-        });
-        let sql1 = `SELECT * FROM cvs WHERE student_fk = '${req.params.student_fk}'`;
-        let query1 = connection.query(sql1, (err, result) => {
-            if(err) throw err;
-            if(result[0]){
-            fs.unlink('./uploads/cvs/'+ result[0].name + "("+ result[0].number +")" +'.' + result[0].mimetype);}
-            let sql1 = `DELETE FROM cvs WHERE student_fk = '${req.params.student_fk}'`;
-            let query1 = connection.query(sql1, (err, result) => {
-                if(err) throw err;
+        pool.getConnection(function (error, connection) {
+            const sql = `DELETE FROM contact WHERE student_fk = '${req.params.student_fk}'`;
+            const query = connection.query(sql, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
             });
-        });
-        let sql9 = `DELETE FROM privacylog WHERE student_fk = '${req.params.student_fk}'`;
-        let query9 = connection.query(sql9, (err, result) => {
-            if(err) throw err;
-        });
-        let sql2 = `DELETE FROM education WHERE student_fk = '${req.params.student_fk}'`;
-        let query2 = connection.query(sql2, (err, result) => {
-            if(err) throw err;
-        });
-        let sql3 = `DELETE FROM experiences WHERE student_fk = '${req.params.student_fk}'`;
-        let query3 = connection.query(sql3, (err, result) => {
-            if(err) throw err;
-        });
-        let sql4 = `DELETE FROM language WHERE student_fk = '${req.params.student_fk}'`;
-        let query4 = connection.query(sql4, (err, result) => {
-            if(err) throw err;
-        });
-        let sql5 = `DELETE FROM professional WHERE student_fk = '${req.params.student_fk}'`;
-        let query5 = connection.query(sql5, (err, result) => {
-            if(err) throw err;
-        });
-        let sql6 = `DELETE FROM skills WHERE student_fk = '${req.params.student_fk}'`;
-        let query6 = connection.query(sql6, (err, result) => {
-            if(err) throw err;
-        });
-        let sql7 = `DELETE FROM socialmedia WHERE student_fk = '${req.params.student_fk}'`;
-        let query7 = connection.query(sql7, (err, result) => {
-            if(err) throw err;
-        });
-        let sql8 = `SELECT user_fk FROM students WHERE id = '${req.params.student_fk}'`;
-        let query8 = connection.query(sql8, (err, result) => {
-            if(err) throw err;
-            let sql = `DELETE FROM students WHERE id = '${req.params.student_fk}'`;
-            let query = connection.query(sql, (err, result) => {
-                if(err) throw err;
+            const sql1 = `SELECT * FROM cvs WHERE student_fk = '${req.params.student_fk}'`;
+            const query1 = connection.query(sql1, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+                if (result[0]) {
+                    fs.unlink('./uploads/cvs/' + result[0].name + '(' + result[0].number + ')' + '.' + result[0].mimetype);
+                }
             });
-            let sql1 = `DELETE FROM user WHERE id = '${result[0].user_fk}'`;
-            let query1 = connection.query(sql1, (err, result) => {
-                if(err) throw err;
+            const sql_ = `DELETE FROM cvs WHERE student_fk = '${req.params.student_fk}'`;
+            const query_ = connection.query(sql_, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
             });
 
+            const sql9 = `DELETE FROM privacylog WHERE student_fk = '${req.params.student_fk}'`;
+            const query9 = connection.query(sql9, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+            });
+            const sql2 = `DELETE FROM education WHERE student_fk = '${req.params.student_fk}'`;
+            const query2 = connection.query(sql2, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+            });
+            const sql3 = `DELETE FROM experiences WHERE student_fk = '${req.params.student_fk}'`;
+            const query3 = connection.query(sql3, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+            });
+            const sql4 = `DELETE FROM language WHERE student_fk = '${req.params.student_fk}'`;
+            const query4 = connection.query(sql4, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+            });
+            const sql5 = `DELETE FROM professional WHERE student_fk = '${req.params.student_fk}'`;
+            const query5 = connection.query(sql5, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+            });
+            const sql6 = `DELETE FROM skills WHERE student_fk = '${req.params.student_fk}'`;
+            const query6 = connection.query(sql6, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+            });
+            const sql7 = `DELETE FROM socialmedia WHERE student_fk = '${req.params.student_fk}'`;
+            const query7 = connection.query(sql7, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+            });
+            const sql8 = `SELECT user_fk FROM students WHERE id = '${req.params.student_fk}'`;
+            const query8 = connection.query(sql8, (err, result) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+                const sqlx = `DELETE FROM students WHERE id = '${req.params.student_fk}'`;
+                const queryx = connection.query(sqlx, (err_, result_) => {
+                    if (err_) {
+                        connection.release();
+                        throw err_;
+                    }
+                });
+                const sqly = `DELETE FROM user WHERE id = '${result[0].user_fk}'`;
+                const queryy = connection.query(sqly, (errx, resultx) => {
+                    if (errx) {
+                        connection.release();
+                        throw errx;
+                    }
+                });
+
+            });
+            res.send('user deleted');
         });
-        res.send("user deleted");
-    };
-
-
+    }
 }
 
 export default BaseSqlCtrl;
