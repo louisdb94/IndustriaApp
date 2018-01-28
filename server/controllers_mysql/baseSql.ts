@@ -143,6 +143,21 @@ abstract class BaseSqlCtrl {
         });
     };
 
+    deleteCompany = (req,res) => {
+      let sql = `DELETE FROM vacatures WHERE company_fk = '${req.body.id}'`;
+      let query = connection.query(sql, (err, result) => {
+          if(err) throw err;
+      });
+      let sql1 = `DELETE FROM companies WHERE id = '${req.body.id}'`;
+      let query1 = connection.query(sql1, (err, result) => {
+          if(err) throw err;
+          let sql2 = `DELETE FROM user WHERE id = '${req.body.user_fk}'`;
+          let query2 = connection.query(sql2, (err, result) => {
+              if(err) throw err;
+          });
+      });
+    }
+
     // Delete post
     deleteStudent = (req, res) => {
         let sql = `DELETE FROM contact WHERE student_fk = '${req.params.student_fk}'`;

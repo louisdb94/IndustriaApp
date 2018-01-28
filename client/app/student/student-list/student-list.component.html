@@ -24,7 +24,7 @@
             <th (click)="sortName()">Name</th>
             <th (click)="sortDegree()">Degree</th>
             <th (click)="sortGradYear()">GradYear</th>
-            <th> Download CV </th>
+            <!-- <th> Download CV </th> -->
             <th *ngIf="auth.currentUser.admin == '1'"> Delete student </th>
 
           </tr>
@@ -37,9 +37,9 @@
             </td>
             <td>{{item.degree}}</td>
             <td>{{item.gradYear}}</td>
-            <td>
+            <!-- <td>
               <button class="btn btn-primary" (click)="downloadCv(item)"> CV </button>
-            </td>
+            </td> -->
             <td *ngIf="auth.currentUser.admin == '1'">
               <button class="btn btn-danger" (click)="deleteStudent(item)"> Delete </button>
             </td>

@@ -34,6 +34,7 @@ export class CompanyProfile implements OnInit {
   company: any;
   contacts: any;
   vacatures: any;
+  priority: any;
 
   messageId: String;
   messageNav: String;
@@ -55,7 +56,7 @@ export class CompanyProfile implements OnInit {
 
   getCompanyById(id){
     this.companyService.getCompanyById(id).subscribe(
-      data => {this.company = data[0]},
+      data => {this.company = data[0],this.priority = data[0].priority},
       error => console.log("error")
     );
   }
