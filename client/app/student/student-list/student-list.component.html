@@ -28,9 +28,9 @@
             <th *ngIf="auth.currentUser.admin == '1'"> Delete student </th>
 
           </tr>
-          <tr *ngFor="let item of students |  paginate: { itemsPerPage: 5, currentPage: p }">
+          <tr *ngFor="let item of students |  paginate: { itemsPerPage: 8, currentPage: p }">
 
-            <tr *ngFor="let item of students | FilterPipe : searchText : model.filter |  paginate: { itemsPerPage: 5, currentPage: p }"
+            <tr *ngFor="let item of students | FilterPipe : searchText : model.filter |  paginate: { itemsPerPage: 8, currentPage: p }"
             style="width:100%">
             <td>
               <a href="/profile-student/{{item.id}}">{{item.name}} </a>

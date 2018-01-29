@@ -31,26 +31,38 @@ const pool = mysql.createPool({
     host: 'localhost',
     // host: 'node5390-industria-staging.cloud.interhostsolutions.be:11011',
     user: 'root',
-    password: 'HAJzfboxsR',
+//    password: 'HAJzfboxsR',
+    password: 'root',
+
+    port: "8889",
     database: 'br_industria'
 });
 
+pool.getConnection(function (err, connection) {
 
-// Create DB
-app.get('/createdb', (req, res) => {
-    const sql = 'CREATE DATABASE IF NOT EXISTS br_industria';
-    this.pool.getConnection(function (err, connection) {
-        connection.query(sql, (error, result) => {
-            connection.release();
-            // Handle error after the release.
-            if (error) {
-                throw error;
-            }
-            console.log(result);
-            res.send('Database created...');
-        });
+        // Handle error after the release.
+        if (err) {
+            throw err;
+        }
+        else{console.log("db connected")}
     });
-});
+
+
+// // Create DB
+// app.get('/createdb', (req, res) => {
+//     const sql = 'CREATE DATABASE IF NOT EXISTS br_industria';
+//     this.pool.getConnection(function (err, connection) {
+//         connection.query(sql, (error, result) => {
+//             connection.release();
+//             // Handle error after the release.
+//             if (error) {
+//                 throw error;
+//             }
+//             console.log(result);
+//             res.send('Database created...');
+//         });
+//     });
+// });
 
 
 setRoutes(app);
