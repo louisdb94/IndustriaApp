@@ -292,7 +292,7 @@ export default function setRoutes(app) {
   router.route('/user/:id').delete(userCtrl.delete);
 
   //sendmail
-  router.route('/sendmail/:email').get(sendmail.mailToken)
+  router.route('/sendmail/:email').get(sendmail.mailToken);
 
 
 

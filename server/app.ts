@@ -29,9 +29,9 @@ app.use(fileupload({ safeFileNames: true }));
 
 const pool = mysql.createPool({
     host: 'localhost',
-    user: 'root',
-    // password: 'VUS4iaLWgG',
-    password: 'HAJzfboxsR',
+    user: 'industria',
+    password: 'VUS4iaLWgG',
+    // password: 'HAJzfboxsR',
     // port: '3306',
     database: 'industria'
 });

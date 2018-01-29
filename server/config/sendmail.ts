@@ -3,7 +3,7 @@ import { app } from '../app';
 import { pool } from '../app';
 import * as jwt from 'jsonwebtoken';
 
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'bedrijvenrelaties2018@gmail.com',
