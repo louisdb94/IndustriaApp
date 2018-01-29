@@ -25,13 +25,13 @@ var idp = new saml2.IdentityProvider(idp_options);
 // ------ Define express endpoints ------
 
 // Endpoint to retrieve metadata
-app.get("/metadata.xml", function(req, res) {
+app.get("api/metadata.xml", function(req, res) {
   res.type('application/xml');
   res.send(sp.create_metadata());
 });
 
 // Starting point for login
-app.get("/login", function(req, res) {
+app.get("api/login", function(req, res) {
   sp.create_login_request_url(idp, {}, function(err, login_url, request_id) {
     if (err != null)
       return res.send(500);
@@ -43,7 +43,7 @@ let name_id;
 let session_index;
 
 // Assert endpoint for when login completes
-app.post("/assert", function(req, res) {
+app.post("api/assert", function(req, res) {
   var options = {request_body: req.body};
   sp.post_assert(idp, options, function(err, saml_response) {
     if (err != null)
@@ -59,7 +59,7 @@ app.post("/assert", function(req, res) {
 });
 
 // Starting point for logout
-app.get("/logout", function(req, res) {
+app.get("api/logout", function(req, res) {
   var options = {
     name_id: name_id,
     session_index: session_index
