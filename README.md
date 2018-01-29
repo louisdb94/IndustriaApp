@@ -16,8 +16,7 @@ A window will automatically open at [localhost:4200](http://localhost:4200). Ang
 2. `docker login docker.code.lemoncompanies.com`
 3. docker build -t industria:<tagname> .    (e.g. docker build -t industria:dev . or docker build -t industria:prod .) 
 voorbeeld:
--> docker tag industria:28012018a 
--> docker.code.lemoncompanies.com/docker/industria:28012018a
+-> docker tag industria:28012018a docker.code.lemoncompanies.com/docker/industria:28012018a
 4. `docker push docker.code.lemoncompanies.com/docker/industria`
 5. login to jelastic: https://app.cloud.interhostsolutions.be/
 6. Redeploy container (click container name, redeploy -> select image name from dropdown)

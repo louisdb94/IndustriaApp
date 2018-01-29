@@ -28,13 +28,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(fileupload({ safeFileNames: true }));
 
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'industria',
-    password: 'VUS4iaLWgG',
+    //in production: docker5390-industria-staging.cloud.interhostsolutions.be
+    host: process.env.dbHost ? process.env.dbHost : 'localhost',
+    user: process.env.dbUser ? process.env.dbUser : 'industria',
+    password: process.env.dbPassword ? process.env.dbPassword : 'VUS4iaLWgG',
+    database: process.env.database ? process.env.database : 'br_industria',
     // password: 'HAJzfboxsR',
     // port: '3306',
-    database: 'industria'
 });
+
 
 //
 // const db_config = {

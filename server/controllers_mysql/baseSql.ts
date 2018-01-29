@@ -9,6 +9,10 @@ abstract class BaseSqlCtrl {
 
     executeQuery(sql, req, res, param, resultString) {
         pool.getConnection(function (error, connection) {
+            if (error) {
+                console.log('err while connecting', error);
+                throw error;
+            }
             if (param) {
                 connection.query(sql, param, (err, result) => {
                     if (err) {

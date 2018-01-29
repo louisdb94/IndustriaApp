@@ -22,9 +22,8 @@ export default class MailCtrl {
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, user) => {
                 if (user) {
-
-                    const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
-
+                    const token = jwt.sign({ user: user },
+                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
                     const mailOptions = {
                         from: 'bedrijvenrelaties2018@gmail.com', // sender address
                         to: req.params.email, // list of receivers
