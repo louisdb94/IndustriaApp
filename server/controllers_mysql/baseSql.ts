@@ -256,6 +256,7 @@ abstract class BaseSqlCtrl {
 
             });
             res.send('user deleted');
+            connection.release();
         });
     }
 }

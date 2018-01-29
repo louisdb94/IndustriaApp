@@ -25,6 +25,10 @@ export default class UserCtrl extends BaseSqlCtrl {
         const sql = `SELECT * FROM user WHERE email = '${req.body.email}'`;
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, user) => {
+                if(err){
+                    connection.release();
+                    throw err;
+                }
                 if (!user[0]) { }
                 else if (user[0].password == req.body.password) {
                     const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
