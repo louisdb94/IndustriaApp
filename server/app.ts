@@ -29,12 +29,11 @@ app.use(fileupload({ safeFileNames: true }));
 
 const pool = mysql.createPool({
     host: 'localhost',
-    // host: 'node5390-industria-staging.cloud.interhostsolutions.be:11011',
+//    host: 'node5390-industria-staging.cloud.interhostsolutions.be',
     user: 'root',
-//    password: 'HAJzfboxsR',
-    password: 'root',
-
-    port: "8889",
+    password: 'HAJzfboxsR',
+    // password: 'root',
+//    port: "8889",
     database: 'br_industria'
 });
 
