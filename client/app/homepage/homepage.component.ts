@@ -368,7 +368,12 @@ export class HomepageComponent implements OnInit {
 
   editPriority = false;
 
-  save(users, companies){
+  saveUpdatePriority(users, companies){
+    for(let i = 0; i < companies.length; i++){
+      if(companies[i]){
+         this.updatePriority(companies[i]);
+      }
+    }
     this.editPriority = false;
   }
 

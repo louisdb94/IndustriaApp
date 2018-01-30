@@ -233,7 +233,7 @@
                <th>URL</th>
                <th>Priority
                  <button *ngIf="!editPriority" class="btn btn-primary" (click)="editPriority = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
-                 <button *ngIf="editPriority" class="btn btn-primary" (click)="save(users, companies)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
+                 <button *ngIf="editPriority" class="btn btn-primary" (click)="saveUpdatePriority(users, companies)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
                </th>
                <th>Delete </th>
              </tr>
@@ -244,7 +244,7 @@
              <td>{{company.url}}</td>
              <td ><span *ngIf="!editPriority ">{{company.priority}}</span>
                   <span *ngIf="editPriority ">
-                       <select placeholder="priority">
+                       <select [(ngModel)]="company.priority" placeholder="priority">
                            <option value="" selected disabled>Priority</option>
                            <option value="HIGH">HIGH</option>
                            <option value="MIDDLE">MIDDLE</option>

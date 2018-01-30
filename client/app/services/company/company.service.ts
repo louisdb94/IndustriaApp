@@ -54,7 +54,6 @@ export class CompanyService {
   }
 
   editPriority(priority): Observable<any> {
-    console.log(priority);
     return this.http.put(`/api/companies-updatepriority`, JSON.stringify(priority), this.options);
   }
 
