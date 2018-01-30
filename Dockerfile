@@ -19,7 +19,8 @@ COPY . .
 
 # ADD dist/public /app
 # ADD dist/server /app
-
+# ADD uploads /uploads
+# ADD saml2 /saml2
 
 COPY entrypoint.sh /opt/entrypoint.sh
 
@@ -43,5 +44,3 @@ VOLUME ["/app/uploads"]
 #create angular build and move to dist folder
 RUN npm run prod
 ENTRYPOINT ["/opt/entrypoint.sh"]
-
-
