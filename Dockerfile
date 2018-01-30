@@ -19,8 +19,7 @@ COPY . .
 
 # ADD dist/public /app
 # ADD dist/server /app
-# ADD uploads /uploads
-# ADD saml2 /saml2
+
 
 COPY entrypoint.sh /opt/entrypoint.sh
 
@@ -37,6 +36,8 @@ RUN apk add nginx
 
 # RUN adduser -g 'Nginx www user' -h /home/www/ wwwcbz
 ADD nginx /templates
+ADD uploads /uploads
+ADD saml2 /saml2
 
 EXPOSE 80
 
