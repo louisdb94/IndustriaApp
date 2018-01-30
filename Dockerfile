@@ -36,6 +36,7 @@ RUN apk add nginx
 
 # RUN adduser -g 'Nginx www user' -h /home/www/ wwwcbz
 ADD nginx /templates
+ADD uploads /uploads
 
 EXPOSE 80
 
