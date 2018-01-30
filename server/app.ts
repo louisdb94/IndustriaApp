@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import * as EmailTemplate from 'email-templates';
 import setRoutes from './routes';
-import setAuthRoutes from './auth-routes';
+import setAuthRoutes from './config/shibboleth';
 import * as  mysql from 'mysql';
 import * as fileupload from 'express-fileupload';
 
@@ -75,7 +75,10 @@ pool.getConnection(function (err, connection) {
 // });
 
 
+
+
 setRoutes(app);
+setAuthRoutes(app);
 app.listen(process.env.PORT || 3000, () => {
     console.log('Server started on port', process.env.PORT || 3000);
 });
