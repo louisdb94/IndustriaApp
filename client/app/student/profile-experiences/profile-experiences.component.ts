@@ -82,7 +82,16 @@ export class ExperiencesProfile {
     }
   }
 
-  save(student, exp1, exp2, exp3){
+  save(student, experiences, exp1, exp2, exp3){
+
+    for(let i = 0; i < this.experiences.length; i++){
+      if(this.experiences[i]){
+        this.experienceService.editExperience(experiences[i]).subscribe(
+          res => {},
+          error => console.log(error)
+        );
+      }
+    }
 
     this.registerForm.value.exp1Form = exp1;
     this.registerForm.value.exp2Form = exp2;

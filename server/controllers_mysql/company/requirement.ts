@@ -37,4 +37,8 @@ export default class CompanyRequirementCtrl extends BaseSqlCtrl {
             });
         });
     }
+    updateAll = (req, res) => {
+        const sql = `UPDATE ${this.model} SET name = '${req.body.name}' WHERE id = ${req.body.id}`;
+        this.executeQuery(sql, req, res, null, 'post updated...');
+    }
 }//

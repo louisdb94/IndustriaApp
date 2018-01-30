@@ -41,5 +41,9 @@ export class ExperienceService {
     return this.http.post('/api/experience-insertform', JSON.stringify(form), this.options);
   }
 
+  editExperience(experience): Observable<any> {
+    return this.http.put(`/api/experience-update`, JSON.stringify(experience), this.options);
+  }
+
 
 }

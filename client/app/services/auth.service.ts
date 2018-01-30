@@ -26,6 +26,11 @@ export class AuthService {
     }
   }
 
+  loginshibb(rnumber){
+    this.currentUser.rnumber = rnumber;
+    this.currentUser.email = rnumber + "@kuleuven.be";
+  }
+
   login(emailAndPassword) {
     return this.userService.loginMysql(emailAndPassword).map(res => res.json()).map(
       res => {

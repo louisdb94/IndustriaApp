@@ -69,8 +69,16 @@ export class CompanyRequirementVacature {
     }
   }
 
-  save(vacature, req1){
+  save(vacature, requirements, req1){
 
+    for(let i = 0; i < this.requirements.length; i++){
+      if(this.requirements[i]){
+        this.companyRequirementService.editRequirements(requirements[i]).subscribe(
+          res => {},
+          error => console.log(error)
+        );
+      }
+    }
 
     this.registerForm.value.req1Form = req1;
     this.registerForm.value.idForm = this.vacature.id;
