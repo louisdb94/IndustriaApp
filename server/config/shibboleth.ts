@@ -3,7 +3,6 @@ import * as fs from 'fs';
 import * as express from 'express';
 import {app, pool} from '../app';
 
-
 export default function setAuthRoutes(app) {
 
 const router = express.Router();
@@ -64,16 +63,16 @@ router.route('/assert').post(function(req,res){
     name_id = saml_response.user.name_id;
     session_index = saml_response.user.session_index;
 
-    //search user with this rnumber
-    //if found set currentUser
-    // checkStudent(name_id);
+    // //search user with this rnumber
+    // //if found set currentUser
+    // baseShibb.checkStudent(name_id);
     // if(student_exist){
     //   //setCurrentUser
     // }
     // else{
     //   // user - student
     //     //education - experiences - language - socalmedia x4 - professional - skills - contact
-    //   addUser(name_id);
+    //   baseShibb.addUser(name_id);
     //   //setCurrentUser
     // }
 
@@ -97,7 +96,7 @@ router.route('/logout').get(function(req,res){
 
 
 //functies om student aan te maken
-var checkStudent(rnumber) {
+function checkStudent(rnumber){
     const sql = `SELECT id FROM user WHERE rnumber = '${rnumber}'`;
     pool.getConnection(function (error, connection) {
         connection.query(sql, (err, result) => {
@@ -105,19 +104,16 @@ var checkStudent(rnumber) {
             if(result.rnumber = rnumber){
               student_exist = true;
             }
-            res.json(result);
             connection.release();
-        });
+        })
     });
-
 }
 
-var addUser(rnumber) {
+function addUser(rnumber) {
     const sql = `INSERT INTO user SET rnumber = '${rnumber}'`;
     pool.getConnection(function (error, connection) {
         connection.query(sql, (err, result) => {
             if (err) {throw err;}
-            res.json(result);
             user_fk = result.id;
 
             const sql1 = `INSERT INTO students SET rnumber = '${rnumber}', user_fk = '${user_fk}'`;
@@ -126,22 +122,22 @@ var addUser(rnumber) {
                 student_fk = result1.id;
 
                 const sql2 = `INSERT INTO education SET student_fk = '${student_fk}'`;
-                executeQuery(sql2);
+                this.executeQuery(sql2);
                 const sql3 = `INSERT INTO experiences SET student_fk = '${student_fk}'`;
-                executeQuery(sql23);
+                this.executeQuery(sql3);
                 const sql4 = `INSERT INTO language SET student_fk = '${student_fk}'`;
-                executeQuery(sql4);
+                this.executeQuery(sql4);
                 const sql5 = `INSERT INTO socialmedia SET student_fk = '${student_fk}'`;
-                executeQuery(sql5);
-                executeQuery(sql5);
-                executeQuery(sql5);
-                executeQuery(sql5);
+                this.executeQuery(sql5);
+                this.executeQuery(sql5);
+                this.executeQuery(sql5);
+                this.executeQuery(sql5);
                 const sql6 = `INSERT INTO professional SET student_fk = '${student_fk}'`;
-                executeQuery(sql6);
+                this.executeQuery(sql6);
                 const sql7 = `INSERT INTO skills SET student_fk = '${student_fk}'`;
-                executeQuery(sql7);
+                this.executeQuery(sql7);
                 const sql8 = `INSERT INTO contact SET student_fk = '${student_fk}'`;
-                executeQuery(sql8);
+                this.executeQuery(sql8);
 
             });
         });
@@ -151,18 +147,14 @@ var addUser(rnumber) {
 
 }
 
-var executeQuery(sql) {
+ function executeQuery(sql) {
     pool.getConnection(function (error, connection) {
             connection.query(sql, (err, result) => {
                 if (err) {throw err;}
-                res.json(result);
                 connection.release();
             });
     });
 }
-
-
-
 
 
   app.use('/api', router);
