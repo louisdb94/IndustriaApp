@@ -1,13 +1,19 @@
 import * as saml2 from 'saml2-js';
 import * as fs from 'fs';
 import * as express from 'express';
-import {app} from '../app';
+import {app, pool} from '../app';
+
 
 export default function setAuthRoutes(app) {
 
 const router = express.Router();
 var name_id;
 var session_index;
+
+//student parameters
+var student_exist = false;
+var user_fk;
+var student_fk;
 
 // Create service provider
 var sp_options = {
@@ -51,13 +57,25 @@ router.route('/login').get(function(req,res){
 router.route('/assert').post(function(req,res){
   var options = {request_body: req.body};
   sp.post_assert(idp, options, function(err, saml_response) {
-    if (err != null)
-      return res.send(500);
+    if (err != null){return res.send(500);}
 
     // Save name_id and session_index for logout
     // Note:  In practice these should be saved in the user session, not globally.
     name_id = saml_response.user.name_id;
     session_index = saml_response.user.session_index;
+
+    //search user with this rnumber
+    //if found set currentUser
+    // checkStudent(name_id);
+    // if(student_exist){
+    //   //setCurrentUser
+    // }
+    // else{
+    //   // user - student
+    //     //education - experiences - language - socalmedia x4 - professional - skills - contact
+    //   addUser(name_id);
+    //   //setCurrentUser
+    // }
 
     res.send("Hello #{saml_response.user.name_id}!");
   });
@@ -76,6 +94,75 @@ router.route('/logout').get(function(req,res){
       res.redirect(logout_url);
     });
 });
+
+
+//functies om student aan te maken
+var checkStudent(rnumber) {
+    const sql = `SELECT id FROM user WHERE rnumber = '${rnumber}'`;
+    pool.getConnection(function (error, connection) {
+        connection.query(sql, (err, result) => {
+            if (err) {throw err;}
+            if(result.rnumber = rnumber){
+              student_exist = true;
+            }
+            res.json(result);
+            connection.release();
+        });
+    });
+
+}
+
+var addUser(rnumber) {
+    const sql = `INSERT INTO user SET rnumber = '${rnumber}'`;
+    pool.getConnection(function (error, connection) {
+        connection.query(sql, (err, result) => {
+            if (err) {throw err;}
+            res.json(result);
+            user_fk = result.id;
+
+            const sql1 = `INSERT INTO students SET rnumber = '${rnumber}', user_fk = '${user_fk}'`;
+            connection.query(sql1, (err, result1) => {
+                if (err) {throw err;}
+                student_fk = result1.id;
+
+                const sql2 = `INSERT INTO education SET student_fk = '${student_fk}'`;
+                executeQuery(sql2);
+                const sql3 = `INSERT INTO experiences SET student_fk = '${student_fk}'`;
+                executeQuery(sql23);
+                const sql4 = `INSERT INTO language SET student_fk = '${student_fk}'`;
+                executeQuery(sql4);
+                const sql5 = `INSERT INTO socialmedia SET student_fk = '${student_fk}'`;
+                executeQuery(sql5);
+                executeQuery(sql5);
+                executeQuery(sql5);
+                executeQuery(sql5);
+                const sql6 = `INSERT INTO professional SET student_fk = '${student_fk}'`;
+                executeQuery(sql6);
+                const sql7 = `INSERT INTO skills SET student_fk = '${student_fk}'`;
+                executeQuery(sql7);
+                const sql8 = `INSERT INTO contact SET student_fk = '${student_fk}'`;
+                executeQuery(sql8);
+
+            });
+        });
+
+        connection.release();
+    });
+
+}
+
+var executeQuery(sql) {
+    pool.getConnection(function (error, connection) {
+            connection.query(sql, (err, result) => {
+                if (err) {throw err;}
+                res.json(result);
+                connection.release();
+            });
+    });
+}
+
+
+
 
 
   app.use('/api', router);

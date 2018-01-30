@@ -83,6 +83,8 @@ export class LanguageProfile {
       this.http.get(`/api/language-delete/${id}`).subscribe(
         res => {this.save(student, languages)}
       );
+
+      console.log(languages.length)
     }
   }
 

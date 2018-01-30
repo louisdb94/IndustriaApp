@@ -4,7 +4,7 @@
         <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
         <h2 translate>Language knowledge</h2><br>
 
-        <tr *ngFor="let item of languages; let i = index" style="width:33%; float:left ; padding-right: 15%">
+        <tr *ngFor="let item of languages; let i = index" style="float:left ; padding-right: 15%">
             <div *ngIf="languages[i]" >
               <div style='margin-top: 10px;'>
                 <textarea *ngIf="editMode" [(ngModel)]="languages[i].type" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
