@@ -9,7 +9,7 @@ import language from '../../../../server/models_mysql/students/language';
 
 
 @Component({
-  selector: 'profile-language',  
+  selector: 'profile-language',
   styleUrls: [ './profile-language.component.scss' ],
   templateUrl: './profile-language.component.html'
 })
@@ -34,6 +34,7 @@ export class LanguageProfile {
                 public toast: ToastComponent,
                 private http: HttpClient,
                 public auth : AuthService){}
+
 
   save(student, languages){
     this.editMode = false;

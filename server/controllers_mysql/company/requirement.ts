@@ -12,7 +12,7 @@ export default class CompanyRequirementCtrl extends BaseSqlCtrl {
     // Insert post 1
     insertForm = (req, res) => {
         pool.getConnection(function (error, connection) {
-            const sql = `INSERT INTO ${this.model} SET name = '${req.body.req1Form}', vacatures_fk = '${req.body.idForm}'`;
+            const sql = `INSERT INTO requirements SET name = '${req.body.req1Form}', vacatures_fk = '${req.body.idForm}'`;
             const query = connection.query(sql, req.body, (err, result) => {
                 if (err) {
                     // connection.release();
@@ -26,7 +26,7 @@ export default class CompanyRequirementCtrl extends BaseSqlCtrl {
 
     getbyFkExperience = (req, res) => {
         pool.getConnection(function (error, connection) {
-            const sql = `SELECT * FROM ${this.model} WHERE vacatures_fk = '${req.params.id}'`;
+            const sql = `SELECT * FROM requirements WHERE vacatures_fk = '${req.params.id}'`;
             const query = connection.query(sql, (err, result) => {
                 if (err) {
                     // connection.release();

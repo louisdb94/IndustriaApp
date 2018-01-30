@@ -43,55 +43,55 @@ export class CompanyContactVacature implements OnInit {
 
   ngOnInit(){
     //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
-      });
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
-
-          this.contacts.address = place.formatted_address;
-          this.contacts.latitude = place.geometry.location.lat();
-          this.contacts.longitude = place.geometry.location.lng();
-        });
-      });
-    });
+    // this.mapsAPILoader.load().then(() => {
+    //   let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+    //     types: ["address"]
+    //   });
+    //   autocomplete.addListener("place_changed", () => {
+    //     this.ngZone.run(() => {
+    //       //get the place result
+    //       let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+    //
+    //       //verify result
+    //       if (place.geometry === undefined || place.geometry === null) {
+    //         return;
+    //       }
+    //
+    //       //set latitude, longitude and zoom
+    //       this.latitude = place.geometry.location.lat();
+    //       this.longitude = place.geometry.location.lng();
+    //       this.zoom = 12;
+    //
+    //       this.contacts.address = place.formatted_address;
+    //       this.contacts.latitude = place.geometry.location.lat();
+    //       this.contacts.longitude = place.geometry.location.lng();
+    //     });
+    //   });
+    // });
   }
 
 
-  showMap(){
-
-    //set google maps defaults
-    this.clickMap = true;
-    this.zoom = 10;
-    this.latitude = this.contacts.latitude;
-    this.longitude = this.contacts.longitude;
-
-    //set current position
-    this.setCurrentPosition();
-  }
-
-  private setCurrentPosition() {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 12;
-      });
-    }
-  }
+  // showMap(){
+  //
+  //   //set google maps defaults
+  //   this.clickMap = true;
+  //   this.zoom = 10;
+  //   this.latitude = this.contacts.latitude;
+  //   this.longitude = this.contacts.longitude;
+  //
+  //   //set current position
+  //   this.setCurrentPosition();
+  // }
+  //
+  // private setCurrentPosition() {
+  //   if ("geolocation" in navigator) {
+  //     navigator.geolocation.getCurrentPosition((position) => {
+  //       this.latitude = position.coords.latitude;
+  //       this.longitude = position.coords.longitude;
+  //       this.zoom = 12;
+  //     });
+  //   }
+  // }
 
   saveContact(contacts){
     this.companyContactService.editContact(contacts).subscribe(
