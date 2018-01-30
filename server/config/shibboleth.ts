@@ -6,6 +6,8 @@ import {app} from '../app';
 export default function setAuthRoutes(app) {
 
 const router = express.Router();
+var name_id;
+var session_index;
 
 // Create service provider
 var sp_options = {
