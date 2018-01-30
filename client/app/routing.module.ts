@@ -27,7 +27,6 @@ const routes: Routes = [
   { path: 'login/:status', component: LoginComponent },
 
   //Register for companies and alumni students
-  { path: 'register', component: RegisterComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
   { path: 'sendmail/:token', component: SendMailComponent },
   //Home pages for respectively the students and companies

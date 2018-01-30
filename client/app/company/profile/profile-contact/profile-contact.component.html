@@ -10,7 +10,7 @@
         <div class="row">
             <label translate class="col-md-2 control-label" for="email">Email: </label>
             <div class="col-md-9">
-                <input id="email" name="email" class="form-control" *ngIf="editMode" [(ngModel)]="contacts.email" placeholder="Write your personal Email address" type="text" (keyup.enter)="save()">
+                <input id="email" name="email" class="form-control" *ngIf="editMode" [(ngModel)]="contacts.email" placeholder="Write your personal Email address" type="text" (keyup.enter)="saveContacts(contacts)">
                 <p *ngIf="!editMode">{{contacts.email}}</p>
             </div>
         </div><br>
@@ -18,7 +18,7 @@
         <div class="row">
             <label translate class="col-md-2 control-label" for="phone">Phone number: </label>
             <div class="col-md-9">
-                <input id="phone" name="phone" class="form-control" *ngIf="editMode" [(ngModel)]="contacts.phone" placeholder="Write your phone number" type="text" (keyup.enter)="save()">
+                <input id="phone" name="phone" class="form-control" *ngIf="editMode" [(ngModel)]="contacts.phone" placeholder="Write your phone number" type="text" (keyup.enter)="saveContacts(contacts)">
                 <p *ngIf="!editMode">{{contacts.phone}}</p>
             </div>
         </div><br>
@@ -26,15 +26,16 @@
         <div class="row">
             <label translate class="col-md-2 control-label" for="address">Address: </label>
             <div class="col-md-9">
+                <input id="address" name="address" class="form-control" *ngIf="editMode" [(ngModel)]="contacts.address" placeholder="Write your address" type="text" (keyup.enter)="saveContact(contacts)">
                 <p *ngIf="!editMode">{{contacts.address}}</p>
-                <div>
+                <!-- <div>
                     <input [hidden]="!editMode" id="address" class="form-control" #search [formControl]="searchControl" placeholder="Fill in an address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
-                </div>
-                <agm-map [hiddden]="!clickMap" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                </div> -->
+                <!-- <agm-map [hiddden]="!clickMap" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
                     <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-                </agm-map>
+                </agm-map> -->
             </div>
         </div>
-        <button translate *ngIf="!editMode && !clickMap" (click)="showMap()" class="btn btn-sm btn-primary"> Show Map</button>
+        <!-- <button translate *ngIf="!editMode && !clickMap" (click)="showMap()" class="btn btn-sm btn-primary"> Show Map</button> -->
     </div>
 </div>

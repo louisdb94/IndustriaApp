@@ -15,7 +15,7 @@ export default class CompanyRequirementCtrl extends BaseSqlCtrl {
             const sql = `INSERT INTO requirements SET name = '${req.body.req1Form}', vacatures_fk = '${req.body.idForm}'`;
             const query = connection.query(sql, req.body, (err, result) => {
                 if (err) {
-                    connection.release();
+                    // connection.release();
                     throw err;
                 }
                 res.json(result);
@@ -29,7 +29,7 @@ export default class CompanyRequirementCtrl extends BaseSqlCtrl {
             const sql = `SELECT * FROM requirements WHERE vacatures_fk = '${req.params.id}'`;
             const query = connection.query(sql, (err, result) => {
                 if (err) {
-                    connection.release();
+                    // connection.release();
                     throw err;
                 }
                 res.json(result);

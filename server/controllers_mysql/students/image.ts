@@ -27,7 +27,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
-          connection.release();
+          // connection.release();
           return console.error(err);
         }
         connection.release();
@@ -53,9 +53,10 @@ export default class ImageCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
-          connection.release();
+          // connection.release();
           return console.error(err);
         }
+        connection.release();
       });
     });
   }

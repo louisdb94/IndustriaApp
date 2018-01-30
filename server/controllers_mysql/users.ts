@@ -29,6 +29,10 @@ export default class UserCtrl extends BaseSqlCtrl {
                 throw error;
             }
             const query = connection.query(sql, (err, user) => {
+                if(err){
+                    // connection.release();
+                    throw err;
+                }
                 if (!user[0]) { }
                 else if (user[0].password == req.body.password) {
                     const token = jwt.sign({ user: user }, 

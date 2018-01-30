@@ -37,6 +37,7 @@ RUN apk add nginx
 # RUN adduser -g 'Nginx www user' -h /home/www/ wwwcbz
 ADD nginx /templates
 ADD uploads /uploads
+ADD saml2 /saml2
 
 EXPOSE 80
 
@@ -44,5 +45,3 @@ VOLUME ["/app/uploads"]
 #create angular build and move to dist folder
 RUN npm run prod
 ENTRYPOINT ["/opt/entrypoint.sh"]
-
-

@@ -20,7 +20,7 @@ export default class LanguageCtrl extends BaseSqlCtrl {
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, results) => {
                 if (err) {
-                    connection.release();
+                    // connection.release();
                     throw err;
                 }
                 for (let i = 0; i < results.length; i++) {
