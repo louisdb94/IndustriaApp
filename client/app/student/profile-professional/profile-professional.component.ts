@@ -58,7 +58,7 @@ export class ProfessionalProfile {
   }
 
   add(student) {
-    if (student.countProfessional <= 4) {
+    if (student.countProfessional < 7) {
       this.http.get(`/api/professional-insert/${student.id}`).subscribe(
         res => {this.getProfessional(student.id)},
         error => {console.log("error")}

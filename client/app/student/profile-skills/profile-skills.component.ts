@@ -63,7 +63,7 @@ export class SkillsProfile {
   add(student) {
 
 
-    if (student.countSkills <= 7) {
+    if (student.countSkills < 7) {
       this.http.get(`/api/skills-insert/${student.id}`).subscribe(
         res => {this.getSkills(student.id)},
         error => {console.log("error")}
