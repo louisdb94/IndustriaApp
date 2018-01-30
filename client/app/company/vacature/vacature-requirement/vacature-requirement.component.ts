@@ -100,7 +100,7 @@ export class CompanyRequirementVacature {
     this.editMode = true;
   }
 
-  deleteExperience(){
+  deleteRequirement(){
     this.deleteClicked = true;
 
     let i = this.lengthRequirements - 1;
