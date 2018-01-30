@@ -15,7 +15,7 @@ var sp = new saml2.ServiceProvider(sp_options);
 // Create identity provider
 var idp_options = {
   issuer: "urn:mace:kuleuven.be:kulassoc:kuleuven.be",
-  sso_login_url: "http://idp.kuleuven.be/idp/profile/SAML2/Redirect/SSO",
+  sso_login_url: "https://idp.kuleuven.be/idp/profile/SAML2/Redirect/SSO",
   sso_logout_url: "https://idp.kuleuven.be/idp/profile/SAML2/Redirect/SLO",
   certificates: [fs.readFileSync("../saml2/idp.crt").toString()]
 };

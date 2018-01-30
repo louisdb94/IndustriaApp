@@ -26,7 +26,7 @@ export default class UserCtrl extends BaseSqlCtrl {
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, user) => {
                 if(err){
-                    connection.release();
+                    // connection.release();
                     throw err;
                 }
                 if (!user[0]) { }

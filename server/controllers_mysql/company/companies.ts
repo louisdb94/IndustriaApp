@@ -27,7 +27,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
-          connection.release();
+          // connection.release();
           throw err;
         }
         connection.release();
@@ -47,16 +47,17 @@ export default class CompanyCtrl extends BaseSqlCtrl {
           if (obj[0].image === 1) {
             fs.readFile('./uploads/images/' + obj[0].name + '.png', 'base64', function (err1, data) {
               if (err1) {
-                connection.release();
+                // connection.release();
                 console.log(err1);
               }
               res.setHeader('Content-Disposition', 'attachment');
+              connection.release();
               res.send(data);
             });
           } else {
             fs.readFile('./uploads/images/standard.png', 'base64', function (err2, data) {
               if (err2) {
-                connection.release();
+                // connection.release();
                 console.log(err2);
               }
               res.setHeader('Content-Disposition', 'attachment');
@@ -74,7 +75,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
-          connection.release();
+          // connection.release();
           throw err;
         }
         connection.release();
@@ -92,7 +93,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
-          connection.release();
+          // connection.release();
           throw err;
         }
         for (let i = 0; i < result.length; i++) {
@@ -115,7 +116,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
-          connection.release();
+          // connection.release();
           throw err;
         }
         res.json(result);
