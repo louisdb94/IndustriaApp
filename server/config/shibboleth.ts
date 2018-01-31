@@ -52,6 +52,7 @@ router.route('/login').get(function(req,res){
 });
 
 
+
 // Assert endpoint for when login completes
 router.route('/assert').post(function(req,res){
   var options = {request_body: req.body};
@@ -62,17 +63,17 @@ router.route('/assert').post(function(req,res){
     // Note:  In practice these should be saved in the user session, not globally.
     name_id = saml_response.user.name_id;
     session_index = saml_response.user.session_index;
-
+    console.log("saml_response", saml_response);
     // //search user with this rnumber
     // //if found set currentUser
-    // baseShibb.checkStudent(name_id);
+    // this.checkStudent(name_id);
     // if(student_exist){
     //   //setCurrentUser
     // }
     // else{
     //   // user - student
     //     //education - experiences - language - socalmedia x4 - professional - skills - contact
-    //   baseShibb.addUser(name_id);
+    //   this.addUser(name_id);
     //   //setCurrentUser
     // }
 
