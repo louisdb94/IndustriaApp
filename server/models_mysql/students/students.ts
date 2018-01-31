@@ -1,10 +1,10 @@
 let sql_students = `CREATE TABLE IF NOT EXISTS students (
     id int(10) NOT NULL AUTO_INCREMENT,
-    name varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'Elon Musk',
+    name varchar(80) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'Elon Musk',
     rnumber varchar(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
     whoami longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-    gradYear int(4) NOT NULL,
-    degree varchar(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'Electronics',
+    gradYear int(20) NOT NULL,
+    degree varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'Electronics',
     cvChecked tinyint(1) NOT NULL DEFAULT '0',
     contactChecked tinyint(1) NOT NULL DEFAULT '0',
     countSkills int(11) NOT NULL DEFAULT '0',

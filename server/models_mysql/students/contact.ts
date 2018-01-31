@@ -1,9 +1,9 @@
 let contacts = `CREATE TABLE IF NOT EXISTS contact (
   id int(11) NOT NULL AUTO_INCREMENT,
-  email varchar(30) NOT NULL,
-  phone varchar(20) NOT NULL,
-  county varchar(30) NOT NULL,
-  city varchar(20) NOT NULL,
+  email varchar(80) NOT NULL,
+  phone varchar(70) NOT NULL,
+  county varchar(100) NOT NULL,
+  city varchar(100) NOT NULL,
   student_fk int(11) NOT NULL,
   PRIMARY KEY (id),
   KEY student_fk (student_fk),

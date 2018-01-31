@@ -52,7 +52,7 @@ export const DATE_TIME_PICKER_CONTROL_VALUE_ACCESSOR: any = {
   styles: [
     `
     .form-group {
-      width: 100%;
+      width: 70%;
     }
   `
   ],

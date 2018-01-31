@@ -1,7 +1,7 @@
 let sql_socialmedia = `CREATE TABLE IF NOT EXISTS socialmedia (
     id int(10) NOT NULL AUTO_INCREMENT,
-    type varchar(10) DEFAULT NULL,
-    url varchar(50) DEFAULT NULL,
+    type varchar(100) DEFAULT NULL,
+    url varchar(100) DEFAULT NULL,
     checked tinyint(1) DEFAULT NULL,
     student_fk int(10) DEFAULT NULL,
     PRIMARY KEY (id),

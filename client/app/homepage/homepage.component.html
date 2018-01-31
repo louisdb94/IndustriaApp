@@ -76,7 +76,7 @@
     <div class="clearfix"></div>
   </h3>
 
-  <table id="tableEvents" *ngIf="auth.currentUser.admin == '1'" class="table table-bordered">
+  <table id="tableEvents" *ngIf="auth.currentUser.admin == '1'" class="table table-bordered" align="center">
 
     <thead>
       <tr>
@@ -90,12 +90,13 @@
 
     <tbody>
       <tr *ngFor="let event of events; let index = index">
-        <td>
-          <input *ngIf="editMode"
+        <td style="width: 40%">
+          <textarea *ngIf="editMode"
             type="text"
             class="form-control"
             [(ngModel)]="event.title"
-            (keyup)="refresh.next()">
+            (keyup)="refresh.next()" rows="4">
+          </textarea>
           <p *ngIf="!editMode">{{event.title}}</p>
         </td>
         <td>
