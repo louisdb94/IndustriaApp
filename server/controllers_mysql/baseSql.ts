@@ -59,10 +59,10 @@ abstract class BaseSqlCtrl {
     }
 
     insertCompanyFK = (req, res) => {
-
         const sql = `INSERT INTO ${this.model} SET company_fk = '${req.params.id}'`;
         this.executeQuery(sql, req, res, req.body, null);
     }
+    
 
     insertVacatureFK = (req, res) => {
 
@@ -131,6 +131,13 @@ abstract class BaseSqlCtrl {
 
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, result) => {
+                if (err) {
+                    // connection.release();
+                    throw err;
+                }
+            });
+            const sql4 = `DELETE FROM contact_company WHERE company_fk = '${req.body.id}'`;
+            const query4 = connection.query(sql4, (err, result) => {
                 if (err) {
                     // connection.release();
                     throw err;

@@ -341,7 +341,7 @@ export class HomepageComponent implements OnInit {
   // }
 
   addCompany() {
-    let addCompanyForm = {email: '', password: '', role: 'Company'};
+    let addCompanyForm = {email: '', password: '', role: 'Company', rnumber: ''};
     addCompanyForm.email = this.addUserForm.value.email;
     addCompanyForm.password = this.addUserForm.value.password;
 
@@ -350,13 +350,14 @@ export class HomepageComponent implements OnInit {
     editPriority.email = this.addUserForm.value.email;
     editPriority.name = this.addUserForm.value.name;
 
+    console.log(addCompanyForm);
 
     this.userService.registerMysql(addCompanyForm)
         .switchMap( userid =>
           this.companyService.addCompanyFromUserId(JSON.parse(userid._body).insertId)
             .switchMap(companyid =>
               this.vacatureService.addVacatureFromCompanyId(JSON.parse(companyid._body).insertId)
-              .switchMap(companyid =>
+              .switchMap(contact =>
                 this.companyContactService.addContactFromCompanyId(JSON.parse(companyid._body).insertId)
                  .map(result => ({
                    user_id : JSON.parse(userid._body).insertId,

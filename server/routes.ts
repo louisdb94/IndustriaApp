@@ -112,6 +112,7 @@ export default function setRoutes(app) {
   router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
   router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
+
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
   router.route('/students-getall').get(studentsCtrl.select);
