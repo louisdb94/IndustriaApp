@@ -5,6 +5,7 @@ import { SkillService } from '../../services/skill.service';
 import { ProfessionalService } from '../../services/professional.service';
 import { LanguageService } from '../../services/language.service';
 import { CvsService } from '../../services/cvs.service';
+import { CompanyService } from '../../services/company/company.service';
 import { OrderListModule } from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import { AccordionModule } from 'primeng/primeng';
@@ -34,6 +35,7 @@ export class StudentListComponent implements OnInit {
     private languageService: LanguageService,
     private professionalService: ProfessionalService,
     private cvsService: CvsService,
+    public companyService: CompanyService,
     private http: HttpClient,
     public auth: AuthService,
     public toast: ToastComponent) { }
@@ -54,6 +56,8 @@ export class StudentListComponent implements OnInit {
   public searchSkill: any;
   public searchProf: any;
   public searchLang: any;
+  public priority: any;
+  public company: any;
 
 
 
@@ -67,6 +71,17 @@ export class StudentListComponent implements OnInit {
     this.getLanguages();
     this.getProffskills();
 
+    if(this.auth.currentUser.role == "Company"){
+      this.getCompanyById(this.auth.currentUser);
+    }
+
+  }
+
+  getCompanyById(currentUser){
+    this.companyService.getCompanyById(currentUser.id).subscribe(
+      data => {this.company = data[0],this.priority = data[0].priority},
+      error => console.log("error")
+    );
   }
 
   //Get all students -> add to students[]

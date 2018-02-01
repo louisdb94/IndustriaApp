@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef  } f
 import { StudentService } from '../services/student.service';
 import { CompanyService} from '../services/company/company.service';
 import { VacatureService} from '../services/company/vacature.service';
+import { CompanyContactService} from '../services/company/contact.service';
 import { UserService} from '../services/user.service';
 import { DataService } from "../services/data.service";
 import { AuthService } from '../services/auth.service';
@@ -89,6 +90,7 @@ export class HomepageComponent implements OnInit {
     private userService : UserService,
     private companyService : CompanyService,
     private vacatureService : VacatureService,
+    private companyContactService : CompanyContactService,
     private eventsService : EventsService,
     private fileService : FileService,
     public auth: AuthService,
@@ -354,10 +356,12 @@ export class HomepageComponent implements OnInit {
           this.companyService.addCompanyFromUserId(JSON.parse(userid._body).insertId)
             .switchMap(companyid =>
               this.vacatureService.addVacatureFromCompanyId(JSON.parse(companyid._body).insertId)
+              .switchMap(companyid =>
+                this.companyContactService.addContactFromCompanyId(JSON.parse(companyid._body).insertId)
                  .map(result => ({
                    user_id : JSON.parse(userid._body).insertId,
                    companyid: JSON.parse(companyid._body).insertId,
-                 }))))
+                 })))))
         .subscribe(
           res => { this.toast.setMessage('successfully added!', 'success'), editPriority.id = res.companyid, this.updatePriority(editPriority)},
           error => console.log(error)

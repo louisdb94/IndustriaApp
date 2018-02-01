@@ -1,5 +1,5 @@
 <app-toast [message]="toast.message"></app-toast>
-<div class="container">
+<div class="container" *ngIf="priority != 'LOW'">
   <div style="margin-top: 15%; width: 100%">
     <div style="float: left; width:70%; border-radius: 1%;border: 2px solid #bbbbbb;">
 
@@ -131,4 +131,8 @@
     </div>
 
   </div>
+</div>
+
+<div  *ngIf="priority == 'LOW'">
+  <app-not-found> </app-not-found>
 </div>

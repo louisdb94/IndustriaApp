@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CompanyService} from '../../services/company/company.service';
-
-
+import { AuthService } from '../../services/auth.service';
 import {OrderListModule} from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import {AccordionModule} from 'primeng/primeng';
@@ -20,7 +19,7 @@ import {FilterVacature} from '../../pipes/filterVacatures.pipe';
 export class VacatureListComponent implements OnInit {
 
 
-    constructor(  private companyService: CompanyService,
+    constructor(  private companyService: CompanyService, public auth: AuthService,
                   private http: HttpClient) { }
 
     vacatures = [];
@@ -40,7 +39,6 @@ export class VacatureListComponent implements OnInit {
     ngOnInit() {
       this.getinnerjoin();
       this.getCompanies();
-
     }
 
     getCompanies(){
@@ -49,6 +47,7 @@ export class VacatureListComponent implements OnInit {
         error => console.log(error)
        )
     }
+
     //sort array on companies alphabetically
     sort(array){
       array.sort( function(name1, name2) {
