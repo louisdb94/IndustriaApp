@@ -1,20 +1,20 @@
-<div class="profile-component" *ngIf="auth.currentUser.companyId == company_id || auth.currentUser.role =='Student'">
+<div class="profile-component" *ngIf="auth.currentUser.companyId == company_id || auth.currentUser.role =='Student' || auth.currentUser.admin == '1'">
 
-<div *ngIf="priority == 'LOW'"> <p style="margin-top: 4%;margin-bottom:3%; text-align:center; font: 26px arial, sans-serif; font-weight:500; color:red"> If you want to have a profile page so you can add vacatures for students to find you, please contact Industria!</p> </div>
+<div *ngIf="priority == 'ONDERNEMERSDAG'"> <p style="margin-top: 4%;margin-bottom:3%; text-align:center; font: 26px arial, sans-serif; font-weight:500; color:red"> If you want to have a profile page so you can add vacatures for students to find you, please contact Industria!</p> </div>
 
-<div *ngIf="company">
+<div *ngIf="company && priority != 'ONDERNEMERSDAG'">
     <profile-header-company class="component" [company]="company" id="company-header"></profile-header-company>
 </div>
 
-<div *ngIf="company">
+<div *ngIf="company && priority != 'ONDERNEMERSDAG'">
     <profile-bio-company class="component" [company]="company" id="company-bio"></profile-bio-company>
 </div>
 
-<div *ngIf="company">
+<div *ngIf="company && priority != 'ONDERNEMERSDAG'">
     <profile-vacature-company class="component" [company]="company" [vacatures]="vacatures" id="company-vacature"></profile-vacature-company>
 </div>
 
-<div *ngIf="company">
+<div *ngIf="company && priority != 'ONDERNEMERSDAG'">
     <profile-contact-company class="component" [company]="company" [contacts]="contacts" id="company-contact"></profile-contact-company>
 </div>
 
@@ -22,6 +22,6 @@
 
 </div>
 
-<div  *ngIf="auth.currentUser.companyId != company_id ">
+<div  *ngIf="auth.currentUser.companyId != company_id && auth.currentUser.admin != '1'">
   <app-not-found> </app-not-found>
 </div>

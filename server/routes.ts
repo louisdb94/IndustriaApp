@@ -112,6 +112,7 @@ export default function setRoutes(app) {
   router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
   router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
+
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
   router.route('/students-getall').get(studentsCtrl.select);
@@ -152,6 +153,8 @@ export default function setRoutes(app) {
   router.route('/experience-insertform').post(experienceCtrl.insertForm);
   router.route('/experience-insert/:id').get(experienceCtrl.insertStudentFK);
   router.route('/experiences-delete/:id').delete(experienceCtrl.delete);
+  router.route('/experience-update').put(experienceCtrl.updateAll);
+
 
   //Language
   router.route('/language-get/:id').get(languageCtrl.getbyId);
@@ -258,7 +261,7 @@ export default function setRoutes(app) {
   router.route('/requirements-insertform').post(companyRequirementCtrl.insertForm);
   router.route('/requirements-insert/:id').get(companyRequirementCtrl.insertVacatureFK);
   router.route('/requirements-delete/:id').delete(companyRequirementCtrl.delete);
-
+  router.route('/requirements-update').put(companyRequirementCtrl.updateAll);
 
 
   // Image

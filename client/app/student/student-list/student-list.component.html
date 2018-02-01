@@ -1,5 +1,5 @@
 <app-toast [message]="toast.message"></app-toast>
-<div class="container">
+<div class="container" *ngIf="priority != 'LOW'">
   <div style="margin-top: 15%; width: 100%">
     <div style="float: left; width:70%; border-radius: 1%;border: 2px solid #bbbbbb;">
 
@@ -119,7 +119,7 @@
               <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 110px; width:200px">
                   <ol class="form-check-label"  *ngFor="let item of languages | FilterSkill : searchLang ">
                     <li>
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (change)="inputLangugageCheck($event,item.type)">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (change)="inputLanguageCheck($event,item.type)">
                     <span> {{item.type}} </span>
                   </li>
                 </ol>
@@ -131,4 +131,8 @@
     </div>
 
   </div>
+</div>
+
+<div  *ngIf="priority == 'LOW'">
+  <app-not-found> </app-not-found>
 </div>

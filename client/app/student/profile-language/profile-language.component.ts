@@ -58,7 +58,7 @@ export class LanguageProfile {
   }
 
   add(student){
-    if (student.countLanguage <= 5) {
+    if (student.countLanguage < 5) {
       this.http.get(`/api/language-insert/${student.id}`).subscribe(
         res => {this.getLanguages(student.id)},
         error => {console.log("error")}
@@ -83,6 +83,8 @@ export class LanguageProfile {
       this.http.get(`/api/language-delete/${id}`).subscribe(
         res => {this.save(student, languages)}
       );
+
+      console.log(languages.length)
     }
   }
 

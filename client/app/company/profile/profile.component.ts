@@ -49,7 +49,6 @@ export class CompanyProfile implements OnInit {
       this.getVacaturesByCompanyId(this.company_id);
       this.getContactById(this.company_id);
     });
-
     this.dataService.idMessage.subscribe(message => this.messageId = message);
     this.dataService.navMessage.subscribe(message => this.messageNav = message);
   }

@@ -5,6 +5,7 @@ import { SkillService } from '../../services/skill.service';
 import { ProfessionalService } from '../../services/professional.service';
 import { LanguageService } from '../../services/language.service';
 import { CvsService } from '../../services/cvs.service';
+import { CompanyService } from '../../services/company/company.service';
 import { OrderListModule } from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import { AccordionModule } from 'primeng/primeng';
@@ -34,6 +35,7 @@ export class StudentListComponent implements OnInit {
     private languageService: LanguageService,
     private professionalService: ProfessionalService,
     private cvsService: CvsService,
+    public companyService: CompanyService,
     private http: HttpClient,
     public auth: AuthService,
     public toast: ToastComponent) { }
@@ -54,6 +56,8 @@ export class StudentListComponent implements OnInit {
   public searchSkill: any;
   public searchProf: any;
   public searchLang: any;
+  public priority: any;
+  public company: any;
 
 
 
@@ -67,6 +71,17 @@ export class StudentListComponent implements OnInit {
     this.getLanguages();
     this.getProffskills();
 
+    if(this.auth.currentUser.role == "Company"){
+      this.getCompanyById(this.auth.currentUser);
+    }
+
+  }
+
+  getCompanyById(currentUser){
+    this.companyService.getCompanyById(currentUser.id).subscribe(
+      data => {this.company = data[0],this.priority = data[0].priority},
+      error => console.log("error")
+    );
   }
 
   //Get all students -> add to students[]
@@ -261,9 +276,29 @@ export class StudentListComponent implements OnInit {
     }
   }
 
+
   //this method gives the student_fk of the student with those skills (skills
   //   that are checked) -> these students are stored in nieuwelijstSkillsFk[]
   nieuwelijstSkillsFk = [];
+  // checkSkillDupes(checked){
+  //   let number = 0;
+  //   for(let i = 0; i< this.skillFk.length; i++){
+  //     let random = this.skillFk[i];
+  //     for(let j = 0; j< this.skillFk.length; j++){
+  //       if(this.skillFk[j].student_fk = random.student_fk){
+  //         number++;
+  //       }
+  //
+  //       if (j == (this.skillFk.length - 1)) {
+  //         if(number = 1){
+  //           this.nieuwelijstSkillsFk.push(random);
+  //         }
+  //         number = 0;
+  //       }
+  //     }
+  //
+  //   }
+  // }
   checkSkillDupes(checked) {
     this.nieuwelijstSkillsFk = [];
     if (checked > 1) {
@@ -344,6 +379,25 @@ export class StudentListComponent implements OnInit {
   //this method gives the student_fk of the student with those profskills (skills
   //   that are checked) -> these students are stored in nieuwelijstProfskillsFk[]
   nieuwelijstProfskillsFk = [];
+  // checkProfDupes(checked){
+  //   let number = 0;
+  //   for(let i = 0; i< this.profskillFk.length; i++){
+  //     let random = this.profskillFk[i];
+  //     for(let j = 0; j< this.profskillFk.length; j++){
+  //       if(this.profskillFk[j].student_fk = random.student_fk){
+  //         number++;
+  //       }
+  //
+  //       if (j == (this.profskillFk.length - 1)) {
+  //         if(number = 1){
+  //           this.nieuwelijstProfskillsFk.push(random);
+  //         }
+  //          number = 0;
+  //       }
+  //     }
+  //
+  //   }
+  // }
   checkProfDupes(checked) {
     this.nieuwelijstProfskillsFk = [];
     if (checked > 1) {
@@ -386,7 +440,7 @@ export class StudentListComponent implements OnInit {
   languageFk = [];
   languageChecked = [];
   checkedLang = 0;
-  inputLangugageCheck(e, type) {
+  inputLanguageCheck(e, type) {
     if (e.target.checked) {
       this.checkedLang++;
       this.languageChecked[this.languageChecked.length] = type;
@@ -424,6 +478,25 @@ export class StudentListComponent implements OnInit {
   //this method gives the student_fk of the student with those language (langs
   //   that are checked) -> these students are stored in nieuwelijstLangFk[]
   nieuwelijstLangFk = [];
+  // checkLangDupes(checked){
+  //   let number = 0;
+  //   for(let i = 0; i< this.languageFk.length; i++){
+  //     let random = this.languageFk[i];
+  //     for(let j = 0; j< this.languageFk.length; j++){
+  //       if(this.languageFk[j].student_fk = random.student_fk){
+  //         number++;
+  //       }
+  //
+  //       if (j == (this.languageFk.length - 1)) {
+  //         if(number = 1){
+  //           this.nieuwelijstLangFk.push(random);
+  //         }
+  //         number = 0;
+  //       }
+  //     }
+  //
+  //   }
+  // }
   checkLangDupes(checked) {
     this.nieuwelijstLangFk = [];
     if (checked > 1) {
@@ -461,8 +534,11 @@ export class StudentListComponent implements OnInit {
 
   }
 
+
   //This method gives all the students back with the checked conditions.
   advancedSearch() {
+
+  console.log("test", this.nieuwelijstSkillsFk);
 
     //ADVANCED SEARCH
 

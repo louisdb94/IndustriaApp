@@ -12,8 +12,7 @@ export default class CompanyContactCtrl extends BaseSqlCtrl {
 
   updateAll = (req, res) => {
     const sql = `UPDATE ${this.model} SET email = '${req.body.email}
-      ', phone = '${req.body.phone}', address = '${req.body.address}', latitude = '${req.body.latitude}
-        ', longitude = '${req.body.longitude}'  WHERE id = ${req.body.id}`;
+      ', phone = '${req.body.phone}', address = '${req.body.address}'  WHERE id = ${req.body.id}`;
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {

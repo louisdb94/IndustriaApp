@@ -37,7 +37,7 @@ export class CompanyContactService {
     return this.http.get(`/api/contacts-delete/${contact.id}`, this.options);
   }
 
-  addContactFromStudentId(id): Observable<any> {
+  addContactFromCompanyId(id): Observable<any> {
     return this.http.get(`/api/contacts-insert/${id}`, this.options);
   }
 

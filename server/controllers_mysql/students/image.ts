@@ -18,7 +18,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
     let rnumber = req.body.students;
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
-    newImage.mv('./uploads/images/' + rnumber + '.jpg', function (err) {
+    newImage.mv('/uploads/images/' + rnumber + '.jpg', function (err) {
       if (err) { return res.status(500).send(err); }
       else { res.status(200).redirect('back'); }
     });
@@ -44,7 +44,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
     let name = req.body.name;
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
-    newImage.mv('./uploads/images/' + name + '.png', function (err) {
+    newImage.mv('/uploads/images/' + name + '.png', function (err) {
       if (err) { return res.status(500).send(err); }
       else { res.status(200).redirect('back'); }
     });
@@ -64,7 +64,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
 
   remove = (req, res) => {
     //DELETEN
-    fs.unlink('./uploads/images/' + req.body.name + '.' + req.body.mimetype);
+    fs.unlink('/uploads/images/' + req.body.name + '.' + req.body.mimetype);
 
   }
 
@@ -78,14 +78,14 @@ export default class ImageCtrl extends BaseSqlCtrl {
           return console.error(err);
         } else {
           if (obj[0].image === 1) {
-            fs.readFile('./uploads/images/' + obj[0].rnumber + '.jpg', 'base64', function (err, data) {
+            fs.readFile('/uploads/images/' + obj[0].rnumber + '.jpg', 'base64', function (err, data) {
               if (err) { console.log(err); }
               res.setHeader('Content-Disposition', 'attachment');
               res.send(data);
               connection.release();
             });
           } else {
-            fs.readFile('./uploads/images/standard.jpg', 'base64', function (err, data) {
+            fs.readFile('/uploads/images/standard.jpg', 'base64', function (err, data) {
               if (err) { console.log(err); }
               res.setHeader('Content-Disposition', 'attachment');
               res.send(data);

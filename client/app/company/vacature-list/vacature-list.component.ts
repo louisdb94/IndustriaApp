@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CompanyService } from '../../services/company/company.service';
-
-
-import { OrderListModule } from 'primeng/primeng';
+import {CompanyService} from '../../services/company/company.service';
+import { AuthService } from '../../services/auth.service';
+import {OrderListModule} from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import { AccordionModule } from 'primeng/primeng';
 
@@ -20,8 +19,8 @@ import { FilterVacature } from '../../pipes/filterVacatures.pipe';
 export class VacatureListComponent implements OnInit {
 
 
-  constructor(private companyService: CompanyService,
-    private http: HttpClient) { }
+    constructor(  private companyService: CompanyService, public auth: AuthService,
+                  private http: HttpClient) { }
 
   vacatures = [];
   companies = [];
@@ -39,42 +38,22 @@ export class VacatureListComponent implements OnInit {
     this.getinnerjoin();
     this.getCompanies();
 
-  }
+    ngOnInit() {
+      this.getinnerjoin();
+      this.getCompanies();
+    }
 
-  getCompanies() {
-    this.companyService.getCompanies().subscribe(
-      data => { this.companies = data, this.sort(this.companies) },
-      error => console.log(error)
-    )
-  }
-  //sort array on companies alphabetically
-  sort(array) {
-    array.sort(function (name1, name2) {
-      if (name1.name < name2.name) {
-        return -1;
-      } else if (name1.name > name2.name) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-  }
+    getCompanies(){
+      this.companyService.getCompanies().subscribe(
+        data => {this.companies = data, this.sort(this.companies)},
+        error => console.log(error)
+       )
+    }
 
-  //Get all students -> add to students[]
-  getinnerjoin() {
-    this.companyService.getinnerjoin().subscribe(
-      data => { this.vacatures = data },
-      error => console.log(error)
-    )
-  }
-
-
-  //order by gradYear in searchBox when clicking on 'GradYear'
-  clickGrad = 0;
-  sortVacature() {
-    if (this.clickGrad === 0) {
-      this.vacatures.sort(function (name1, name2) {
-        if (name1.vacature_name < name2.vacature_name) {
+    //sort array on companies alphabetically
+    sort(array){
+      array.sort( function(name1, name2) {
+        if ( name1.name < name2.name ){
           return -1;
         } else if (name1.vacature_name > name2.vacature_name) {
           return 1;

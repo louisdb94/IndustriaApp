@@ -41,5 +41,9 @@ export class CompanyRequirementService {
     return this.http.post('/api/requirements-insertform', JSON.stringify(form), this.options);
   }
 
+  editRequirements(requirement): Observable<any> {
+    return this.http.put(`/api/requirements-update`, JSON.stringify(requirement), this.options);
+  }
+
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef  } f
 import { StudentService } from '../services/student.service';
 import { CompanyService} from '../services/company/company.service';
 import { VacatureService} from '../services/company/vacature.service';
+import { CompanyContactService} from '../services/company/contact.service';
 import { UserService} from '../services/user.service';
 import { DataService } from "../services/data.service";
 import { AuthService } from '../services/auth.service';
@@ -89,6 +90,7 @@ export class HomepageComponent implements OnInit {
     private userService : UserService,
     private companyService : CompanyService,
     private vacatureService : VacatureService,
+    private companyContactService : CompanyContactService,
     private eventsService : EventsService,
     private fileService : FileService,
     public auth: AuthService,
@@ -339,7 +341,7 @@ export class HomepageComponent implements OnInit {
   // }
 
   addCompany() {
-    let addCompanyForm = {email: '', password: '', role: 'Company'};
+    let addCompanyForm = {email: '', password: '', role: 'Company', rnumber: ''};
     addCompanyForm.email = this.addUserForm.value.email;
     addCompanyForm.password = this.addUserForm.value.password;
 
@@ -348,16 +350,19 @@ export class HomepageComponent implements OnInit {
     editPriority.email = this.addUserForm.value.email;
     editPriority.name = this.addUserForm.value.name;
 
+    console.log(addCompanyForm);
 
     this.userService.registerMysql(addCompanyForm)
         .switchMap( userid =>
           this.companyService.addCompanyFromUserId(JSON.parse(userid._body).insertId)
             .switchMap(companyid =>
               this.vacatureService.addVacatureFromCompanyId(JSON.parse(companyid._body).insertId)
+              .switchMap(contact =>
+                this.companyContactService.addContactFromCompanyId(JSON.parse(companyid._body).insertId)
                  .map(result => ({
                    user_id : JSON.parse(userid._body).insertId,
                    companyid: JSON.parse(companyid._body).insertId,
-                 }))))
+                 })))))
         .subscribe(
           res => { this.toast.setMessage('successfully added!', 'success'), editPriority.id = res.companyid, this.updatePriority(editPriority)},
           error => console.log(error)
@@ -368,7 +373,12 @@ export class HomepageComponent implements OnInit {
 
   editPriority = false;
 
-  save(users, companies){
+  saveUpdatePriority(users, companies){
+    for(let i = 0; i < companies.length; i++){
+      if(companies[i]){
+         this.updatePriority(companies[i]);
+      }
+    }
     this.editPriority = false;
   }
 

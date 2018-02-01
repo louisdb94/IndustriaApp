@@ -19,4 +19,9 @@ export default class ExperienceCtrl extends BaseSqlCtrl {
         const sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
         this.executeQuery(sql, req, res, null, null);
     }
+
+    updateAll = (req, res) => {
+        const sql = `UPDATE ${this.model} SET function = '${req.body.function}', description = '${req.body.description}', period = '${req.body.period}' WHERE id = ${req.body.id}`;
+        this.executeQuery(sql, req, res, null, 'post updated...');
+    }
 }

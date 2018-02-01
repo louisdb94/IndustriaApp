@@ -56,6 +56,13 @@ export class LoginComponent implements OnInit {
               public toast: ToastComponent) { }
 
   ngOnInit() {
+    if(this.auth.currentUser.role == "Company"){
+      this.router.navigate(['/home-companies']);
+    }
+    if(this.auth.currentUser.role == "Student"){
+      this.router.navigate(['/home-students']);
+    }
+
     if (this.auth.loggedIn) {
       this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
         data => (this.id = data._id, this.data.changeMessageId(data._id), this.data.changeMessageNav(data._id), console.log("data: ", this.id)),
