@@ -25,10 +25,6 @@ COPY entrypoint.sh /opt/entrypoint.sh
 
 RUN chmod -R 700 /opt/*
 
-# forward request and error logs to docker log collector
-RUN ln -sf /dev/stdout /var/log/nginx/access.log
-RUN ln -sf /dev/stderr /var/log/nginx/error.log
-
 # Configure nginx
 # RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing  vips-tools vips-dev fftw-dev glib-dev --update-cache
 RUN rm -rf /var/cache/apk/* && \
