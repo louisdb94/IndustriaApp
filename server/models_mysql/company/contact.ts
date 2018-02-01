@@ -1,7 +1,7 @@
 let contact_company = `CREATE TABLE IF NOT EXISTS contact_company (
     id int(11) NOT NULL AUTO_INCREMENT,
     email varchar(80) NOT NULL,
-    phone varchar(30) NOT NULL,
+    phone varchar(70) NOT NULL,
     address varchar(150) NOT NULL,
     latitude double NOT NULL DEFAULT '50.8769471',
     longitude double NOT NULL DEFAULT '4.7070334',
