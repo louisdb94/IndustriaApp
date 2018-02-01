@@ -1,4 +1,4 @@
-<div class="container" *ngIf="auth.currentUser.role == 'Student' || auth.currentUser.admin == 1">
+<div class="container" *ngIf="auth.currentUser.role == 'Student' || auth.currentUser.admin == '1'">
   <div style="margin-top: 15%; width: 100%; ">
     <div style=" float:left; width:70%; border-radius: 1%;border: 2px solid #bbbbbb; margin-left: auto; margin-right:auto">
 
@@ -72,6 +72,6 @@
 
 </div>
 
-<div  *ngIf="auth.currentUser.role != 'Student' || auth.currentUser.admin != 1">
+<div  *ngIf="auth.currentUser.admin != '1' || auth.currentUser.role == 'Student'">
   <app-not-found> </app-not-found>
 </div>
