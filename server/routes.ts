@@ -252,6 +252,7 @@ export default function setRoutes(app) {
   router.route('/contacts-delete/:id').get(companyContactCtrl.delete);
   router.route('/contacts-update').put(companyContactCtrl.updateAll);
 
+  //
 
 
   //Requirements

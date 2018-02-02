@@ -72,13 +72,15 @@ export class StudentListComponent implements OnInit {
     this.getProffskills();
 
     if(this.auth.currentUser.role == "Company"){
+      console.log("currentUser: ", this.auth.currentUser);
       this.getCompanyById(this.auth.currentUser);
     }
 
   }
 
   getCompanyById(currentUser){
-    this.companyService.getCompanyById(currentUser.id).subscribe(
+    this.companyService.getCompanyByEmailMysql(currentUser.email).subscribe(
+      // data => {this.company = data[0],this.priority = data[0].priority},
       data => {this.company = data[0],this.priority = data[0].priority},
       error => console.log("error")
     );

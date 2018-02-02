@@ -70,7 +70,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
   }
 
   getCompanyByEmail = (req, res) => {
-    const sql = `SELECT id FROM ${this.model} WHERE email = '${req.params.email}'`;
+    const sql = `SELECT * FROM ${this.model} WHERE email = '${req.params.email}'`;
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
