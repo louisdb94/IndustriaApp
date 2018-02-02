@@ -7,13 +7,26 @@ ENV APP_URL ""
 
 RUN mkdir /app
 
+# Install all the dependencies
+RUN apk add --update bash \
+	certbot \  	
+    tar \
+    git \
+	openssl openssl-dev ca-certificates \
+	&& rm -rf /var/cache/apk/*
+
+# RUN apk --update add curl ca-certificates tar && \
+#     curl -Ls https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-2.26-r0.apk > /tmp/glibc-2.26-r0.apk && \
+#     apk add --allow-untrusted /tmp/glibc-2.26-r0.apk \
+# 		&& rm -rf /var/cache/apk/* && rm /tmp/glibc*
+
 WORKDIR /app
 # ADD package.json  /app/
 COPY package.json package.json
 
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 
-RUN npm install --silent
+RUN npm install 
 
 COPY . .
 
@@ -38,6 +51,9 @@ RUN apk add nginx
 
 # RUN mkdir -p /run/nginx
 
+# used for webroot reauth
+RUN mkdir -p /etc/letsencrypt/webrootauth
+
 # RUN adduser -g 'Nginx www user' -h /home/www/ wwwcbz
 ADD nginx /templates
 ADD uploads /uploads
@@ -46,6 +62,7 @@ ADD saml2 /saml2
 EXPOSE 80
 
 VOLUME ["/app/uploads"]
+VOLUME /etc/letsencrypt
 #create angular build and move to dist folder
 RUN npm run prod
 ENTRYPOINT ["/opt/entrypoint.sh"]
