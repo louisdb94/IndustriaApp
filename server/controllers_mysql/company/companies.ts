@@ -27,7 +27,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
         connection.release();
@@ -50,7 +50,6 @@ export default class CompanyCtrl extends BaseSqlCtrl {
           if (obj[0].image === 1) {
             fs.readFile(root + '/uploads/images/' + obj[0].name + '.png', 'base64', function (err1, data) {
               if (err1) {
-                // connection.release();
                 console.log(err1);
               }
               res.setHeader('Content-Disposition', 'attachment');
@@ -60,10 +59,10 @@ export default class CompanyCtrl extends BaseSqlCtrl {
           } else {
             fs.readFile(root + '/uploads/images/standard.png', 'base64', function (err2, data) {
               if (err2) {
-                // connection.release();
                 console.log(err2);
               }
-              res.setHeader('Content-Disposition', 'attachment');              
+              res.setHeader('Content-Disposition', 'attachment');
+              connection.release();
               res.send(data);
             });
           }
@@ -77,7 +76,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
         connection.release();
@@ -95,7 +94,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
         for (let i = 0; i < result.length; i++) {
@@ -104,8 +103,8 @@ export default class CompanyCtrl extends BaseSqlCtrl {
             result.splice(i, 1);
           }
         }
-        res.send(result);
         connection.release();
+        res.send(result);
       });
     });
   }
@@ -118,11 +117,11 @@ export default class CompanyCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
-        res.json(result);
         connection.release();
+        res.json(result);
       });
     });
   }
