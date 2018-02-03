@@ -17,8 +17,8 @@ var student_fk;
 // Create service provider
 var sp_options = {
   entity_id: "http://industria-staging.cloud.interhostsolutions.be",
-  private_key: fs.readFileSync("./saml2/sp.key").toString(),
-  certificate: fs.readFileSync("./saml2/sp.crt").toString(),
+  private_key: fs.readFileSync(process.cwd() + "/saml2/sp.key").toString(),
+  certificate: fs.readFileSync(process.cwd() + "/saml2/sp.crt").toString(),
   assert_endpoint: "https://industria-staging.cloud.interhostsolutions.be/assert"
 };
 var sp = new saml2.ServiceProvider(sp_options);
@@ -29,7 +29,7 @@ var idp_options = {
   issuer: "urn:mace:kuleuven.be:kulassoc:kuleuven.be",
   sso_login_url: "https://idp.kuleuven.be/idp/profile/SAML2/Redirect/SSO",
   sso_logout_url: "https://idp.kuleuven.be/idp/profile/SAML2/Redirect/SLO",
-  certificates: [fs.readFileSync("./saml2/idp.crt").toString()]
+  certificates: [fs.readFileSync(process.cwd() + '/saml2/idp.crt').toString()]
 };
 var idp = new saml2.IdentityProvider(idp_options);
 
