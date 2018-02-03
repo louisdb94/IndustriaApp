@@ -2,6 +2,7 @@ import { pool } from '../../app';
 import * as  mysql from 'mysql';
 import BaseSqlCtrl from '../baseSql';
 import * as fs from 'fs';
+import { race } from 'q';
 
 export default class ImageCtrl extends BaseSqlCtrl {
 
@@ -71,6 +72,8 @@ export default class ImageCtrl extends BaseSqlCtrl {
   // Select single post
   download = (req, res) => {
     const sql = `SELECT * FROM students WHERE id = '${req.params.id}'`;
+    const root = process.cwd();
+
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
@@ -78,14 +81,14 @@ export default class ImageCtrl extends BaseSqlCtrl {
           return console.error(err);
         } else {
           if (obj[0].image === 1) {
-            fs.readFile('/uploads/images/' + obj[0].rnumber + '.jpg', 'base64', function (err, data) {
+            fs.readFile(root + '/uploads/images/' + obj[0].rnumber + '.jpg', 'base64', function (err, data) {
               if (err) { console.log(err); }
               res.setHeader('Content-Disposition', 'attachment');
               res.send(data);
               connection.release();
             });
           } else {
-            fs.readFile('/uploads/images/standard.jpg', 'base64', function (err, data) {
+            fs.readFile(root + '/uploads/images/standard.jpg', 'base64', function (err, data) {
               if (err) { console.log(err); }
               res.setHeader('Content-Disposition', 'attachment');
               res.send(data);

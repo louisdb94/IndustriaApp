@@ -37,6 +37,8 @@ app.use(fileupload({ safeFileNames: true }));
 //     database: 'br_industria'
 // });
 
+console.log('env variables', process.env.database);
+
 const pool = mysql.createPool({
     //in production: docker5390-industria-staging.cloud.interhostsolutions.be
     host: process.env.dbHost ? process.env.dbHost : 'localhost',

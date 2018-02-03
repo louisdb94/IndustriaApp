@@ -38,6 +38,9 @@ export default class CompanyCtrl extends BaseSqlCtrl {
 
   download = (req, res) => {
     const sql = `SELECT * FROM companies WHERE id = '${req.params.id}'`;
+
+    const root = process.cwd();
+
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
@@ -45,7 +48,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
           return console.error(err);
         } else {
           if (obj[0].image === 1) {
-            fs.readFile('/uploads/images/' + obj[0].name + '.png', 'base64', function (err1, data) {
+            fs.readFile(root + '/uploads/images/' + obj[0].name + '.png', 'base64', function (err1, data) {
               if (err1) {
                 // connection.release();
                 console.log(err1);
@@ -55,7 +58,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
               res.send(data);
             });
           } else {
-            fs.readFile('/uploads/images/standard.png', 'base64', function (err2, data) {
+            fs.readFile(root + '/uploads/images/standard.png', 'base64', function (err2, data) {
               if (err2) {
                 // connection.release();
                 console.log(err2);
