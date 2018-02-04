@@ -50,22 +50,20 @@ export default class CompanyCtrl extends BaseSqlCtrl {
           if (obj[0].image === 1) {
             fs.readFile(root + '/uploads/images/' + obj[0].name + '.png', 'base64', function (err1, data) {
               if (err1) {
-                connection.release();
-                throw err;
+                console.log(err1);
               }
               res.setHeader('Content-Disposition', 'attachment');
-              res.send(data);
               connection.release();
+              res.send(data);
             });
           } else {
             fs.readFile(root + '/uploads/images/standard.png', 'base64', function (err2, data) {
               if (err2) {
-                connection.release();
-                throw err;
+                console.log(err2);
               }
               res.setHeader('Content-Disposition', 'attachment');
-              res.send(data);
               connection.release();
+              res.send(data);
             });
           }
         }
