@@ -14,7 +14,7 @@ export default class PrivacylogCtrl extends BaseSqlCtrl {
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, req.body, (err, result) => {
                 if (err) {
-                    // connection.release();
+                    connection.release();
                     throw err;
                 }
                 res.json(result);

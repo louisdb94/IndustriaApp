@@ -9,13 +9,12 @@ export default class SkillsCtrl extends BaseSqlCtrl {
     model = 'skills';
     dummy = sql_skills;
 
-    // Select posts
     selectSkill = (req, res) => {
         const sql = `SELECT DISTINCT skill FROM ${this.model}`;
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, results) => {
                 if (err) {
-                    // connection.release();
+                    connection.release();
                     throw err;
                 }
                 for (let i = 0; i < results.length; i++) {
@@ -35,7 +34,7 @@ export default class SkillsCtrl extends BaseSqlCtrl {
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, result) => {
                 if (err) {
-                    // connection.release();
+                    connection.release();
                     throw err;
                 }
                 res.json(result);

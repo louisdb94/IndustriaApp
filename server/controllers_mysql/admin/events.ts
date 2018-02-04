@@ -10,13 +10,12 @@ export default class EventsCtrl extends BaseSqlCtrl {
     dummy = events;
 
 
-    // Select posts
     selectAll = (req, res) => {
         const sql = `SELECT id, title, start, end, color FROM ${this.model}`;
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, results) => {
                 if (err) {
-                    console.log('An error has occured', err); // null
+                    connection.release();
                     throw err;
                 }
                 res.json(results);
@@ -36,7 +35,7 @@ export default class EventsCtrl extends BaseSqlCtrl {
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, result) => {
                 if (err) {
-                    console.log('An error has occured', err); // null
+                    connection.release();
                     throw err;
                 }
                 res.json(result);

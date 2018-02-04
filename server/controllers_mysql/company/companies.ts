@@ -30,8 +30,8 @@ export default class CompanyCtrl extends BaseSqlCtrl {
           connection.release();
           throw err;
         }
-        connection.release();
         res.json(result);
+        connection.release();
       });
     });
   }
@@ -45,25 +45,27 @@ export default class CompanyCtrl extends BaseSqlCtrl {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
           connection.release();
-          return console.error(err);
+          throw err;
         } else {
           if (obj[0].image === 1) {
             fs.readFile(root + '/uploads/images/' + obj[0].name + '.png', 'base64', function (err1, data) {
               if (err1) {
-                console.log(err1);
+                connection.release();
+                throw err;
               }
               res.setHeader('Content-Disposition', 'attachment');
-              connection.release();
               res.send(data);
+              connection.release();
             });
           } else {
             fs.readFile(root + '/uploads/images/standard.png', 'base64', function (err2, data) {
               if (err2) {
-                console.log(err2);
+                connection.release();
+                throw err;
               }
               res.setHeader('Content-Disposition', 'attachment');
-              connection.release();
               res.send(data);
+              connection.release();
             });
           }
         }
@@ -79,8 +81,8 @@ export default class CompanyCtrl extends BaseSqlCtrl {
           connection.release();
           throw err;
         }
-        connection.release();
         res.json(result);
+        connection.release();
       });
     });
   }
@@ -103,8 +105,8 @@ export default class CompanyCtrl extends BaseSqlCtrl {
             result.splice(i, 1);
           }
         }
-        connection.release();
         res.send(result);
+        connection.release();
       });
     });
   }
@@ -120,8 +122,8 @@ export default class CompanyCtrl extends BaseSqlCtrl {
           connection.release();
           throw err;
         }
-        connection.release();
         res.json(result);
+        connection.release();
       });
     });
   }
