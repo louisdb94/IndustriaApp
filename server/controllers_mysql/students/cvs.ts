@@ -71,8 +71,9 @@ export default class CvsCtrl extends BaseSqlCtrl {
               connection.release();
               throw err;
             }
+            connection.release();
           });
-          connection.release();
+
         }
       });
     });
