@@ -107,7 +107,6 @@ export class CompanyVacatureProfile {
 
   deleteVacature(vacatures, vacature){
     this.deleteClicked = true;
-    console.log(vacature.id);
     this.vacatureService.deleteVacature(vacature.id).subscribe(
       res => {this.changeVacature(vacatures, null, null, null, vacature)},
       error => console.log(error)

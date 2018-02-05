@@ -355,14 +355,14 @@ export class HomepageComponent implements OnInit {
     this.userService.registerMysql(addCompanyForm)
         .switchMap( userid =>
           this.companyService.addCompanyFromUserId(JSON.parse(userid._body).insertId)
-            .switchMap(companyid =>
-              this.vacatureService.addVacatureFromCompanyId(JSON.parse(companyid._body).insertId)
-              .switchMap(contact =>
+            // .switchMap(companyid =>
+              // this.vacatureService.addVacatureFromCompanyId(JSON.parse(companyid._body).insertId)
+              .switchMap(companyid =>
                 this.companyContactService.addContactFromCompanyId(JSON.parse(companyid._body).insertId)
                  .map(result => ({
                    user_id : JSON.parse(userid._body).insertId,
                    companyid: JSON.parse(companyid._body).insertId,
-                 })))))
+                 }))))
         .subscribe(
           res => { this.toast.setMessage('successfully added!', 'success'), editPriority.id = res.companyid, this.updatePriority(editPriority)},
           error => console.log(error)
