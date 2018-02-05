@@ -20,7 +20,6 @@ export default class CompanyContactCtrl extends BaseSqlCtrl {
           throw err;
         }
         connection.release();
-        res.send('Post updated...');
       });
     });
   }

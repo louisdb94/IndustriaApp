@@ -80,7 +80,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
         for (let i = 0; i < result.length; i++) {
@@ -89,7 +89,6 @@ export default class StudentsCtrl extends BaseSqlCtrl {
           value_types[i] = (result[i].value_type);
         }
         connection.release();
-
       });
     });
     const sql1 = `SELECT DISTINCT email, county, phone, city FROM students t1
@@ -101,7 +100,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query1 = connection.query(sql1, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
 
@@ -126,7 +125,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query2 = connection.query(sql2, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
 
@@ -149,7 +148,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query3 = connection.query(sql3, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
 
@@ -173,7 +172,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query4 = connection.query(sql4, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
 
@@ -183,8 +182,6 @@ export default class StudentsCtrl extends BaseSqlCtrl {
           social_checked[i] = (result[i].checked);
         }
         connection.release();
-
-
       });
     });
 
@@ -198,7 +195,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query5 = connection.query(sql5, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
 
@@ -222,7 +219,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query6 = connection.query(sql6, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
 
@@ -239,7 +236,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query7 = connection.query(sql7, (err, result) => {
         if (err) {
-          // connection.release();
+          connection.release();
           throw err;
         }
 

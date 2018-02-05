@@ -10,13 +10,12 @@ export default class ProfessionalCtrl extends BaseSqlCtrl {
     dummy = sql_professional;
 
 
-    // Select posts
     selectProfessional = (req, res) => {
         const sql = `SELECT DISTINCT skill FROM ${this.model}`;
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, results) => {
                 if (err) {
-                    // connection.release();
+                    connection.release();
                     throw err;
                 }
                 for (let i = 0; i < results.length; i++) {
