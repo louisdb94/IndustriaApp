@@ -19,7 +19,7 @@ var sp_options = {
   entity_id: "http://industria-staging.cloud.interhostsolutions.be",
   private_key: fs.readFileSync(process.cwd() + "/saml2/sp.key").toString(),
   certificate: fs.readFileSync(process.cwd() + "/saml2/sp.crt").toString(),
-  assert_endpoint: "https://industria-staging.cloud.interhostsolutions.be/assert"
+  assert_endpoint: "https://bedrijvenrelaties-industria.be/api/assert"
 };
 var sp = new saml2.ServiceProvider(sp_options);
 
