@@ -16,7 +16,7 @@ var student_fk;
 
 // Create service provider
 var sp_options = {
-  entity_id: "http://industria-staging.cloud.interhostsolutions.be",
+  entity_id: "https://bedrijvenrelaties-industria.be",
   private_key: fs.readFileSync(process.cwd() + "/saml2/sp.key").toString(),
   certificate: fs.readFileSync(process.cwd() + "/saml2/sp.crt").toString(),
   assert_endpoint: "https://bedrijvenrelaties-industria.be/api/assert"

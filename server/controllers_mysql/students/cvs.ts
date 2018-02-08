@@ -11,6 +11,8 @@ export default class CvsCtrl extends BaseSqlCtrl {
   dummy = cvs;
 
   uploadCv = (req, res) => {
+    const root = process.cwd();
+
     //retrieve all data from formdata
     let rnumber = req.body.rnumber;
     let id = req.body.id;
@@ -24,7 +26,7 @@ export default class CvsCtrl extends BaseSqlCtrl {
     //add file to server
     let newCv = (<any>req.files).files;
     let type = newCv.mimetype.split('/')[1]
-    newCv.mv('/uploads/cvs/' + rnumber + "(" + cvnumber + ")" + "." + type, function (err) {
+    newCv.mv(root + '/uploads/cvs/' + rnumber + "(" + cvnumber + ")" + "." + type, function (err) {
       if (err)
         return res.status(500).send(err);
     });
@@ -53,11 +55,14 @@ export default class CvsCtrl extends BaseSqlCtrl {
   }
 
   removeCv = (req, res) => {
-    fs.unlink('/uploads/cvs/' + req.body.name + "(" + req.body.number + ")" + '.' + req.body.mimetype);
+    const root = process.cwd();
+
+    fs.unlink(root + '/uploads/cvs/' + req.body.name + "(" + req.body.number + ")" + '.' + req.body.mimetype);
 
   }
 
   downloadCv = (req, res) => {
+    const root = process.cwd();
 
     const sql = `SELECT * FROM cvs WHERE id = '${req.params.id}'`;
     pool.getConnection(function (error, connection) {
@@ -66,7 +71,7 @@ export default class CvsCtrl extends BaseSqlCtrl {
           connection.release();
           throw err;
         } else {
-          res.download('/uploads/cvs/' + obj[0].name + '(' + obj[0].number + ')' + '.' + obj[0].mimetype, function (err) {
+          res.download(root + '/uploads/cvs/' + obj[0].name + '(' + obj[0].number + ')' + '.' + obj[0].mimetype, function (err) {
             if (err) {
               connection.release();
               throw err;

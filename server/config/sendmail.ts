@@ -19,14 +19,16 @@ export default class MailCtrl {
 
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, user) => {
-                if (user.length > 0) {
+              if (err) {
+                connection.release();
+                throw err;
+              }
+              else if (user.length > 0) {
                     sendMailBackEnd(user, req, res);
-                    connection.release();
-                } 
-                
-                else {
+              }else {
                     addUser(req.params.email, req, res);
-                }
+              }
+                connection.release();
             });
         });
     }
@@ -59,13 +61,19 @@ function addUser(email, req, res) {
     const sql = `INSERT INTO user SET rnumber = '${rnumber}', email = '${email}', role = "Student"`;
     pool.getConnection(function (error, connection) {
         connection.query(sql, (err, result) => {
-            if (err) {throw err;}
+          if (err) {
+            connection.release();
+            throw err;
+          }
             var user_fk = result.insertId;
             console.log("user_fk: ", user_fk);
 
             const sql1 = `INSERT INTO students SET rnumber = '${rnumber}', user_fk = '${user_fk}'`;
             connection.query(sql1, (err, result1) => {
-                if (err) {throw err;}
+              if (err) {
+                connection.release();
+                throw err;
+              }
                  var student_fk = result1.insertId;
                  console.log("student_fk: ", student_fk);
 
@@ -90,27 +98,35 @@ function addUser(email, req, res) {
                 const sql9 = `SELECT * FROM user WHERE email = '${email}'`;
                     pool.getConnection(function (error, connection) {
                         const query1 = connection.query(sql9, (err, user1) => {
+                          if (err) {
+                            connection.release();
+                            throw err;
+                          }
                             if (user1.length > 0) {
                                 sendMailBackEnd(user1, req, res);
-                                connection.release();
                             } else {
                                 console.log('Failed to send the mail for the newly created user');
-                                connection.release();
                             }
+                            connection.release();
                         });
                     });
+                  connection.release();
             });
+            connection.release();
         });
         console.log("A user has been added: ", email);
-        connection.release();
+
     });
 }
 
 function executeQuery(sql) {
     pool.getConnection(function (error, connection) {
             connection.query(sql, (err, result) => {
-                if (err) {throw err;}
+              if (err) {
                 connection.release();
+                throw err;
+              }
+              connection.release();
             });
     });
 }

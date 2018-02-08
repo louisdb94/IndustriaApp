@@ -26,7 +26,7 @@ export class ResetPasswordComponent implements OnInit {
   nodemailer(email){
     this.mailService.nodemailer(email).subscribe(
       res => {this.navigate()},
-      error => console.log("error sending mail")
+      error => console.log("4: error sending mail")
     )
   }
 

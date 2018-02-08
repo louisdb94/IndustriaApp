@@ -48,7 +48,7 @@ export class MailService {
         this.setCurrentUser(decodedUser);
         return this.loggedIn;
       },
-      error => console.log(error)
+      error => { console.log("fout in mailservice nodemailer", error)}
     );
   }
 
