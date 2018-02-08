@@ -100,6 +100,9 @@ EOF
 
 chmod +x /etc/periodic/weekly/renew
 
+
+echo "before start server"
+
 # Kick off cron to reissue certificates as required
 # Background the process and log to stderr
 /usr/sbin/crond -f -d 8 &
@@ -107,10 +110,12 @@ chmod +x /etc/periodic/weekly/renew
 cd "/app"
 node dist/server/app.js  > stdout.txt 2> stderr.txt &
 
+
+echo "Ready"
+
 # Launch nginx in the foreground
 /usr/sbin/nginx -g "daemon off;"
 
 
 
 
-echo "Ready"

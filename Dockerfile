@@ -65,7 +65,7 @@ ADD saml2 /app/dist/server/saml2
 
 EXPOSE 80
 
-VOLUME ["/app/uploads"]
+VOLUME ["/app/dist/server/uploads"]
 VOLUME ["/etc/letsencrypt"]
 #create angular build and move to dist folder
 RUN npm run prod

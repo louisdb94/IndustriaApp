@@ -19,7 +19,7 @@ export default class CvsCtrl extends BaseSqlCtrl {
     let cvnumber = req.body.cvnumber;
 
     //check if there is a file in formdata
-    if (!(<any>req.files).files){
+    if (!(<any>req.files).files) {
       return res.status(400).send('No files were uploaded.');
     }
 
@@ -36,10 +36,14 @@ export default class CvsCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
-          connection.release();
+          if (pool._freeConnections.indexOf(connection) === -1) {
+            connection.release();
+          }
           throw err;
         }
-        connection.release();
+        if (pool._freeConnections.indexOf(connection) === -1) {
+          connection.release();
+        }
       });
     });
   }
@@ -68,17 +72,22 @@ export default class CvsCtrl extends BaseSqlCtrl {
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
-          connection.release();
+          if (pool._freeConnections.indexOf(connection) === -1) {
+            connection.release();
+          }
           throw err;
         } else {
           res.download(root + '/uploads/cvs/' + obj[0].name + '(' + obj[0].number + ')' + '.' + obj[0].mimetype, function (err) {
             if (err) {
-              connection.release();
+              if (pool._freeConnections.indexOf(connection) === -1) {
+                connection.release();
+              }
               throw err;
             }
-            connection.release();
           });
-
+          if (pool._freeConnections.indexOf(connection) === -1) {
+            connection.release();
+          }
         }
       });
     });
