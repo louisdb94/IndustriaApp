@@ -104,12 +104,13 @@ chmod +x /etc/periodic/weekly/renew
 # Background the process and log to stderr
 /usr/sbin/crond -f -d 8 &
 
+cd "/app"
+node dist/server/app.js  > stdout.txt 2> stderr.txt &
 
 # Launch nginx in the foreground
 /usr/sbin/nginx -g "daemon off;"
 
-cd "/app"
-npm run start
+
 
 
 echo "Ready"

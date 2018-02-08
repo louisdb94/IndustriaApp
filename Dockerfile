@@ -69,4 +69,9 @@ VOLUME ["/app/uploads"]
 VOLUME ["/etc/letsencrypt"]
 #create angular build and move to dist folder
 RUN npm run prod
+
 ENTRYPOINT ["/opt/entrypoint.sh"]
+
+# CMD ["node", "/app/dist/server/app.js"]
+
+
