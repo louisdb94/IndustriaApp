@@ -282,25 +282,55 @@ export class StudentListComponent implements OnInit {
   //this method gives the student_fk of the student with those skills (skills
   //   that are checked) -> these students are stored in nieuwelijstSkillsFk[]
   nieuwelijstSkillsFk = [];
+
+  //OR
+
   // checkSkillDupes(checked){
-  //   let number = 0;
+  //   this.nieuwelijstSkillsFk = [];
+  //   console.log(1)
+  //   if(checked > 1){
   //   for(let i = 0; i< this.skillFk.length; i++){
+  //     console.log(2)
+  //
   //     let random = this.skillFk[i];
   //     for(let j = 0; j< this.skillFk.length; j++){
-  //       if(this.skillFk[j].student_fk = random.student_fk){
-  //         number++;
-  //       }
+  //       console.log(3)
   //
-  //       if (j == (this.skillFk.length - 1)) {
-  //         if(number = 1){
-  //           this.nieuwelijstSkillsFk.push(random);
+  //       if (this.nieuwelijstSkillsFk.length == 0) {
+  //         console.log(4)
+  //
+  //         this.nieuwelijstSkillsFk.push(random);
+  //
+  //       }else{
+  //       let double = false;
+  //       for (let k = 0; k < this.nieuwelijstSkillsFk.length; k++) {
+  //         console.log(5)
+  //
+  //         if (this.nieuwelijstSkillsFk[k] == random.student_fk) {
+  //           console.log(6)
+  //           double = true;
+  //           break;
   //         }
-  //         number = 0;
   //       }
+  //       if(double = false){
+  //           this.nieuwelijstSkillsFk.push(random);
+  //       }
+  //     }
+  //
+  //
   //     }
   //
   //   }
   // }
+  // else {
+  //   console.log(8)
+  //
+  //   this.nieuwelijstSkillsFk = this.skillFk;
+  // }
+  // }
+
+  //AND
+
   checkSkillDupes(checked) {
     this.nieuwelijstSkillsFk = [];
     if (checked > 1) {
@@ -381,25 +411,32 @@ export class StudentListComponent implements OnInit {
   //this method gives the student_fk of the student with those profskills (skills
   //   that are checked) -> these students are stored in nieuwelijstProfskillsFk[]
   nieuwelijstProfskillsFk = [];
+
+  //OR
+
   // checkProfDupes(checked){
-  //   let number = 0;
   //   for(let i = 0; i< this.profskillFk.length; i++){
   //     let random = this.profskillFk[i];
   //     for(let j = 0; j< this.profskillFk.length; j++){
-  //       if(this.profskillFk[j].student_fk = random.student_fk){
-  //         number++;
-  //       }
+  //       if (this.nieuwelijstProfskillsFk.length == 0) {
+  //         this.nieuwelijstProfskillsFk.push(random);
   //
-  //       if (j == (this.profskillFk.length - 1)) {
-  //         if(number = 1){
+  //       }
+  //       for (let k = 0; j < this.nieuwelijstProfskillsFk.length; k++) {
+  //         if (this.nieuwelijstProfskillsFk[k] == random.student_fk) {
+  //           break;
+  //         }
+  //         else {
   //           this.nieuwelijstProfskillsFk.push(random);
   //         }
-  //          number = 0;
   //       }
   //     }
   //
   //   }
   // }
+
+  //AND
+
   checkProfDupes(checked) {
     this.nieuwelijstProfskillsFk = [];
     if (checked > 1) {
@@ -480,25 +517,32 @@ export class StudentListComponent implements OnInit {
   //this method gives the student_fk of the student with those language (langs
   //   that are checked) -> these students are stored in nieuwelijstLangFk[]
   nieuwelijstLangFk = [];
+
+  //OR
+
   // checkLangDupes(checked){
-  //   let number = 0;
   //   for(let i = 0; i< this.languageFk.length; i++){
   //     let random = this.languageFk[i];
   //     for(let j = 0; j< this.languageFk.length; j++){
-  //       if(this.languageFk[j].student_fk = random.student_fk){
-  //         number++;
-  //       }
+  //       if (this.nieuwelijstLangFk.length == 0) {
+  //         this.nieuwelijstLangFk.push(random);
   //
-  //       if (j == (this.languageFk.length - 1)) {
-  //         if(number = 1){
+  //       }
+  //       for (let k = 0; j < this.nieuwelijstLangFk.length; k++) {
+  //         if (this.nieuwelijstLangFk[k] == random.student_fk) {
+  //           break;
+  //         }
+  //         else {
   //           this.nieuwelijstLangFk.push(random);
   //         }
-  //         number = 0;
   //       }
   //     }
   //
   //   }
   // }
+
+  //AND
+
   checkLangDupes(checked) {
     this.nieuwelijstLangFk = [];
     if (checked > 1) {
