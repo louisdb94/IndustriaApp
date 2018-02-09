@@ -29,6 +29,10 @@ export class AuthService {
   loginshibb(rnumber){
     this.currentUser.rnumber = rnumber;
     this.currentUser.email = rnumber + "@kuleuven.be";
+    this.studentService.getStudentByRnumberMysql(rnumber).subscribe(
+      data => {console.log(data)},
+      error => {console.log(error)}
+    );
   }
 
   login(emailAndPassword) {

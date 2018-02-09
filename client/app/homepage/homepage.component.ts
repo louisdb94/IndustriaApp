@@ -130,7 +130,10 @@ export class HomepageComponent implements OnInit {
   getShibbRnb(){
     this.http.post('/api/shibbnumber', {}).subscribe(
       data => { console.log(data)},
-      error => {this.rnbShibb = error.error.text, console.log(this.rnbShibb)}
+      error => {
+                if(error.error.text){
+                  this.auth.loginshibb(this.rnbShibb);
+                }}
     )
   }
 
