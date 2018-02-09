@@ -29,7 +29,7 @@ COPY package.json package.json
 
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 
-RUN npm install --silent
+RUN npm install
 
 COPY . .
 
