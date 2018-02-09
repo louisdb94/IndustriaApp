@@ -56,7 +56,7 @@ const colors: any = {
 })
 export class HomepageComponent implements OnInit {
 
-//  rnb : [];
+  rnbShibb : any;
 
   students = [];
   student = {};
@@ -108,6 +108,7 @@ export class HomepageComponent implements OnInit {
   this.getStudentsMysql();
   this.getAdmins();
   this.getUsers();
+  this.getShibbRnb();
 
   this.addUserForm = this.formBuilder.group({
   email: this.email,
@@ -126,12 +127,12 @@ export class HomepageComponent implements OnInit {
   this.data.navMessage.subscribe(message => this.messageNav = message);
 }
 
-  // getShibbRnb(){
-  //   this.http.get('/api/shibbnumber').subscribe(
-  //     data => {console.log(data)},
-  //     error => {console.log(error)}
-  //   )
-  // }
+  getShibbRnb(){
+    this.http.post('/api/shibbnumber', {}).subscribe(
+      data => { console.log(data)},
+      error => {this.rnbShibb = error.error.text, console.log(this.rnbShibb)}
+    )
+  }
 
   //BEGIN OF CALENDAR CODE
 

@@ -8,8 +8,7 @@ export default function setAuthRoutes(app) {
 const router = express.Router();
 var name_id;
 var session_index;
-var rnumber;
-var rnb;
+var rnumber ;
 
 //student parameters
 var student_exist = false;
@@ -54,25 +53,6 @@ router.route('/login').get(function(req,res){
 });
 
 
-router.route('/test').post(function(req,res){
-  //search user with this rnumber
-  //if found set currentUser
-  var email_stud = "r0383990@kuleuven.be"
-  let name_id = email_stud.substr(0,8);
-  console.log(name_id);
-
-  res.send(email_stud);
-  res.redirect('/login');
-  // res.cookie('token', '1234567890', {
-  //           maxAge: 3600000
-  //       });
-//
-
-
-
-})
-
-
 // Assert endpoint for when login completes
 router.route('/assert').post(function(req,res){
   let options = {
@@ -92,20 +72,22 @@ router.route('/assert').post(function(req,res){
     // console.log("saml_response", saml_response);
 
     rnumber = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
-    this.rnb = rnumber.substr(0,8);
     //search user with this rnumber
     //if found set currentUser
     checkStudent(rnumber.substr(0,8));
     res.send(rnumber.substr(0,8));
-    res.redirect('https://bedrijvenrelaties-industria.be/homepage');
+    res.redirect('https://bedrijvenrelaties-industria.be/home-companies');
 
 
   });
 });
 
 
-router.route('/shibbnumber').get(function(req,res){
-  res.send(this.rnb);
+router.route('/shibbnumber').post(function(req,res){
+  if(rnumber){
+    res.send(rnumber);
+  }
+  else{res.send("")}
 
 })
 
