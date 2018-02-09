@@ -75,14 +75,14 @@ export default class CvsCtrl extends BaseSqlCtrl {
           if (pool._freeConnections.indexOf(connection) === -1) {
             connection.release();
           }
-          throw err;
+          return res.status(500).send(err);
         } else {
           res.download(root + '/uploads/cvs/' + obj[0].name + '(' + obj[0].number + ')' + '.' + obj[0].mimetype, function (err) {
             if (err) {
               if (pool._freeConnections.indexOf(connection) === -1) {
                 connection.release();
               }
-              throw err;
+              return res.status(500).send(err);
             }
           });
           if (pool._freeConnections.indexOf(connection) === -1) {

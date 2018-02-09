@@ -53,6 +53,24 @@ router.route('/login').get(function(req,res){
 });
 
 
+router.route('/test').post(function(req,res){
+  //search user with this rnumber
+  //if found set currentUser
+  var email_stud = "r0383990@kuleuven.be"
+  let name_id = email_stud.substr(0,8);
+  console.log(name_id);
+
+  res.send(email_stud);
+  res.redirect('/login');
+  // res.cookie('token', '1234567890', {
+  //           maxAge: 3600000
+  //       });
+//
+
+
+
+})
+
 
 // Assert endpoint for when login completes
 router.route('/assert').post(function(req,res){
@@ -70,7 +88,7 @@ router.route('/assert').post(function(req,res){
     // Note:  In practice these should be saved in the user session, not globally.
     name_id = saml_response.user.name_id;
     session_index = saml_response.user.session_index;
-    console.log("saml_response", saml_response);
+    // console.log("saml_response", saml_response);
 
     rnumber = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
 
@@ -101,18 +119,22 @@ function checkStudent(rnumber){
     const sql = `SELECT id FROM user WHERE rnumber = '${rnumber}'`;
     pool.getConnection(function (error, connection) {
         connection.query(sql, (err, result) => {
-            if (err) {throw err;}
+            if (err) {connection.release(); throw err;}
             if(result.length > 0){
               student_exist = true;
               //CurrentUser  - Navigate to home
-              res.send("student bestaat")
+            //  res.send("student bestaat")
               console.log("bestaat")
+              res.send(rnumber);
+              res.redirect('https://bedrijvenrelaties-industria.be/homepage');
             }
             else{
               // user - student
                 //education - experiences - language - socalmedia x4 - professional - skills - contact
               addUser(name_id);
-              res.send("checking if student exist")
+              res.send(rnumber);
+              res.redirect('https://bedrijvenrelaties-industria.be/homepage');
+            //  res.send("checking if student exist")
               //setCurrentUser
             }
 
@@ -122,14 +144,14 @@ function checkStudent(rnumber){
 }
 
 function addUser(rnumber) {
-    const sql = `INSERT INTO user SET rnumber = '${rnumber}'`;
+    const sql = `INSERT INTO user SET rnumber = '${rnumber}', email = '${rnumber}@kuleuven.be'`;
     pool.getConnection(function (error, connection) {
         connection.query(sql, (err, result) => {
-            if (err) {throw err;}
+            if (err) {connection.release(); throw err;}
             user_fk = result.insertId;
             const sql1 = `INSERT INTO students SET rnumber = '${rnumber}', user_fk = '${user_fk}'`;
             connection.query(sql1, (err, result1) => {
-                if (err) {throw err;}
+                if (err) {connection.release(); throw err;}
                 student_fk = result1.insertId;
                 const sql2 = `INSERT INTO education SET student_fk = '${student_fk}'`;
                 executeQuery(sql2);
@@ -149,17 +171,19 @@ function addUser(rnumber) {
                 const sql8 = `INSERT INTO contact SET student_fk = '${student_fk}'`;
                 executeQuery(sql8);
 
+                connection.release();
             });
+            connection.release();
         });
 
-        connection.release();
+
     });
 }
 
  function executeQuery(sql) {
     pool.getConnection(function (error, connection) {
             connection.query(sql, (err, result) => {
-                if (err) {throw err;}
+                if (err) {connection.release(); throw err;}
                 connection.release();
             });
     });
