@@ -9,6 +9,7 @@ const router = express.Router();
 var name_id;
 var session_index;
 var rnumber;
+var rnb;
 
 //student parameters
 var student_exist = false;
@@ -91,13 +92,22 @@ router.route('/assert').post(function(req,res){
     // console.log("saml_response", saml_response);
 
     rnumber = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
-
+    this.rnb = rnumber.substr(0,8);
     //search user with this rnumber
     //if found set currentUser
     checkStudent(rnumber.substr(0,8));
+    res.send(rnumber.substr(0,8));
+    res.redirect('https://bedrijvenrelaties-industria.be/homepage');
+
 
   });
 });
+
+
+router.route('/shibbnumber').get(function(req,res){
+  res.send(this.rnb);
+
+})
 
 // Starting point for logout
 router.route('/logout').get(function(req,res){
@@ -125,17 +135,12 @@ function checkStudent(rnumber){
               //CurrentUser  - Navigate to home
             //  res.send("student bestaat")
               console.log("bestaat")
-              res.send(rnumber);
-              res.redirect('https://bedrijvenrelaties-industria.be/homepage');
+
             }
             else{
               // user - student
                 //education - experiences - language - socalmedia x4 - professional - skills - contact
               addUser(name_id);
-              res.send(rnumber);
-              res.redirect('https://bedrijvenrelaties-industria.be/homepage');
-            //  res.send("checking if student exist")
-              //setCurrentUser
             }
 
             connection.release();

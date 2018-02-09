@@ -13,6 +13,7 @@ import { ToastComponent } from '../shared/toast/toast.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {DropdownModule} from 'primeng/primeng';
 import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 import {
   startOfDay,
@@ -55,6 +56,8 @@ const colors: any = {
 })
 export class HomepageComponent implements OnInit {
 
+//  rnb : [];
+
   students = [];
   student = {};
   rnumberStudent: String;
@@ -93,6 +96,7 @@ export class HomepageComponent implements OnInit {
     private companyContactService : CompanyContactService,
     private eventsService : EventsService,
     private fileService : FileService,
+    private http: HttpClient,
     public auth: AuthService,
     public sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
@@ -121,6 +125,13 @@ export class HomepageComponent implements OnInit {
   this.data.idMessage.subscribe(message => this.messageId = message);
   this.data.navMessage.subscribe(message => this.messageNav = message);
 }
+
+  // getShibbRnb(){
+  //   this.http.get('/api/shibbnumber').subscribe(
+  //     data => {console.log(data)},
+  //     error => {console.log(error)}
+  //   )
+  // }
 
   //BEGIN OF CALENDAR CODE
 
