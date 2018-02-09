@@ -52,13 +52,26 @@ const pool = mysql.createPool({
 
 pool.getConnection(function (err, connection) {
 
-        // Handle error after the release.
-        if (err) {
-            throw err;
-        }
-        connection.release();
-        console.log("db connected");
-    });
+    // Handle error after the release.
+    if (err) {
+        throw err;
+    }
+    connection.release();
+    console.log("db connected");
+});
+
+
+app.use((err, req, res, next) => {
+    const response = {
+        code: err.status,
+        message: err.message,
+        errors: err.errors,
+        stack: err.stack,
+    };
+    res.status(err.status);
+    res.json(response);
+    res.end();
+});
 
 
 // // Create DB
