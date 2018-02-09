@@ -10,13 +10,13 @@ RUN mkdir /app
 
 # Install all the dependencies
 RUN apk add --update bash \
-	certbot \  	
+	certbot \
     openssl openssl-dev ca-certificates \
     tar \
     git \
     && apk add --no-cache gettext \
 	openssl openssl-dev ca-certificates \
-	&& rm -rf /var/cache/apk/*    
+	&& rm -rf /var/cache/apk/*
 
 # RUN apk --update add curl ca-certificates tar && \
 #     curl -Ls https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-2.26-r0.apk > /tmp/glibc-2.26-r0.apk && \
@@ -29,7 +29,7 @@ COPY package.json package.json
 
 RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
 
-RUN npm install
+RUN npm install --silent
 
 COPY . .
 
@@ -73,5 +73,3 @@ RUN npm run prod
 ENTRYPOINT ["/opt/entrypoint.sh"]
 
 # CMD ["node", "/app/dist/server/app.js"]
-
-
