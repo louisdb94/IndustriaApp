@@ -1,25 +1,25 @@
 <div *ngIf="auth.currentUser.companyId == company_fk || auth.currentUser.role =='Student'">
-<div *ngIf="company">
-    <vacature-header class="component" [vacature]="vacature" [company]="company"></vacature-header>
+    <div *ngIf="company">
+        <vacature-header class="component" [vacature]="vacature" [company]="company"></vacature-header>
+    </div>
+
+    <div *ngIf="company">
+        <vacature-about-company class="component" [vacature]="vacature"></vacature-about-company>
+    </div>
+
+    <div *ngIf="company">
+        <vacature-requirement-company class="component" [vacature]="vacature"></vacature-requirement-company>
+    </div>
+
+    <div *ngIf="company">
+        <vacature-contact-company class="component" [contacts]="contacts"></vacature-contact-company>
+    </div>
+
+    <profile-footer class="component"></profile-footer>
+
+
 </div>
 
-<div *ngIf="company">
-    <vacature-about-company class="component" [vacature]="vacature"></vacature-about-company>
-</div>
-
-<div *ngIf="company">
-    <vacature-requirement-company class="component" [vacature]="vacature"></vacature-requirement-company>
-</div>
-
-<div *ngIf="company">
-    <vacature-contact-company class="component" [contacts]="contacts"></vacature-contact-company>
-</div>
-
-<profile-footer class="component"></profile-footer>
-
-
-</div>
-
-<div  *ngIf="auth.currentUser.companyId != company_fk ">
+<div  *ngIf="auth.currentUser.companyId != company_fk || auth.currentUser.role !='Student' ">
   <app-not-found> </app-not-found>
 </div>

@@ -82,6 +82,33 @@ router.route('/assert').post(function(req,res){
   });
 });
 
+// // Assert endpoint for when login completes
+// router.route('/assert').get(function(req,res){
+//   // var options = {
+//   //   request_body: {
+//   //       RelayState: req.body.RelayState,
+//   //       SAMLResponse: req.body.SAMLResponse,
+//   //   },
+//   //   ignore_signature: true,
+//   // };
+//   // sp.post_assert(idp, options, function (err, saml_response) {
+//   //     if (err != null) {
+//   //         return res.send(500);
+//   //     }
+//   //     name_id = saml_response.user.name_id;
+//   //     session_index = saml_response.user.session_index;
+//   //     email = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
+//   //     rnumber = email.substr(0,8);
+//   //     checkStudent(rnumber);
+//   //     res.redirect('https://bedrijvenrelaties-industria.be/home-students');
+
+//     rnumber = "r0448083";
+//     checkStudent(rnumber);
+//     res.redirect('http://localhost:4200/home-students');
+
+//   // });
+// });
+
 
 router.route('/shibbolethstudent').get(function(req,res){
   if(student){

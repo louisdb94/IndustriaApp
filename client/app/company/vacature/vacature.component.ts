@@ -48,9 +48,7 @@ export class CompanyVacature implements OnInit {
       this.vacature_id = params['id'];
       this.getVacatureById(this.vacature_id);
     });
-
-    this.dataService.idMessage.subscribe(message => this.messageId = message);
-    this.dataService.navMessage.subscribe(message => this.messageNav = message);
+    console.log(this.auth.currentUser);
   }
 
   getVacatureById(id){

@@ -72,6 +72,6 @@
 
 </div>
 
-<div  *ngIf="auth.currentUser.admin != '1' || auth.currentUser.role == 'Student'">
+<div  *ngIf="auth.currentUser.role != 'Student' && auth.currentUser.admin != '1'">
   <app-not-found> </app-not-found>
 </div>
