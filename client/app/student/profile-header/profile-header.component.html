@@ -38,7 +38,7 @@
 
         <div  *ngIf="auth.currentUser.role == 'Student'" class="text-center">
             <label class="custom-control custom-checkbox">
-                <input [checked]="student.cvChecked" class="custom-control-input" type="checkbox" [(ngModel)]="student.cvChecked" (change)= "changeChecked($event, student)"/>
+                <input checked="student.cvChecked" class="custom-control-input" type="checkbox" [(ngModel)]="student.cvChecked" (change)= "changeChecked($event, student)"/>
                 <span id="checkboxCV" class="custom-control-indicator"></span>
                 <span translate class="custom-control-description" style="color:#984444;">CVcheck</span>
             </label>

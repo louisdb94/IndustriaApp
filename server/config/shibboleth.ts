@@ -141,9 +141,8 @@ function addUser(rnumber) {
             user_fk = result.insertId;
 
             const sql1 = `INSERT INTO students SET rnumber = '${rnumber}', user_fk = '${user_fk}'`;
-            pool.getConnection(function (error, connection1) {
-              connection1.query(sql1, (err, result1) => {
-                  if (err) {connection1.release(); throw err;}
+              connection.query(sql1, (err, result1) => {
+                  if (err) {throw err;}
                   student_fk = result1.insertId;
                   const sql2 = `INSERT INTO education SET student_fk = '${student_fk}'`;
                   executeQuery(sql2);
@@ -164,8 +163,6 @@ function addUser(rnumber) {
                   executeQuery(sql8);
 
                   checkStudent(rnumber);
-                  connection1.release();
-              });
             });
             connection.release();
         });

@@ -108,7 +108,9 @@ export class HomepageComponent implements OnInit {
   this.getStudentsMysql();
   this.getAdmins();
   this.getUsers();
-  this.getShibbolethStudent();
+  if(this.auth.currentUser.role !== "Company"){
+    this.getShibbolethStudent();
+  }
 
   this.addUserForm = this.formBuilder.group({
   email: this.email,
