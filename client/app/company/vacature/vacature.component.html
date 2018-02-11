@@ -1,4 +1,4 @@
-<div *ngIf="auth.currentUser.companyId == company_fk || auth.currentUser.role =='Student' || auth.currentUser.admin == 1">
+<div *ngIf="auth.currentUser.companyId === company_fk || auth.currentUser.role === 'Student' || auth.currentUser.admin === '1'">
     <div *ngIf="company">
         <vacature-header class="component" [vacature]="vacature" [company]="company"></vacature-header>
     </div>
@@ -20,6 +20,6 @@
 
 </div>
 
-<div  *ngIf="(auth.currentUser.companyId != company_fk && auth.currentUser.companyId != 0 && auth.currentUser.admin != 1)">
+<div *ngIf="(auth.currentUser.companyId !== company_fk && auth.currentUser.companyId !== 0 && auth.currentUser.admin !== '1')">
   <app-not-found> </app-not-found>
 </div>
