@@ -72,7 +72,6 @@ export class StudentListComponent implements OnInit {
     this.getProffskills();
 
     if(this.auth.currentUser.role == "Company"){
-      console.log("currentUser: ", this.auth.currentUser);
       this.getCompanyById(this.auth.currentUser);
     }
 

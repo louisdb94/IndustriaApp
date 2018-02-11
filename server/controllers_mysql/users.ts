@@ -22,19 +22,21 @@ export default class UserCtrl extends BaseSqlCtrl {
 
     // Select single post
     login = (req, res) => {
+        console.log("gaaaaaaaaaaaaaaay")
         const sql = `SELECT * FROM user WHERE email = '${req.body.email}'`;
         pool.getConnection(function (error, connection) {
             if (error) {
                 console.log('err while connecting', error);
                 throw error;
             }
-            const query = connection.query(sql, (err, user) => {
+            const query = connection.query(sql, (err, userArray) => {
                 if(err){
                     // connection.release();
                     throw err;
                 }
-                if (!user[0]) { }
-                else if (user[0].password == req.body.password) {
+                if (!userArray[0]) { }
+                else if (userArray[0].password == req.body.password) {
+                    const user = userArray[0];
                     const token = jwt.sign({ user: user }, 
                             process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
                     res.status(200).json({ token: token });

@@ -22,17 +22,13 @@ export class AuthService {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedUser = this.decodeUserFromToken(token);
-      this.setCurrentUser(decodedUser);
+      if(decodedUser.role == "Company"){
+        this.setCurrentUser(decodedUser);
+      }
+      else{
+        this.setCurrentUser(decodedUser);
+      }
     }
-  }
-
-  loginshibb(rnumber){
-    this.currentUser.rnumber = rnumber;
-    this.currentUser.email = rnumber + "@kuleuven.be";
-    this.studentService.getStudentByRnumberMysql(rnumber).subscribe(
-      data => {console.log(data[0].user_fk)},
-      error => {console.log(error)}
-    );
   }
 
   login(emailAndPassword) {
@@ -42,7 +38,7 @@ export class AuthService {
         const decodedUser = this.decodeUserFromToken(res.token);
         this.setCurrentUser(decodedUser);
         return this.loggedIn;
-      }
+      },
     );
   }
 
@@ -60,32 +56,6 @@ export class AuthService {
 
   setCurrentUser(decodedUser) {
     this.loggedIn = true;
-    console.log(decodedUser);
-    this.currentUser.id = decodedUser[0].id;
-    this.currentUser.rnumber = decodedUser[0].rnumber;
-    this.currentUser.role = decodedUser[0].role;
-    this.currentUser.admin = decodedUser[0].admin;
-    this.currentUser.email = decodedUser[0].email;
-    if(decodedUser[0].role === 'Student'){
-    this.studentService.getStudentByRnumberMysql(decodedUser[0].rnumber).subscribe(
-      data => {console.log(this.currentUser.studentId = data[0].id)},
-      error => console.log(error)
-    );
-    }
-    if(decodedUser[0].role === 'Company'){
-    this.companyService.getCompanyByEmailMysql(decodedUser[0].email).subscribe(
-      data => {this.currentUser.companyId = data[0].id},
-      error => console.log(error)
-    );
-    }
-
-    decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
-
-    delete decodedUser.role;
-  }
-
-  setCurrentUserStudent(decodedUser) {
-    this.loggedIn = true;
     this.currentUser.id = decodedUser.id;
     this.currentUser.rnumber = decodedUser.rnumber;
     this.currentUser.role = decodedUser.role;
@@ -97,6 +67,19 @@ export class AuthService {
       error => console.log(error)
     );
     }
+    if(decodedUser.role === 'Company'){
+    this.companyService.getCompanyByEmailMysql(decodedUser.email).subscribe(
+      data => {this.currentUser.companyId = data[0].id},
+      error => console.log(error)
+    );
+    }
+    decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
+    delete decodedUser.role;
   }
 
+  loginStudent(res) {
+    localStorage.setItem('token', res.token);
+    const decodedUserStudent = this.decodeUserFromToken(res.token);
+    this.setCurrentUser(decodedUserStudent);
+  } 
 }

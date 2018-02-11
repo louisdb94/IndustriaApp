@@ -89,7 +89,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
     const dummy = [];
 
     const sql = `SELECT companies.id , companies.name AS company_name , companies.url,
-                 vacatures.name AS vacature_name, vacatures.type FROM companies
+                vacatures.id AS vacature_id, vacatures.name AS vacature_name, vacatures.type FROM companies
                 INNER JOIN vacatures ON  companies.id = vacatures.company_fk`;
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {

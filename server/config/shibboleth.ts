@@ -1,6 +1,7 @@
 import * as saml2 from 'saml2-js';
 import * as fs from 'fs';
 import * as express from 'express';
+import * as jwt from 'jsonwebtoken';
 import {app, pool} from '../app';
 
 export default function setAuthRoutes(app) {
@@ -10,7 +11,7 @@ var name_id;
 var session_index;
 var rnumber;
 var email;
-var student = { id: 0, email: '', rnumber: '', role: '', studentId: 0 , companyId: 0, admin: ''};
+var user = { id: 0, email: '', rnumber: '', role: '', studentId: 0 , companyId: 0, admin: ''};
 
 //student parameters
 var student_exist = false;
@@ -75,44 +76,24 @@ router.route('/assert').post(function(req,res){
       checkStudent(rnumber);
       res.redirect('https://bedrijvenrelaties-industria.be/home-students');
 
-    // rnumber = "r0448083";
-    // checkStudent(rnumber);
-    // res.redirect('http://localhost:4200/home-students');
-
   });
 });
 
 // // Assert endpoint for when login completes
 // router.route('/assert').get(function(req,res){
-//   // var options = {
-//   //   request_body: {
-//   //       RelayState: req.body.RelayState,
-//   //       SAMLResponse: req.body.SAMLResponse,
-//   //   },
-//   //   ignore_signature: true,
-//   // };
-//   // sp.post_assert(idp, options, function (err, saml_response) {
-//   //     if (err != null) {
-//   //         return res.send(500);
-//   //     }
-//   //     name_id = saml_response.user.name_id;
-//   //     session_index = saml_response.user.session_index;
-//   //     email = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
-//   //     rnumber = email.substr(0,8);
-//   //     checkStudent(rnumber);
-//   //     res.redirect('https://bedrijvenrelaties-industria.be/home-students');
 
-//     rnumber = "r0448083";
+//     rnumber = 'r0451735';
 //     checkStudent(rnumber);
 //     res.redirect('http://localhost:4200/home-students');
 
-//   // });
 // });
 
 
 router.route('/shibbolethstudent').get(function(req,res){
-  if(student){
-    res.json(student);
+  if(user){
+    const token = jwt.sign({ user: user }, 
+    process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+    res.status(200).json({ token: token });
   }
   else{
     res.json("");
@@ -146,11 +127,11 @@ function checkStudent(rnumber){
 
             else if(result.length > 0){
                   student_exist = true;
-                  student.id = result[0].id;
-                  student.rnumber = result[0].rnumber;
-                  student.role = result[0].role;
-                  student.admin = result[0].admin;
-                  student.email = result[0].email;
+                  user.id = result[0].id;
+                  user.rnumber = result[0].rnumber;
+                  user.role = result[0].role;
+                  user.admin = result[0].admin;
+                  user.email = result[0].email;
                 }
                 else{
                   addUser(rnumber);

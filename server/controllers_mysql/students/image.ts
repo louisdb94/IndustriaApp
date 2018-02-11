@@ -31,7 +31,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
           connection.release();
-          return console.error(err);
+          throw err;        
         }
         connection.release();
       });
@@ -50,9 +50,14 @@ export default class ImageCtrl extends BaseSqlCtrl {
     let name = req.body.name;
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
-    newImage.mv(root + '/uploads/images/' + name + '.png', function (err) {
-      if (err) { return res.status(500).send(err); }
-      else { res.status(200).redirect('back'); }
+    newImage.mv(root + '/uploads/images/' + name + '.png', function (err, result) {
+      if (err) {
+        console.log("error 1"); 
+        return res.status(500).send(err); 
+      }
+      else { 
+        res.status(200).redirect('back'); 
+      }
     });
 
     const sql = `UPDATE companies SET image = '1' WHERE id = '${req.body.id}'`;
@@ -60,7 +65,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
           connection.release();
-          return console.error(err);
+          throw err;
         }
         connection.release();
       });
@@ -85,26 +90,25 @@ export default class ImageCtrl extends BaseSqlCtrl {
         if (err) {
           connection.release();
           throw err;
-        } else {
+        } 
+        else {
           if (obj[0].image === 1) {
-            fs.readFile(root + '/uploads/images/' + obj[0].rnumber + '.jpg', 'base64', function (err, data) {
-              if (err) {
-                connection.release();
-                throw err;
+            fs.readFile(root + '/uploads/images/' + obj[0].rnumber + '.jpg', 'base64', function (err1, data) {
+              if (err1) {
+                console.log(err1);
               }
               res.setHeader('Content-Disposition', 'attachment');
-              res.send(data);
               connection.release();
+              res.send(data);
             });
           } else {
-            fs.readFile(root + '/uploads/images/standard.jpg', 'base64', function (err, data) {
-              if (err) {
-                connection.release();
-                throw err;
+            fs.readFile(root + '/uploads/images/standard.jpg', 'base64', function (err2, data) {
+              if (err2) {
+                console.log(err2);
               }
               res.setHeader('Content-Disposition', 'attachment');
-              res.send(data);
               connection.release();
+              res.send(data);
             });
           }
         }

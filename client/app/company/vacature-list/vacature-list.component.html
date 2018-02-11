@@ -26,7 +26,7 @@
           <tr *ngFor="let item of vacatures  |  paginate: { itemsPerPage: 5, currentPage: p }" style="width:100%">
           <tr *ngFor="let item of vacatures | FilterVacature : searchText : model.filter |  paginate: { itemsPerPage: 5, currentPage: p }">
             <td>
-              <a href="/vacature-company/{{item.id}}">{{item.vacature_name}} </a>
+              <a href="/vacature-company/{{item.vacature_id}}">{{item.vacature_name}} </a>
             </td>
             <td>{{item.type}}</td>
             <td>{{item.company_name}}</td>

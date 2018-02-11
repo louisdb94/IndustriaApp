@@ -48,7 +48,6 @@ export class CompanyVacature implements OnInit {
       this.vacature_id = params['id'];
       this.getVacatureById(this.vacature_id);
     });
-    console.log(this.auth.currentUser);
   }
 
   getVacatureById(id){

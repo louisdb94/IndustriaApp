@@ -131,15 +131,9 @@ export class HomepageComponent implements OnInit {
 
   getShibbolethStudent(){
     this.http.get('/api/shibbolethstudent', {}).subscribe(
-      data => {this.checkRnumber(data)},
+      data => {this.auth.loginStudent(data)},
       error => { console.log("error") }
     )
-  }
-
-  checkRnumber(data){
-    if(this.auth.currentUser.rnumber == data.rnumber || this.auth.currentUser.rnumber == ''){
-      this.auth.setCurrentUserStudent(data);
-    }
   }
 
   //BEGIN OF CALENDAR CODE

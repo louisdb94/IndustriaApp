@@ -64,7 +64,12 @@ export class VacatureListComponent implements OnInit {
     //Get all students -> add to students[]
     getinnerjoin(){
       this.companyService.getinnerjoin().subscribe(
-        data => { this.vacatures = data},
+        data => {
+          for(let i =0; i< data.length ; i++){
+            if(data[i].vacature_name != ""){
+              this.vacatures.push(data[i]);
+            }
+          }},
         error => console.log(error)
       )
     }
