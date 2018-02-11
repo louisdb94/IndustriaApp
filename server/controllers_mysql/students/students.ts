@@ -272,7 +272,7 @@ export default class StudentsCtrl extends BaseSqlCtrl {
 
 
   getStudentByRnumber = (req, res) => {
-    const sql = `SELECT id FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
+    const sql = `SELECT * FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
     this.executeQuery(sql, req, res, null, null);
   }
 }

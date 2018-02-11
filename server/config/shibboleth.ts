@@ -8,7 +8,9 @@ export default function setAuthRoutes(app) {
 const router = express.Router();
 var name_id;
 var session_index;
-var rnumber ;
+var rnumber;
+var email;
+var student = { id: 0, email: '', rnumber: '', role: '', studentId: 0 , companyId: 0, admin: ''};
 
 //student parameters
 var student_exist = false;
@@ -55,40 +57,39 @@ router.route('/login').get(function(req,res){
 
 // Assert endpoint for when login completes
 router.route('/assert').post(function(req,res){
-  let options = {
-          request_body: {
-              RelayState: req.body.RelayState,
-              SAMLResponse: req.body.SAMLResponse,
-          },
-          ignore_signature : true,
-    };
-  sp.post_assert(idp, options, function(err, saml_response) {
-    if (err != null){return res.send(500);}
+  var options = {
+    request_body: {
+        RelayState: req.body.RelayState,
+        SAMLResponse: req.body.SAMLResponse,
+    },
+    ignore_signature: true,
+  };
+  sp.post_assert(idp, options, function (err, saml_response) {
+      if (err != null) {
+          return res.send(500);
+      }
+      name_id = saml_response.user.name_id;
+      session_index = saml_response.user.session_index;
+      email = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
+      rnumber = email.substr(0,8);
+      checkStudent(rnumber);
+      res.redirect('https://bedrijvenrelaties-industria.be/home-students');
 
-    // Save name_id and session_index for logout
-    // Note:  In practice these should be saved in the user session, not globally.
-    name_id = saml_response.user.name_id;
-    session_index = saml_response.user.session_index;
-    // console.log("saml_response", saml_response);
-
-    rnumber = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
-    //search user with this rnumber
-    //if found set currentUser
-    checkStudent(rnumber.substr(0,8));
-    res.send(rnumber.substr(0,8));
-    res.redirect('https://bedrijvenrelaties-industria.be/home-companies');
-
+    // rnumber = "r0448083";
+    // checkStudent(rnumber);
+    // res.redirect('http://localhost:4200/home-students');
 
   });
 });
 
 
-router.route('/shibbnumber').post(function(req,res){
-  if(rnumber){
-    res.send(rnumber);
+router.route('/shibbolethstudent').get(function(req,res){
+  if(student){
+    res.json(student);
   }
-  else{res.send("")}
-
+  else{
+    res.json("");
+  }
 })
 
 // Starting point for logout
@@ -108,62 +109,66 @@ router.route('/logout').get(function(req,res){
 
 //functies om student aan te maken
 function checkStudent(rnumber){
-    const sql = `SELECT id FROM user WHERE rnumber = '${rnumber}'`;
+    const sql = `SELECT * FROM user WHERE rnumber = '${rnumber}'`;
     pool.getConnection(function (error, connection) {
         connection.query(sql, (err, result) => {
-            if (err) {connection.release(); throw err;}
-            if(result.length > 0){
-              student_exist = true;
-              //CurrentUser  - Navigate to home
-            //  res.send("student bestaat")
-              console.log("bestaat")
-
-            }
-            else{
-              // user - student
-                //education - experiences - language - socalmedia x4 - professional - skills - contact
-              addUser(name_id);
+            if (err) {
+              connection.release(); 
+              throw err;
             }
 
+            else if(result.length > 0){
+                  student_exist = true;
+                  student.id = result[0].id;
+                  student.rnumber = result[0].rnumber;
+                  student.role = result[0].role;
+                  student.admin = result[0].admin;
+                  student.email = result[0].email;
+                }
+                else{
+                  addUser(rnumber);
+                }
             connection.release();
         })
     });
 }
 
 function addUser(rnumber) {
-    const sql = `INSERT INTO user SET rnumber = '${rnumber}', email = '${rnumber}@kuleuven.be'`;
+    const sql = `INSERT INTO user SET rnumber = '${rnumber}', email = '${rnumber}@kuleuven.be', role = 'Student'`;
     pool.getConnection(function (error, connection) {
         connection.query(sql, (err, result) => {
             if (err) {connection.release(); throw err;}
             user_fk = result.insertId;
-            const sql1 = `INSERT INTO students SET rnumber = '${rnumber}', user_fk = '${user_fk}'`;
-            connection.query(sql1, (err, result1) => {
-                if (err) {connection.release(); throw err;}
-                student_fk = result1.insertId;
-                const sql2 = `INSERT INTO education SET student_fk = '${student_fk}'`;
-                executeQuery(sql2);
-                const sql3 = `INSERT INTO experiences SET student_fk = '${student_fk}'`;
-                executeQuery(sql3);
-                const sql4 = `INSERT INTO language SET student_fk = '${student_fk}'`;
-                executeQuery(sql4);
-                const sql5 = `INSERT INTO socialmedia SET student_fk = '${student_fk}'`;
-                executeQuery(sql5);
-                executeQuery(sql5);
-                executeQuery(sql5);
-                executeQuery(sql5);
-                const sql6 = `INSERT INTO professional SET student_fk = '${student_fk}'`;
-                executeQuery(sql6);
-                const sql7 = `INSERT INTO skills SET student_fk = '${student_fk}'`;
-                executeQuery(sql7);
-                const sql8 = `INSERT INTO contact SET student_fk = '${student_fk}'`;
-                executeQuery(sql8);
 
-                connection.release();
+            const sql1 = `INSERT INTO students SET rnumber = '${rnumber}', user_fk = '${user_fk}'`;
+            pool.getConnection(function (error, connection1) {
+              connection1.query(sql1, (err, result1) => {
+                  if (err) {connection1.release(); throw err;}
+                  student_fk = result1.insertId;
+                  const sql2 = `INSERT INTO education SET student_fk = '${student_fk}'`;
+                  executeQuery(sql2);
+                  const sql3 = `INSERT INTO experiences SET student_fk = '${student_fk}'`;
+                  executeQuery(sql3);
+                  const sql4 = `INSERT INTO language SET student_fk = '${student_fk}'`;
+                  executeQuery(sql4);
+                  const sql5 = `INSERT INTO socialmedia SET student_fk = '${student_fk}'`;
+                  executeQuery(sql5);
+                  executeQuery(sql5);
+                  executeQuery(sql5);
+                  executeQuery(sql5);
+                  const sql6 = `INSERT INTO professional SET student_fk = '${student_fk}'`;
+                  executeQuery(sql6);
+                  const sql7 = `INSERT INTO skills SET student_fk = '${student_fk}'`;
+                  executeQuery(sql7);
+                  const sql8 = `INSERT INTO contact SET student_fk = '${student_fk}'`;
+                  executeQuery(sql8);
+
+                  checkStudent(rnumber);
+                  connection1.release();
+              });
             });
             connection.release();
         });
-
-
     });
 }
 

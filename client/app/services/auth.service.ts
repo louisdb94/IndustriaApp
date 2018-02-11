@@ -30,7 +30,7 @@ export class AuthService {
     this.currentUser.rnumber = rnumber;
     this.currentUser.email = rnumber + "@kuleuven.be";
     this.studentService.getStudentByRnumberMysql(rnumber).subscribe(
-      data => {console.log(data)},
+      data => {console.log(data[0].user_fk)},
       error => {console.log(error)}
     );
   }
@@ -60,6 +60,7 @@ export class AuthService {
 
   setCurrentUser(decodedUser) {
     this.loggedIn = true;
+    console.log(decodedUser);
     this.currentUser.id = decodedUser[0].id;
     this.currentUser.rnumber = decodedUser[0].rnumber;
     this.currentUser.role = decodedUser[0].role;
@@ -67,7 +68,7 @@ export class AuthService {
     this.currentUser.email = decodedUser[0].email;
     if(decodedUser[0].role === 'Student'){
     this.studentService.getStudentByRnumberMysql(decodedUser[0].rnumber).subscribe(
-      data => {this.currentUser.studentId = data[0].id},
+      data => {console.log(this.currentUser.studentId = data[0].id)},
       error => console.log(error)
     );
     }
@@ -81,6 +82,21 @@ export class AuthService {
     decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
 
     delete decodedUser.role;
+  }
+
+  setCurrentUserStudent(decodedUser) {
+    this.loggedIn = true;
+    this.currentUser.id = decodedUser.id;
+    this.currentUser.rnumber = decodedUser.rnumber;
+    this.currentUser.role = decodedUser.role;
+    this.currentUser.admin = decodedUser.admin;
+    this.currentUser.email = decodedUser.email;
+    if(decodedUser.role === 'Student'){
+    this.studentService.getStudentByRnumberMysql(decodedUser.rnumber).subscribe(
+      data => {this.currentUser.studentId = data[0].id},
+      error => console.log(error)
+    );
+    }
   }
 
 }

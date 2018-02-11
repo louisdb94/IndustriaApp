@@ -108,7 +108,7 @@ export class HomepageComponent implements OnInit {
   this.getStudentsMysql();
   this.getAdmins();
   this.getUsers();
-  this.getShibbRnb();
+  this.getShibbolethStudent();
 
   this.addUserForm = this.formBuilder.group({
   email: this.email,
@@ -127,13 +127,10 @@ export class HomepageComponent implements OnInit {
   this.data.navMessage.subscribe(message => this.messageNav = message);
 }
 
-  getShibbRnb(){
-    this.http.post('/api/shibbnumber', {}).subscribe(
-      data => { console.log(data)},
-      error => {
-                if(error.error.text){
-                  this.auth.loginshibb(this.rnbShibb);
-                }}
+  getShibbolethStudent(){
+    this.http.get('/api/shibbolethstudent', {}).subscribe(
+      data => { this.auth.setCurrentUserStudent(data) },
+      error => { console.log("error") }
     )
   }
 
