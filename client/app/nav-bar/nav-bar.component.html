@@ -14,8 +14,8 @@
             </a>
         </li>
         <li class="nav-item dropdown active" style="font-size:147%">
-          <a translate id="navbarDropdownMenuLink" data-toggle="dropdown" [routerLink] ="studentString + this.auth.currentUser.studentId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-            <i class="fa fa-list" > Profile </i><i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
+          <a id="navbarDropdownMenuLink" data-toggle="dropdown" [routerLink] ="studentString + this.auth.currentUser.studentId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <i translate class="fa fa-list" > Profile </i><i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
               <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-header">header</a>
@@ -30,13 +30,13 @@
 
         </li>
         <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
-          <a id="homeid" translate class=" ab nav-link" routerLink="/student-list"><i class="fa fa-briefcase" aria-hidden="true"> Student Search </i> </a>
+          <a translate="" id="homeid" translate class=" ab nav-link" routerLink="/student-list"><i class="fa fa-briefcase" aria-hidden="true"> Student Search </i> </a>
         </li>
         <li class="nav-item">
-          <a id="homeid" translate class=" ab nav-link" routerLink="/vacature-list"><i class="fa fa-briefcase" aria-hidden="true"> Job Openings</i> </a>
+          <a translate id="homeid" translate class=" ab nav-link" routerLink="/vacature-list"><i class="fa fa-briefcase" aria-hidden="true"> Job Openings</i> </a>
         </li>
         <li class="nav-item">
-          <a id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i class="fa fa-sign-out" aria-hidden="true"> Logout</i> </a>
+          <a translate id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i class="fa fa-sign-out" aria-hidden="true"> Logout</i> </a>
         </li>
       </ul>
     </div>
@@ -63,8 +63,8 @@
               </a>
           </li>
           <li class="nav-item dropdown active" style="font-size:147%">
-            <a translate id="navbarDropdownMenuLink" data-toggle="dropdown" [routerLink] ="companyString + auth.currentUser.companyId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-              <i class="fa fa-list" > Profile </i><i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
+            <a id="navbarDropdownMenuLink" data-toggle="dropdown" [routerLink] ="companyString + auth.currentUser.companyId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+              <i translate class="fa fa-list" > Profile </i><i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                 <a scrollTo class="dropdown-item" scrollTargetSelector="#company-header">header</a>
@@ -75,13 +75,13 @@
 
           </li>
           <li class="nav-item">
-            <a id="homeid" translate class=" ab nav-link" routerLink="/student-list"><i class="fa fa-briefcase" aria-hidden="true"> Student Search </i> </a>
+            <a translate id="homeid" translate class=" ab nav-link" routerLink="/student-list"><i translate class="fa fa-briefcase" aria-hidden="true"> Student Search </i> </a>
           </li>
           <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
-            <a id="homeid" translate class=" ab nav-link" routerLink="/vacature-list"><i class="fa fa-briefcase" aria-hidden="true"> Job Openings</i> </a>
+            <a translate id="homeid" translate class=" ab nav-link" routerLink="/vacature-list"><i translate class="fa fa-briefcase" aria-hidden="true"> Job Openings</i> </a>
           </li>
           <li class="nav-item">
-            <a id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i class="fa fa-sign-out" aria-hidden="true"> Logout </i> </a>
+            <a translate id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i translate class="fa fa-sign-out" aria-hidden="true">Logout</i> </a>
           </li>
         </ul>
       </div>

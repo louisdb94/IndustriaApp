@@ -6,6 +6,7 @@ import { CompanyContactService} from '../services/company/contact.service';
 import { UserService} from '../services/user.service';
 import { DataService } from "../services/data.service";
 import { AuthService } from '../services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 import { FileService} from '../services/file.service';
 import { EventsService } from "../services/admin/events.service";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -98,6 +99,7 @@ export class HomepageComponent implements OnInit {
     private fileService : FileService,
     private http: HttpClient,
     public auth: AuthService,
+    private translate: TranslateService,
     public sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
     public toast: ToastComponent, private modal: NgbModal) { }
@@ -274,6 +276,10 @@ export class HomepageComponent implements OnInit {
       error => console.log(error)
     );
 
+  }
+
+  switchLanguage(language) {
+    this.translate.use(language);
   }
 
   getCompanies(){

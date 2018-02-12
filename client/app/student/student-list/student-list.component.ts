@@ -262,7 +262,6 @@ export class StudentListComponent implements OnInit {
       }
     }
     else {
-      this.fk_list = [];
       this.checkedSkill--;
       for (let i = 0; i < this.skillsChecked.length; i++) {
         if (this.skillsChecked[i] == skill) {
@@ -272,7 +271,6 @@ export class StudentListComponent implements OnInit {
       }
 
       for (let i = 0; i < this.skillFk.length; i++) {
-        this.fk_list.push(this.skillFk[i].student_fk);
         if (this.skillFk[i].skill.toLowerCase() == skill.toLowerCase()) {
           this.skillFk.splice(i, 1);
           this.fk_list.splice(i, 1);
@@ -292,8 +290,6 @@ export class StudentListComponent implements OnInit {
   profskillFk = [];
   profSkillsChecked = [];
   checkedProf = 0;
-  fk_list_prof = [];
-  noDupe_prof = [];
   inputProfskillCheck(e, skill) {
     if (e.target.checked) {
       this.checkedProf++;
@@ -303,16 +299,15 @@ export class StudentListComponent implements OnInit {
           data => {
             for (let i = 0; i < data.length; i++) {
               this.profskillFk.push(data[i]);
-              this.fk_list_prof.push(data[i].student_fk);
+              this.fk_list.push(data[i].student_fk);
             }
-            this.noDupe_prof = Array.from(new Set(this.fk_list_prof));
+            this.noDupe = Array.from(new Set(this.fk_list));
           },
           error => console.log(error)
         )
       }
     }
     else {
-      this.fk_list_prof = [];
       this.checkedProf--;
       for (let i = 0; i < this.profSkillsChecked.length; i++) {
         if (this.profSkillsChecked[i] == skill) {
@@ -322,10 +317,9 @@ export class StudentListComponent implements OnInit {
       }
 
       for (let i = 0; i < this.profskillFk.length; i++) {
-        this.fk_list_prof.push(this.skillFk[i].student_fk);
         if (this.profskillFk[i].skill.toLowerCase() == skill.toLowerCase()) {
           this.profskillFk.splice(i, 1);
-          this.fk_list_prof.splice(i, 1);
+          this.fk_list.splice(i, 1);
           i--;
         }
       }
@@ -340,8 +334,6 @@ export class StudentListComponent implements OnInit {
   languageFk = [];
   languageChecked = [];
   checkedLang = 0;
-  fk_list_lang = [];
-  noDupe_lang = [];
   inputLanguageCheck(e, type) {
     if (e.target.checked) {
       this.checkedLang++;
@@ -351,16 +343,15 @@ export class StudentListComponent implements OnInit {
           data => {
             for (let i = 0; i < data.length; i++) {
               this.languageFk.push(data[i]);
-              this.fk_list_lang.push(data[i].student_fk);
+              this.fk_list.push(data[i].student_fk);
             }
-            this.noDupe_lang = Array.from(new Set(this.fk_list_lang));
+            this.noDupe = Array.from(new Set(this.fk_list));
           },
           error => console.log(error)
         )
       }
     }
     else {
-      this.fk_list_lang = [];
       this.checkedLang--;
       for (let i = 0; i < this.languageChecked.length; i++) {
         if (this.languageChecked[i] == type) {
@@ -370,10 +361,9 @@ export class StudentListComponent implements OnInit {
       }
 
       for (let i = 0; i < this.languageFk.length; i++) {
-        this.fk_list_lang.push(this.languageFk[i].student_fk);
         if (this.languageFk[i].type.toLowerCase() == type.toLowerCase()) {
           this.languageFk.splice(i, 1);
-          this.fk_list_lang.splice(i, 1);
+          this.fk_list.splice(i, 1);
           i--;
         }
       }
@@ -385,112 +375,17 @@ export class StudentListComponent implements OnInit {
 
   //This method gives all the students back with the checked conditions.
   advancedSearch() {
-
     //ADVANCED SEARCH
-
-    if (this.noDupe_lang.length > 0 && this.noDupe.length == 0 && this.noDupe_prof.length == 0) {
-      this.students = [];
-      for (let i = 0; i < this.noDupe_lang.length; i++) {
-        this.studentService.getStudentByIdMysql(this.noDupe_lang[i]).subscribe(
-          data => { this.students[i] = data[0] },
-          error => console.log(error)
-        )
-
-      }
-    }
-    else if (this.noDupe.length > 0 && this.noDupe_lang.length == 0 && this.noDupe_prof.length == 0) {
+    if (this.noDupe.length > 0 ) {
       this.students = [];
       for (let i = 0; i < this.noDupe.length; i++) {
         this.studentService.getStudentByIdMysql(this.noDupe[i]).subscribe(
           data => { this.students[i] = data[0] },
           error => console.log(error)
         )
-
       }
     }
-    else if (this.noDupe_prof.length > 0 && this.noDupe_lang.length == 0 && this.noDupe.length == 0) {
-      this.students = [];
-      for (let i = 0; i < this.noDupe_prof.length; i++) {
-        this.studentService.getStudentByIdMysql(this.noDupe_prof[i]).subscribe(
-          data => { this.students[i] = data[0] },
-          error => console.log(error)
-        )
-
-      }
-    }
-    else if (this.noDupe.length > 0 && this.noDupe_lang.length > 0 && this.noDupe_prof.length == 0) {
-      this.students = [];
-      let k = 0;
-      for (let i = 0; i < this.noDupe.length; i++) {
-        let double = this.noDupe[i];
-        for (let j = 0; j < this.noDupe_lang.length; j++) {
-          if (double == this.noDupe_lang[j]) {
-            this.studentService.getStudentByIdMysql(double).subscribe(
-              data => { this.students[k] = data[0], console.log(data), k++ },
-              error => console.log(error)
-            )
-          }
-        }
-      }
-    }
-
-    else if (this.noDupe.length > 0 && this.noDupe_lang.length == 0 && this.noDupe_prof.length > 0) {
-      this.students = [];
-      let k = 0;
-      for (let i = 0; i < this.noDupe.length; i++) {
-        let double = this.noDupe[i];
-        for (let j = 0; j < this.noDupe_prof.length; j++) {
-          if (double == this.noDupe_prof[j]) {
-            this.studentService.getStudentByIdMysql(double).subscribe(
-              data => { this.students[k] = data[0], console.log(data), k++ },
-              error => console.log(error)
-            )
-          }
-        }
-      }
-    }
-    else if (this.noDupe.length == 0 && this.noDupe_lang.length > 0 && this.noDupe_prof.length > 0) {
-      this.students = [];
-      let k = 0;
-      for (let i = 0; i < this.noDupe_lang.length; i++) {
-        let double = this.noDupe_lang[i];
-        for (let j = 0; j < this.noDupe_prof.length; j++) {
-          if (double == this.noDupe_prof[j]) {
-            this.studentService.getStudentByIdMysql(double).subscribe(
-              data => { this.students[k] = data[0], console.log(data), k++ },
-              error => console.log(error)
-            )
-          }
-        }
-      }
-    }
-
-    else if (this.noDupe.length > 0 && this.noDupe_lang.length > 0 && this.noDupe_prof.length > 0) {
-      this.students = [];
-      let k = 0;
-      for (let i = 0; i < this.noDupe_lang.length; i++) {
-        let double = this.noDupe_lang[i];
-        for (let j = 0; j < this.noDupe_prof.length; j++) {
-          if (double == this.noDupe_prof[j]) {
-            for (let m = 0; m < this.noDupe.length; m++) {
-              if (double == this.noDupe[m]) {
-                this.studentService.getStudentByIdMysql(double).subscribe(
-                  data => { this.students[k] = data[0], console.log(data), k++ },
-                  error => console.log(error)
-                )
-              }
-            }
-
-          }
-        }
-      }
-    }
-
-
     else { alert("no students found") }
-
-
-
   }
 
 
@@ -498,28 +393,28 @@ export class StudentListComponent implements OnInit {
     window.location.reload();
   }
 
-  //Download the cv in searchBox
-  downloadCv(student) {
+  // //Download the cv in searchBox
+  // downloadCv(student) {
 
-    if (student.cvChecked == true) {
-      this.cvsService.getCvsByFk(student.id).subscribe(
-        data => { this.download(data[0].id) },
-        error => console.log(error)
-      )
-      window.open(`/api/download/25`);
-    } else {
-      alert("This students hasn't yet uploaded a CV.")
-    }
-  }
+  //   if (student.cvChecked == true) {
+  //     this.cvsService.getCvsByFk(student.id).subscribe(
+  //       data => { this.download(data[0].id) },
+  //       error => console.log(error)
+  //     )
+  //     window.open(`/api/download/25`);
+  //   } else {
+  //     alert("This students hasn't yet uploaded a CV.")
+  //   }
+  // }
 
-  refresh: Subject<any> = new Subject();
-  download(id) {
-    this.refresh.next()
-    if (id) {
+  // refresh: Subject<any> = new Subject();
+  // download(id) {
+  //   this.refresh.next()
+  //   if (id) {
 
-      //  window.open(`/api/download/${id}`);
-    }
-  }
+  //     //  window.open(`/api/download/${id}`);
+  //   }
+  // }
 
   deleteStudent(student) {
     this.userService.deleteWholeUser(student).subscribe(

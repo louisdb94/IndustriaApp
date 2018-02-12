@@ -1,8 +1,12 @@
 {
     "Home": "Home",
     "Profile": "Profile",
-    "JobOpenings": "Job Openings",
-    "Industria": "Industria",
+    "Job Openings": "Job Openings",
+    "Student Search": "Student List",
+    "Logout": "Log out",
+    "Who we work with": "Who we work with",
+    "Who Are We": "Who are we?",
+    "Vacatures": "Job Openings",
 
     "Edit": "Edit",
     "Save": "Save",
@@ -38,7 +42,9 @@
     "Company": "Company",
     "Visitor": "Visitor",
 
-    "Login": "Student job portal login",
+    "Login": "Login page for companies",
     "Register": "Student job portal registration",
-    "RegisterButton": "Register here"
+    "RegisterButton": "Register here",
+
+    "Calendar": "Industria Event Calendar"
 }

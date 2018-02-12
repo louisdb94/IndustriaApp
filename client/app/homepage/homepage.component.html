@@ -24,7 +24,7 @@
     </div>
   </ng-template>
 
-  <h2 id="calendarTitle">Industria Event Calendar</h2>
+  <h2 translate id="calendarTitle">Calendar</h2>
   <div id="calendar">
     <mwl-demo-utils-calendar-header
       [(view)]="view"
@@ -144,7 +144,7 @@
 <div class="jumbotron" style="">
   <div style="width: 50%; margin:auto">
   <hr style="height:2px;border:none;color:#333;background-color:#333;">
-  <h1 style="text-align: center">Who we work with</h1>
+  <h1 translate style="text-align: center">Who we work with</h1>
   <hr style="height:2px;border:none;color:#333;background-color:#333;"><br>
   <div class="row">
     <p  *ngFor="let item of highImg; let index = index" style="margin: auto">
@@ -250,6 +250,7 @@
                            <option value="HIGH">HIGH</option>
                            <option value="MIDDLE">MIDDLE</option>
                            <option value="LOW">LOW</option>
+                           <option value="ONDERNEMERSDAG">ONDERNEMERSDAG</option>
                         </select>
                  </span>
             </td>
@@ -271,7 +272,7 @@
                    <input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
                  </div>
                  <div class="form-group">
-                   <input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
+                   <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
                  </div>
                  <div class="form-group">
                      <select class="form-control" type="text" name="priority" formControlName="priority" placeholder="priority">

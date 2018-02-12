@@ -2,6 +2,7 @@ import * as saml2 from 'saml2-js';
 import * as fs from 'fs';
 import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
+import * as localStorage from 'localStorage';
 import {app, pool} from '../app';
 
 export default function setAuthRoutes(app) {
@@ -9,9 +10,7 @@ export default function setAuthRoutes(app) {
 const router = express.Router();
 var name_id;
 var session_index;
-var rnumber;
 var email;
-var user = { id: 0, email: '', rnumber: '', role: '', studentId: 0 , companyId: 0, admin: ''};
 
 //student parameters
 var student_exist = false;
@@ -56,41 +55,43 @@ router.route('/login').get(function(req,res){
 });
 
 
-// Assert endpoint for when login completes
-router.route('/assert').post(function(req,res){
-  var options = {
-    request_body: {
-        RelayState: req.body.RelayState,
-        SAMLResponse: req.body.SAMLResponse,
-    },
-    ignore_signature: true,
-  };
-  sp.post_assert(idp, options, function (err, saml_response) {
-      if (err != null) {
-          return res.send(500);
-      }
-      name_id = saml_response.user.name_id;
-      session_index = saml_response.user.session_index;
-      email = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
-      rnumber = email.substr(0,8);
-      checkStudent(rnumber);
-      res.redirect('https://bedrijvenrelaties-industria.be/home-students');
-
-  });
-});
-
 // // Assert endpoint for when login completes
-// router.route('/assert').get(function(req,res){
+// router.route('/assert').post(function(req,res){
+//   var options = {
+//     request_body: {
+//         RelayState: req.body.RelayState,
+//         SAMLResponse: req.body.SAMLResponse,
+//     },
+//     ignore_signature: true,
+//   };
+//   sp.post_assert(idp, options, function (err, saml_response) {
+//       if (err != null) {
+//           return res.send(500);
+//       }
+//       name_id = saml_response.user.name_id;
+//       session_index = saml_response.user.session_index;
+//       email = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
+//       var rnumber = email.substr(0,8);
+//       checkStudent(rnumber);
+//       res.redirect('https://bedrijvenrelaties-industria.be/home-students');
 
-//     rnumber = 'r0451735';
-//     checkStudent(rnumber);
-//     res.redirect('http://localhost:4200/home-students');
-
+//   });
 // });
+
+// Assert endpoint for when login completes
+router.route('/assert').get(function(req,res){
+
+    var rnumber = 'r0448083';
+    checkStudent(rnumber);
+    res.redirect('http://localhost:4200/home-students');
+
+});
 
 
 router.route('/shibbolethstudent').get(function(req,res){
-  if(user){
+  const user_json = localStorage.getItem('user'); 
+  if(user_json){
+    const user = JSON.parse(user_json);
     const token = jwt.sign({ user: user }, 
     process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
     res.status(200).json({ token: token });
@@ -126,12 +127,14 @@ function checkStudent(rnumber){
             }
 
             else if(result.length > 0){
+                  var user_value = { id: 0, email: '', rnumber: '', role: '', studentId: 0 , companyId: 0, admin: ''};
                   student_exist = true;
-                  user.id = result[0].id;
-                  user.rnumber = result[0].rnumber;
-                  user.role = result[0].role;
-                  user.admin = result[0].admin;
-                  user.email = result[0].email;
+                  user_value.id = result[0].id;
+                  user_value.rnumber = result[0].rnumber;
+                  user_value.role = result[0].role;
+                  user_value.admin = result[0].admin;
+                  user_value.email = result[0].email;
+                  localStorage.setItem('user', JSON.stringify(user_value));
                 }
                 else{
                   addUser(rnumber);

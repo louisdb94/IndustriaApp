@@ -1,8 +1,12 @@
 {
     "Home": "Home",
     "Profile": "Profiel",
-    "JobOpenings": "Vacatures",
-    "Industria": "Industria",
+    "Job Openings": "Vacatures",
+    "Student Search": "Studentenlijst",
+    "Logout": "Log uit",
+    "Who we work with": "Bedrijven met wie we samenwerken",
+    "Who Are We": "Wie zijn wij?",
+    "Vacatures": "Vacatures",
 
     "Edit": "Bewerken",
     "Save": "Opslaan",
@@ -38,7 +42,9 @@
     "Company": "Bedrijf",
     "Visitor": "Bezoeker",
 
-    "Login": "Student carrièreportaal login",
+    "Login": "Login pagina voor bedrijven",
     "Register": "Student carrièreportaal registratie",
-    "RegisterButton": "Registreer hier"
+    "RegisterButton": "Registreer hier",
+
+    "Calendar": "Industria Evenementen Kalendar"
 }
