@@ -4,7 +4,7 @@
     <div style="float: left; width:70%; border-radius: 1%;border: 2px solid #bbbbbb;">
 
       <div style="width:100%;">
-        <div style="text-align: center;     font-size: 30px; background: #d4d4d4;height: 50px;"> Search </div>
+        <div translate style="text-align: center;     font-size: 30px; background: #d4d4d4;height: 50px;"> Search </div>
 
         <div style="padding:1%;margin-bottom:3%">
 
@@ -21,11 +21,11 @@
         <table class="list1 table table-hover" style="border: 1px solid #dedede; width:100%">
 
           <tr style="width:100%">
-            <th (click)="sortName()">Name</th>
-            <th (click)="sortDegree()">Degree</th>
-            <th (click)="sortGradYear()">GradYear</th>
+            <th translate (click)="sortName()">Name</th>
+            <th translate (click)="sortDegree()">Degree</th>
+            <th translate (click)="sortGradYear()">GradYear</th>
             <!-- <th> Download CV </th> -->
-            <th *ngIf="auth.currentUser.admin == '1'"> Delete student </th>
+            <th translate *ngIf="auth.currentUser.admin == '1'"> Delete student </th>
 
           </tr>
           <tr *ngFor="let item of students |  paginate: { itemsPerPage: 8, currentPage: p }">
@@ -52,13 +52,13 @@
     </div>
 
     <div style="float: right; width: 25%; border: 1px solid #d4d4d4; border-radius: 1%; padding:6px">
-      <button style="width: 60%; margin-bottom:2%" type="button" class="btn btn-primary" (click)="advancedSearch()">Advanced Search</button>
-      <button type="button" name="button" class="btn btn-secondary" style="width: 30%; margin-bottom:2%" (click)="clear()"> Clear</button>
+      <button translate style="width: 60%; margin-bottom:2%" type="button" class="btn btn-primary" (click)="advancedSearch()">Advanced Search</button>
+      <button translate type="button" name="button" class="btn btn-secondary" style="width: 30%; margin-bottom:2%" (click)="clear()"> Clear</button>
       <div id="accordion" role="tablist" aria-multiselectable="true">
         <div class="card">
           <div class="card-header" role="tab" id="headingOne">
             <h5 class="mb-0">
-              <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <a translate data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 Skills
               </a>
             </h5>
@@ -84,8 +84,8 @@
         <div class="card">
           <div class="card-header" role="tab" id="headingTwo">
             <h5 class="mb-0">
-              <a class="collapsed " data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                Professional skills
+              <a translate class="collapsed " data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                Professional
               </a>
             </h5>
           </div>
@@ -107,8 +107,8 @@
         <div class="card">
           <div class="card-header" role="tab" id="headingThree">
             <h5 class="mb-0">
-              <a class="collapsed " data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                Languages
+              <a translate class="collapsed " data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                Language knowledge
               </a>
             </h5>
           </div>

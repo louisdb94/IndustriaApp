@@ -23,7 +23,7 @@
                 <a [routerLink] ="companyVacature + vacature.id"><p>{{vacature.about}}</p></a>
             </td>
             <td>
-                <button *ngIf="auth.currentUser.role == 'Company' &&(company.priority == 'HIGH' || company.priority == 'MIDDLE' || company.priority == 'LOW')"(click)="deleteVacature(vacatures, vacature)"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
+                <button translate *ngIf="auth.currentUser.role == 'Company' &&(company.priority == 'HIGH' || company.priority == 'MIDDLE' || company.priority == 'LOW')"(click)="deleteVacature(vacatures, vacature)"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
             </td>
         </tr>
 

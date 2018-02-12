@@ -3,7 +3,7 @@
     <div style=" float:left; width:70%; border-radius: 1%;border: 2px solid #bbbbbb; margin-left: auto; margin-right:auto">
 
       <div style="width:100%;">
-        <div style="text-align: center;     font-size: 30px; background: #d4d4d4;height: 50px;"> Search </div>
+        <div translate style="text-align: center;     font-size: 30px; background: #d4d4d4;height: 50px;"> Search Vacature </div>
 
         <div style="padding:1%;margin-bottom:3%">
 
@@ -19,9 +19,9 @@
         <table class="list1 table table-hover" style="border: 1px solid #dedede; width:100%">
 
           <tr style="width:100%">
-            <th (click)="sortVacature()">Vacature</th>
-            <th (click)="sortType()">Type</th>
-            <th (click)="sortCompanyName()">Company</th>
+            <th translate (click)="sortVacature()">Vacatures</th>
+            <th translate (click)="sortType()">Type</th>
+            <th translate (click)="sortCompanyName()">Company</th>
           </tr>
           <tr *ngFor="let item of vacatures  |  paginate: { itemsPerPage: 5, currentPage: p }" style="width:100%">
           <tr *ngFor="let item of vacatures | FilterVacature : searchText : model.filter |  paginate: { itemsPerPage: 5, currentPage: p }">
@@ -38,12 +38,12 @@
       </div>
     </div>
 
-    <div style="float: right; margin-top:9%; width: 25%; border: 1px solid #d4d4d4; border-radius: 1%; padding:6px">
+    <div style="float: right; width: 25%; border: 1px solid #d4d4d4; border-radius: 1%; padding:6px">
       <div id="accordion" role="tablist" aria-multiselectable="true">
         <div class="card">
           <div class="card-header" role="tab" id="headingOne">
             <h5 class="mb-0">
-              <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <a translate data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 Companies
               </a>
             </h5>
@@ -52,7 +52,7 @@
           <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
             <div class="card-block">
               <input style="float:left; width:100%; margin-bottom: 10px" type="text" class="form-control" id="filterskill" placeholder="Filter" [(ngModel)]="searchSkill">
-              <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 110px; width:200px">
+              <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 300px; width:220px">
                   <ul class="form-check-label"  *ngFor="let item of companies | FilterVacature : searchSkill : 'Com'  ">
                     <li>
                     <span> <a href="/profile-company/{{item.id}}"> {{item.name}} </a></span>

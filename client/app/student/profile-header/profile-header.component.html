@@ -50,9 +50,9 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Download CV</th>
-                        <th *ngIf="auth.currentUser.role == 'Student'">Remove CV</th>
+                        <th translate>Name</th>
+                        <th translate>Download CV</th>
+                        <th translate *ngIf="auth.currentUser.role == 'Student'">Remove CV</th>
                     </tr>
                 </thead>
                 <tr *ngFor="let cv of cvs">
