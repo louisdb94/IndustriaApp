@@ -241,7 +241,9 @@ export class StudentListComponent implements OnInit {
   // checkedSkill keeps track of how many skills there are checked
   skillFk = [];
   skillsChecked = [];
+  fk_list = [];
   checkedSkill = 0;
+  noDupe = [];
   inputSkillCheck(e, skill) {
     if (e.target.checked) {
       this.checkedSkill++;
@@ -251,14 +253,16 @@ export class StudentListComponent implements OnInit {
           data => {
             for (let i = 0; i < data.length; i++) {
               this.skillFk.push(data[i]);
+              this.fk_list.push(data[i].student_fk);
             }
-            this.checkSkillDupes(this.checkedSkill);
+            this.noDupe = Array.from(new Set(this.fk_list));
           },
           error => console.log(error)
         )
       }
     }
     else {
+      this.fk_list = [];
       this.checkedSkill--;
       for (let i = 0; i < this.skillsChecked.length; i++) {
         if (this.skillsChecked[i] == skill) {
@@ -268,103 +272,19 @@ export class StudentListComponent implements OnInit {
       }
 
       for (let i = 0; i < this.skillFk.length; i++) {
+        this.fk_list.push(this.skillFk[i].student_fk);
         if (this.skillFk[i].skill.toLowerCase() == skill.toLowerCase()) {
           this.skillFk.splice(i, 1);
+          this.fk_list.splice(i, 1);
           i--;
         }
       }
-      this.checkSkillDupes(this.checkedSkill);
+      this.noDupe = Array.from(new Set(this.fk_list));
     }
   }
 
 
-  //this method gives the student_fk of the student with those skills (skills
-  //   that are checked) -> these students are stored in nieuwelijstSkillsFk[]
-  nieuwelijstSkillsFk = [];
-
-  //OR
-
-  // checkSkillDupes(checked){
-  //   this.nieuwelijstSkillsFk = [];
-  //   console.log(1)
-  //   if(checked > 1){
-  //   for(let i = 0; i< this.skillFk.length; i++){
-  //     console.log(2)
-  //
-  //     let random = this.skillFk[i];
-  //     for(let j = 0; j< this.skillFk.length; j++){
-  //       console.log(3)
-  //
-  //       if (this.nieuwelijstSkillsFk.length == 0) {
-  //         console.log(4)
-  //
-  //         this.nieuwelijstSkillsFk.push(random);
-  //
-  //       }else{
-  //       let double = false;
-  //       for (let k = 0; k < this.nieuwelijstSkillsFk.length; k++) {
-  //         console.log(5)
-  //
-  //         if (this.nieuwelijstSkillsFk[k] == random.student_fk) {
-  //           console.log(6)
-  //           double = true;
-  //           break;
-  //         }
-  //       }
-  //       if(double = false){
-  //           this.nieuwelijstSkillsFk.push(random);
-  //       }
-  //     }
-  //
-  //
-  //     }
-  //
-  //   }
-  // }
-  // else {
-  //   console.log(8)
-  //
-  //   this.nieuwelijstSkillsFk = this.skillFk;
-  // }
-  // }
-
-  //AND
-
-  checkSkillDupes(checked) {
-    this.nieuwelijstSkillsFk = [];
-    if (checked > 1) {
-
-      let number = 0;
-
-      for (let i = 0; i < this.skillFk.length; i++) {
-        let random = this.skillFk[i];
-        for (let j = 0; j < this.skillFk.length; j++) {
-          if (this.skillFk[j].student_fk == random.student_fk) {
-            number++;
-          }
-          if (number == checked) {
-            if (this.nieuwelijstSkillsFk.length == 0) {
-              this.nieuwelijstSkillsFk.push(random);
-
-            }
-            for (let k = 0; j < this.nieuwelijstSkillsFk.length; k++) {
-              if (this.nieuwelijstSkillsFk[k] == random.student_fk) {
-                break;
-              }
-              else {
-                this.nieuwelijstSkillsFk.push(random);
-              }
-            }
-          }
-          if (j == (this.skillFk.length - 1)) {
-            number = 0;
-          }
-        }
-      }
-    } else {
-      this.nieuwelijstSkillsFk = this.skillFk;
-    }
-  }
+  
 
   //keep track of what a person checks -> by checking a skill, the student_fk
   //  is stored inside profskillFk[]
@@ -372,6 +292,8 @@ export class StudentListComponent implements OnInit {
   profskillFk = [];
   profSkillsChecked = [];
   checkedProf = 0;
+  fk_list_prof = [];
+  noDupe_prof = [];
   inputProfskillCheck(e, skill) {
     if (e.target.checked) {
       this.checkedProf++;
@@ -381,14 +303,16 @@ export class StudentListComponent implements OnInit {
           data => {
             for (let i = 0; i < data.length; i++) {
               this.profskillFk.push(data[i]);
+              this.fk_list_prof.push(data[i].student_fk);
             }
-            this.checkProfDupes(this.checkedProf);
+            this.noDupe_prof = Array.from(new Set(this.fk_list_prof));
           },
           error => console.log(error)
         )
       }
     }
     else {
+      this.fk_list_prof = [];
       this.checkedProf--;
       for (let i = 0; i < this.profSkillsChecked.length; i++) {
         if (this.profSkillsChecked[i] == skill) {
@@ -398,86 +322,26 @@ export class StudentListComponent implements OnInit {
       }
 
       for (let i = 0; i < this.profskillFk.length; i++) {
+        this.fk_list_prof.push(this.skillFk[i].student_fk);
         if (this.profskillFk[i].skill.toLowerCase() == skill.toLowerCase()) {
           this.profskillFk.splice(i, 1);
+          this.fk_list_prof.splice(i, 1);
           i--;
         }
       }
-      this.checkProfDupes(this.checkedProf);
+      this.noDupe = Array.from(new Set(this.fk_list));
     }
   }
 
-  //this method gives the student_fk of the student with those profskills (skills
-  //   that are checked) -> these students are stored in nieuwelijstProfskillsFk[]
-  nieuwelijstProfskillsFk = [];
-
-  //OR
-
-  // checkProfDupes(checked){
-  //   for(let i = 0; i< this.profskillFk.length; i++){
-  //     let random = this.profskillFk[i];
-  //     for(let j = 0; j< this.profskillFk.length; j++){
-  //       if (this.nieuwelijstProfskillsFk.length == 0) {
-  //         this.nieuwelijstProfskillsFk.push(random);
-  //
-  //       }
-  //       for (let k = 0; j < this.nieuwelijstProfskillsFk.length; k++) {
-  //         if (this.nieuwelijstProfskillsFk[k] == random.student_fk) {
-  //           break;
-  //         }
-  //         else {
-  //           this.nieuwelijstProfskillsFk.push(random);
-  //         }
-  //       }
-  //     }
-  //
-  //   }
-  // }
-
-  //AND
-
-  checkProfDupes(checked) {
-    this.nieuwelijstProfskillsFk = [];
-    if (checked > 1) {
-
-      let number = 0;
-
-      for (let i = 0; i < this.profskillFk.length; i++) {
-        let random = this.profskillFk[i];
-        for (let j = 0; j < this.profskillFk.length; j++) {
-          if (this.profskillFk[j].student_fk == random.student_fk) {
-            number++;
-          }
-          if (number == checked) {
-            if (this.nieuwelijstProfskillsFk.length == 0) {
-              this.nieuwelijstProfskillsFk.push(random);
-
-            }
-            for (let k = 0; j < this.nieuwelijstProfskillsFk.length; k++) {
-              if (this.nieuwelijstProfskillsFk[k] == random.student_fk) {
-                break;
-              }
-              else {
-                this.nieuwelijstProfskillsFk.push(random);
-              }
-            }
-          }
-          if (j == (this.profskillFk.length - 1)) {
-            number = 0;
-          }
-        }
-      }
-    } else {
-      this.nieuwelijstProfskillsFk = this.profskillFk;
-    }
-  }
-
+  
   //keep track of what a person checks -> by checking a language, the student_fk
   //  is stored inside languageFk[]
   // checkedLang keeps track of how many skills there are checked
   languageFk = [];
   languageChecked = [];
   checkedLang = 0;
+  fk_list_lang = [];
+  noDupe_lang = [];
   inputLanguageCheck(e, type) {
     if (e.target.checked) {
       this.checkedLang++;
@@ -487,14 +351,16 @@ export class StudentListComponent implements OnInit {
           data => {
             for (let i = 0; i < data.length; i++) {
               this.languageFk.push(data[i]);
+              this.fk_list_lang.push(data[i].student_fk);
             }
-            this.checkLangDupes(this.checkedLang);
+            this.noDupe_lang = Array.from(new Set(this.fk_list_lang));
           },
           error => console.log(error)
         )
       }
     }
     else {
+      this.fk_list_lang = [];
       this.checkedLang--;
       for (let i = 0; i < this.languageChecked.length; i++) {
         if (this.languageChecked[i] == type) {
@@ -504,126 +370,61 @@ export class StudentListComponent implements OnInit {
       }
 
       for (let i = 0; i < this.languageFk.length; i++) {
+        this.fk_list_lang.push(this.languageFk[i].student_fk);
         if (this.languageFk[i].type.toLowerCase() == type.toLowerCase()) {
           this.languageFk.splice(i, 1);
+          this.fk_list_lang.splice(i, 1);
           i--;
         }
       }
-      this.checkLangDupes(this.checkedLang);
+      this.noDupe = Array.from(new Set(this.fk_list));    
     }
   }
 
-  //this method gives the student_fk of the student with those language (langs
-  //   that are checked) -> these students are stored in nieuwelijstLangFk[]
-  nieuwelijstLangFk = [];
-
-  //OR
-
-  // checkLangDupes(checked){
-  //   for(let i = 0; i< this.languageFk.length; i++){
-  //     let random = this.languageFk[i];
-  //     for(let j = 0; j< this.languageFk.length; j++){
-  //       if (this.nieuwelijstLangFk.length == 0) {
-  //         this.nieuwelijstLangFk.push(random);
-  //
-  //       }
-  //       for (let k = 0; j < this.nieuwelijstLangFk.length; k++) {
-  //         if (this.nieuwelijstLangFk[k] == random.student_fk) {
-  //           break;
-  //         }
-  //         else {
-  //           this.nieuwelijstLangFk.push(random);
-  //         }
-  //       }
-  //     }
-  //
-  //   }
-  // }
-
-  //AND
-
-  checkLangDupes(checked) {
-    this.nieuwelijstLangFk = [];
-    if (checked > 1) {
-
-      let number = 0;
-
-      for (let i = 0; i < this.languageFk.length; i++) {
-        let random = this.languageFk[i];
-        for (let j = 0; j < this.languageFk.length; j++) {
-          if (this.languageFk[j].student_fk == random.student_fk) {
-            number++;
-          }
-          if (number == checked) {
-            if (this.nieuwelijstLangFk.length == 0) {
-              this.nieuwelijstLangFk.push(random);
-
-            }
-            for (let k = 0; j < this.nieuwelijstLangFk.length; k++) {
-              if (this.nieuwelijstLangFk[k] == random.student_fk) {
-                break;
-              }
-              else {
-                this.nieuwelijstLangFk.push(random);
-              }
-            }
-          }
-          if (j == (this.languageFk.length - 1)) {
-            number = 0;
-          }
-        }
-      }
-    } else {
-      this.nieuwelijstLangFk = this.languageFk;
-    }
-
-  }
-
+  
 
   //This method gives all the students back with the checked conditions.
   advancedSearch() {
 
-  console.log("test", this.nieuwelijstSkillsFk);
-
     //ADVANCED SEARCH
 
-    if (this.nieuwelijstLangFk.length > 0 && this.nieuwelijstSkillsFk.length == 0 && this.nieuwelijstProfskillsFk.length == 0) {
+    if (this.noDupe_lang.length > 0 && this.noDupe.length == 0 && this.noDupe_prof.length == 0) {
       this.students = [];
-      for (let i = 0; i < this.nieuwelijstLangFk.length; i++) {
-        this.studentService.getStudentByIdMysql(this.nieuwelijstLangFk[i].student_fk).subscribe(
+      for (let i = 0; i < this.noDupe_lang.length; i++) {
+        this.studentService.getStudentByIdMysql(this.noDupe_lang[i]).subscribe(
           data => { this.students[i] = data[0] },
           error => console.log(error)
         )
 
       }
     }
-    else if (this.nieuwelijstSkillsFk.length > 0 && this.nieuwelijstLangFk.length == 0 && this.nieuwelijstProfskillsFk.length == 0) {
+    else if (this.noDupe.length > 0 && this.noDupe_lang.length == 0 && this.noDupe_prof.length == 0) {
       this.students = [];
-      for (let i = 0; i < this.nieuwelijstSkillsFk.length; i++) {
-        this.studentService.getStudentByIdMysql(this.nieuwelijstSkillsFk[i].student_fk).subscribe(
+      for (let i = 0; i < this.noDupe.length; i++) {
+        this.studentService.getStudentByIdMysql(this.noDupe[i]).subscribe(
           data => { this.students[i] = data[0] },
           error => console.log(error)
         )
 
       }
     }
-    else if (this.nieuwelijstProfskillsFk.length > 0 && this.nieuwelijstLangFk.length == 0 && this.nieuwelijstSkillsFk.length == 0) {
+    else if (this.noDupe_prof.length > 0 && this.noDupe_lang.length == 0 && this.noDupe.length == 0) {
       this.students = [];
-      for (let i = 0; i < this.nieuwelijstProfskillsFk.length; i++) {
-        this.studentService.getStudentByIdMysql(this.nieuwelijstProfskillsFk[i].student_fk).subscribe(
+      for (let i = 0; i < this.noDupe_prof.length; i++) {
+        this.studentService.getStudentByIdMysql(this.noDupe_prof[i]).subscribe(
           data => { this.students[i] = data[0] },
           error => console.log(error)
         )
 
       }
     }
-    else if (this.nieuwelijstSkillsFk.length > 0 && this.nieuwelijstLangFk.length > 0 && this.nieuwelijstProfskillsFk.length == 0) {
+    else if (this.noDupe.length > 0 && this.noDupe_lang.length > 0 && this.noDupe_prof.length == 0) {
       this.students = [];
       let k = 0;
-      for (let i = 0; i < this.nieuwelijstSkillsFk.length; i++) {
-        let double = this.nieuwelijstSkillsFk[i].student_fk;
-        for (let j = 0; j < this.nieuwelijstLangFk.length; j++) {
-          if (double == this.nieuwelijstLangFk[j].student_fk) {
+      for (let i = 0; i < this.noDupe.length; i++) {
+        let double = this.noDupe[i];
+        for (let j = 0; j < this.noDupe_lang.length; j++) {
+          if (double == this.noDupe_lang[j]) {
             this.studentService.getStudentByIdMysql(double).subscribe(
               data => { this.students[k] = data[0], console.log(data), k++ },
               error => console.log(error)
@@ -633,13 +434,13 @@ export class StudentListComponent implements OnInit {
       }
     }
 
-    else if (this.nieuwelijstSkillsFk.length > 0 && this.nieuwelijstLangFk.length == 0 && this.nieuwelijstProfskillsFk.length > 0) {
+    else if (this.noDupe.length > 0 && this.noDupe_lang.length == 0 && this.noDupe_prof.length > 0) {
       this.students = [];
       let k = 0;
-      for (let i = 0; i < this.nieuwelijstSkillsFk.length; i++) {
-        let double = this.nieuwelijstSkillsFk[i].student_fk;
-        for (let j = 0; j < this.nieuwelijstProfskillsFk.length; j++) {
-          if (double == this.nieuwelijstProfskillsFk[j].student_fk) {
+      for (let i = 0; i < this.noDupe.length; i++) {
+        let double = this.noDupe[i];
+        for (let j = 0; j < this.noDupe_prof.length; j++) {
+          if (double == this.noDupe_prof[j]) {
             this.studentService.getStudentByIdMysql(double).subscribe(
               data => { this.students[k] = data[0], console.log(data), k++ },
               error => console.log(error)
@@ -648,13 +449,13 @@ export class StudentListComponent implements OnInit {
         }
       }
     }
-    else if (this.nieuwelijstSkillsFk.length == 0 && this.nieuwelijstLangFk.length > 0 && this.nieuwelijstProfskillsFk.length > 0) {
+    else if (this.noDupe.length == 0 && this.noDupe_lang.length > 0 && this.noDupe_prof.length > 0) {
       this.students = [];
       let k = 0;
-      for (let i = 0; i < this.nieuwelijstLangFk.length; i++) {
-        let double = this.nieuwelijstLangFk[i].student_fk;
-        for (let j = 0; j < this.nieuwelijstProfskillsFk.length; j++) {
-          if (double == this.nieuwelijstProfskillsFk[j].student_fk) {
+      for (let i = 0; i < this.noDupe_lang.length; i++) {
+        let double = this.noDupe_lang[i];
+        for (let j = 0; j < this.noDupe_prof.length; j++) {
+          if (double == this.noDupe_prof[j]) {
             this.studentService.getStudentByIdMysql(double).subscribe(
               data => { this.students[k] = data[0], console.log(data), k++ },
               error => console.log(error)
@@ -664,15 +465,15 @@ export class StudentListComponent implements OnInit {
       }
     }
 
-    else if (this.nieuwelijstSkillsFk.length > 0 && this.nieuwelijstLangFk.length > 0 && this.nieuwelijstProfskillsFk.length > 0) {
+    else if (this.noDupe.length > 0 && this.noDupe_lang.length > 0 && this.noDupe_prof.length > 0) {
       this.students = [];
       let k = 0;
-      for (let i = 0; i < this.nieuwelijstLangFk.length; i++) {
-        let double = this.nieuwelijstLangFk[i].student_fk;
-        for (let j = 0; j < this.nieuwelijstProfskillsFk.length; j++) {
-          if (double == this.nieuwelijstProfskillsFk[j].student_fk) {
-            for (let m = 0; m < this.nieuwelijstSkillsFk.length; m++) {
-              if (double == this.nieuwelijstSkillsFk[m].student_fk) {
+      for (let i = 0; i < this.noDupe_lang.length; i++) {
+        let double = this.noDupe_lang[i];
+        for (let j = 0; j < this.noDupe_prof.length; j++) {
+          if (double == this.noDupe_prof[j]) {
+            for (let m = 0; m < this.noDupe.length; m++) {
+              if (double == this.noDupe[m]) {
                 this.studentService.getStudentByIdMysql(double).subscribe(
                   data => { this.students[k] = data[0], console.log(data), k++ },
                   error => console.log(error)
