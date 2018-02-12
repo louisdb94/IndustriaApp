@@ -126,20 +126,23 @@ export class HeaderProfile implements OnInit {
 
         formData.append('id', student.id);
 
-        let random = formData.get('students');
+    //    let random = formData.get('students');
 
         if(file) {
           this.fileService.uploadImage(formData).subscribe(
-            res => console.log('gelukt', res));
+            res => {console.log('gelukt', res)});
         }
+        this.isValid = true;
       }
       else{
         alert('File is too large (< 2.5mb)');
       }
   }
 
+  isValid = false;
+
   add(){
-    window.location.reload();
+    return window.location.reload();
   }
 
   myUploader(event, student) {

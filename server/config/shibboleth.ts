@@ -89,10 +89,10 @@ router.route('/assert').post(function(req,res){
 
 
 router.route('/shibbolethstudent').get(function(req,res){
-  const user_json = localStorage.getItem('user'); 
+  const user_json = localStorage.getItem('user');
   if(user_json){
     const user = JSON.parse(user_json);
-    const token = jwt.sign({ user: user }, 
+    const token = jwt.sign({ user: user },
     process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
     res.status(200).json({ token: token });
   }
@@ -122,7 +122,7 @@ function checkStudent(rnumber){
     pool.getConnection(function (error, connection) {
         connection.query(sql, (err, result) => {
             if (err) {
-              connection.release(); 
+              connection.release();
               throw err;
             }
 
