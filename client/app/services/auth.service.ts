@@ -78,8 +78,11 @@ export class AuthService {
   }
 
   loginStudent(res) {
-    localStorage.setItem('token', res.token);
-    const decodedUserStudent = this.decodeUserFromToken(res.token);
-    this.setCurrentUser(decodedUserStudent);
+    if(this.currentUser.rnumber == '') {
+      console.log("1");
+      localStorage.setItem('token', res.token);
+      const decodedUserStudent = this.decodeUserFromToken(res.token);
+      this.setCurrentUser(decodedUserStudent);
+    }
   } 
 }

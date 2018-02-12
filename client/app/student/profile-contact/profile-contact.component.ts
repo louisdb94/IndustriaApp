@@ -43,7 +43,7 @@ export class ContactProfile {
 
   saveContact(contacts){
     this.contactService.editContact(contacts[0]).subscribe(
-      res => {console.log("kakakakakkaka",res)},
+      res => {},
       error => console.log(error)
     );
 

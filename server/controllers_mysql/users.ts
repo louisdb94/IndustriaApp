@@ -22,7 +22,6 @@ export default class UserCtrl extends BaseSqlCtrl {
 
     // Select single post
     login = (req, res) => {
-        console.log("gaaaaaaaaaaaaaaay")
         const sql = `SELECT * FROM user WHERE email = '${req.body.email}'`;
         pool.getConnection(function (error, connection) {
             if (error) {
