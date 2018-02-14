@@ -138,7 +138,7 @@ function checkStudent(rnumber, res){
                   const token = jwt.sign({ user: user_value },
                       process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'token'  , { expiresIn: 10 });
                   //res.redirect('http://localhost:4200/home-students/'+ token);
-                  res.redirect('https://bedrijvenrelaties-industria.be/home-students' + token);
+                  res.redirect('https://bedrijvenrelaties-industria.be/home-students/' + token);
             //      console.log(token);
 
                 }
