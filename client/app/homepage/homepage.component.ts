@@ -16,6 +16,7 @@ import {DropdownModule} from 'primeng/primeng';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+import { JwtHelper } from 'angular2-jwt';
 
 import {
   startOfDay,
@@ -59,6 +60,7 @@ const colors: any = {
 export class HomepageComponent implements OnInit {
 
   rnbShibb : any;
+  jwtHelper: JwtHelper = new JwtHelper();
 
   students = [];
   student = {};
@@ -108,9 +110,11 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit() {
   this.route.params.subscribe(params => {
+    if(this.auth.currentUser.rnumber == '' && this.auth.currentUser.role !== "Company"){
       this.auth.loginStudent(params['id']);
-       console.log(params) //log the entire params object
+      console.log(params) //log the entire params object
       console.log(params['id']) //log the value of id
+    }
     });
 
   this.getEvents();
@@ -439,9 +443,15 @@ export class HomepageComponent implements OnInit {
 
   getUsers(){
       this.userService.getAllUsers().subscribe(
-        data => {this.users = data},
+        data => {
+          this.users = this.decodeUserFromToken(data.token)
+        },
         error => console.error
       );
+  }
+
+  decodeUserFromToken(token) {
+    return this.jwtHelper.decodeToken(token).results;
   }
 
   deleteAdmin(user){

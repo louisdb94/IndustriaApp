@@ -101,7 +101,8 @@ export default function setRoutes(app) {
   //User
   router.route('/user-get/:id').get(usersCtrl.getbyId);
   router.route('/user-getbyrole').get(usersCtrl.getbyRole);
-  router.route('/users-getall').get(usersCtrl.select);
+  //router.route('/users-getall').get(usersCtrl.select);
+  router.route('/users-getall').get(usersCtrl.selectUsers);
   router.route('/users-insert').post(usersCtrl.insert);
   router.route('/user-delete/:id').get(usersCtrl.delete);
   router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);

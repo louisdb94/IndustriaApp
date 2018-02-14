@@ -19,17 +19,16 @@ export class AuthService {
               private router: Router,
               private studentService: StudentService,
               private companyService: CompanyService) {
-    // const token = localStorage.getItem('token');
-    // console.log(token);
-    // if (token) {
-    //   const decodedUser = this.decodeUserFromToken(token);
-    //   if(decodedUser.role == "Company"){
-    //     this.setCurrentUser(decodedUser);
-    //   }
-    //   else{
-    //     this.setCurrentUser(decodedUser);
-    //   }
-    // }
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedUser = this.decodeUserFromToken(token);
+      if(decodedUser.role == "Company"){
+        this.setCurrentUser(decodedUser);
+      }
+      else{
+        this.setCurrentUser(decodedUser);
+      }
+    }
   }
 
   login(emailAndPassword) {
