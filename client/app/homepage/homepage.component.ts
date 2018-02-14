@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {DropdownModule} from 'primeng/primeng';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 
 import {
   startOfDay,
@@ -91,6 +92,7 @@ export class HomepageComponent implements OnInit {
 
   constructor(private studentService: StudentService,
     private data: DataService,
+    private route: ActivatedRoute,
     private userService : UserService,
     private companyService : CompanyService,
     private vacatureService : VacatureService,
@@ -105,14 +107,20 @@ export class HomepageComponent implements OnInit {
     public toast: ToastComponent, private modal: NgbModal) { }
 
   ngOnInit() {
+  this.route.params.subscribe(params => {
+      this.auth.loginStudent(params['id']);
+       console.log(params) //log the entire params object
+      console.log(params['id']) //log the value of id
+    });
+
   this.getEvents();
   this.getCompanies();
   this.getStudentsMysql();
   this.getAdmins();
   this.getUsers();
-  if(this.auth.currentUser.role !== "Company"){
-    this.getShibbolethStudent();
-  }
+  // if(this.auth.currentUser.role !== "Company"){
+  //   this.getShibbolethStudent();
+  // }
 
   this.addUserForm = this.formBuilder.group({
   email: this.email,
@@ -131,12 +139,12 @@ export class HomepageComponent implements OnInit {
   this.data.navMessage.subscribe(message => this.messageNav = message);
 }
 
-  getShibbolethStudent(){
-    this.http.get('/api/shibbolethstudent', {}).subscribe(
-      data => {this.auth.loginStudent(data)},
-      error => { console.log("error") }
-    )
-  }
+  // getShibbolethStudent(){
+  //   this.http.get('/api/shibbolethstudent', {}).subscribe(
+  //     data => {this.auth.loginStudent(data)},
+  //     error => { console.log("error") }
+  //   )
+  // }
 
   //BEGIN OF CALENDAR CODE
 

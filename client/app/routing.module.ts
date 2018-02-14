@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'sendmail/:token', component: SendMailComponent },
   //Home pages for respectively the students and companies
   { path: 'home-students', component: HomepageComponent},
+  { path: 'home-students/:id', component: HomepageComponent},
   { path: 'home-companies', component: HomepageComponent},
 
   //Profile pages for respectively the students and companies

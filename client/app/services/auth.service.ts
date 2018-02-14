@@ -19,16 +19,17 @@ export class AuthService {
               private router: Router,
               private studentService: StudentService,
               private companyService: CompanyService) {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedUser = this.decodeUserFromToken(token);
-      if(decodedUser.role == "Company"){
-        this.setCurrentUser(decodedUser);
-      }
-      else{
-        this.setCurrentUser(decodedUser);
-      }
-    }
+    // const token = localStorage.getItem('token');
+    // console.log(token);
+    // if (token) {
+    //   const decodedUser = this.decodeUserFromToken(token);
+    //   if(decodedUser.role == "Company"){
+    //     this.setCurrentUser(decodedUser);
+    //   }
+    //   else{
+    //     this.setCurrentUser(decodedUser);
+    //   }
+    // }
   }
 
   login(emailAndPassword) {
@@ -77,12 +78,11 @@ export class AuthService {
     delete decodedUser.role;
   }
 
-  loginStudent(res) {
+  loginStudent(token) {
     if(this.currentUser.rnumber == '') {
-      console.log("1");
-      localStorage.setItem('token', res.token);
-      const decodedUserStudent = this.decodeUserFromToken(res.token);
+      localStorage.setItem('token', token);
+      const decodedUserStudent = this.decodeUserFromToken(token);
       this.setCurrentUser(decodedUserStudent);
     }
-  } 
+  }
 }
