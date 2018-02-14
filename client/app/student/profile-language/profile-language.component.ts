@@ -1,6 +1,7 @@
 import { Component,ViewChild, OnInit, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { LanguageService} from '../../services/language.service';
+import { DataService } from '../../services/data.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
@@ -30,6 +31,7 @@ export class LanguageProfile {
 
   constructor(  private studentService: StudentService,
                 private languageService: LanguageService,
+                public dataService: DataService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private http: HttpClient,
@@ -71,7 +73,10 @@ export class LanguageProfile {
 
   getLanguages(id){
     this.languageService.getLanguageByStudentId(id).subscribe(
-      res => {this.languages = res}
+      data => {
+        let result = this.dataService.decryption(data);
+        this.languages = result;
+      }
     )
   }
 

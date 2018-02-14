@@ -86,8 +86,7 @@ export default function setRoutes(app) {
   //User
   router.route('/user-get/:id').get(usersCtrl.getbyId);
   router.route('/user-getbyrole').get(usersCtrl.getbyRole);
-  //router.route('/users-getall').get(usersCtrl.select);
-  router.route('/users-getall').get(usersCtrl.selectUsers);
+  router.route('/users-getall').get(usersCtrl.select);
   router.route('/users-insert').post(usersCtrl.insert);
   router.route('/user-delete/:id').get(usersCtrl.delete);
   router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);
@@ -101,8 +100,8 @@ export default function setRoutes(app) {
 
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
-  router.route('/students-getall').get(studentsCtrl.selectStudents);
-  router.route('/students-getallid').get(studentsCtrl.selectIdsStudents);
+  router.route('/students-getall').get(studentsCtrl.select);
+  router.route('/students-getallid').get(studentsCtrl.selectIds);
   router.route('/students-insert').post(studentsCtrl.insert);
   router.route('/students-insert/:id').get(studentsCtrl.insertUser);
   router.route('/student-delete/:id').get(studentsCtrl.delete);
@@ -194,8 +193,8 @@ export default function setRoutes(app) {
   router.route('/contact-update').put(contactsCtrl.updateAll);
 
   //Companies
-  router.route('/companies-get/:id').get(companiesCtrl.getbyIdCompany);
-  router.route('/companies-getall').get(companiesCtrl.selectCompanies);
+  router.route('/companies-get/:id').get(companiesCtrl.getbyId);
+  router.route('/companies-getall').get(companiesCtrl.select);
   router.route('/companies-insert').post(companiesCtrl.insert);
   router.route('/companies-insert/:id').get(companiesCtrl.insertUser);
   router.route('/companies-delete/:id').get(companiesCtrl.delete);
@@ -231,7 +230,7 @@ export default function setRoutes(app) {
 
   //Contact Company
   router.route('/contacts-get/:id').get(companyContactCtrl.getbyId);
-  router.route('/contacts-getbycompanyfk/:id').get(companyContactCtrl.getbyCompanyIdContact);
+  router.route('/contacts-getbycompanyfk/:id').get(companyContactCtrl.getbyCompanyId);
   router.route('/contacts-getall').get(companyContactCtrl.select);
   router.route('/contacts-insert').post(companyContactCtrl.insert);
   router.route('/contacts-insert/:id').get(companyContactCtrl.insertCompanyFK);

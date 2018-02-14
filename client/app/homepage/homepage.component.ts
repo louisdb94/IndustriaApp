@@ -112,8 +112,6 @@ export class HomepageComponent implements OnInit {
   this.route.params.subscribe(params => {
     if(this.auth.currentUser.rnumber == '' && this.auth.currentUser.role !== "Company"){
       this.auth.loginStudent(params['id']);
-      console.log(params) //log the entire params object
-      console.log(params['id']) //log the value of id
     }
     });
 
@@ -122,9 +120,6 @@ export class HomepageComponent implements OnInit {
   this.getStudentsMysql();
   this.getAdmins();
   this.getUsers();
-  // if(this.auth.currentUser.role !== "Company"){
-  //   this.getShibbolethStudent();
-  // }
 
   this.addUserForm = this.formBuilder.group({
   email: this.email,
@@ -142,13 +137,6 @@ export class HomepageComponent implements OnInit {
   this.data.idMessage.subscribe(message => this.messageId = message);
   this.data.navMessage.subscribe(message => this.messageNav = message);
 }
-
-  // getShibbolethStudent(){
-  //   this.http.get('/api/shibbolethstudent', {}).subscribe(
-  //     data => {this.auth.loginStudent(data)},
-  //     error => { console.log("error") }
-  //   )
-  // }
 
   //BEGIN OF CALENDAR CODE
 
@@ -284,7 +272,10 @@ export class HomepageComponent implements OnInit {
 
   getStudentsMysql() {
     this.studentService.getStudentsMysql().subscribe(
-      data => {this.students = this.decodeUserFromToken(data.token)},
+      data => {
+        let result = this.data.decryption(data);
+        this.students = result;
+      },
       error => console.log(error)
     );
 
@@ -296,7 +287,10 @@ export class HomepageComponent implements OnInit {
 
   getCompanies(){
     this.companyService.getCompanies().subscribe(
-      data => {this.sortCompaniesByPriority(this.decodeUserFromToken(data.token))},
+      data => {
+        let result = this.data.decryption(data);
+        this.sortCompaniesByPriority(result);
+      },
       error => console.log(error)
     )
   }
@@ -436,7 +430,10 @@ export class HomepageComponent implements OnInit {
   users = [];
   getAdmins(){
       this.userService.getadmin().subscribe(
-        data => {this.admins = this.decodeUserFromToken(data.token)},
+        data => {
+          let result = this.data.decryption(data);
+          this.admins = result;
+        },
         error => console.error
       );
   }
@@ -444,7 +441,8 @@ export class HomepageComponent implements OnInit {
   getUsers(){
       this.userService.getAllUsers().subscribe(
         data => {
-          this.users = this.decodeUserFromToken(data.token);
+          let result = this.data.decryption(data);
+          this.users = result;
         },
         error => console.error
       );

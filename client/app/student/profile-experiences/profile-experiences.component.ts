@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ExperienceService } from '../../services/experience.service';
+import { DataService } from '../../services/data.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataTableModule } from "ng2-data-table";
@@ -43,6 +44,7 @@ export class ExperiencesProfile {
   constructor(  private formBuilder: FormBuilder,
                 private studentService: StudentService,
                 private experienceService: ExperienceService,
+                public dataService: DataService,
                 private studentProfile: StudentProfile,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
@@ -66,7 +68,12 @@ export class ExperiencesProfile {
 
   getExperiencesById(id, exp1, exp2, exp3){
     this.experienceService.getExperienceById(id).subscribe(
-      res => {this.experiences = res, this.lengthExperiences = Object.keys(res).length, this.changeExperience(exp1, exp2, exp3)}
+      data => {
+        let result = this.dataService.decryption(data);
+        this.experiences = result;
+        this.lengthExperiences = Object.keys(result).length;
+        this.changeExperience(exp1, exp2, exp3);
+      }
     )
   }
 

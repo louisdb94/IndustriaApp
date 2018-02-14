@@ -55,21 +55,31 @@ export class CompanyProfile implements OnInit {
 
   getCompanyById(id){
     this.companyService.getCompanyById(id).subscribe(
-      data => {this.company = data[0],this.priority = data[0].priority},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.company = result[0];
+        this.priority = result[0].priority;
+      },
       error => console.log("error")
     );
   }
 
   getVacaturesByCompanyId(id){
     this.vacatureService.getVacatureByCompanyId(id).subscribe(
-      data => {this.vacatures = data},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.vacatures = result;
+      },
       error => console.log("error")
     );
   }
 
   getContactById(id){
     this.companyContactService.getContactByCompanyId(id).subscribe(
-      data => {this.contacts = data[0]},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.contacts = result[0];
+      },
       error => console.log(error)
     )
   }

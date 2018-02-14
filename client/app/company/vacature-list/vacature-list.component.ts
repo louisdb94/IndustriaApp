@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {CompanyService} from '../../services/company/company.service';
 import { AuthService } from '../../services/auth.service';
+import { DataService } from '../../services/data.service';
 import {OrderListModule} from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import {AccordionModule} from 'primeng/primeng';
-import { JwtHelper } from 'angular2-jwt';
 
 import { Subject } from 'rxjs/Subject';
 
@@ -21,11 +21,10 @@ export class VacatureListComponent implements OnInit {
 
 
     constructor(  private companyService: CompanyService, public auth: AuthService,
-                  private http: HttpClient) { }
+                  private http: HttpClient, private dataService: DataService) { }
 
     vacatures = [];
     companies = [];
-    jwtHelper: JwtHelper = new JwtHelper();
 
     filters = ['Vacature', 'Type', 'Company'];
     model = {
@@ -43,13 +42,11 @@ export class VacatureListComponent implements OnInit {
       this.getCompanies();
     }
 
-    decodeUserFromToken(token) {
-      return this.jwtHelper.decodeToken(token).results;
-    }
-
     getCompanies(){
       this.companyService.getCompanies().subscribe(
-        data => {this.companies = this.decodeUserFromToken(data.token), this.sort(this.companies)},
+        data => {
+          this.companies = this.dataService.decryption(data);
+        },
         error => console.log(error)
        )
     }
@@ -71,9 +68,10 @@ export class VacatureListComponent implements OnInit {
     getinnerjoin(){
       this.companyService.getinnerjoin().subscribe(
         data => {
-          for(let i =0; i< data.length ; i++){
-            if(data[i].vacature_name != ""){
-              this.vacatures.push(data[i]);
+          let result = this.dataService.decryption(data);
+          for(let i =0; i< result.length ; i++){
+            if(result[i].vacature_name != ""){
+              this.vacatures.push(result[i]);
             }
           }},
         error => console.log(error)

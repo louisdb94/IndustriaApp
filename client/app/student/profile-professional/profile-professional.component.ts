@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ProfessionalService } from '../../services/professional.service';
+import { DataService } from '../../services/data.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
@@ -32,6 +33,7 @@ export class ProfessionalProfile {
   constructor(private studentService: StudentService,
     private activatedRoute: ActivatedRoute,
     private professionalService: ProfessionalService,
+    public dataService: DataService,
     public toast: ToastComponent,
     private http: HttpClient,
     public auth: AuthService) { }
@@ -71,7 +73,10 @@ export class ProfessionalProfile {
 
   getProfessional(id){
     this.professionalService.getProfessionalByStudentId(id).subscribe(
-      res => {this.professional = res}
+      data => {
+        let result = this.dataService.decryption(data);
+        this.professional = result;
+      }
     )
   }
 

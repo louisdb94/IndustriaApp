@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { JwtHelper } from 'angular2-jwt';
+
+import CryptoJS from 'crypto-js';
+
 
 @Injectable()
 export class DataService {
+
+  jwtHelper: JwtHelper = new JwtHelper();
 
   private messageId = new BehaviorSubject<String>("default message");
   idMessage = this.messageId.asObservable();
@@ -32,5 +38,16 @@ export class DataService {
 
   changeMessageNav(message: String) {
     this.messageNav.next(message);
+  }
+
+  decodeUserFromToken(token) {
+    return this.jwtHelper.decodeToken(token).results;
+  }
+
+  decryption(data){
+    let encoded = this.decodeUserFromToken(data.token);
+    let decrypted = CryptoJS.AES.decrypt(encoded, 'secret key 123');
+    let plaintext = decrypted.toString(CryptoJS.enc.Utf8);
+    return JSON.parse(plaintext);
   }
 }

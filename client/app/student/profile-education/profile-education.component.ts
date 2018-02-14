@@ -4,6 +4,7 @@ import { EducationService } from '../../services/education.service';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
+import { DataService } from '../../services/data.service';
 import { HttpClient } from '@angular/common/http';
 import education from '../../../../server/models_mysql/students/education';
 
@@ -24,6 +25,7 @@ export class EducationProfile {
 
   constructor(  private studentService: StudentService,
                 private educationService: EducationService,
+                private dataService: DataService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private http: HttpClient,
@@ -38,7 +40,10 @@ export class EducationProfile {
 
   getEducationById(id){
     this.educationService.getEducationById(id).subscribe(
-      data => {this.education = data},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.education = result;
+      },
       error => console.log(error)
     );
   }
@@ -69,16 +74,22 @@ export class EducationProfile {
   add(student){
     if (student.countEducation <= 6) {
       this.http.get(`/api/education-insert/${student.id}`).subscribe(
-        res => {this.getEducation(student.id)},
+        res => {
+          student.countEducation++;
+          this.save(student, null);
+          this.getEducation(student.id)
+        },
         error => {console.log("error")}
       );
-      student.countEducation++;
     }
   }
 
   getEducation(id){
     this.educationService.getEducationById(id).subscribe(
-      res => {this.education = res}
+      data => {
+        let result = this.dataService.decryption(data);
+        this.education = result;
+      }
     )
   }
 

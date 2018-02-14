@@ -2,8 +2,8 @@
     <div class="container">
         <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="editMode = true" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
         <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student, education)" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-        <button translate *ngIf="editMode" class="btn btn-sm btn-success" (click)="add(student)" style="float : right"><i class="fa fa-plus"></i>Add</button>
-        <button translate *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete(student, education)" style="float : right"><i class="fa fa-trash"></i>Delete</button>
+        <button translate *ngIf="!editMode && auth.currentUser.role == 'Student'" class="btn btn-sm btn-success" (click)="add(student)" style="float : right"><i class="fa fa-plus"></i>Add</button>
+        <button translate *ngIf="editMode && auth.currentUser.role == 'Student'" class="btn btn-sm btn-danger" (click)="delete(student, education)" style="float : right"><i class="fa fa-trash"></i>Delete</button>
         <h2 translate>Education</h2>
         <ul *ngFor="let item of education; let i = index;" class="timeline" style="margin-bottom: -5%;">
             <li *ngIf="i == 0 || i == 2 || i == 4 || i == 6  "  >

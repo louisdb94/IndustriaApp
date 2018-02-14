@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit, enableProdMode, Input} from '@angular/cor
 import { StudentService } from '../../services/student.service';
 import { SocialmediaService } from '../../services/socialmedia.service';
 import { FileService } from '../../services/file.service';
+import { DataService } from '../../services/data.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, NgModelGroup, NgForm } from '@angular/forms';
@@ -55,6 +56,7 @@ export class HeaderProfile implements OnInit {
                 private fileService: FileService,
                 private socialmediaService: SocialmediaService,
                 private privacylogService: PrivacylogService,
+                public dataService: DataService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private http: HttpClient,
@@ -85,7 +87,10 @@ export class HeaderProfile implements OnInit {
 
   getSocialMediaById(id){
     this.socialmediaService.getSocialmediaById(id).subscribe(
-          data => {this.socialmedia = data},
+          data => {
+            let result = this.dataService.decryption(data);
+            this.socialmedia = result;
+          },
       error => console.log(error)
     );
 
@@ -241,7 +246,10 @@ export class HeaderProfile implements OnInit {
 
   getCvFromStudent(id){
     this.fileService.getCvFromStudent(id).subscribe(
-      data => {this.cvs = data},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.cvs = result;
+      },
       error => console.log(error)
     )
   }

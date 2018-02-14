@@ -12,6 +12,8 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { JwtHelper } from 'angular2-jwt';
 
+import CryptoJS from 'crypto-js';
+
 
 
 @Component({
@@ -59,8 +61,8 @@ export class CompanyVacature implements OnInit {
   getVacatureById(id){
     this.vacatureService.getVacatureById(id).subscribe(
       data => {
-        let encoded = this.decodeUserFromToken(data.token);
-        this.vacature = encoded[0];
+        let result = this.dataService.decryption(data);
+        this.vacature = result[0];
         this.company_fk = this.vacature.company_fk; 
         this.getCompanyByVacatureId(this.vacature.company_fk);
         this.getContactByCompanyId(this.vacature.company_fk);
@@ -72,8 +74,8 @@ export class CompanyVacature implements OnInit {
   getCompanyByVacatureId(id){
     this.companyService.getCompanyById(id).subscribe(
       data => {
-        let encoded = this.decodeUserFromToken(data.token);
-        this.company = encoded[0];
+        let result = this.dataService.decryption(data);
+        this.company = result[0];
       },
       error => console.log("error")
     );
@@ -82,8 +84,8 @@ export class CompanyVacature implements OnInit {
   getContactByCompanyId(id){
     this.companyContactService.getContactByCompanyId(id).subscribe(
       data => {
-        let encoded = this.decodeUserFromToken(data.token);
-        this.contacts = encoded[0];
+        let result = this.dataService.decryption(data);
+        this.contacts = result[0];
       },
       error => console.log(error)
     )

@@ -1,5 +1,9 @@
 import { pool } from '../app';
 import * as fs from 'fs';
+import * as jwt from 'jsonwebtoken';
+
+var CryptoJS = require("crypto-js");
+
 abstract class BaseSqlCtrl {
 
     abstract model: any;
@@ -24,9 +28,21 @@ abstract class BaseSqlCtrl {
                         throw err;
                     }
                     if (resultString) {
-                        res.send(resultString);
+                        var encrypted = CryptoJS.AES.encrypt(JSON.stringify(resultString), 'secret key 123');
+                        var encrypted_string = encrypted.toString();
+
+                        const token = jwt.sign({ results: encrypted_string }, 
+                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+
+                        res.status(200).json({ token: token });
                     } else {
-                        res.json(result);
+                        var encrypted = CryptoJS.AES.encrypt(JSON.stringify(result), 'secret key 123');
+                        var encrypted_string = encrypted.toString();
+
+                        const token = jwt.sign({ results: encrypted_string }, 
+                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+
+                        res.status(200).json({ token: token });
                     }
                     if (pool._freeConnections.indexOf(connection) === -1) {
                         connection.release();
@@ -41,9 +57,21 @@ abstract class BaseSqlCtrl {
                         throw err;
                     }
                     if (resultString) {
-                        res.send(resultString);
+                        var encrypted = CryptoJS.AES.encrypt(JSON.stringify(resultString), 'secret key 123');
+                        var encrypted_string = encrypted.toString();
+
+                        const token = jwt.sign({ results: encrypted_string }, 
+                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+
+                        res.status(200).json({ token: token });
                     } else {
-                        res.json(result);
+                        var encrypted = CryptoJS.AES.encrypt(JSON.stringify(result), 'secret key 123');
+                        var encrypted_string = encrypted.toString();
+
+                        const token = jwt.sign({ results: encrypted_string }, 
+                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+
+                        res.status(200).json({ token: token });
                     }
                     if (pool._freeConnections.indexOf(connection) === -1) {
                         connection.release();

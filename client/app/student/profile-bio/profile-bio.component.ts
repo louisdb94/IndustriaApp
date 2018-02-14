@@ -25,7 +25,6 @@ export class BioProfile {
     this.studentService.editStudentMysql(student).subscribe(
       res => {
         this.student = student;
-        console.log("this.student: ", this.student);
       },
       error => console.log(error)
     );

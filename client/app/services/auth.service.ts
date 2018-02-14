@@ -5,6 +5,7 @@ import { JwtHelper } from 'angular2-jwt';
 import { UserService } from '../services/user.service';
 import { StudentService} from '../services/student.service';
 import { CompanyService} from '../services/company/company.service';
+import { DataService } from '../services/data.service';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,7 @@ export class AuthService {
   constructor(private userService: UserService,
               private router: Router,
               private studentService: StudentService,
+              private dataService: DataService,
               private companyService: CompanyService) {
     const token = localStorage.getItem('token');
     if (token) {
@@ -63,13 +65,19 @@ export class AuthService {
     this.currentUser.email = decodedUser.email;
     if(decodedUser.role === 'Student'){
     this.studentService.getStudentByRnumberMysql(decodedUser.rnumber).subscribe(
-      data => {this.currentUser.studentId = data[0].id},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.currentUser.studentId = result[0].id
+      },
       error => console.log(error)
     );
     }
     if(decodedUser.role === 'Company'){
     this.companyService.getCompanyByEmailMysql(decodedUser.email).subscribe(
-      data => {this.currentUser.companyId = data[0].id},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.currentUser.companyId = result[0].id
+      },
       error => console.log(error)
     );
     }

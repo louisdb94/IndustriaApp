@@ -4,6 +4,8 @@ import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
 import sql_users from '../models_mysql/users';
 
+var CryptoJS = require("crypto-js");
+
 import BaseSqlCtrl from './baseSql';
 
 export default class UserCtrl extends BaseSqlCtrl {
@@ -23,24 +25,12 @@ export default class UserCtrl extends BaseSqlCtrl {
                     connection.release();
                     throw err;
                 }
-                const token = jwt.sign({ results: results }, 
-                process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
-                res.status(200).json({ token: token });
-                connection.release();
-            });
-        });
-    }
+                var encrypted = CryptoJS.AES.encrypt(JSON.stringify(results), 'secret key 123');
+                var encrypted_string = encrypted.toString();
 
-    selectUsers = (req, res) => {
-        const sql = `SELECT * FROM ${this.model}`;
-        pool.getConnection(function (error, connection) {
-            const query = connection.query(sql, (err, results) => {
-                if (err) {
-                    connection.release();
-                    throw err;
-                }
-                const token = jwt.sign({ results: results }, 
+                const token = jwt.sign({ results: encrypted_string }, 
                 process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+
                 res.status(200).json({ token: token });
                 connection.release();
             });

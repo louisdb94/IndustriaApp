@@ -5,6 +5,7 @@ import { SkillService } from '../../services/skill.service';
 import { ProfessionalService } from '../../services/professional.service';
 import { LanguageService } from '../../services/language.service';
 import { CvsService } from '../../services/cvs.service';
+import { DataService } from '../../services/data.service';
 import { CompanyService } from '../../services/company/company.service';
 import { OrderListModule } from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
@@ -39,6 +40,7 @@ export class StudentListComponent implements OnInit {
     public companyService: CompanyService,
     private http: HttpClient,
     public auth: AuthService,
+    private dataService: DataService,
     public toast: ToastComponent) { }
 
   students = [];
@@ -79,14 +81,13 @@ export class StudentListComponent implements OnInit {
 
   }
 
-  decodeUserFromToken(token) {
-    return this.jwtHelper.decodeToken(token).results;
-  }
-
   getCompanyById(currentUser){
     this.companyService.getCompanyByEmailMysql(currentUser.email).subscribe(
-      // data => {this.company = data[0],this.priority = data[0].priority},
-      data => {this.company = data[0],this.priority = data[0].priority},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.company = result[0];
+        this.priority = result[0].priority;
+      },
       error => console.log("error")
     );
   }
@@ -94,14 +95,20 @@ export class StudentListComponent implements OnInit {
   //Get all students -> add to students[]
   getStudents() {
     this.studentService.getStudentsMysql().subscribe(
-      data => { this.students = this.decodeUserFromToken(data.token) },
+      data => { 
+        let result = this.dataService.decryption(data);
+        this.students = result;
+      },
       error => console.log(error)
     )
   }
   //Get all the ids of the students -> add to ids[]
   getStudentsIds() {
     this.studentService.getStudentsIdsMysql().subscribe(
-      data => { this.ids = this.decodeUserFromToken(data.token) },
+      data => { 
+        let result = this.dataService.decryption(data);
+        this.ids = result; 
+      },
       error => console.log(error)
     )
   }
@@ -303,9 +310,10 @@ export class StudentListComponent implements OnInit {
       if (skill != "") {
         this.professionalService.getFkbySkill(skill).subscribe(
           data => {
-            for (let i = 0; i < data.length; i++) {
-              this.profskillFk.push(data[i]);
-              this.fk_list.push(data[i].student_fk);
+            let result = this.dataService.decryption(data);
+            for (let i = 0; i < result.length; i++) {
+              this.profskillFk.push(result[i]);
+              this.fk_list.push(result[i].student_fk);
             }
             this.noDupe = Array.from(new Set(this.fk_list));
           },
@@ -347,9 +355,10 @@ export class StudentListComponent implements OnInit {
       if (type != "") {
         this.languageService.getFkbyLang(type).subscribe(
           data => {
-            for (let i = 0; i < data.length; i++) {
-              this.languageFk.push(data[i]);
-              this.fk_list.push(data[i].student_fk);
+            let result = this.dataService.decryption(data);
+            for (let i = 0; i < result.length; i++) {
+              this.languageFk.push(result[i]);
+              this.fk_list.push(result[i].student_fk);
             }
             this.noDupe = Array.from(new Set(this.fk_list));
           },
@@ -386,7 +395,10 @@ export class StudentListComponent implements OnInit {
       this.students = [];
       for (let i = 0; i < this.noDupe.length; i++) {
         this.studentService.getStudentByIdMysql(this.noDupe[i]).subscribe(
-          data => { this.students[i] = data[0] },
+          data => { 
+            let result = this.dataService.decryption(data);
+            this.students[i] = result[0];
+          },
           error => console.log(error)
         )
       }

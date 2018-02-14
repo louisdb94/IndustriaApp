@@ -83,35 +83,53 @@ export class StudentProfile implements OnInit {
 
   getStudentByIdMySql(id) {
     this.studentService.getStudentByIdMysql(id).subscribe(
-      data => {this.student = data[0], this.countEducation = data[0].countEducation, this.countExperiences = data[0].countExperiences, this.contactChecked = data[0].contactChecked},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.student = result[0];
+        this.countEducation = result[0].countEducation; 
+        this.countExperiences = result[0].countExperiences;
+        this.contactChecked = result[0].contactChecked;
+      },
       error => console.log(error),
     );
   }
 
   getskillbyid(id){
     this.skillService.getSkillByStudentId(id).subscribe(
-      data => {this.skills = data},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.skills = result;
+      },
       error => console.log(error)
     )
   }
 
   getLanguagebyid(id){
     this.languageService.getLanguageByStudentId(id).subscribe(
-      data => {this.languages = data},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.languages = result;
+      },
       error => console.log(error)
     )
   }
 
   getContactbyid(id){
     this.contactService.getContactByStudentId(id).subscribe(
-      data => {this.contacts = data},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.contacts = result;
+      },
       error => console.log(error)
     )
   }
 
   getProfessionalbyid(id){
     this.professionalService.getProfessionalByStudentId(id).subscribe(
-      data => {this.professional = data},
+      data => {
+        let result = this.dataService.decryption(data);
+        this.professional = result;
+      },
       error => console.log(error)
     )
   }

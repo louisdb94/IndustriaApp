@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { SkillService } from '../../services/skill.service';
+import { DataService } from '../../services/data.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
@@ -33,6 +34,7 @@ export class SkillsProfile {
 
   constructor(private studentService: StudentService,
     private skillService: SkillService,
+    public dataService: DataService,
     private activatedRoute: ActivatedRoute,
     private http: HttpClient,
     public toast: ToastComponent,
@@ -76,7 +78,10 @@ export class SkillsProfile {
 
   getSkills(id){
     this.skillService.getSkillByStudentId(id).subscribe(
-      res => {this.skills = res}
+      data => {
+        let result = this.dataService.decryption(data);
+        this.skills = result;
+      }
     )
   }
 
