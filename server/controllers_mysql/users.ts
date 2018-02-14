@@ -17,7 +17,18 @@ export default class UserCtrl extends BaseSqlCtrl {
     }
     getAdmins = (req, res) => {
         const sql = `SELECT * FROM ${this.model} WHERE admin = '1'`;
-        this.executeQuery(sql, req, res, null, null);
+        pool.getConnection(function (error, connection) {
+            const query = connection.query(sql, (err, results) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+                const token = jwt.sign({ results: results }, 
+                process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+                res.status(200).json({ token: token });
+                connection.release();
+            });
+        });
     }
 
     selectUsers = (req, res) => {

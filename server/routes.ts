@@ -83,21 +83,6 @@ export default function setRoutes(app) {
   const privacylogCtrl = new PrivacylogCtrl();
   const sendmail = new SendmailCtrl();
 
-
-  // CREATE MYSQL TABLES
-  router.route('/create-users').get(usersCtrl.getsql);
-  router.route('/create-students').get(studentsCtrl.getsql);
-  router.route('/create-cvs').get(cvsCtrl.getsql);
-  router.route('/create-contacts').get(contactsCtrl.getsql);
-  router.route('/create-education').get(educationCtrl.getsql);
-  router.route('/create-experience').get(experienceCtrl.getsql);
-  router.route('/create-language').get(languageCtrl.getsql);
-  router.route('/create-skills').get(skillsCtrl.getsql);
-  router.route('/create-socialmedia').get(socialmediaCtrl.getsql);
-
-  router.route('/create-companies').get(companiesCtrl.getsql);
-  router.route('/create-vacatures').get(vacaturesCtrl.getsql);
-
   //User
   router.route('/user-get/:id').get(usersCtrl.getbyId);
   router.route('/user-getbyrole').get(usersCtrl.getbyRole);
@@ -116,8 +101,8 @@ export default function setRoutes(app) {
 
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
-  router.route('/students-getall').get(studentsCtrl.select);
-  router.route('/students-getallid').get(studentsCtrl.selectIds);
+  router.route('/students-getall').get(studentsCtrl.selectStudents);
+  router.route('/students-getallid').get(studentsCtrl.selectIdsStudents);
   router.route('/students-insert').post(studentsCtrl.insert);
   router.route('/students-insert/:id').get(studentsCtrl.insertUser);
   router.route('/student-delete/:id').get(studentsCtrl.delete);
@@ -209,8 +194,8 @@ export default function setRoutes(app) {
   router.route('/contact-update').put(contactsCtrl.updateAll);
 
   //Companies
-  router.route('/companies-get/:id').get(companiesCtrl.getbyId);
-  router.route('/companies-getall').get(companiesCtrl.select);
+  router.route('/companies-get/:id').get(companiesCtrl.getbyIdCompany);
+  router.route('/companies-getall').get(companiesCtrl.selectCompanies);
   router.route('/companies-insert').post(companiesCtrl.insert);
   router.route('/companies-insert/:id').get(companiesCtrl.insertUser);
   router.route('/companies-delete/:id').get(companiesCtrl.delete);
@@ -223,7 +208,7 @@ export default function setRoutes(app) {
 
 
   //Vacature
-  router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyId);
+  router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyIdVacature);
   router.route('/vacatures-getbycompany/:id').get(vacaturesCtrl.getbyCompanyId);
   router.route('/vacatures-getall').get(vacaturesCtrl.select);
   router.route('/vacatures-insert').post(vacaturesCtrl.insert);
@@ -246,7 +231,7 @@ export default function setRoutes(app) {
 
   //Contact Company
   router.route('/contacts-get/:id').get(companyContactCtrl.getbyId);
-  router.route('/contacts-getbycompanyfk/:id').get(companyContactCtrl.getbyCompanyId);
+  router.route('/contacts-getbycompanyfk/:id').get(companyContactCtrl.getbyCompanyIdContact);
   router.route('/contacts-getall').get(companyContactCtrl.select);
   router.route('/contacts-insert').post(companyContactCtrl.insert);
   router.route('/contacts-insert/:id').get(companyContactCtrl.insertCompanyFK);

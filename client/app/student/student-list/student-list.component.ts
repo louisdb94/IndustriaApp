@@ -18,6 +18,7 @@ import { FilterPipe } from '../../pipes/student-list.pipe';
 import { FilterSkill } from '../../pipes/filterSkill.pipe';
 import { FilterProfessional } from '../../pipes/filterProfessional.pipe';
 import { FilterLanguage } from '../../pipes/filterLanguage.pipe';
+import { JwtHelper } from 'angular2-jwt';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class StudentListComponent implements OnInit {
   proffskills = [];
   languages = [];
   studentjes: any;
+  jwtHelper: JwtHelper = new JwtHelper();
 
   filters = ['Name', 'Degree'];
   model = {
@@ -77,6 +79,10 @@ export class StudentListComponent implements OnInit {
 
   }
 
+  decodeUserFromToken(token) {
+    return this.jwtHelper.decodeToken(token).results;
+  }
+
   getCompanyById(currentUser){
     this.companyService.getCompanyByEmailMysql(currentUser.email).subscribe(
       // data => {this.company = data[0],this.priority = data[0].priority},
@@ -88,14 +94,14 @@ export class StudentListComponent implements OnInit {
   //Get all students -> add to students[]
   getStudents() {
     this.studentService.getStudentsMysql().subscribe(
-      data => { this.students = data },
+      data => { this.students = this.decodeUserFromToken(data.token) },
       error => console.log(error)
     )
   }
   //Get all the ids of the students -> add to ids[]
   getStudentsIds() {
     this.studentService.getStudentsIdsMysql().subscribe(
-      data => { this.ids = data },
+      data => { this.ids = this.decodeUserFromToken(data.token) },
       error => console.log(error)
     )
   }

@@ -1,5 +1,6 @@
 import { pool } from '../../app';
 import * as  mysql from 'mysql';
+import * as jwt from 'jsonwebtoken';
 import sql_students from '../../models_mysql/students/students';
 
 import ContactCtrl from './contact';
@@ -29,6 +30,38 @@ export default class StudentsCtrl extends BaseSqlCtrl {
 
                                             WHERE id = ${req.body.id}`;
     this.executeQuery(sql, req, res, null, null);
+  }
+
+  selectStudents = (req, res) => {
+    const sql = `SELECT * FROM ${this.model}`;
+    pool.getConnection(function (error, connection) {
+        const query = connection.query(sql, (err, results) => {
+            if (err) {
+                connection.release();
+                throw err;
+            }
+            const token = jwt.sign({ results: results }, 
+            process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+            res.status(200).json({ token: token });
+            connection.release();
+        });
+    });
+  }
+
+  selectIdsStudents = (req, res) => {
+    const sql = `SELECT id FROM ${this.model}`;
+    pool.getConnection(function (error, connection) {
+        const query = connection.query(sql, (err, results) => {
+            if (err) {
+                connection.release();
+                throw err;
+            }
+            const token = jwt.sign({ results: results }, 
+            process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+            res.status(200).json({ token: token });
+            connection.release();
+        });
+    });
   }
 
   inner = (req, res) => {

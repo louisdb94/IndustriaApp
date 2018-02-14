@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import {OrderListModule} from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import {AccordionModule} from 'primeng/primeng';
+import { JwtHelper } from 'angular2-jwt';
 
 import { Subject } from 'rxjs/Subject';
 
@@ -24,6 +25,7 @@ export class VacatureListComponent implements OnInit {
 
     vacatures = [];
     companies = [];
+    jwtHelper: JwtHelper = new JwtHelper();
 
     filters = ['Vacature', 'Type', 'Company'];
     model = {
@@ -41,9 +43,13 @@ export class VacatureListComponent implements OnInit {
       this.getCompanies();
     }
 
+    decodeUserFromToken(token) {
+      return this.jwtHelper.decodeToken(token).results;
+    }
+
     getCompanies(){
       this.companyService.getCompanies().subscribe(
-        data => {this.companies = data, this.sort(this.companies)},
+        data => {this.companies = this.decodeUserFromToken(data.token), this.sort(this.companies)},
         error => console.log(error)
        )
     }

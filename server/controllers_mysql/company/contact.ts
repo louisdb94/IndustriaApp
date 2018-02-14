@@ -1,5 +1,6 @@
 import { pool } from '../../app';
 import * as  mysql from 'mysql';
+import * as jwt from 'jsonwebtoken';
 import contact_company from '../../models_mysql/company/contact';
 import BaseSqlCtrl from '../baseSql';
 
@@ -21,6 +22,22 @@ export default class CompanyContactCtrl extends BaseSqlCtrl {
         }
         connection.release();
       });
+    });
+  }
+
+  getbyCompanyIdContact = (req, res) => {
+    const sql = `SELECT * FROM ${this.model} WHERE company_fk = '${req.params.id}'`;
+    pool.getConnection(function (error, connection) {
+        const query = connection.query(sql, (err, results) => {
+            if (err) {
+                connection.release();
+                throw err;
+            }
+            const token = jwt.sign({ results: results }, 
+            process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+            res.status(200).json({ token: token });
+            connection.release();
+        });
     });
   }
 }

@@ -284,7 +284,7 @@ export class HomepageComponent implements OnInit {
 
   getStudentsMysql() {
     this.studentService.getStudentsMysql().subscribe(
-      data => {this.students = data},
+      data => {this.students = this.decodeUserFromToken(data.token)},
       error => console.log(error)
     );
 
@@ -296,7 +296,7 @@ export class HomepageComponent implements OnInit {
 
   getCompanies(){
     this.companyService.getCompanies().subscribe(
-      data => {this.sortCompaniesByPriority(data)},
+      data => {this.sortCompaniesByPriority(this.decodeUserFromToken(data.token))},
       error => console.log(error)
     )
   }
@@ -436,7 +436,7 @@ export class HomepageComponent implements OnInit {
   users = [];
   getAdmins(){
       this.userService.getadmin().subscribe(
-        data => {this.admins = data},
+        data => {this.admins = this.decodeUserFromToken(data.token)},
         error => console.error
       );
   }
@@ -444,7 +444,7 @@ export class HomepageComponent implements OnInit {
   getUsers(){
       this.userService.getAllUsers().subscribe(
         data => {
-          this.users = this.decodeUserFromToken(data.token)
+          this.users = this.decodeUserFromToken(data.token);
         },
         error => console.error
       );

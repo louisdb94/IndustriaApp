@@ -10,6 +10,7 @@ import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { JwtHelper } from 'angular2-jwt';
 
 
 
@@ -38,6 +39,7 @@ export class CompanyVacature implements OnInit {
 
   messageId: String;
   messageNav: String;
+  jwtHelper: JwtHelper = new JwtHelper();
 
 
   private compare = new BehaviorSubject<String>("default message");
@@ -50,23 +52,39 @@ export class CompanyVacature implements OnInit {
     });
   }
 
+  decodeUserFromToken(token) {
+    return this.jwtHelper.decodeToken(token).results;
+  }
+
   getVacatureById(id){
     this.vacatureService.getVacatureById(id).subscribe(
-      data => {this.vacature = data[0], this.company_fk = data[0].company_fk, this.getCompanyByVacatureId(data[0].company_fk), this.getContactByCompanyId(data[0].company_fk)},
+      data => {
+        let encoded = this.decodeUserFromToken(data.token);
+        this.vacature = encoded[0];
+        this.company_fk = this.vacature.company_fk; 
+        this.getCompanyByVacatureId(this.vacature.company_fk);
+        this.getContactByCompanyId(this.vacature.company_fk);
+      },
       error => console.log("error")
     )
   }
 
   getCompanyByVacatureId(id){
     this.companyService.getCompanyById(id).subscribe(
-      data => {this.company = data[0]},
+      data => {
+        let encoded = this.decodeUserFromToken(data.token);
+        this.company = encoded[0];
+      },
       error => console.log("error")
     );
   }
 
   getContactByCompanyId(id){
     this.companyContactService.getContactByCompanyId(id).subscribe(
-      data => {this.contacts = data[0]},
+      data => {
+        let encoded = this.decodeUserFromToken(data.token);
+        this.contacts = encoded[0];
+      },
       error => console.log(error)
     )
   }

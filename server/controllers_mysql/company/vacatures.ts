@@ -1,5 +1,6 @@
 import { pool } from '../../app';
 import * as  mysql from 'mysql';
+import * as jwt from 'jsonwebtoken';
 import vacatures from '../../models_mysql/company/vacatures';
 
 import BaseSqlCtrl from '../baseSql';
@@ -17,6 +18,22 @@ export default class VacaturesCtrl extends BaseSqlCtrl {
                                           WHERE id = ${req.body.id}`;
         this.executeQuery(sql, req, res, null, null);
     }
+
+    getbyIdVacature = (req, res) => {
+        const sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
+        pool.getConnection(function (error, connection) {
+            const query = connection.query(sql, (err, results) => {
+                if (err) {
+                    connection.release();
+                    throw err;
+                }
+                const token = jwt.sign({ results: results }, 
+                process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+                res.status(200).json({ token: token });
+                connection.release();
+            });
+        });
+      }
 
     insertForm = (req, res) => {
         const sql = `INSERT INTO ${this.model} SET name = '${req.body.vac1Form}', type = '${req.body.vac2Form}', about = '${req.body.vac3Form}', company_fk = '${req.body.idForm}'`;

@@ -2,6 +2,7 @@ import { pool } from '../../app';
 import * as  mysql from 'mysql';
 import companies from '../../models_mysql/company/companies';
 import * as fs from 'fs';
+import * as jwt from 'jsonwebtoken';
 
 
 import BaseSqlCtrl from '../baseSql';
@@ -33,6 +34,38 @@ export default class CompanyCtrl extends BaseSqlCtrl {
         res.json(result);
         connection.release();
       });
+    });
+  }
+
+  selectCompanies = (req, res) => {
+    const sql = `SELECT * FROM ${this.model}`;
+    pool.getConnection(function (error, connection) {
+        const query = connection.query(sql, (err, results) => {
+            if (err) {
+                connection.release();
+                throw err;
+            }
+            const token = jwt.sign({ results: results }, 
+            process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+            res.status(200).json({ token: token });
+            connection.release();
+        });
+    });
+  }
+
+  getbyIdCompany = (req, res) => {
+    const sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
+    pool.getConnection(function (error, connection) {
+        const query = connection.query(sql, (err, results) => {
+            if (err) {
+                connection.release();
+                throw err;
+            }
+            const token = jwt.sign({ results: results }, 
+            process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+            res.status(200).json({ token: token });
+            connection.release();
+        });
     });
   }
 
