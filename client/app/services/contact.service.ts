@@ -45,5 +45,9 @@ export class ContactService {
     return this.http.put(`/api/contact-update`, JSON.stringify(contact), this.options);
   }
 
+  getCounty(): Observable<any> {
+    return this.http.get(`/api/contact-getCounty`).map(res => res.json());
+  }
+
 
 }

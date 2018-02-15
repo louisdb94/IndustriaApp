@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { SkillService } from '../../services/skill.service';
 import { ProfessionalService } from '../../services/professional.service';
 import { LanguageService } from '../../services/language.service';
+import { ContactService } from '../../services/contact.service';
 import { CvsService } from '../../services/cvs.service';
 import { DataService } from '../../services/data.service';
 import { CompanyService } from '../../services/company/company.service';
@@ -37,6 +38,7 @@ export class StudentListComponent implements OnInit {
     private languageService: LanguageService,
     private professionalService: ProfessionalService,
     private cvsService: CvsService,
+    private contactService: ContactService,
     public companyService: CompanyService,
     private http: HttpClient,
     public auth: AuthService,
@@ -48,6 +50,7 @@ export class StudentListComponent implements OnInit {
   skills = [];
   proffskills = [];
   languages = [];
+  cities = [];
   studentjes: any;
   jwtHelper: JwtHelper = new JwtHelper();
 
@@ -74,6 +77,7 @@ export class StudentListComponent implements OnInit {
     this.getSkills();
     this.getLanguages();
     this.getProffskills();
+    // this.getCounty();
 
     if(this.auth.currentUser.role == "Company"){
       this.getCompanyById(this.auth.currentUser);
@@ -95,7 +99,7 @@ export class StudentListComponent implements OnInit {
   //Get all students -> add to students[]
   getStudents() {
     this.studentService.getStudentsMysql().subscribe(
-      data => { 
+      data => {
         let result = this.dataService.decryption(data);
         this.students = result;
       },
@@ -105,9 +109,9 @@ export class StudentListComponent implements OnInit {
   //Get all the ids of the students -> add to ids[]
   getStudentsIds() {
     this.studentService.getStudentsIdsMysql().subscribe(
-      data => { 
+      data => {
         let result = this.dataService.decryption(data);
-        this.ids = result; 
+        this.ids = result;
       },
       error => console.log(error)
     )
@@ -135,6 +139,14 @@ export class StudentListComponent implements OnInit {
     )
   }
 
+  getCounty(){
+    this.contactService.getCounty().subscribe(
+      data => { this.cities = data, this.sortCities(this.cities), console.log(this.cities)},
+      error => console.log(error)
+    )
+
+  }
+
   //sort array on skills alphabetically
   sort(array) {
     array.sort(function (name1, name2) {
@@ -147,6 +159,19 @@ export class StudentListComponent implements OnInit {
       }
     });
   }
+  //sort array on language type alphabetically
+  sortCities(array) {
+    array.sort(function (name1, name2) {
+      if (name1.type < name2.type) {
+        return -1;
+      } else if (name1.city > name2.city) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  }
+
   //sort array on language type alphabetically
   sortLang(array) {
     array.sort(function (name1, name2) {
@@ -295,7 +320,7 @@ export class StudentListComponent implements OnInit {
   }
 
 
-  
+
 
   //keep track of what a person checks -> by checking a skill, the student_fk
   //  is stored inside profskillFk[]
@@ -341,7 +366,7 @@ export class StudentListComponent implements OnInit {
     }
   }
 
-  
+
   //keep track of what a person checks -> by checking a language, the student_fk
   //  is stored inside languageFk[]
   // checkedLang keeps track of how many skills there are checked
@@ -382,11 +407,11 @@ export class StudentListComponent implements OnInit {
           i--;
         }
       }
-      this.noDupe = Array.from(new Set(this.fk_list));    
+      this.noDupe = Array.from(new Set(this.fk_list));
     }
   }
 
-  
+
 
   //This method gives all the students back with the checked conditions.
   advancedSearch() {
@@ -395,7 +420,7 @@ export class StudentListComponent implements OnInit {
       this.students = [];
       for (let i = 0; i < this.noDupe.length; i++) {
         this.studentService.getStudentByIdMysql(this.noDupe[i]).subscribe(
-          data => { 
+          data => {
             let result = this.dataService.decryption(data);
             this.students[i] = result[0];
           },

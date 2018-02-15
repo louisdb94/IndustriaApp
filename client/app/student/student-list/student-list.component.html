@@ -94,7 +94,7 @@
               <input style="float:left; width:100%; margin-bottom: 10px" type="text" class="form-control" id="filterprof" placeholder="Filter" [(ngModel)]="searchProf">
 
               <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 110px; width:200px">
-                <ol class="form-check-label" *ngFor="let item of proffskills | FilterSkill : searchProf ">
+                <ol class="form-check-label" *ngFor="let item of proffskills | FilterProfessional : searchProf ">
                   <li>
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (change)="inputProfskillCheck($event,item.skill)">
                     <span> {{item.skill}} </span>
@@ -117,7 +117,7 @@
               <input style="float:left; width:100%; margin-bottom: 10px" type="text" class="form-control" id="filterlanguage" placeholder="Filter" [(ngModel)]="searchLang">
 
               <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 110px; width:200px">
-                  <ol class="form-check-label"  *ngFor="let item of languages | FilterSkill : searchLang ">
+                  <ol class="form-check-label"  *ngFor="let item of languages | FilterLanguage : searchLang ">
                     <li>
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (change)="inputLanguageCheck($event,item.type)">
                     <span> {{item.type}} </span>

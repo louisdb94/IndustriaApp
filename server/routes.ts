@@ -191,6 +191,7 @@ export default function setRoutes(app) {
   router.route('/contact-insert/:id').get(contactsCtrl.insertStudentFK);
   router.route('/contact-delete/:id').get(contactsCtrl.delete);
   router.route('/contact-update').put(contactsCtrl.updateAll);
+  router.route('/contact-getCounty').get(contactsCtrl.selectContact);
 
   //Companies
   router.route('/companies-get/:id').get(companiesCtrl.getbyId);
