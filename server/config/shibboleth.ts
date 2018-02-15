@@ -72,8 +72,6 @@ router.route('/assert').post(function(req,res){
       var email = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
       var rnumber = email.substr(0,8);
       checkStudent(rnumber, res);
-      // res.redirect('https://bedrijvenrelaties-industria.be/home-students');
-
   });
 });
 
@@ -139,7 +137,6 @@ function checkStudent(rnumber, res){
                       process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'token'  , { expiresIn: 10 });
                   //res.redirect('http://localhost:4200/home-students/'+ token);
                   res.redirect('https://bedrijvenrelaties-industria.be/home-students/' + token);
-            //      console.log(token);
 
                 }
                 else{
