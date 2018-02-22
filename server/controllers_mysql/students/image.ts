@@ -76,8 +76,9 @@ export default class ImageCtrl extends BaseSqlCtrl {
   remove = (req, res) => {
     //DELETEN
     const root = process.cwd();
-    fs.unlink(root + '/uploads/images/' + req.body.name + '.' + req.body.mimetype);
-
+    if(req.body.name){
+      fs.unlink(root + '/uploads/images/' + req.body.name + '.' + req.body.mimetype);
+    }
   }
 
   // Select single post

@@ -84,9 +84,9 @@ export default class CvCtrl extends BaseCtrl {
     // });
 
     //DELETEN
-    fs.unlink('./uploads/cvs/' + req.body.name + "(" + req.body.number + ")" + '.' + req.body.mimetype);
-
-
+    if(req.body.name){
+      fs.unlink('./uploads/cvs/' + req.body.name + "(" + req.body.number + ")" + '.' + req.body.mimetype);
+    }
   }
 
   downloadCv = (req, res) => {

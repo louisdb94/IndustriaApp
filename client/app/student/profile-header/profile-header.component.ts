@@ -223,25 +223,27 @@ export class HeaderProfile implements OnInit {
   }
 
   removeCv(cv){
-    this.fileService.removeCv(cv).subscribe(
-      res => {
-        const pos = this.cvs.map(elem => elem.id).indexOf(cv.id);
-        this.cvs.splice(pos, 1);
-        this.toast.setMessage('item deleted successfully.', 'success');
-      },
-      error => console.log(error)
-    );
-
-
-
-    const cvs: any = {};
-    cvs.name = cv.name;
-    cvs.number = cv.number;
-    cvs.uploader = cv.uploader;
-    cvs.mimetype = cv.mimetype;
-
-    this.http.post(`/api/cv/remove/${cv.id}`, cvs).subscribe();
-
+    if(cv.name){
+      this.fileService.removeCv(cv).subscribe(
+        res => {
+          const pos = this.cvs.map(elem => elem.id).indexOf(cv.id);
+          this.cvs.splice(pos, 1);
+          this.toast.setMessage('item deleted successfully.', 'success');
+        },
+        error => console.log(error)
+      );
+  
+  
+  
+      const cvs: any = {};
+      cvs.name = cv.name;
+      cvs.number = cv.number;
+      cvs.uploader = cv.uploader;
+      cvs.mimetype = cv.mimetype;
+  
+  
+      this.http.post(`/api/cv/remove/${cv.id}`, cvs).subscribe();
+    }
   }
 
   getCvFromStudent(id){

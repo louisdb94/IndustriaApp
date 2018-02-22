@@ -226,7 +226,9 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
                 if (result[0]) {
-                    fs.unlink('./uploads/cvs/' + result[0].name + '(' + result[0].number + ')' + '.' + result[0].mimetype);
+                    if(result[0].name){
+                        fs.unlink('./uploads/cvs/' + result[0].name + '(' + result[0].number + ')' + '.' + result[0].mimetype);
+                    }
                 }
             });
             const sql_ = `DELETE FROM cvs WHERE student_fk = '${req.params.student_fk}'`;

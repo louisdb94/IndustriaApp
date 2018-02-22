@@ -60,7 +60,7 @@
 
 <!-- BEGIN EDIT CALENDAR CODE -->
 
-<div style="width: 50%; margin:auto">
+<div style="width: 80%; margin:auto">
   <h3 *ngIf="auth.currentUser.admin == '1'">
     Edit events
     <button *ngIf = "!editMode"
@@ -95,7 +95,7 @@
             type="text"
             class="form-control"
             [(ngModel)]="event.title"
-            (keyup)="refresh.next()" rows="4">
+            (keyup)="refresh.next()">
           </textarea>
           <p *ngIf="!editMode">{{event.title}}</p>
         </td>
@@ -141,7 +141,7 @@
 
 <!-- BEGIN SPONSORS CODE -->
 
-<div class="jumbotron" style="">
+<div class="jumbotron">
   <div style="width: 50%; margin:auto">
   <hr style="height:2px;border:none;color:#333;background-color:#333;">
   <h1 translate style="text-align: center">Who we work with</h1>
@@ -185,7 +185,7 @@
 <div *ngIf="auth.currentUser.admin == '1'" style="width: 50%; margin:auto" >
 
         <!-- Nav tabs -->
-      <div style="margin-top: 5%; margin-bottom: 10%; border: 1px solid #dfdfdf; border-radius=0.25rem">
+      <div style="margin-top: 5%; margin-bottom: 10%; border: 1px solid #dfdfdf; border-radius: 0.25rem">
       <ul class="nav nav-tabs" role="tablist" style="background-color: #f7f7f9;">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#admin" role="tab">Admin</a>

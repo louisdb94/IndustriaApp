@@ -61,8 +61,9 @@ export default class CvsCtrl extends BaseSqlCtrl {
   removeCv = (req, res) => {
     const root = process.cwd();
 
-    fs.unlink(root + '/uploads/cvs/' + req.body.name + "(" + req.body.number + ")" + '.' + req.body.mimetype);
-
+    if(req.body.name){
+      fs.unlink(root + '/uploads/cvs/' + req.body.name + "(" + req.body.number + ")" + '.' + req.body.mimetype);
+    }
   }
 
   downloadCv = (req, res) => {
