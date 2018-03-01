@@ -28,7 +28,7 @@ export default class UserCtrl extends BaseSqlCtrl {
                 var encrypted = CryptoJS.AES.encrypt(JSON.stringify(results), 'secret key 123');
                 var encrypted_string = encrypted.toString();
 
-                const token = jwt.sign({ results: encrypted_string }, 
+                const token = jwt.sign({ results: encrypted_string },
                 process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
 
                 res.status(200).json({ token: token });
@@ -53,7 +53,7 @@ export default class UserCtrl extends BaseSqlCtrl {
                 if (!userArray[0]) { }
                 else if (userArray[0].password == req.body.password) {
                     const user = userArray[0];
-                    const token = jwt.sign({ user: user }, 
+                    const token = jwt.sign({ user: user },
                             process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
                     res.status(200).json({ token: token });
                 }

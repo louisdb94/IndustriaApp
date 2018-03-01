@@ -376,24 +376,18 @@ export class HomepageComponent implements OnInit {
     editPriority.email = this.addUserForm.value.email;
     editPriority.name = this.addUserForm.value.name;
 
-    console.log(addCompanyForm);
-
     this.userService.registerMysql(addCompanyForm)
-        .switchMap( userid =>
-          this.companyService.addCompanyFromUserId(JSON.parse(userid._body).insertId)
-            // .switchMap(companyid =>
-              // this.vacatureService.addVacatureFromCompanyId(JSON.parse(companyid._body).insertId)
-              .switchMap(companyid =>
-                this.companyContactService.addContactFromCompanyId(JSON.parse(companyid._body).insertId)
-                 .map(result => ({
-                   user_id : JSON.parse(userid._body).insertId,
-                   companyid: JSON.parse(companyid._body).insertId,
-                 }))))
-        .subscribe(
-          res => { this.toast.setMessage('successfully added!', 'success'), editPriority.id = res.companyid, this.updatePriority(editPriority)},
-          error => console.log(error)
-        )
-
+        .subscribe( data =>{
+          let result = this.data.decryption2(data)
+          this.companyService.addCompanyFromUserId(result.insertId)
+              .subscribe(data =>{
+                let result2 = this.data.decryption2(data)
+                this.companyContactService.addContactFromCompanyId(result2.insertId),
+                this.toast.setMessage('successfully added!', 'success'),
+                editPriority.id = result2.insertId, this.updatePriority(editPriority)}
+              )
+            }
+               )
         this.companies.push(addCompanyForm);
   }
 

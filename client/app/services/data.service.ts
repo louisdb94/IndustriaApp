@@ -50,4 +50,11 @@ export class DataService {
     let plaintext = decrypted.toString(CryptoJS.enc.Utf8);
     return JSON.parse(plaintext);
   }
+  decryption2(data){
+    data = JSON.parse(data._body);
+    let encoded = this.decodeUserFromToken(data.token);
+    let decrypted = CryptoJS.AES.decrypt(encoded, 'secret key 123');
+    let plaintext = decrypted.toString(CryptoJS.enc.Utf8);
+    return JSON.parse(plaintext);
+  }
 }

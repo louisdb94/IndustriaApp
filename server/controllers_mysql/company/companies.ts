@@ -45,7 +45,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
                 connection.release();
                 throw err;
             }
-            const token = jwt.sign({ results: results }, 
+            const token = jwt.sign({ results: results },
             process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
             res.status(200).json({ token: token });
             connection.release();
@@ -100,7 +100,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
         }
         var encrypted = CryptoJS.AES.encrypt(JSON.stringify(result), 'secret key 123');
         var encrypted_string = encrypted.toString();
-        const token = jwt.sign({ results: encrypted_string }, 
+        const token = jwt.sign({ results: encrypted_string },
         process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
         res.status(200).json({ token: token });
         connection.release();
@@ -129,7 +129,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
 
         var encrypted = CryptoJS.AES.encrypt(JSON.stringify(result), 'secret key 123');
         var encrypted_string = encrypted.toString();
-        const token = jwt.sign({ results: encrypted_string }, 
+        const token = jwt.sign({ results: encrypted_string },
         process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
         res.status(200).json({ token: token });
         connection.release();
