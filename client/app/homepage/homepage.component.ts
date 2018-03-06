@@ -381,10 +381,11 @@ export class HomepageComponent implements OnInit {
           let result = this.data.decryption2(data)
           this.companyService.addCompanyFromUserId(result.insertId)
               .subscribe(data =>{
-                let result2 = this.data.decryption2(data)
-                this.companyContactService.addContactFromCompanyId(result2.insertId),
-                this.toast.setMessage('successfully added!', 'success'),
-                editPriority.id = result2.insertId, this.updatePriority(editPriority)}
+                let result2 = this.data.decryption2(data);
+                editPriority.id = result2.insertId, this.updatePriority(editPriority);
+                this.companyContactService.addContactFromCompanyId(result2.insertId).subscribe(
+                  data => {this.toast.setMessage('successfully added!', 'success')}
+                )}
               )
             }
                )

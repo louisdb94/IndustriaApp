@@ -11,6 +11,14 @@
     margin-top: 2%;
   }
 
+  #background-img{
+    background-image: url(../../assets/img/GroepT.jpg);
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    z-index: -10;
+}
+
 #login{
     width:450px;
     margin: 0 auto;
