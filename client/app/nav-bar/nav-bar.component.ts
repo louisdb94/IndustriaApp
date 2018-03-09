@@ -13,6 +13,7 @@ export class NavBarComponent {
   messageNav: String;
   studentString: String;
   companyString: String;
+  collapse: boolean = true;
 
   constructor(public auth: AuthService, public data: DataService, private translate: TranslateService) {
     translate.setDefaultLang('en');

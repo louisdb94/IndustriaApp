@@ -2,7 +2,7 @@
     <a class="navbar-brand" href="https://www2.industria.be/">
       <img src="../assets/img/Industria.PNG" width="45" height="60">
     </a>
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -38,20 +38,21 @@
         <li class="nav-item">
           <a translate id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i class="fa fa-sign-out" aria-hidden="true"> Logout</i> </a>
         </li>
+        <li class="nav-item">
+          <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
+            <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
+            <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
+          </select>
+        </li>
       </ul>
     </div>
-
-    <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
-      <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
-      <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
-    </select>
   </nav>
 
   <nav *ngIf="auth.currentUser.role == 'Company'" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
       <a class="navbar-brand" href="https://www2.industria.be/">
         <img src="../assets/img/Industria.PNG" width="45" height="60">
       </a>
-      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -83,11 +84,12 @@
           <li class="nav-item">
             <a translate id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i translate class="fa fa-sign-out" aria-hidden="true">Logout</i> </a>
           </li>
+          <li class="nav-item">
+            <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
+              <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
+              <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
+            </select>
+          </li>
         </ul>
       </div>
-
-      <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
-        <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
-        <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
-      </select>
     </nav>
