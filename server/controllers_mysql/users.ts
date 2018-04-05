@@ -13,12 +13,17 @@ export default class UserCtrl extends BaseSqlCtrl {
     model = 'user';
     dummy = sql_users;
 
+
     getByRnumber = (req, res) => {
-        const sql = `SELECT id FROM ${this.model} WHERE rnumber = '${req.params.rnumber}'`;
+        var sql = `SELECT ?? FROM ?? WHERE ?? = ?`;
+        const inserts = ['id',this.model, 'rnumber', req.params.rnumber];
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, null, null);
     }
     getAdmins = (req, res) => {
-        const sql = `SELECT * FROM ${this.model} WHERE admin = '1'`;
+        var sql = `SELECT * FROM ?? WHERE ?? = ?`;
+        const inserts = [this.model, 'admin', '1'];
+        sql = mysql.format(sql, inserts);
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, results) => {
                 if (err) {
@@ -27,19 +32,19 @@ export default class UserCtrl extends BaseSqlCtrl {
                 }
                 var encrypted = CryptoJS.AES.encrypt(JSON.stringify(results), 'secret key 123');
                 var encrypted_string = encrypted.toString();
-
+          
                 const token = jwt.sign({ results: encrypted_string },
                 process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
-
-                res.status(200).json({ token: token });
-                connection.release();
+                res.status(200).json({ token: token });                connection.release();
             });
         });
     }
 
     // Select single post
     login = (req, res) => {
-        const sql = `SELECT * FROM user WHERE email = '${req.body.email}'`;
+        var sql = `SELECT * FROM ?? WHERE ?? = ?`;
+        const inserts = ['user', 'email', req.body.email];
+        sql = mysql.format(sql, inserts);
         pool.getConnection(function (error, connection) {
             if (error) {
                 console.log('err while connecting', error);
@@ -66,14 +71,16 @@ export default class UserCtrl extends BaseSqlCtrl {
     }
 
     resetPass = (req, res) => {
-        const sql = `UPDATE ${this.model} SET password = '${req.body.password}' WHERE email = '${req.body.email}'`;
-        this.executeQuery(sql, req, res, null, null);
+        var sql_update = `UPDATE ?? SET ?? = ? WHERE ?? = ?`;
+        const inserts = [this.model,'password', req.body.password, 'email', req.body.email];
+        sql_update = mysql.format(sql_update, inserts);
+        this.executeQuery(sql_update, req, res, null, null);
     }
 
     makeAdmin = (req, res) => {
-        const sql = `UPDATE ${this.model} SET admin = '${req.body.admin}' WHERE email = '${req.body.email}'`;
-        this.executeQuery(sql, req, res, null, null);
+        var sql_update = `UPDATE ?? SET ?? = ? WHERE ?? = ?`;
+        const inserts = [this.model,'admin', req.body.admin, 'email', req.body.email];
+        sql_update = mysql.format(sql_update, inserts);
+        this.executeQuery(sql_update, req, res, null, null);
     }
-
-
 }

@@ -11,7 +11,9 @@ export default class ExperienceCtrl extends BaseSqlCtrl {
 
     // Insert post 1
     insertForm = (req, res) => {
-        const sql = `INSERT INTO ${this.model} SET function = '${req.body.exp1Form}', description = '${req.body.exp2Form}', period = '${req.body.exp3Form}', student_fk = '${req.body.idForm}'`;
+        let sql = `INSERT INTO ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?`;
+        let insert = [this.model, 'function', req.body.exp1Form, 'description', req.body.exp2Form, 'period', req.body.exp3Form, 'student_fk', req.body.idForm]
+        sql = mysql.format(sql, insert);
         this.executeQuery(sql, req, res, null, null);
     }
 

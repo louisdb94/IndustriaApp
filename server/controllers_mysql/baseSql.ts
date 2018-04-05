@@ -1,6 +1,7 @@
 import { pool } from '../app';
 import * as fs from 'fs';
 import * as jwt from 'jsonwebtoken';
+import * as  mysql from 'mysql';
 
 var CryptoJS = require("crypto-js");
 
@@ -28,21 +29,9 @@ abstract class BaseSqlCtrl {
                         throw err;
                     }
                     if (resultString) {
-                        var encrypted = CryptoJS.AES.encrypt(JSON.stringify(resultString), 'secret key 123');
-                        var encrypted_string = encrypted.toString();
-
-                        const token = jwt.sign({ results: encrypted_string }, 
-                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
-
-                        res.status(200).json({ token: token });
+                        encrypt(resultString, res);
                     } else {
-                        var encrypted = CryptoJS.AES.encrypt(JSON.stringify(result), 'secret key 123');
-                        var encrypted_string = encrypted.toString();
-
-                        const token = jwt.sign({ results: encrypted_string }, 
-                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
-
-                        res.status(200).json({ token: token });
+                        encrypt(result, res);
                     }
                     if (pool._freeConnections.indexOf(connection) === -1) {
                         connection.release();
@@ -57,21 +46,9 @@ abstract class BaseSqlCtrl {
                         throw err;
                     }
                     if (resultString) {
-                        var encrypted = CryptoJS.AES.encrypt(JSON.stringify(resultString), 'secret key 123');
-                        var encrypted_string = encrypted.toString();
-
-                        const token = jwt.sign({ results: encrypted_string }, 
-                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
-
-                        res.status(200).json({ token: token });
+                        encrypt(resultString, res);
                     } else {
-                        var encrypted = CryptoJS.AES.encrypt(JSON.stringify(result), 'secret key 123');
-                        var encrypted_string = encrypted.toString();
-
-                        const token = jwt.sign({ results: encrypted_string }, 
-                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
-
-                        res.status(200).json({ token: token });
+                        encrypt(result, res);
                     }
                     if (pool._freeConnections.indexOf(connection) === -1) {
                         connection.release();
@@ -79,6 +56,15 @@ abstract class BaseSqlCtrl {
                 });
             }
         });
+
+        function encrypt(result, res){
+            var encrypted = CryptoJS.AES.encrypt(JSON.stringify(result), 'secret key 123');
+            var encrypted_string = encrypted.toString();
+      
+            const token = jwt.sign({ results: encrypted_string },
+            process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+            res.status(200).json({ token: token });
+        }
     }
 
     getsql = (req, res) => {
@@ -93,76 +79,101 @@ abstract class BaseSqlCtrl {
     }
 
     insertStudentFK = (req, res) => {
-
-        const sql = `INSERT INTO ${this.model} SET student_fk = '${req.params.id}'`;
+        const inserts = [this.model,'student_fk', req.params.id];
+        let sql = `INSERT INTO ?? SET ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     insertCompanyFK = (req, res) => {
-        const sql = `INSERT INTO ${this.model} SET company_fk = '${req.params.id}'`;
+        const inserts = [this.model,'company_fk', req.params.id];
+        let sql = `INSERT INTO ?? SET ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
 
     insertVacatureFK = (req, res) => {
-
-        const sql = `INSERT INTO ${this.model} SET vacature_fk = '${req.params.id}'`;
+        const inserts = [this.model,'vacature_fk', req.params.id];
+        let sql = `INSERT INTO ?? SET ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     insertUser = (req, res) => {
-
-        const sql = `INSERT INTO ${this.model} SET user_fk = '${req.params.id}'`;
+        const inserts = [this.model,'user_fk', req.params.id];
+        let sql = `INSERT INTO ?? SET ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     select = (req, res) => {
-        const sql = `SELECT * FROM ${this.model}`;
+        const inserts = [this.model];
+        let sql = `SELECT * FROM ??`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     selectIds = (req, res) => {
-        const sql = `SELECT id FROM ${this.model}`;
+        const inserts = ['id', this.model];
+        let sql = `SELECT ?? FROM ??`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     getbyId = (req, res) => {
-        const sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
+        const inserts = [this.model, 'id', req.params.id];
+        let sql = `SELECT * FROM ??  WHERE ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     getbyRole = (req, res) => {
-        const sql = `SELECT * FROM ${this.model} WHERE role = 'company'`;
+        const inserts = [this.model, 'role', 'company'];
+        let sql = `SELECT * FROM ??  WHERE ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     getbyFk = (req, res) => {
-        const sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
+        const inserts = [this.model, 'student_fk', req.params.id];
+        let sql = `SELECT * FROM ??  WHERE ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     getbyStudentId = (req, res) => {
-        const sql = `SELECT * FROM ${this.model} WHERE student_fk = '${req.params.id}'`;
+        const inserts = [this.model, 'student_fk', req.params.id];
+        let sql = `SELECT * FROM ??  WHERE ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     getbyCompanyId = (req, res) => {
-        const sql = `SELECT * FROM ${this.model} WHERE company_fk = '${req.params.id}'`;
+        const inserts = [this.model, 'company_fk', req.params.id];
+        let sql = `SELECT * FROM ??  WHERE ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     getbyUserId = (req, res) => {
-        const sql = `SELECT * FROM ${this.model} WHERE user_fk = '${req.params.id}'`;
+        const inserts = [this.model, 'user_fk', req.params.id];
+        let sql = `SELECT * FROM ??  WHERE ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     delete = (req, res) => {
-        const sql = `DELETE FROM ${this.model} WHERE id = '${req.params.id}'`;
+        const inserts = [this.model, 'id', req.params.id];
+        let sql = `DELETE FROM ??  WHERE ?? = ?`;
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, req.body, null);
     }
 
     deleteCompany = (req, res) => {
-        const sql = `DELETE FROM vacatures WHERE company_fk = '${req.body.id}'`;
+        const inserts = ['vacatures', 'company_fk', req.body.id];
+        let sql = `DELETE FROM ??  WHERE ?? = ?`;
+        sql = mysql.format(sql, inserts);
 
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, result) => {
@@ -173,7 +184,9 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql4 = `DELETE FROM contact_company WHERE company_fk = '${req.body.id}'`;
+            const inserts4 = ['contact_company', 'company_fk', req.body.id];
+            let sql4 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql4 = mysql.format(sql4, inserts4);
             const query4 = connection.query(sql4, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -182,7 +195,9 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql1 = `DELETE FROM companies WHERE id = '${req.body.id}'`;
+            const inserts1 = ['companies', 'id', req.body.id];
+            let sql1 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql1 = mysql.format(sql1, inserts1);
             const query1 = connection.query(sql1, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -191,7 +206,9 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql2 = `DELETE FROM user WHERE id = '${req.body.user_fk}'`;
+            const inserts2 = ['user', 'id', req.body.user_fk];
+            let sql2 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql2 = mysql.format(sql2, inserts2);
             const query2 = connection.query(sql2, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -208,7 +225,9 @@ abstract class BaseSqlCtrl {
 
     deleteStudent = (req, res) => {
         pool.getConnection(function (error, connection) {
-            const sql = `DELETE FROM contact WHERE student_fk = '${req.params.student_fk}'`;
+            const inserts = ['contact', 'student_fk', req.params.student_fk];
+            let sql = `DELETE FROM ??  WHERE ?? = ?`;
+            sql = mysql.format(sql, inserts);
             const query = connection.query(sql, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -217,7 +236,9 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql1 = `SELECT * FROM cvs WHERE student_fk = '${req.params.student_fk}'`;
+            const inserts1 = ['cvs', 'student_fk', req.params.student_fk];
+            let sql1 = `SELECT * FROM ??  WHERE ?? = ?`;
+            sql1 = mysql.format(sql1, inserts1);
             const query1 = connection.query(sql1, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -231,8 +252,10 @@ abstract class BaseSqlCtrl {
                     }
                 }
             });
-            const sql_ = `DELETE FROM cvs WHERE student_fk = '${req.params.student_fk}'`;
-            const query_ = connection.query(sql_, (err, result) => {
+            const inserts10 = ['cvs', 'student_fk', req.params.student_fk];
+            let sql10 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql10 = mysql.format(sql10, inserts10);
+            const query_ = connection.query(sql10, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
                         connection.release();
@@ -241,7 +264,9 @@ abstract class BaseSqlCtrl {
                 }
             });
 
-            const sql9 = `DELETE FROM privacylog WHERE student_fk = '${req.params.student_fk}'`;
+            const inserts9 = ['privacylog', 'student_fk', req.params.student_fk];
+            let sql9 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql9 = mysql.format(sql9, inserts9);
             const query9 = connection.query(sql9, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -250,7 +275,10 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql2 = `DELETE FROM education WHERE student_fk = '${req.params.student_fk}'`;
+
+            const inserts2 = ['education', 'student_fk', req.params.student_fk];
+            let sql2 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql2 = mysql.format(sql2, inserts2);
             const query2 = connection.query(sql2, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -259,7 +287,10 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql3 = `DELETE FROM experiences WHERE student_fk = '${req.params.student_fk}'`;
+
+            const inserts3 = ['experiences', 'student_fk', req.params.student_fk];
+            let sql3 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql3 = mysql.format(sql3, inserts3);
             const query3 = connection.query(sql3, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -268,7 +299,10 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql4 = `DELETE FROM language WHERE student_fk = '${req.params.student_fk}'`;
+
+            const inserts4 = ['language', 'student_fk', req.params.student_fk];
+            let sql4 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql4 = mysql.format(sql4, inserts4);
             const query4 = connection.query(sql4, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -277,7 +311,10 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql5 = `DELETE FROM professional WHERE student_fk = '${req.params.student_fk}'`;
+
+            const inserts5 = ['professional', 'student_fk', req.params.student_fk];
+            let sql5 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql5 = mysql.format(sql5, inserts5);
             const query5 = connection.query(sql5, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -286,7 +323,10 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql6 = `DELETE FROM skills WHERE student_fk = '${req.params.student_fk}'`;
+
+            const inserts6 = ['skills', 'student_fk', req.params.student_fk];
+            let sql6 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql6 = mysql.format(sql6, inserts6);
             const query6 = connection.query(sql6, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -295,7 +335,10 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql7 = `DELETE FROM socialmedia WHERE student_fk = '${req.params.student_fk}'`;
+
+            const inserts7 = ['socialmedia', 'student_fk', req.params.student_fk];
+            let sql7 = `DELETE FROM ??  WHERE ?? = ?`;
+            sql7 = mysql.format(sql7, inserts7);
             const query7 = connection.query(sql7, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -304,7 +347,10 @@ abstract class BaseSqlCtrl {
                     throw err;
                 }
             });
-            const sql8 = `SELECT user_fk FROM students WHERE id = '${req.params.student_fk}'`;
+
+            const inserts8 = ['user_fk', 'students', 'id', req.params.student_fk];
+            let sql8 = `SELECT ?? FROM ??  WHERE ?? = ?`;
+            sql8 = mysql.format(sql8, inserts8);
             const query8 = connection.query(sql8, (err, result) => {
                 if (err) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
@@ -312,7 +358,9 @@ abstract class BaseSqlCtrl {
                     }
                     throw err;
                 }
-                const sqlx = `DELETE FROM students WHERE id = '${req.params.student_fk}'`;
+                const insertsx = ['students', 'id', req.params.student_fk];
+                let sqlx = `DELETE FROM ??  WHERE ?? = ?`;
+                sqlx = mysql.format(sqlx, insertsx);
                 const queryx = connection.query(sqlx, (err_, result_) => {
                     if (err_) {
                         if (pool._freeConnections.indexOf(connection) === -1) {
@@ -321,7 +369,9 @@ abstract class BaseSqlCtrl {
                         throw err_;
                     }
                 });
-                const sqly = `DELETE FROM user WHERE id = '${result[0].user_fk}'`;
+                const insertsy = ['user', 'id', result[0].user_fk];
+                let sqly = `DELETE FROM ??  WHERE ?? = ?`;
+                sqly = mysql.format(sqly, insertsy);
                 const queryy = connection.query(sqly, (errx, resultx) => {
                     if (errx) {
                         if (pool._freeConnections.indexOf(connection) === -1) {

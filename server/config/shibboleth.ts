@@ -54,35 +54,35 @@ router.route('/login').get(function(req,res){
 });
 
 
-// Assert endpoint for when login completes
-router.route('/assert').post(function(req,res){
-  var options = {
-    request_body: {
-        RelayState: req.body.RelayState,
-        SAMLResponse: req.body.SAMLResponse,
-    },
-    ignore_signature: true,
-  };
-  sp.post_assert(idp, options, function (err, saml_response) {
-      if (err != null) {
-          return res.send(500);
-      }
-      name_id = saml_response.user.name_id;
-      session_index = saml_response.user.session_index;
-      var email = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
-      var rnumber = email.substr(0,8);
-      checkStudent(rnumber, res);
-  });
-});
-
 // // Assert endpoint for when login completes
-// router.route('/assert').get(function(req,res){
-
-//     var rnumber = 'r0448083';
-//     checkStudent(rnumber, res);
-// //res.redirect('http://localhost:4200/home-students/'+ token);
-
+// router.route('/assert').post(function(req,res){
+//   var options = {
+//     request_body: {
+//         RelayState: req.body.RelayState,
+//         SAMLResponse: req.body.SAMLResponse,
+//     },
+//     ignore_signature: true,
+//   };
+//   sp.post_assert(idp, options, function (err, saml_response) {
+//       if (err != null) {
+//           return res.send(500);
+//       }
+//       name_id = saml_response.user.name_id;
+//       session_index = saml_response.user.session_index;
+//       var email = saml_response.user.attributes["urn:mace:kuleuven.be:dir:attribute-def:KULAssocMigrateID"][0];
+//       var rnumber = email.substr(0,8);
+//       checkStudent(rnumber, res);
+//   });
 // });
+
+// Assert endpoint for when login completes
+router.route('/assert').get(function(req,res){
+
+    var rnumber = 'r0696969';
+    checkStudent(rnumber, res);
+  //res.redirect('http://localhost:4200/home-students/'+ token);
+
+});
 
 
 router.route('/shibbolethstudent').get(function(req,res){
@@ -135,8 +135,8 @@ function checkStudent(rnumber, res){
 
                   const token = jwt.sign({ user: user_value },
                       process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'token'  , { expiresIn: 10 });
-                  //res.redirect('http://localhost:4200/home-students/'+ token);
-                  res.redirect('https://bedrijvenrelaties-industria.be/home-students/' + token);
+                  res.redirect('http://localhost:4200/home-students/'+ token);
+                  //res.redirect('https://bedrijvenrelaties-industria.be/home-students/' + token);
 
                 }
                 else{
