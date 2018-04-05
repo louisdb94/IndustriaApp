@@ -26,12 +26,14 @@ export default class ImageCtrl extends BaseSqlCtrl {
       else { res.status(200).redirect('back'); }
     });
 
-    const sql = `UPDATE students SET image = '1' WHERE id = '${req.body.id}'`;
+    let sql = `UPDATE ?? SET ?? = ?? WHERE ?? = ?`;
+    const inserts = ['students', 'image', '1', 'id', req.body.id];
+    sql = mysql.format(sql, inserts);
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
           connection.release();
-          throw err;        
+          throw err;
         }
         connection.release();
       });
@@ -52,15 +54,17 @@ export default class ImageCtrl extends BaseSqlCtrl {
     let type = newImage.mimetype.split('/')[1]
     newImage.mv(root + '/uploads/images/' + name + '.png', function (err, result) {
       if (err) {
-        console.log("error 1"); 
-        return res.status(500).send(err); 
+        console.log("error 1");
+        return res.status(500).send(err);
       }
-      else { 
-        res.status(200).redirect('back'); 
+      else {
+        res.status(200).redirect('back');
       }
     });
 
-    const sql = `UPDATE companies SET image = '1' WHERE id = '${req.body.id}'`;
+    let sql = `UPDATE ?? SET ?? = ?? WHERE ?? = ?`;
+    const inserts = ['companies', 'image', '1', 'id', req.body.id];
+    sql = mysql.format(sql, inserts);
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
@@ -83,7 +87,9 @@ export default class ImageCtrl extends BaseSqlCtrl {
 
   // Select single post
   download = (req, res) => {
-    const sql = `SELECT * FROM students WHERE id = '${req.params.id}'`;
+    let sql = `SELECT * FROM ?? WHERE ?? = ?`;
+    const inserts = ['students','id', req.params.id];
+    sql = mysql.format(sql, inserts);
     const root = process.cwd();
 
     pool.getConnection(function (error, connection) {
@@ -91,7 +97,7 @@ export default class ImageCtrl extends BaseSqlCtrl {
         if (err) {
           connection.release();
           throw err;
-        } 
+        }
         else {
           if (obj[0].image === 1) {
             fs.readFile(root + '/uploads/images/' + obj[0].rnumber + '.jpg', 'base64', function (err1, data) {

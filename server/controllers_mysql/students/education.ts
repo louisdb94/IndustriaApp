@@ -10,7 +10,9 @@ export default class EducationCtrl extends BaseSqlCtrl {
     dummy = education;
 
     updateAll = (req, res) => {
-        const sql = `UPDATE ${this.model} SET type = '${req.body.type}', institution = '${req.body.institution}', date_from = '${req.body.date_from}', date_until = '${req.body.date_until}' WHERE id = ${req.body.id}`;
+        let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
+        const inserts = [this.model, 'type', req.body.type, 'institution', req.body.institution, 'date_from', req.body.date_from, 'date_until', req.body.date_until, 'id', req.body.id];
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, null, 'post updated...');
     }
 

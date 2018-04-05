@@ -11,12 +11,16 @@ export default class LanguageCtrl extends BaseSqlCtrl {
 
     // Select single post
     getbyLanguage = (req, res) => {
-        const sql = `SELECT type, student_fk FROM ${this.model} WHERE type = '${req.params.lang}'`;
+        let sql = `SELECT ??, ?? FROM ?? WHERE ?? = ?`;
+        const inserts = ['type', 'student_fk', this.model, 'type', req.params.type];
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, null, null);
     }
 
     selectLanguage = (req, res) => {
-        const sql = `SELECT DISTINCT type FROM ${this.model}`;
+        let sql = `SELECT DISTINCT ?? FROM ??`;
+        const inserts = ['type', this.model];
+        sql = mysql.format(sql, inserts);
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, results) => {
                 if (err) {
@@ -37,7 +41,9 @@ export default class LanguageCtrl extends BaseSqlCtrl {
 
 
     updateAll = (req, res) => {
-        const sql = `UPDATE ${this.model} SET type = '${req.body.type}', value = '${req.body.value}', value_type = '${req.body.value_type}'  WHERE id = ${req.body.id}`;
+        let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
+        const inserts = [this.model, 'type', req.body.type, 'value', req.body.value, 'value_type', req.body.value_type, 'id', req.body.id];
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, null, 'Post updated..');
     }
 

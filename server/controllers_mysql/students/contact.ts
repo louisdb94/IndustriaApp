@@ -11,7 +11,9 @@ export default class ContactCtrl extends BaseSqlCtrl {
 
 
   selectContact = (req, res) => {
-      const sql = `SELECT DISTINCT county FROM ${this.model}`;
+      let sql = `SELECT DISTINCT ?? FROM ??`;
+      const inserts = ['county', this.model];
+      sql = mysql.format(sql, inserts);
       pool.getConnection(function (error, connection) {
           const query = connection.query(sql, (err, results) => {
               if (err) {
@@ -33,7 +35,9 @@ export default class ContactCtrl extends BaseSqlCtrl {
 
 
   updateAll = (req, res) => {
-    const sql = `UPDATE ${this.model} SET email = '${req.body.email}', phone = '${req.body.phone}', county = '${req.body.county}', city = '${req.body.city}'  WHERE id = ${req.body.id}`;
+    let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
+    const inserts = [this.model, 'email', req.body.email, 'phone', req.body.phone, 'county', req.body.county, 'city', req.body.city, 'id', req.body.id];
+    sql = mysql.format(sql, inserts);
     this.executeQuery(sql, req, res, null, 'Post updated...');
   }
 }

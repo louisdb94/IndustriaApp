@@ -32,7 +32,9 @@ export default class CvsCtrl extends BaseSqlCtrl {
     });
     res.status(200).redirect('back');
 
-    const sql = `UPDATE students SET numberCv = '${cvnumber}' WHERE id = '${req.body.id}'`;
+    let sql = `UPDATE ?? SET ?? = ? WHERE ?? = ?`;
+    const inserts = ['students', 'numberCv', cvnumber, 'id', req.body.id];
+    sql = mysql.format(sql, inserts);
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
@@ -49,12 +51,16 @@ export default class CvsCtrl extends BaseSqlCtrl {
   }
 
   getbyFk = (req, res) => {
-    const sql = `SELECT * FROM cvs WHERE student_fk = '${req.params.id}'`;
+    let sql = `SELECT * FROM ?? WHERE ?? = ?`;
+    const inserts = ['cvs', 'student_fk', req.params.id];
+    sql = mysql.format(sql, inserts);
     this.executeQuery(sql, req, res, null, null);
   }
 
   addCv = (req, res) => {
-    const sql = `INSERT INTO cvs SET name = '${req.body.name}', mimetype = '${req.body.mimetype}', number = '${req.body.number}', size = '${req.body.size}', student_fk = '${req.body.uploader}'`;
+    let sql = `INSERT INTO ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?`;
+    const inserts = ['cvs', 'name', req.body.name, 'mimetype', req.body.mimetype, 'number', req.body.number, 'size', req.body.size, 'student_fk', req.body.student_fk];
+    sql = mysql.format(sql, inserts);
     this.executeQuery(sql, req, res, null, null);
   }
 
@@ -69,7 +75,9 @@ export default class CvsCtrl extends BaseSqlCtrl {
   downloadCv = (req, res) => {
     const root = process.cwd();
 
-    const sql = `SELECT * FROM cvs WHERE id = '${req.params.id}'`;
+    let sql = `SELECT * FROM ?? WHERE ?? = ?`;
+    const inserts = ['cvs', 'id', req.params.id];
+    sql = mysql.format(sql, inserts);
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, obj) => {
         if (err) {
@@ -95,7 +103,9 @@ export default class CvsCtrl extends BaseSqlCtrl {
   }
 
   delete = (req, res) => {
-    const sql = `DELETE FROM cvs WHERE id = '${req.params.id}'`;
+    let sql = `DELETE FROM ?? WHERE ?? = ?`;
+    const inserts = ['cvs', 'id', req.params.id];
+    sql = mysql.format(sql, inserts);
     this.executeQuery(sql, req, res, null, 'post deleted...');
   }
 

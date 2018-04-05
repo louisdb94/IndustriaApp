@@ -11,7 +11,9 @@ export default class ProfessionalCtrl extends BaseSqlCtrl {
 
 
     selectProfessional = (req, res) => {
-        const sql = `SELECT DISTINCT skill FROM ${this.model}`;
+        let sql = `SELECT DISTINCT ?? FROM ??`;
+        const inserts = ['skill', this.model];
+        sql = mysql.format(sql, inserts);
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, results) => {
                 if (err) {
@@ -31,12 +33,16 @@ export default class ProfessionalCtrl extends BaseSqlCtrl {
 
     // Select single post
     getbySkill = (req, res) => {
-        const sql = `SELECT skill, student_fk FROM ${this.model} WHERE skill = '${req.params.skill}'`;
+        let sql = `SELECT ??, ?? FROM ?? WHERE ?? = ?`;
+        const inserts = ['skill', 'student_fk', this.model, 'skill', req.params.skill];
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, null, null);
     }
 
     updateAll = (req, res) => {
-        const sql = `UPDATE ${this.model} SET skill = '${req.body.skill}', value = '${req.body.value}', value_type = '${req.body.value_type}'  WHERE id = ${req.body.id}`;
+        let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
+        const inserts = [this.model, 'skill', req.body.skill, 'value', req.body.value, 'value_type', req.body.value_type, 'id', req.body.id];
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, null, 'Post updated..');
     }
 }

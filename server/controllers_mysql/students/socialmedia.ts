@@ -10,7 +10,9 @@ export default class SocialmediaCtrl extends BaseSqlCtrl {
     dummy = sql_socialmedia;
 
     updateAll = (req, res) => {
-        const sql = `UPDATE ${this.model} SET type = '${req.body.type}', url = '${req.body.url}', checked = '${req.body.checked}' WHERE id = ${req.body.id}`;
+        let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ? WHERE ?? = ? `;
+        const inserts = [this.model, 'type', req.body.type,'url', req.body.url,'checked', req.body.checked, 'id', req.body.id];
+        sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, null, 'Post updated..');
     }
 }
