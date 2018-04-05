@@ -14,16 +14,16 @@ export default class VacaturesCtrl extends BaseSqlCtrl {
     
 
     updateAll = (req, res) => {
-        console.log(req.body);
-        const sql = `UPDATE ${this.model} SET type = '${req.body.type}',
-                                          about = '${req.body.about}'
-
-                                          WHERE id = ${req.body.id}`;
+        let sql = `UPDATE ?? SET ?? = ?, ?? = ? WHERE ?? = ?`;
+        const insert = [this.model, 'type', req.body.type, 'about', req.body.about, 'id', req.body.id];
+        sql = mysql.format(sql, insert);
         this.executeQuery(sql, req, res, null, null);
     }
 
     getbyIdVacature = (req, res) => {
-        const sql = `SELECT * FROM ${this.model} WHERE id = '${req.params.id}'`;
+        let sql = `SELECT * FROM ?? WHERE ?? = ?`;
+        const insert = [this.model, 'id', req.params.id];
+        sql = mysql.format(sql, insert);
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, results) => {
                 if (err) {
@@ -43,7 +43,9 @@ export default class VacaturesCtrl extends BaseSqlCtrl {
       }
 
     insertForm = (req, res) => {
-        const sql = `INSERT INTO ${this.model} SET name = '${req.body.vac1Form}', type = '${req.body.vac2Form}', about = '${req.body.vac3Form}', company_fk = '${req.body.idForm}'`;
+        let sql = `INSERT INTO ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?`;
+        const insert = [this.model, 'name', req.body.vac1Form, 'type', req.body.vac2Form, 'about', req.body.vac3Form, 'company_fk', req.body.idForm];
+        sql = mysql.format(sql, insert);
         this.executeQuery(sql, req, res, null, null);
     }
 }

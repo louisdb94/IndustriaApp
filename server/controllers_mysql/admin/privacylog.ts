@@ -10,7 +10,9 @@ export default class PrivacylogCtrl extends BaseSqlCtrl {
     dummy = privacylog;
 
     insertPrivacylog = (req, res) => {
-        const sql = `INSERT INTO ${this.model} SET ?`;
+        let sql = `INSERT INTO ?? SET ?`;
+        const insert = [this.model];
+        sql = mysql.format(sql, insert);
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, req.body, (err, result) => {
                 if (err) {

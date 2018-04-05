@@ -12,8 +12,9 @@ export default class CompanyContactCtrl extends BaseSqlCtrl {
 
 
   updateAll = (req, res) => {
-    const sql = `UPDATE ${this.model} SET email = '${req.body.email}
-      ', phone = '${req.body.phone}', address = '${req.body.address}'  WHERE id = ${req.body.id}`;
+    let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
+    const insert = [this.model, 'email', req.body.email, 'phone', req.body.phone, 'address', req.body.address, 'id', req.body.id];
+    sql = mysql.format(sql, insert);
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
@@ -26,7 +27,9 @@ export default class CompanyContactCtrl extends BaseSqlCtrl {
   }
 
   getbyCompanyIdContact = (req, res) => {
-    const sql = `SELECT * FROM ${this.model} WHERE company_fk = '${req.params.id}'`;
+    let sql = `SELECT * FROM ?? WHERE ?? = ?`;
+    const insert = [this.model, 'company_fk', req.params.id];
+    sql = mysql.format(sql, insert);
     pool.getConnection(function (error, connection) {
         const query = connection.query(sql, (err, results) => {
             if (err) {

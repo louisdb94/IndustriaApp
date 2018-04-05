@@ -11,7 +11,10 @@ export default class EventsCtrl extends BaseSqlCtrl {
 
 
     selectAll = (req, res) => {
-        const sql = `SELECT id, title, start, end, color FROM ${this.model}`;
+        //const sql = `SELECT id, title, start, end, color FROM ${this.model}`;
+        let sql = `SELECT * FROM ??`;
+        const insert = [this.model];
+        sql = mysql.format(sql, insert);
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, results) => {
                 if (err) {
@@ -26,12 +29,9 @@ export default class EventsCtrl extends BaseSqlCtrl {
 
 
     updateEvent = (req, res) => {
-        const sql = `UPDATE ${this.model} SET title = '${req.body.title}',
-                                          start = '${req.body.start}',
-                                          end = '${req.body.end}',
-                                          color = '${req.body.color}'
-
-                                      WHERE id = ${req.body.id}`;
+        let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
+        const insert = [this.model, 'title', req.body.title, 'start', req.body.start, 'end', 'name', req.body.end, 'color', 'name', req.body.color, 'id', 'name', req.body.id];
+        sql = mysql.format(sql, insert);                              
         pool.getConnection(function (error, connection) {
             const query = connection.query(sql, (err, result) => {
                 if (err) {

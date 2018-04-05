@@ -13,18 +13,9 @@ export default class CompanyCtrl extends BaseSqlCtrl {
   dummy = companies;
 
   updateAll = (req, res) => {
-
-    const sql = `UPDATE ${this.model} SET email = '${req.body.email}',
-                                                whoami = '${req.body.whoami}',
-                                                url = '${req.body.url}',
-                                                name = '${req.body.name}',
-                                                feature1 = '${req.body.feature1}',
-                                                feature2 = '${req.body.feature2}',
-                                                feature3 = '${req.body.feature3}',
-                                                priority = '${req.body.priority}',
-                                                image = '${req.body.image}'
-
-                                                WHERE id = ${req.body.id}`;
+    let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
+    const insert = [this.model, 'email', req.body.email, 'whoami', req.body.whoami, 'url', req.body.url, 'name', req.body.name, 'feature1', req.body.feature1, 'feature2', req.body.feature2, 'feature3', req.body.feature3, 'priority', req.body.priority, 'image', req.body.image, 'id', req.body.id];
+    sql = mysql.format(sql, insert);  
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
@@ -38,7 +29,9 @@ export default class CompanyCtrl extends BaseSqlCtrl {
   }
 
   selectCompanies = (req, res) => {
-    const sql = `SELECT * FROM ${this.model}`;
+    let sql = `SELECT * FROM ??`;
+    const insert = [this.model];
+    sql = mysql.format(sql, insert);
     pool.getConnection(function (error, connection) {
         const query = connection.query(sql, (err, results) => {
             if (err) {
@@ -56,7 +49,9 @@ export default class CompanyCtrl extends BaseSqlCtrl {
 
 
   download = (req, res) => {
-    const sql = `SELECT * FROM companies WHERE id = '${req.params.id}'`;
+    let sql = `SELECT * FROM ?? WHERE ?? = ?`;
+    const insert = [this.model, 'id', req.params.id];
+    sql = mysql.format(sql, insert);
 
     const root = process.cwd();
 
@@ -91,7 +86,9 @@ export default class CompanyCtrl extends BaseSqlCtrl {
   }
 
   getCompanyByEmail = (req, res) => {
-    const sql = `SELECT * FROM ${this.model} WHERE email = '${req.params.email}'`;
+    let sql = `SELECT * FROM ?? WHERE ?? = ?`;
+    const insert = [this.model, 'email', req.params.email];
+    sql = mysql.format(sql, insert);
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
@@ -109,11 +106,10 @@ export default class CompanyCtrl extends BaseSqlCtrl {
   }
 
   innerJoin = (req, res) => {
-    const dummy = [];
-
-    const sql = `SELECT companies.id , companies.name AS company_name , companies.url,
-                vacatures.id AS vacature_id, vacatures.name AS vacature_name, vacatures.type FROM companies
-                INNER JOIN vacatures ON  companies.id = vacatures.company_fk`;
+    let sql = `SELECT ??, ?? AS ??, ??, ?? AS ??, ?? AS ??, ?? FROM ?? INNER JOIN ?? ON ?? = ?`;
+    const insert = ['companies.id', 'companies.name', 'company_name', 'companies.url', 'vacatures.id', 'vacature_id', 'vacatures.name', 'vacature_name',
+                    'vacatures.type', this.model, 'vacatures', 'companies.id', 'vacatures.company_fk'];
+    sql = mysql.format(sql, insert);
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
@@ -138,10 +134,9 @@ export default class CompanyCtrl extends BaseSqlCtrl {
   }
 
   updatePriority = (req, res) => {
-    const sql = `UPDATE ${this.model} SET priority = '${req.body.priority}',
-                                        email = '${req.body.email}',
-                                        name = '${req.body.name}'
-                                                WHERE id = ${req.body.id}`;
+    let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
+    const insert = [this.model, 'priority', req.body.priority, 'email', req.body.email, 'name', req.body.name, 'id', req.body.id];
+    sql = mysql.format(sql, insert);
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
