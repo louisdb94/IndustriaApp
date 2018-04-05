@@ -1,7 +1,7 @@
 <!-- BEGIN CALENDAR CODE -->
 <app-toast [message]="toast.message"></app-toast>
 
-<div class="jumbotron" style="background-color: white">
+<div class="jumbotron " style="background-color: white">
   <ng-template #modalContent let-close="close">
     <div class="modal-header">
       <h5 class="modal-title">Event action occurred</h5>
@@ -141,7 +141,7 @@
 
 <!-- BEGIN SPONSORS CODE -->
 
-<div class="jumbotron">
+<div class="jumbotron ">
   <div style="width: 50%; margin:auto">
   <hr style="height:2px;border:none;color:#333;background-color:#333;">
   <h1 translate style="text-align: center">Who we work with</h1>
@@ -193,10 +193,13 @@
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" href="#company" role="tab">Companies</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#priority" role="tab">Company Priorities</a>
+        </li>
       </ul>
 
       <!-- Tab panes -->
-      <div class="tab-content" style="padding:2%">
+      <div class="tab-content table-responsive" style="padding:2%">
         <div class="tab-pane active" id="admin" role="tabpanel">
           <table>
            <thead class="thead-default" >
@@ -225,6 +228,46 @@
              </div>
            </div>
         </div>
+        <div class="tab-pane" id="priority" role="tabpanel">
+          <table>
+           <thead class="thead-default" >
+             <tr>
+               <th style="padding:1%">Company</th>
+               <th style="padding:1%">Has a profile page</th>
+               <th style="padding:1%">Access to student profiles</th>
+               <th style="padding:1%">Can post job openings</th>
+               <th style="padding:1%">Logo size
+               </th>
+             </tr>
+           </thead>
+           <tr *ngFor="let company of companies;">
+             <td *ngIf="company.priority == 'FREE'" style="padding:1%"> {{company.name}}</td>
+             <td *ngIf="company.priority == 'FREE'" style="padding:1%">
+               <label class="custom-control custom-checkbox">
+                   <input [checked]="true" class="custom-control-input" type="checkbox" />
+                   <span class="custom-control-indicator"></span>
+               </label>
+             </td>
+             <td *ngIf="company.priority == 'FREE'" style="padding:1%">
+               <label class="custom-control custom-checkbox">
+                   <input [checked]="true" class="custom-control-input" type="checkbox" />
+                   <span class="custom-control-indicator"></span>
+               </label>
+             </td>
+             <td *ngIf="company.priority == 'FREE'" style="padding:1%">
+               <label class="custom-control custom-checkbox">
+                   <input [checked]="true" class="custom-control-input" type="checkbox" />
+                   <span class="custom-control-indicator"></span>
+               </label>
+             </td>
+             <td *ngIf="company.priority == 'FREE'" >
+               SIZE
+             </td>
+
+           </tr>
+           <br><br>
+         </table>
+        </div>
         <div class="tab-pane" id="company" role="tabpanel">
           <table>
            <thead class="thead-default" >
@@ -251,6 +294,7 @@
                            <option value="MIDDLE">MIDDLE</option>
                            <option value="LOW">LOW</option>
                            <option value="ONDERNEMERSDAG">ONDERNEMERSDAG</option>
+                           <option value="FREE">FREE</option>
                         </select>
                  </span>
             </td>
@@ -281,6 +325,7 @@
                          <option value="MIDDLE">MIDDLE</option>
                          <option value="LOW">LOW</option>
                          <option value="ONDERNEMERSDAG">ONDERNEMERSDAG</option>
+                         <option value="FREE">FREE</option>
                        </select>
                  </div>
                  <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>

@@ -73,6 +73,8 @@ export class HomepageComponent implements OnInit {
   middlePriority = [];
   lowPriority = [];
 
+  editSize : any;
+
   highImg = [];
   middleImg = [];
   lowImg = [];
@@ -384,13 +386,19 @@ export class HomepageComponent implements OnInit {
                 let result2 = this.data.decryption2(data);
                 editPriority.id = result2.insertId, this.updatePriority(editPriority);
                 this.companyContactService.addContactFromCompanyId(result2.insertId).subscribe(
-                  data => {this.toast.setMessage('successfully added!', 'success')}
-                )}
+                  data => {
+                    this.toast.setMessage('successfully added!', 'success');
+                  }
+                );
+                this.companyService.addPrioritiesFromCompanyId(result2.insertId).subscribe(
+                  data => {}
+                );}
               )
             }
                )
         this.companies.push(addCompanyForm);
   }
+
 
   editPriority = false;
 

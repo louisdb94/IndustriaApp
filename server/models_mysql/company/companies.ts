@@ -8,7 +8,7 @@ let companies = `CREATE TABLE IF NOT EXISTS companies (
     feature3 varchar(70) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
     whoami longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
     image tinyint(1) NOT NULL DEFAULT '0',
-    priority ENUM('HIGH','MIDDLE','LOW', 'ONDERNEMERSDAG') NOT NULL DEFAULT 'LOW',
+    priority ENUM('HIGH','MIDDLE','LOW', 'ONDERNEMERSDAG', 'FREE') NOT NULL DEFAULT 'LOW',
     user_fk int(11) NOT NULL,
     PRIMARY KEY (id),
     KEY user_fk (user_fk),

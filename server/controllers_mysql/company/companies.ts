@@ -15,7 +15,7 @@ export default class CompanyCtrl extends BaseSqlCtrl {
   updateAll = (req, res) => {
     let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
     const insert = [this.model, 'email', req.body.email, 'whoami', req.body.whoami, 'url', req.body.url, 'name', req.body.name, 'feature1', req.body.feature1, 'feature2', req.body.feature2, 'feature3', req.body.feature3, 'priority', req.body.priority, 'image', req.body.image, 'id', req.body.id];
-    sql = mysql.format(sql, insert);  
+    sql = mysql.format(sql, insert);
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {
         if (err) {
@@ -148,4 +148,5 @@ export default class CompanyCtrl extends BaseSqlCtrl {
       });
     });
   }
+
 }

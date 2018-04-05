@@ -31,6 +31,7 @@ import CompanyContactCtrl from './controllers_mysql/company/contact';
 import CompanyRequirementCtrl from './controllers_mysql/company/requirement';
 import EventsCtrl from './controllers_mysql/admin/events';
 import PrivacylogCtrl from './controllers_mysql/admin/privacylog';
+import CompanyPriorities from './controllers_mysql/company/priorities';
 
 //MYSQL MODELS
 import contacts from './models_mysql/students/contact';
@@ -51,6 +52,7 @@ import requirement from './models_mysql/company/requirement';
 import events from './models_mysql/admin/events';
 import privacylog from './models_mysql/admin/privacylog';
 import SendmailCtrl from './config/sendmail';
+import priorities from './models_mysql/company/priorities';
 
 
 
@@ -82,6 +84,7 @@ export default function setRoutes(app) {
   const eventsCtrl = new EventsCtrl();
   const privacylogCtrl = new PrivacylogCtrl();
   const sendmail = new SendmailCtrl();
+  const companyPriorities = new CompanyPriorities();
 
   //User
   router.route('/user-get/:id').get(usersCtrl.getbyId);
@@ -205,6 +208,7 @@ export default function setRoutes(app) {
   router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
   router.route('/companies-getbyemail/:email').get(companiesCtrl.getCompanyByEmail);
   router.route('/companies-updatepriority').put(companiesCtrl.updatePriority);
+  router.route('/companies-priority/:id').get(companyPriorities.priorities);
 
 
   //Vacature
