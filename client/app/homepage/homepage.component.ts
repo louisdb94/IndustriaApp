@@ -69,6 +69,7 @@ export class HomepageComponent implements OnInit {
   messageNav: String;
 
   companies = [];
+  priorities = [];
   highPriority = [];
   middlePriority = [];
   lowPriority = [];
@@ -122,6 +123,7 @@ export class HomepageComponent implements OnInit {
   this.getStudentsMysql();
   this.getAdmins();
   this.getUsers();
+  this.getPriorities();
 
   this.addUserForm = this.formBuilder.group({
   email: this.email,
@@ -406,9 +408,15 @@ export class HomepageComponent implements OnInit {
     for(let i = 0; i < companies.length; i++){
       if(companies[i]){
          this.updatePriority(companies[i]);
+         if(companies[i].priority == "FREE"){
+           this.companyService.addPrioritiesFromCompanyId(companies[i]).subscribe();
+         }else{
+           this.companyService.deletePrioritiesFromCompanyId(companies[i].id).subscribe();
+         }
       }
     }
     this.editPriority = false;
+    this.getPriorities();
   }
 
   updatePriority(editPriority){
@@ -451,6 +459,15 @@ export class HomepageComponent implements OnInit {
       );
   }
 
+  getPriorities(){
+    this.companyService.getCompaniesPriorities().subscribe(
+      data => {
+        let result = this.data.decryption(data);
+        this.priorities = result;
+      }
+    )
+  }
+
   decodeUserFromToken(token) {
     return this.jwtHelper.decodeToken(token).results;
   }
@@ -482,6 +499,39 @@ export class HomepageComponent implements OnInit {
       this.toast.setMessage('invalid user', 'danger');
 
     }
+  }
+
+    save(priority){
+
+      this.companyService.editPriorityCompany(priority).subscribe();
+
+    }
+
+  changePriority(e, priority, type){
+    if(type == "profile_page"){
+      if(e.target.checked){
+        priority.profile_page = 1;
+      }
+      else{
+        priority.profile_page = 0;
+      }
+    }else if(type == "student_profile"){
+      if(e.target.checked){
+        priority.student_profile = 1;
+      }
+      else{
+        priority.student_profile = 0;
+      }
+    }else{
+      if(e.target.checked){
+        priority.job_openings = 1;
+      }
+      else{
+        priority.job_openings = 0;
+      }
+    }
+
+     this.save(priority);
   }
 
 }

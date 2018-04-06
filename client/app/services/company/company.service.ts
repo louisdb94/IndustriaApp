@@ -25,6 +25,10 @@ export class CompanyService {
     return this.http.get(`/api/companies-getall`).map(res => res.json());
   }
 
+  getCompaniesPriorities(): Observable<any> {
+    return this.http.get(`/api/companies-getallpriorities`).map(res => res.json());
+  }
+
   addCompany(company): Observable<any> {
     return this.http.post('/api/companies-insert', JSON.stringify(company), this.options);
   }
@@ -37,8 +41,12 @@ export class CompanyService {
     return this.http.get(`/api/companies-insert/${id}`, this.options);
   }
 
-  addPrioritiesFromCompanyId(id): Observable<any> {
-    return this.http.get(`/api/companies-priority/${id}`, this.options);
+  addPrioritiesFromCompanyId(company): Observable<any> {
+    return this.http.post(`/api/companies-priority`, JSON.stringify(company), this.options);
+  }
+
+  deletePrioritiesFromCompanyId(id): Observable<any> {
+    return this.http.get(`/api/companies-deletepriority/${id}`, this.options);
   }
 
   innerJoin(id): Observable<any> {
@@ -60,5 +68,10 @@ export class CompanyService {
   editPriority(priority): Observable<any> {
     return this.http.put(`/api/companies-updatepriority`, JSON.stringify(priority), this.options);
   }
+
+  editPriorityCompany(priority): Observable<any> {
+    return this.http.put(`/api/companies-updatepriorityCompany`, JSON.stringify(priority), this.options);
+  }
+
 
 }

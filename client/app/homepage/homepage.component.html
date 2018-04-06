@@ -240,27 +240,27 @@
                </th>
              </tr>
            </thead>
-           <tr *ngFor="let company of companies;">
-             <td *ngIf="company.priority == 'FREE'" style="padding:1%"> {{company.name}}</td>
-             <td *ngIf="company.priority == 'FREE'" style="padding:1%">
+           <tr *ngFor="let priority of priorities; let i = index">
+             <td style="padding:1%"> {{priority.name}}</td>
+             <td  style="padding:1%">
                <label class="custom-control custom-checkbox">
-                   <input [checked]="true" class="custom-control-input" type="checkbox" />
+                   <input [checked]="priority.profile_page" (change)="changePriority($event,priority,'profile_page')" class="custom-control-input" type="checkbox" />
                    <span class="custom-control-indicator"></span>
                </label>
              </td>
-             <td *ngIf="company.priority == 'FREE'" style="padding:1%">
+             <td  style="padding:1%">
                <label class="custom-control custom-checkbox">
-                   <input [checked]="true" class="custom-control-input" type="checkbox" />
+                   <input [checked]="priority.student_profile" (change)="changePriority($event,priority,'student_profile')" class="custom-control-input" type="checkbox" />
                    <span class="custom-control-indicator"></span>
                </label>
              </td>
-             <td *ngIf="company.priority == 'FREE'" style="padding:1%">
+             <td  style="padding:1%">
                <label class="custom-control custom-checkbox">
-                   <input [checked]="true" class="custom-control-input" type="checkbox" />
+                   <input [checked]="priority.job_openings" (change)="changePriority($event,priority,'job_openings')" class="custom-control-input" type="checkbox" />
                    <span class="custom-control-indicator"></span>
                </label>
              </td>
-             <td *ngIf="company.priority == 'FREE'" >
+             <td  >
                SIZE
              </td>
 

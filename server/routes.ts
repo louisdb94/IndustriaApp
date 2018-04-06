@@ -208,7 +208,10 @@ export default function setRoutes(app) {
   router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
   router.route('/companies-getbyemail/:email').get(companiesCtrl.getCompanyByEmail);
   router.route('/companies-updatepriority').put(companiesCtrl.updatePriority);
-  router.route('/companies-priority/:id').get(companyPriorities.priorities);
+  router.route('/companies-priority').post(companyPriorities.add_priorities);
+  router.route('/companies-deletepriority/:id').get(companyPriorities.delete_priorities);
+  router.route('/companies-getallpriorities').get(companyPriorities.select);
+  router.route('/companies-updatepriorityCompany').put(companyPriorities.updatePriority);
 
 
   //Vacature
