@@ -34,7 +34,7 @@ const pool = mysql.createPool({
 //    password: 'HAJzfboxsR',
     password: 'root',
     port: "8889",
-    database: 'br'
+    database: 'br_industria'
 });
 
 console.log('env variables', process.env.database);

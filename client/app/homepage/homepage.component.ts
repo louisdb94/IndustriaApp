@@ -123,7 +123,6 @@ export class HomepageComponent implements OnInit {
   this.getStudentsMysql();
   this.getAdmins();
   this.getUsers();
-  this.getPriorities();
 
   this.addUserForm = this.formBuilder.group({
   email: this.email,
@@ -290,6 +289,7 @@ export class HomepageComponent implements OnInit {
   }
 
   getCompanies(){
+    this.getPriorities();
     this.companyService.getCompanies().subscribe(
       data => {
         let result = this.data.decryption(data);
@@ -306,26 +306,70 @@ export class HomepageComponent implements OnInit {
       for(let i = 0; i < data.length; i++){
         if(data[i]){
           let img = {im : 'data:image/PNG;base64,', id: null};
-          if(data[i].priority == "HIGH"){
-            this.highPriority[x] = data[i];
-            this.highImg.push(img);
-            this.highImg[x].id = data[i].id;
-            x++;
-            this.downloadImage(data[i].id);
+          if(data[i].priority == "HIGH" || (data[i].priority == "FREE")){
+            if(data[i].priority == "HIGH"){
+              this.highPriority[x] = data[i];
+              this.highImg.push(img);
+              this.highImg[x].id = data[i].id;
+              x++;
+              this.downloadImage(data[i].id);
+            }
+
+            else{
+              for(let item of this.priority_sizes){
+                if(data[i].name == item.name && item.size == "Large" && data[i].priority == "FREE"){
+                  this.highPriority[x] = data[i];
+                  this.highImg.push(img);
+                  this.highImg[x].id = data[i].id;
+                  x++;
+                  this.downloadImage(data[i].id);
+                }
+              }
+            }
           }
-          if(data[i].priority == "MIDDLE"){
-            this.middlePriority[y] = data[i];
-            this.middleImg.push(img);
-            this.middleImg[y].id = data[i].id;
-            y++;
-            this.downloadImage(data[i].id);
+
+          if(data[i].priority == "MIDDLE" || (data[i].priority == "FREE")){
+            if(data[i].priority == "MIDDLE"){
+              this.middlePriority[y] = data[i];
+              this.middleImg.push(img);
+              this.middleImg[y].id = data[i].id;
+              y++;
+              this.downloadImage(data[i].id);
+            }
+
+            else{
+              for(let item of this.priority_sizes){
+                if(data[i].name == item.name && item.size == "Medium" && data[i].priority == "FREE"){
+                  this.middlePriority[y] = data[i];
+                  this.middleImg.push(img);
+                  this.middleImg[y].id = data[i].id;
+                  y++;
+                  this.downloadImage(data[i].id);
+                }
+              }
+            }
           }
-          if(data[i].priority == "LOW"){
-            this.lowPriority[z] = data[i];
-            this.lowImg.push(img);
-            this.lowImg[z].id = data[i].id;
-            z++;
-            this.downloadImage(data[i].id);
+
+          if(data[i].priority == "LOW" || (data[i].priority == "FREE")){
+            if(data[i].priority == "LOW"){
+              this.lowPriority[z] = data[i];
+              this.lowImg.push(img);
+              this.lowImg[z].id = data[i].id;
+              z++;
+              this.downloadImage(data[i].id);
+            }
+
+            else{
+              for(let item of this.priority_sizes){
+                if(data[i].name == item.name && item.size == "Small" && data[i].priority == "FREE"){
+                  this.lowPriority[z] = data[i];
+                  this.lowImg.push(img);
+                  this.lowImg[z].id = data[i].id;
+                  z++;
+                  this.downloadImage(data[i].id);
+                }
+              }
+            }
           }
         }
       }
@@ -459,11 +503,20 @@ export class HomepageComponent implements OnInit {
       );
   }
 
+  priority_sizes_template = {name: '', size: ''};
+  priority_sizes = [];
+
   getPriorities(){
     this.companyService.getCompaniesPriorities().subscribe(
       data => {
         let result = this.data.decryption(data);
         this.priorities = result;
+        for(let i = 0; i < result.length; i++){
+          this.priority_sizes.push(this.priority_sizes_template);
+          this.priority_sizes[i].name = result[i].name;
+          this.priority_sizes[i].size = result[i].size;
+        }
+        console.log(this.priority_sizes);
       }
     )
   }
@@ -534,4 +587,15 @@ export class HomepageComponent implements OnInit {
      this.save(priority);
   }
 
+  editLogo = false;
+
+  saveLogoSize(priorities){
+    for(let priority of priorities){
+      this.save(priority);
+      if(priority.size == "Large"){
+
+      }
+    }
+    this.editLogo = false;
+  }
 }

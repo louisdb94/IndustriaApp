@@ -77,8 +77,8 @@ export default class CompanyPriorities extends BaseSqlCtrl {
 
 
   updatePriority = (req, res) => {
-    let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
-    const insert = [this.model, 'profile_page', req.body.profile_page, 'student_profile', req.body.student_profile, 'job_openings', req.body.job_openings, 'id', req.body.id];
+    let sql = `UPDATE ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ? WHERE ?? = ?`;
+    const insert = [this.model, 'profile_page', req.body.profile_page, 'student_profile', req.body.student_profile, 'job_openings', req.body.job_openings, 'size', req.body.size, 'id', req.body.id];
     sql = mysql.format(sql, insert);
     pool.getConnection(function (error, connection) {
       const query = connection.query(sql, (err, result) => {

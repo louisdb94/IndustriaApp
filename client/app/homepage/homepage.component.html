@@ -236,7 +236,9 @@
                <th style="padding:1%">Has a profile page</th>
                <th style="padding:1%">Access to student profiles</th>
                <th style="padding:1%">Can post job openings</th>
-               <th style="padding:1%">Logo size
+               <th style="padding:1%">Logo size 
+                  <button *ngIf="!editLogo" class="btn btn-primary" (click)="editLogo = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
+                  <button *ngIf="editLogo" class="btn btn-primary" (click)="saveLogoSize(priorities)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
                </th>
              </tr>
            </thead>
@@ -260,8 +262,16 @@
                    <span class="custom-control-indicator"></span>
                </label>
              </td>
-             <td  >
-               SIZE
+             <td>
+              <span *ngIf="!editLogo ">{{priority.size}}</span>
+              <span *ngIf="editLogo ">
+                    <select [(ngModel)]="priority.size" placeholder="priority">
+                        <option value="" selected disabled>Logo Size</option>
+                        <option value="Large">Large</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Small">Small</option>
+                    </select>
+               </span>
              </td>
 
            </tr>
