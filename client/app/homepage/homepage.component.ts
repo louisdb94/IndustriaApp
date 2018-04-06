@@ -316,7 +316,7 @@ export class HomepageComponent implements OnInit {
             }
 
             else{
-              for(let item of this.priority_sizes){
+              for(let item of this.priorities){
                 if(data[i].name == item.name && item.size == "Large" && data[i].priority == "FREE"){
                   this.highPriority[x] = data[i];
                   this.highImg.push(img);
@@ -338,7 +338,7 @@ export class HomepageComponent implements OnInit {
             }
 
             else{
-              for(let item of this.priority_sizes){
+              for(let item of this.priorities){
                 if(data[i].name == item.name && item.size == "Medium" && data[i].priority == "FREE"){
                   this.middlePriority[y] = data[i];
                   this.middleImg.push(img);
@@ -360,7 +360,7 @@ export class HomepageComponent implements OnInit {
             }
 
             else{
-              for(let item of this.priority_sizes){
+              for(let item of this.priorities){
                 if(data[i].name == item.name && item.size == "Small" && data[i].priority == "FREE"){
                   this.lowPriority[z] = data[i];
                   this.lowImg.push(img);
@@ -503,20 +503,11 @@ export class HomepageComponent implements OnInit {
       );
   }
 
-  priority_sizes_template = {name: '', size: ''};
-  priority_sizes = [];
-
   getPriorities(){
     this.companyService.getCompaniesPriorities().subscribe(
       data => {
         let result = this.data.decryption(data);
         this.priorities = result;
-        for(let i = 0; i < result.length; i++){
-          this.priority_sizes.push(this.priority_sizes_template);
-          this.priority_sizes[i].name = result[i].name;
-          this.priority_sizes[i].size = result[i].size;
-        }
-        console.log(this.priority_sizes);
       }
     )
   }
@@ -592,9 +583,6 @@ export class HomepageComponent implements OnInit {
   saveLogoSize(priorities){
     for(let priority of priorities){
       this.save(priority);
-      if(priority.size == "Large"){
-
-      }
     }
     this.editLogo = false;
   }
