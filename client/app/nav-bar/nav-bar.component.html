@@ -1,7 +1,8 @@
-<nav *ngIf="auth.currentUser.role == 'Student'" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
+<nav *ngIf="auth.currentUser.role == 'Student' || auth.currentUser.role == 'Company' " id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
     <a class="navbar-brand" href="https://www2.industria.be/">
       <img src="../assets/img/Industria.PNG" width="45" height="60">
     </a>
+
     <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,11 +14,12 @@
               <i class="fa fa-home"> Home</i>
             </a>
         </li>
-        <li class="nav-item dropdown active" style="font-size:147%">
-          <a id="navbarDropdownMenuLink" data-toggle="dropdown" [routerLink] ="studentString + this.auth.currentUser.studentId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-            <i translate class="fa fa-list" > Profile </i><i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
+        <li *ngIf="auth.currentUser.role == 'Student'" class="nav-item dropdown active" >
+          <a id="homeid" data-toggle="dropdown" [routerLink] ="studentString + this.auth.currentUser.studentId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <i translate class="fa fa-list" > Profile </i>
+            <i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+          <div   class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
               <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-header">header</a>
               <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-bio">bio</a>
               <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-education">education</a>
@@ -27,17 +29,38 @@
               <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-language">language knowledge</a>
               <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-contact">contact</a>
           </div>
+        </li>
+        <li *ngIf="auth.currentUser.role == 'Company'" class="nav-item dropdown active" >
+          <a id="homeid" data-toggle="dropdown" [routerLink] ="companyString + auth.currentUser.companyId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <i translate class="fa fa-list" > Profile </i>
+            <i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#company-header">header</a>
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#company-bio">bio</a>
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#company-vacature">vacature</a>
+              <a scrollTo class="dropdown-item" scrollTargetSelector="#company-contact">contact</a>
+          </div>
 
         </li>
-        <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
+        <li *ngIf="auth.currentUser.admin == '1' || auth.currentUser.role == 'Company' " class="nav-item">
           <a translate="" id="homeid" translate class=" ab nav-link" routerLink="/student-list"><i class="fa fa-briefcase" aria-hidden="true"> Student Search </i> </a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="auth.currentUser.admin == '1'|| auth.currentUser.role == 'Student'" class="nav-item">
           <a translate id="homeid" translate class=" ab nav-link" routerLink="/vacature-list"><i class="fa fa-briefcase" aria-hidden="true"> Job Openings</i> </a>
         </li>
-        <li class="nav-item">
-          <a translate id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i class="fa fa-sign-out" aria-hidden="true"> Logout</i> </a>
+
+        <li class="nav-item dropdown active" >
+          <a id="homeid" data-toggle="dropdown" class="ab nav-item nav-link">
+            <i translate class="fa fa-user"  style="font-size:27px;color:white;"> Account </i>
+            <i class="fa fa-caret-down" style="font-size:78%;color:white; margin-left:1%"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" >
+            <a  class="dropdown-item"><i routerLink="/settings" translate class="fa fa-cog">Settings </i></a>
+            <a  class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true">Logout </i></a>
+          </div>
         </li>
+
         <li class="nav-item">
           <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
             <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
@@ -47,49 +70,3 @@
       </ul>
     </div>
   </nav>
-
-  <nav *ngIf="auth.currentUser.role == 'Company'" id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
-      <a class="navbar-brand" href="https://www2.industria.be/">
-        <img src="../assets/img/Industria.PNG" width="45" height="60">
-      </a>
-      <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="navbar-collapse collapse" id="navbarCollapse">
-        <ul class="navbar-nav text-md-center nav-justified w-100">
-          <li class="nav-item">
-              <a id="homeid" routerLink="/home-companies" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-                <i class="fa fa-home"> Home </i>
-              </a>
-          </li>
-          <li class="nav-item dropdown active" style="font-size:147%">
-            <a id="navbarDropdownMenuLink" data-toggle="dropdown" [routerLink] ="companyString + auth.currentUser.companyId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-              <i translate class="fa fa-list" > Profile </i><i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a scrollTo class="dropdown-item" scrollTargetSelector="#company-header">header</a>
-                <a scrollTo class="dropdown-item" scrollTargetSelector="#company-bio">bio</a>
-                <a scrollTo class="dropdown-item" scrollTargetSelector="#company-vacature">vacature</a>
-                <a scrollTo class="dropdown-item" scrollTargetSelector="#company-contact">contact</a>
-            </div>
-
-          </li>
-          <li class="nav-item">
-            <a translate id="homeid" translate class=" ab nav-link" routerLink="/student-list"><i translate class="fa fa-briefcase" aria-hidden="true"> Student Search </i> </a>
-          </li>
-          <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
-            <a translate id="homeid" translate class=" ab nav-link" routerLink="/vacature-list"><i translate class="fa fa-briefcase" aria-hidden="true"> Job Openings</i> </a>
-          </li>
-          <li class="nav-item">
-            <a translate id="homeid" translate class="ab nav-link" (click)="logout()" href=""><i translate class="fa fa-sign-out" aria-hidden="true">Logout</i> </a>
-          </li>
-          <li class="nav-item">
-            <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
-              <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
-              <option value="nl" (ngModelChange)="switchLanguage('nl')">NL</option>
-            </select>
-          </li>
-        </ul>
-      </div>
-    </nav>

@@ -15,6 +15,7 @@ import { CompanyProfile} from './company/profile/profile.component';
 import { CompanyVacature} from './company/vacature/vacature.component';
 import { StudentListComponent} from './student/student-list/student-list.component';
 import { VacatureListComponent} from './company/vacature-list/vacature-list.component';
+import { SettingsComponent} from './settings/settings.component';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -52,9 +53,14 @@ const routes: Routes = [
   //Redirection to the logout
   { path: 'logout', component: LogoutComponent },
 
+  //Settings Component
+  { path: 'settings', component: SettingsComponent},
+
   //Safety for if a page is routed to that is not found
   { path: 'notfound', component: NotFoundComponent },
   { path: '**', redirectTo: '/notfound' },
+
+
 
 ];
 
