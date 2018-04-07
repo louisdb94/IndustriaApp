@@ -123,6 +123,11 @@ export class LoginComponent implements OnInit {
             let result = this.data.decryption(data);
             this.id = result[0].id;
             this.data.changeMessageId(result[0].id);
+
+            this.auth.login(this.loginForm.value).subscribe(
+              res => {this.navigate()},
+              error => {this.toast.setMessage('invalid email or password!', 'danger')}
+            );
           },
           error => console.log("error")
         );
@@ -135,6 +140,11 @@ export class LoginComponent implements OnInit {
             if(result[0]){
               this.id = result[0].id; 
               this.data.changeMessageId(result[0].id);
+
+              this.auth.login(this.loginForm.value).subscribe(
+                res => {this.navigate()},
+                error => {this.toast.setMessage('invalid email or password!', 'danger')}
+              );
             }
             else{
               this.toast.setMessage('invalid email or password!', 'danger');
@@ -142,15 +152,6 @@ export class LoginComponent implements OnInit {
           }
         );
       }
-    });
-
-    this.auth.login(this.loginForm.value).subscribe(
-      res => {this.navigate()},
-      error => {console.log("kweni"), this.toast.setMessage('invalid email or password!', 'danger')}
-    );
-
-    this.activatedRoute.params.subscribe((params: Params) => {
-
     });
 
   }

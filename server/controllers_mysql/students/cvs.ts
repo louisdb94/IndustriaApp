@@ -59,7 +59,7 @@ export default class CvsCtrl extends BaseSqlCtrl {
 
   addCv = (req, res) => {
     let sql = `INSERT INTO ?? SET ?? = ?, ?? = ?, ?? = ?, ?? = ?, ?? = ?`;
-    const inserts = ['cvs', 'name', req.body.name, 'mimetype', req.body.mimetype, 'number', req.body.number, 'size', req.body.size, 'student_fk', req.body.student_fk];
+    const inserts = ['cvs', 'name', req.body.name, 'mimetype', req.body.mimetype, 'number', req.body.number, 'size', req.body.size, 'student_fk', req.body.uploader];
     sql = mysql.format(sql, inserts);
     this.executeQuery(sql, req, res, null, null);
   }

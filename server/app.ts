@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.get('/*', function(req, res) {
 //   res.sendFile(path.join(__dirname, '../public/index.html'));
 // });
-
+//
 app.use(fileupload({ safeFileNames: true }));
 
 const pool = mysql.createPool({
@@ -34,7 +34,7 @@ const pool = mysql.createPool({
 //    password: 'HAJzfboxsR',
     password: 'root',
     port: "8889",
-    database: 'br'
+    database: 'br_industria'
 });
 
 console.log('env variables', process.env.database);

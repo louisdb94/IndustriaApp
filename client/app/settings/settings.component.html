@@ -1,67 +1,58 @@
 <!-- Nav tabs -->
-<div class="jumbotron">
-  <div  style="width: 50%; margin:auto">
-  <div  style="margin-top: 5%; border: 1px solid #dfdfdf; border-radius: 0.25rem">
+<div class="jumbotron" style="background-color: white">
+  <div  style="width: 60%; margin:auto">
+  <div  style="margin-top: 12%; border: 1px solid #dfdfdf; border-radius: 0.25rem; height: 700px">
       <ul class="nav nav-tabs" role="tablist" style="background-color: #f7f7f9;">
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#admin" role="tab">Admin</a>
+        <a class="nav-link active" data-toggle="tab" href="#downloadInformation" role="tab">
+          <h5>Download information</h5>
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#company" role="tab">Companies</a>
+        <a class="nav-link" data-toggle="tab" href="#activityLog" role="tab">
+            <h5>Activity Log</h5>
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#priority" role="tab">Company Priorities</a>
+        <a class="nav-link" data-toggle="tab" href="#passwordReset" role="tab">
+          <h5>Password Reset</h5>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#deleteAccount" role="tab">
+          <h5>Delete Account</h5>
+        </a>
       </li>
       </ul>
 
       <!-- Tab panes -->
       <div class="tab-content table-responsive" style="padding:2%">
-              <div class="tab-pane active" id="admin" role="tabpanel">
-                <table>
-                 <thead class="thead-default" >
-                   <tr>
-                     <th>Username</th>
-                     <th>Remove as admin</th>
-                   </tr>
-                 </thead>
-                 <tr >
-                   <td>TEST</td>
-                   <td>  </td>
-                 </tr>
-                 <br><br>
-               </table>
+          <div class="tab-pane active" id="downloadInformation" role="tabpanel">
+            <div style="width: 60%; margin: auto">
+              <p style="margin-top: 10%">
+                Below are two download buttons. One is for downloading your personal information and 
+                the other is to download your resume if you have uploaded one. 
+              </p>
+              <button (click)="downloadCv()" class="btn btn-md btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download Resume</button>
+              <button (click)="downloadPersonalInformation()" class="btn btn-md btn-secondary"><i class="fa fa-download" aria-hidden="true"></i> Download Personal information</button>
+            </div>   
           </div>
-              <div class="tab-pane" id="priority" role="tabpanel">
-                <table>
-                 <thead class="thead-default" >
-                   <tr>
-                     <th style="padding:1%">Company</th>
-                     <th style="padding:1%">Has a profile page</th>
-                   </tr>
-                 </thead>
-                 <tr>
-                   <td  style="padding:1%"></td>
-                   <td  style="padding:1%"></td>
-                 </tr>
-                 <br><br>
-               </table>
-              </div>
-
-              <div class="tab-pane" id="company" role="tabpanel">
-                <table>
-                 <thead class="thead-default" >
-                   <tr>
-                     <th>Name</th>
-                     <th>Email</th>
-                   </tr>
-                 </thead>
-                 <tr >
-                   <td></td>
-                   <td></td>
-                 </tr>
-                 <br><br>
-               </table>
-              </div>
+          <div class="tab-pane" id="activityLog" role="tabpanel">
+          </div>
+          <div class="tab-pane" id="passwordReset" role="tabpanel">
+            <div id="login" class="input-group" >
+              <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+              <input [(ngModel)]="emailStudent" type="email" name="email" placeholder="Email" email pattern="[r||s]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
+            </div>
+            <br><br>
+            <button  style="margin-bottom: 2%;"class="btn btn-primary" type="submit" (click)="nodemailer(emailStudent)"><i class="fa fa-sign-in"></i> Send Mail</button>
+          </div>
+          <div class="tab-pane" id="deleteAccount" role="tabpanel" style="margin: auto; width: 60%">
+              <button *ngIf="!deleteMode" class="btn btn-md btn-danger" (click)="deleteMode = true"><i class="fa fa-trash"></i> Delete Account</button>
+              <p *ngIf="deleteMode">Are you sure that you want to delete your account? This will be irreversible and all of your information will be lost</p>
+              <button *ngIf="deleteMode" class="btn btn-info" (click)="delete()"> YES </button>
+              <button *ngIf="deleteMode" (click)="deleteMode = false" class="btn btn-info"> NO </button>
+          </div>
       </div>
   </div>
 

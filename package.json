@@ -78,6 +78,7 @@
     "nodemailer": "^4.4.0",
     "passport": "^0.4.0",
     "passport-oauth2": "^1.4.0",
+    "pdfmake": "^0.1.36",
     "primeng": "^4.3.0",
     "rxjs": "^5.4.2",
     "saml2-js": "^2.0.1",

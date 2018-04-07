@@ -27,9 +27,9 @@ export class MailService {
               private studentService: StudentService,
               private companyService: CompanyService,
               private http: Http) {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedUser = this.decodeUserFromToken(token);
+    const token_mail = localStorage.getItem('token_mail');
+    if (token_mail) {
+      const decodedUser = this.decodeUserFromToken(token_mail);
       this.setCurrentUser(decodedUser);
     }
   }
@@ -43,7 +43,7 @@ export class MailService {
 
     return this.sendMail(email).map(res => res.json()).map(
       res => {
-        localStorage.setItem('token', res.token);
+        localStorage.setItem('token_mail', res.token);
         const decodedUser = this.decodeUserFromToken(res.token);
         this.setCurrentUser(decodedUser);
         return this.loggedIn;
@@ -58,9 +58,9 @@ export class MailService {
 
   setCurrentUser(decodedUser) {
     this.loggedIn = true;
-    this.currentUser.id = decodedUser[0].id;
-    this.currentUser.email = decodedUser[0].email;
-    this.currentUser.rnumber = decodedUser[0].rnumber;
+    this.currentUser.id = decodedUser.id;
+    this.currentUser.email = decodedUser.email;
+    this.currentUser.rnumber = decodedUser.rnumber;
     this.currentUser.password = '';
 
     delete decodedUser.role;

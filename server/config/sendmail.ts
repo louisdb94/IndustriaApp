@@ -38,6 +38,14 @@ function sendMailBackEnd(user, req, res){
     console.log("user: ", user);
     const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
 
+    // const mailOptions = {
+    //     from: 'bedrijvenrelaties2018@gmail.com', // sender address
+    //     to: req.params.email, // list of receivers
+    //     subject: 'Password reset', // Subject line
+    //     html: 'Dear user, you can set your new password via this link:  ' +
+    //         'https://bedrijvenrelaties-industria.be/sendmail/' + token// plain text body
+    // };
+
     const mailOptions = {
         from: 'bedrijvenrelaties2018@gmail.com', // sender address
         to: req.params.email, // list of receivers
