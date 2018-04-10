@@ -5,7 +5,7 @@
 
     <div class="container">
         <div class="col-md-12 text-center">
-            <h1 class="display-4 text-center" >
+            <h1 class="display-4 text-center table-responsive" >
                 <textarea id="editName" *ngIf="editMode" [(ngModel)]="student.name" placeholder="Write your name" rows="1" ></textarea>
                 <p *ngIf="!editMode">{{student.name}}</p>
             </h1>

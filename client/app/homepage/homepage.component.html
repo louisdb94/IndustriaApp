@@ -1,6 +1,8 @@
 <!-- BEGIN CALENDAR CODE -->
 <app-toast [message]="toast.message"></app-toast>
 
+<div class="container table-responsive">
+
 <div class="jumbotron " style="background-color: white">
   <ng-template #modalContent let-close="close">
     <div class="modal-header">
@@ -182,11 +184,11 @@
 
 
 <!-- BEGIN ADD NEW COMPANY CODE -->
-<div *ngIf="auth.currentUser.admin == '1'" style="width: 50%; margin:auto" >
+<div *ngIf="auth.currentUser.admin == '1'" style="width: 80%; margin:auto" >
 
         <!-- Nav tabs -->
       <div style="margin-top: 5%; margin-bottom: 10%; border: 1px solid #dfdfdf; border-radius: 0.25rem">
-      <ul class="nav nav-tabs" role="tablist" style="background-color: #f7f7f9;">
+      <ul class="nav nav-tabs table-responsive" role="tablist" style="background-color: #f7f7f9;">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#admin" role="tab">Admin</a>
         </li>
@@ -236,7 +238,7 @@
                <th style="padding:1%">Has a profile page</th>
                <th style="padding:1%">Access to student profiles</th>
                <th style="padding:1%">Can post job openings</th>
-               <th style="padding:1%">Logo size 
+               <th style="padding:1%">Logo size
                   <button *ngIf="!editLogo" class="btn btn-primary" (click)="editLogo = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
                   <button *ngIf="editLogo" class="btn btn-primary" (click)="saveLogoSize(priorities)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
                </th>
@@ -345,6 +347,8 @@
         </div>
       </div>
       </div>
+
+</div>
 
 </div>
 

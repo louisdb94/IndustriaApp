@@ -7,9 +7,8 @@
       style="float:right">
       <i class="fa fa-pencil"></i> Edit</button>
     <h2 translate>Skills</h2>
-    <br>
 
-        <tr *ngFor="let item of skills; let i = index" style="float:left ; padding-right: 15%; width: 33%">
+        <div *ngFor="let item of skills; let i = index" style="display:inline-block;padding:1%">
             <div *ngIf="skills[i]" >
               <div style='margin-top: 10px;'>
                 <textarea *ngIf="editMode" [(ngModel)]="skills[i].skill" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
@@ -25,7 +24,7 @@
                   <p>{{skills[i].value_type}}</p>
                 </div>
             </div>
-        </tr>
+        </div>
 
     <button *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete(student, skills)" style="float : right">
       <i class="fa fa-trash"></i> Delete</button>

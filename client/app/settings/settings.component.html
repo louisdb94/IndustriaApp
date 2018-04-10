@@ -1,14 +1,13 @@
 <!-- Nav tabs -->
-<div class="jumbotron" style="background-color: white">
-  <div  style="width: 60%; margin:auto">
-  <div  style="margin-top: 12%; border: 1px solid #dfdfdf; border-radius: 0.25rem; height: 700px">
+<div class="jumbotron" style="background-color: white; text-align:center">
+  <div  style="margin-top: 5%; border: 1px solid #dfdfdf; border-radius: 0.25rem; height: 700px; display:inline-block">
       <ul class="nav nav-tabs" role="tablist" style="background-color: #f7f7f9;">
-      <li class="nav-item">
+      <li *ngIf="auth.currentUser.role == 'Student'" class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#downloadInformation" role="tab">
           <h5>Download information</h5>
         </a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#activityLog" role="tab">
             <h5>Activity Log</h5>
         </a>
@@ -27,27 +26,32 @@
 
       <!-- Tab panes -->
       <div class="tab-content table-responsive" style="padding:2%">
-          <div class="tab-pane active" id="downloadInformation" role="tabpanel">
+          <div *ngIf="auth.currentUser.role == 'Student'" class="tab-pane active" id="downloadInformation" role="tabpanel">
             <div style="width: 60%; margin: auto">
               <p style="margin-top: 10%">
-                Below are two download buttons. One is for downloading your personal information and 
-                the other is to download your resume if you have uploaded one. 
+                Below are two download buttons. One is for downloading your personal information and
+                the other is to download your resume if you have uploaded one.
               </p>
               <button (click)="downloadCv()" class="btn btn-md btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download Resume</button>
               <button (click)="downloadPersonalInformation()" class="btn btn-md btn-secondary"><i class="fa fa-download" aria-hidden="true"></i> Download Personal information</button>
-            </div>   
+            </div>
           </div>
-          <div class="tab-pane" id="activityLog" role="tabpanel">
+          <div *ngIf="auth.currentUser.admin == '1'" class="tab-pane" id="activityLog" role="tabpanel">
           </div>
-          <div class="tab-pane" id="passwordReset" role="tabpanel">
-            <div id="login" class="input-group" >
+          <div class="tab-pane" id="passwordReset" role="tabpanel" style="width: 60%; margin: auto">
+            <p style="margin-top: 10%">
+              By sending a mail to the account email, you can change/reset your password.
+            </p>
+            <div style=""id="login" class="input-group" >
               <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
               <input [(ngModel)]="emailStudent" type="email" name="email" placeholder="Email" email pattern="[r||s]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
             </div>
-            <br><br>
             <button  style="margin-bottom: 2%;"class="btn btn-primary" type="submit" (click)="nodemailer(emailStudent)"><i class="fa fa-sign-in"></i> Send Mail</button>
           </div>
           <div class="tab-pane" id="deleteAccount" role="tabpanel" style="margin: auto; width: 60%">
+            <p style="margin-top: 10%">
+              Below you can find a delete button. By clicking this button your account will be deleted, included all the information about you.
+            </p>
               <button *ngIf="!deleteMode" class="btn btn-md btn-danger" (click)="deleteMode = true"><i class="fa fa-trash"></i> Delete Account</button>
               <p *ngIf="deleteMode">Are you sure that you want to delete your account? This will be irreversible and all of your information will be lost</p>
               <button *ngIf="deleteMode" class="btn btn-info" (click)="delete()"> YES </button>
@@ -56,5 +60,4 @@
       </div>
   </div>
 
-</div>
 </div>
