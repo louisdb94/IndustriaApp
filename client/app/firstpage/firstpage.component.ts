@@ -21,6 +21,8 @@ export class FirstPageComponent implements OnInit {
     if(this.auth.currentUser.role == "Student"){
       this.router.navigate(['/home-students']);
     }
+
+    console.log("auth", this.auth.currentUser)
   }
 
   switchLanguage(language) {
