@@ -1,8 +1,11 @@
 import { pool } from '../app';
+import {UserModel, UserCrud} from '../models/users';
 import * as  mysql from 'mysql';
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
 import sql_users from '../models_mysql/users';
+
+
 
 var CryptoJS = require("crypto-js");
 
@@ -13,6 +16,13 @@ export default class UserCtrl extends BaseSqlCtrl {
     model = 'user';
     dummy = sql_users;
 
+    private userCrud = new UserCrud();
+
+    get = (req, res) => {
+      this.userCrud.get().then(result => {
+        res.status(200).json({results:result});
+      })
+    }
 
     getByRnumber = (req, res) => {
         var sql = `SELECT ?? FROM ?? WHERE ?? = ?`;
@@ -32,7 +42,7 @@ export default class UserCtrl extends BaseSqlCtrl {
                 }
                 var encrypted = CryptoJS.AES.encrypt(JSON.stringify(results), 'secret key 123');
                 var encrypted_string = encrypted.toString();
-          
+
                 const token = jwt.sign({ results: encrypted_string },
                 process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
                 res.status(200).json({ token: token });                connection.release();
