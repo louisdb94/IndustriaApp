@@ -28,13 +28,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(fileupload({ safeFileNames: true }));
 
 const pool = mysql.createPool({
-    host: 'localhost',
-//    host: 'node5390-industria-staging.cloud.interhostsolutions.be',
-    user: 'root',
-//    password: 'HAJzfboxsR',
-    password: 'root',
-    port: "8889",
-    database: 'br'
+    host: process.env.DB_HOST ? process.env.DB_HOST : 'localhost',
+    user: process.env.DB_USER ? process.env.DB_USER : 'industria',
+    //    host: 'node5390-industria-staging.cloud.interhostsolutions.be',
+    //    password: 'HAJzfboxsR',
+    password: process.env.DB_PASSWORD ? process.env.DB_PASSWORD : '',
+    port: process.env.DB_PORT ? process.env.DB_PORT : '3306',
+    database: process.env.DB_NAME ? process.env.DB_NAME : 'br_industria'
 });
 
 // const pool = mysql.createPool({

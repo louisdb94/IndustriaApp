@@ -1,8 +1,8 @@
-import { iModel } from './iModel.interface';
+import { IModel } from './iModel.interface';
 
-export class DefaultModel{
+export class DefaultModel {
   id: number;
 
-  public static parseObject(input: string){
+  public static parseObject(input: string) {
   }
 }

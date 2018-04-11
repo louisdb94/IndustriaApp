@@ -1,5 +1,5 @@
 import { pool } from '../app';
-import {UserModel, UserCrud} from '../models/users';
+import { UserModel, UserCrud } from '../models/users';
 import * as  mysql from 'mysql';
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
@@ -19,14 +19,19 @@ export default class UserCtrl extends BaseSqlCtrl {
     private userCrud = new UserCrud();
 
     get = (req, res) => {
-      this.userCrud.get().then(result => {
-        res.status(200).json({results:result});
-      })
+        this.userCrud.get().then(result => {
+            res.status(200).json({ results: result });
+        })
+    }
+    getById = (req, res) => {
+        this.userCrud.getById(req.params.id).then(result => {
+            res.status(200).json({ results: result });
+        })
     }
 
     getByRnumber = (req, res) => {
         var sql = `SELECT ?? FROM ?? WHERE ?? = ?`;
-        const inserts = ['id',this.model, 'rnumber', req.params.rnumber];
+        const inserts = ['id', this.model, 'rnumber', req.params.rnumber];
         sql = mysql.format(sql, inserts);
         this.executeQuery(sql, req, res, null, null);
     }
@@ -44,8 +49,8 @@ export default class UserCtrl extends BaseSqlCtrl {
                 var encrypted_string = encrypted.toString();
 
                 const token = jwt.sign({ results: encrypted_string },
-                process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
-                res.status(200).json({ token: token });                connection.release();
+                    process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken'); // , { expiresIn: 10 } seconds
+                res.status(200).json({ token: token }); connection.release();
             });
         });
     }
@@ -61,7 +66,7 @@ export default class UserCtrl extends BaseSqlCtrl {
                 throw error;
             }
             const query = connection.query(sql, (err, userArray) => {
-                if(err){
+                if (err) {
                     // connection.release();
                     throw err;
                 }
@@ -69,7 +74,7 @@ export default class UserCtrl extends BaseSqlCtrl {
                 else if (userArray[0].password == req.body.password) {
                     const user = userArray[0];
                     const token = jwt.sign({ user: user },
-                            process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken' ); // , { expiresIn: 10 } seconds
+                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken'); // , { expiresIn: 10 } seconds
                     res.status(200).json({ token: token });
                 }
                 else {
@@ -82,14 +87,14 @@ export default class UserCtrl extends BaseSqlCtrl {
 
     resetPass = (req, res) => {
         var sql_update = `UPDATE ?? SET ?? = ? WHERE ?? = ?`;
-        const inserts = [this.model,'password', req.body.password, 'email', req.body.email];
+        const inserts = [this.model, 'password', req.body.password, 'email', req.body.email];
         sql_update = mysql.format(sql_update, inserts);
         this.executeQuery(sql_update, req, res, null, null);
     }
 
     makeAdmin = (req, res) => {
         var sql_update = `UPDATE ?? SET ?? = ? WHERE ?? = ?`;
-        const inserts = [this.model,'admin', req.body.admin, 'email', req.body.email];
+        const inserts = [this.model, 'admin', req.body.admin, 'email', req.body.email];
         sql_update = mysql.format(sql_update, inserts);
         this.executeQuery(sql_update, req, res, null, null);
     }

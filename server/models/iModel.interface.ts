@@ -1,4 +1,4 @@
-export interface iModel{
+export interface IModel {
 
-  public parseObject(input: string);
+  parseObject(input: string);
 }

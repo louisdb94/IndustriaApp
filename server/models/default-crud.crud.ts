@@ -1,67 +1,69 @@
-import {DefaultModel} from './default-model.model';
+import { DefaultModel } from './default-model.model';
 import { pool } from '../app';
 import * as jwt from 'jsonwebtoken';
 
 let CryptoJS = require("crypto-js");
 
-export class DefaultCrud<T extends DefaultModel>{
+export abstract class DefaultCrud<T extends DefaultModel>{
 
 
-constructor(private tableName: string){
+    constructor(private tableName: string) {
 
-}
+    }
 
-  public get(): Promise<T[]>{
-    const mysqlConnection = this.getConnection();
+    public get(): Promise<T[]> {
+        const sql = `SELECT * FROM ${this.tableName}`;
 
-    let sql = `SELECT * FROM ${this.tableName}`;
-    const promise =  pool.getConnection(function (error, connection) {
-          if (error) {
-              if (pool._freeConnections.indexOf(connection) === -1) {
-                  connection.release();
-              }
-              console.log("error",error);
-              throw error;
-          }
-          return connection.query(sql, (err, result) => {
-             //const rows = result;
-             //let resultObjects: T[] = [];
-             // for(let item of result){
-             //   // const _user:T = T.parseObject(item);
-             //   resultObjects.push(item);
-             //   console.log(_user);
-             //
-             // }
-             return Promise.resolve(result);
-         });
+        return this.getConnection().then(conn => {
+            if (conn) {
+                return new Promise<T[]>((resolve, reject) => {
+                    return conn.query(sql, (err, result) => {
+                        const resultObjects: T[] = [];
+
+                        for (const row of result) {
+                            resultObjects.push(this.parseObject(row));
+                        }
+                        return resolve(resultObjects);
+                    });
+                });
+            } else {
+                Promise.reject('Could not create connection');
+            }
         });
-      console.log('promise?', promise);
-    return promise;
-    // return mysqlConnection.query(sql, (err, result) => {
-    //     const rows = result.results;
-    //     let resultObjects: T[] = [];
-    //
-    //     rows.foreach(row => {
-    //       let object: T  = JSON.parse(row);
-    //       resultObjects.push(object);
-    //     })
-    //     return Promise.resolve(resultObjects);
-    // });
-  }
+    }
 
+    public getById(id: number): Promise<T> {
+        const sql = `SELECT * FROM ${this.tableName} WHERE id = ${id}`;
 
-  private getConnection() {
-    return pool.getConnection(function (error, connection) {
-          if (error) {
-              if (pool._freeConnections.indexOf(connection) === -1) {
-                  connection.release();
-              }
-              console.log("error",error);
-              throw error;
-          }
-          return connection;
+        return this.getConnection().then(conn => {
+            if (conn) {
+                return new Promise<T>((resolve, reject) => {
+                    return conn.query(sql, (err, result) => {
+                        return resolve(this.parseObject(result));
+                    });
+                });
+            } else {
+                Promise.reject('Could not create connection');
+            }
         });
+    }
 
 
-  }
+    private getConnection() {
+        return new Promise<any>((resolve, reject) => {
+            pool.getConnection(function (error, connection) {
+                if (error) {
+                    if (pool._freeConnections.indexOf(connection) === -1) {
+                        connection.release();
+                    }
+                    reject(error);
+                    // throw error;
+                }
+
+                return resolve(connection);
+            });
+        });
+    }
+
+    abstract parseObject(input: any): T;
 }
