@@ -7,7 +7,7 @@ import { UserService } from './services/user.service';
 import { StudentService } from './services/student.service';
 import { FileService } from './services/file.service';
 import { AuthService } from './services/auth.service';
-import {MailService} from './services/mail.service';
+import { MailService } from './services/mail.service';
 
 import { CvsService } from './services/cvs.service';
 import { EducationService } from './services/education.service';
@@ -17,10 +17,10 @@ import { ProfessionalService } from './services/professional.service';
 import { SkillService } from './services/skill.service';
 import { SocialmediaService } from './services/socialmedia.service';
 import { ContactService } from './services/contact.service';
-import { CompanyService} from './services/company/company.service';
-import { VacatureService} from './services/company/vacature.service';
-import { EventsService} from './services/admin/events.service';
-import { PrivacylogService} from './services/admin/privacylog.service';
+import { CompanyService } from './services/company/company.service';
+import { VacatureService } from './services/company/vacature.service';
+import { EventsService } from './services/admin/events.service';
+import { PrivacylogService } from './services/admin/privacylog.service';
 
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
@@ -32,13 +32,13 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
 import { SendMailComponent } from './login/send-mail/send-mail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { HomepageComponent} from './homepage/homepage.component';
-import { CompanyComponent} from './company/company.component';
-import { NavBarComponent} from './nav-bar/nav-bar.component';
-import { FirstPageComponent} from './firstpage/firstpage.component';
-import { StudentListComponent} from './student/student-list/student-list.component';
-import { VacatureListComponent} from './company/vacature-list/vacature-list.component';
-import { SettingsComponent} from './settings/settings.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { CompanyComponent } from './company/company.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { FirstPageComponent } from './firstpage/firstpage.component';
+import { StudentListComponent } from './student/student-list/student-list.component';
+import { VacatureListComponent } from './company/vacature-list/vacature-list.component';
+import { SettingsComponent } from './settings/settings.component';
 
 import { StudentProfile } from './student';
 import { HeaderProfile } from './student/profile-header';
@@ -64,39 +64,39 @@ import { CompanyAboutVacature } from './company/vacature/vacature-about';
 import { CompanyContactVacature } from './company/vacature/vacature-contact';
 import { CompanyRequirementVacature } from './company/vacature/vacature-requirement';
 
-import {CompanyContactService} from './services/company/contact.service';
+import { CompanyContactService } from './services/company/contact.service';
 import { CompanyRequirementService } from './services/company/requirement.service';
 
-import { FormsModule, ReactiveFormsModule,NgModelGroup, NgForm } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, NgModelGroup, NgForm } from '@angular/forms';
 
 import { DataTableModule } from "ng2-data-table";
 
 
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import {FileUploadModule} from 'primeng/primeng';
-import {DropdownModule} from 'primeng/primeng';
-import {OrderListModule} from 'primeng/primeng';
+import { FileUploadModule } from 'primeng/primeng';
+import { DropdownModule } from 'primeng/primeng';
+import { OrderListModule } from 'primeng/primeng';
 import { CalendarModule } from 'angular-calendar';
 import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarHeaderComponent} from './homepage/utils/calendar-header.component';
-import { DateTimePickerComponent} from './homepage/utils/date-time-picker.component';
-import {UtilsModule} from './homepage/utils/module';
+import { CalendarHeaderComponent } from './homepage/utils/calendar-header.component';
+import { DateTimePickerComponent } from './homepage/utils/date-time-picker.component';
+import { UtilsModule } from './homepage/utils/module';
 
 
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AgmCoreModule } from '@agm/core';
 
-import { FilterPipe} from './pipes/student-list.pipe';
-import { FilterSkill} from './pipes/filterSkill.pipe';
-import { FilterProfessional} from './pipes/filterProfessional.pipe';
-import { FilterLanguage} from './pipes/filterLanguage.pipe';
-import {FilterVacature} from './pipes/filterVacatures.pipe';
+import { FilterPipe } from './pipes/student-list.pipe';
+import { FilterSkill } from './pipes/filterSkill.pipe';
+import { FilterProfessional } from './pipes/filterProfessional.pipe';
+import { FilterLanguage } from './pipes/filterLanguage.pipe';
+import { FilterVacature } from './pipes/filterVacatures.pipe';
 
-import {ScrollToModule} from 'ng2-scroll-to';
-
+import { ScrollToModule } from 'ng2-scroll-to';
+import { RequestInterceptorService } from './services/request-interceptor.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -193,7 +193,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventsService,
     PrivacylogService,
     MailService,
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptorService,
+      multi: true,
+    }, 
     CvsService,
     EducationService,
     ExperienceService,
