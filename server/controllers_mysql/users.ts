@@ -19,14 +19,20 @@ export default class UserCtrl extends BaseSqlCtrl {
     private userCrud = new UserCrud();
 
     get = (req, res) => {
+        const map: Map<string, string> = new Map();
+        map.set('rnumber', '123456789');
+
+        this.userCrud.update(14, map).then(result => {
+            res.status(200).json({ results: result });
+        });
         this.userCrud.get().then(result => {
             res.status(200).json({ results: result });
-        })
+        });
     }
     getById = (req, res) => {
         this.userCrud.getById(req.params.id).then(result => {
             res.status(200).json({ results: result });
-        })
+        });
     }
 
     getByRnumber = (req, res) => {

@@ -49,6 +49,38 @@ export abstract class DefaultCrud<T extends DefaultModel>{
     }
 
 
+    public update(id: number, params: Map<string, string>): Promise<T> {
+        let sql = `UPDATE ${this.tableName} SET `;
+        const columns = params.keys();
+
+        for (const column of Array.from(columns)) {
+            sql += ` ${column} = ?,`;
+        }
+        if (sql.slice(-1) === ',') {
+            sql = sql.slice(0, -1);
+        }
+
+        sql += ` WHERE id = ${id}`;
+
+        const values = Array.from(params.values());
+
+        return this.getConnection().then(conn => {
+            if (conn) {
+                return new Promise<T>((resolve, reject) => {
+                    return conn.query(sql, values, (err, result) => {
+                        if (result) {
+                            return resolve(this.parseObject(result));
+                        } else {
+                            return reject(err);
+                        }
+                    });
+                });
+            } else {
+                Promise.reject('Could not create connection');
+            }
+        });
+    }
+
     private getConnection() {
         return new Promise<any>((resolve, reject) => {
             pool.getConnection(function (error, connection) {
