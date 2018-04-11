@@ -37,8 +37,6 @@ const pool = mysql.createPool({
     database: 'br'
 });
 
-console.log('env variables', process.env.database);
-
 // const pool = mysql.createPool({
 //     //in production: docker5390-industria-staging.cloud.interhostsolutions.be
 //     host: process.env.dbHost ? process.env.dbHost : 'localhost',
@@ -52,13 +50,13 @@ console.log('env variables', process.env.database);
 
 pool.getConnection(function (err, connection) {
 
-        // Handle error after the release.
-        if (err) {
-            throw err;
-        }
-        connection.release();
-        console.log("db connected");
-    });
+    // Handle error after the release.
+    if (err) {
+        throw err;
+    }
+    connection.release();
+    console.log(`db ${process.env.DB_NAME} connected`);
+});
 
 app.use((err, req, res, next) => {
     const response = {
