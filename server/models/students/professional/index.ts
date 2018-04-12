@@ -1,2 +1,2 @@
-export { ContactCrud } from './contact.crud';
-export { ContactModel } from './contact.model';
+export { ProfessionalCrud } from './professional.crud';
+export { ProfessionalModel } from './professional.model';

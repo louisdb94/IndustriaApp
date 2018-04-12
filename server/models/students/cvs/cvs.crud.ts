@@ -4,7 +4,7 @@ import {CvsModel} from './cvs.model';
 export class CvsCrud extends DefaultCrud<CvsModel>{
 
   constructor(){
-    super("contact_company");
+    super("cvs");
   }
 
   parseObject(input: any): CvsModel {
