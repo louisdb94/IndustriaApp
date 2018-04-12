@@ -26,7 +26,7 @@ export class RequestInterceptorService implements HttpInterceptor {
     private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
         return req.clone({
             setHeaders: {
-                Authorization: 'Bearer ' + token,
+                Authorization: token,
                 'Content-Type': req.headers.get('Content-Type')
             }
         });
