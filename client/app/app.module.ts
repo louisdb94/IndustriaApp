@@ -197,7 +197,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptorService,
       multi: true,
-    }, 
+    },
     CvsService,
     EducationService,
     ExperienceService,

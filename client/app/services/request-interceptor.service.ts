@@ -17,8 +17,11 @@ export class RequestInterceptorService implements HttpInterceptor {
 
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
+    private authService: AuthService;
 
-    constructor(private injector: Injector, private zone: NgZone, private router: Router, private authService: AuthService) {
+    constructor(private injector: Injector, private zone: NgZone, private router: Router) {
+
+
 
     }
 
@@ -33,12 +36,23 @@ export class RequestInterceptorService implements HttpInterceptor {
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent |
         HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
 
+          console.log("intercept", req.headers);
+          this.authService = this.injector.get(AuthService);
         if (!req.headers.has('x-industria-auth')) {
+
             return next.handle(req);
         }
 
-        return next.handle(this.addToken(req, this.authService.getToken()))
+        const token = this.authService.getToken();
+        console.log("token", token);
+        if(token === null){
+          this.logoutUser();
+          return Observable.throw("no token found");
+        }
+
+        return next.handle(this.addToken(req, token))
             .catch((error) => {
+                console.log("catch error", error);
                 if (error instanceof HttpErrorResponse) {
                     if (error.status === 401 || error.status === 403) {
                         return this.logoutUser();
@@ -60,7 +74,7 @@ export class RequestInterceptorService implements HttpInterceptor {
         this.router = this.injector.get(Router);
         this.authService = this.injector.get(AuthService);
         this.authService.logout();
-        this.router.navigate(["/login"]);
+        this.router.navigate(["/"]);
         return Observable.empty();
     }
 }

@@ -87,16 +87,17 @@ export class AuthService {
 
   loginStudent(token) {
     if (this.currentUser.rnumber == '') {
-      localStorage.setItem('token', token);
+      localStorage.setItem('x-access_token', token);
       const decodedUserStudent = this.decodeUserFromToken(token);
       this.setCurrentUser(decodedUserStudent);
     }
   }
 
   getToken() {
-    let token = localStorage.getItem('access_token');
+    let token = localStorage.getItem('token');
+    console.log("authservice", token);
     if (token === undefined || token === null || token === '') {
-      token = sessionStorage.getItem('access_token');
+      token = sessionStorage.getItem('token');
       if (token === undefined || token === null || token === '') {
         return null;
       }

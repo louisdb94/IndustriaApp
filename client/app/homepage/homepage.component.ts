@@ -415,7 +415,7 @@ export class HomepageComponent implements OnInit {
   // }
 
   addCompany() {
-    let addCompanyForm = {email: '', password: '', role: 'Company', rnumber: ''};
+    let addCompanyForm = {email: '', password: '', role: 'Company', rnumber: '', admin: '0'};
     addCompanyForm.email = this.addUserForm.value.email;
     addCompanyForm.password = this.addUserForm.value.password;
 

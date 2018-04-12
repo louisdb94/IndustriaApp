@@ -19,7 +19,7 @@ export class MailService {
 
   currentUser = { id: '', email: '', rnumber: '', password: ''};
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
+  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
   private options = new RequestOptions({ headers: this.headers });
 
   constructor(private userService: UserService,

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SkillService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
+  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
   private options = new RequestOptions({ headers: this.headers });
 
 

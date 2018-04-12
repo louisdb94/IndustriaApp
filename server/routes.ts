@@ -54,7 +54,7 @@ import privacylog from './models_mysql/admin/privacylog';
 import SendmailCtrl from './config/sendmail';
 import priorities from './models_mysql/company/priorities';
 
-
+var VerifyToken = require('./auth/verify-token');
 
 export default function setRoutes(app) {
 
@@ -90,7 +90,7 @@ export default function setRoutes(app) {
   router.route('/user-get/:id').get(usersCtrl.getbyId);
   router.route('/user-getbyrole').get(usersCtrl.getbyRole);
   router.route('/users-getall').get(usersCtrl.select);
-  router.route('/users-insert').post(usersCtrl.insert);
+  router.route('/users-insert').post(usersCtrl.register);
   router.route('/user-delete/:id').get(usersCtrl.delete);
   router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);
   router.route('/users-login').post(usersCtrl.login);
@@ -100,7 +100,7 @@ export default function setRoutes(app) {
   router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
   router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
-  router.route('/user-test').get(usersCtrl.get);  
+  router.route('/user-test').get(usersCtrl.get);
   router.route('/user-byid:id').get(usersCtrl.getbyId);
 
   //Students

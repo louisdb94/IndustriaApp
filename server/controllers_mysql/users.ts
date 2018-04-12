@@ -4,7 +4,7 @@ import * as  mysql from 'mysql';
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
 import sql_users from '../models_mysql/users';
-
+import * as bcrypt from 'bcryptjs';
 
 
 var CryptoJS = require("crypto-js");
@@ -62,33 +62,56 @@ export default class UserCtrl extends BaseSqlCtrl {
     }
 
     // Select single post
-    login = (req, res) => {
+    login = (req, res, next) => {
+
+
         var sql = `SELECT * FROM ?? WHERE ?? = ?`;
         const inserts = ['user', 'email', req.body.email];
         sql = mysql.format(sql, inserts);
+
         pool.getConnection(function (error, connection) {
             if (error) {
-                console.log('err while connecting', error);
+                connection.release();
                 throw error;
             }
             const query = connection.query(sql, (err, userArray) => {
                 if (err) {
-                    // connection.release();
+                    connection.release();
                     throw err;
                 }
-                if (!userArray[0]) { }
-                else if (userArray[0].password == req.body.password) {
-                    const user = userArray[0];
-                    const token = jwt.sign({ user: user },
-                        process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'mytoken'); // , { expiresIn: 10 } seconds
-                    res.status(200).json({ token: token });
+                if (!userArray[0]) {return res.status(404).send('No user found.');}
+                var passwordIsValid = bcrypt.compareSync(req.body.password, userArray[0].password);
+
+                if(passwordIsValid) {
+                  const user = userArray[0];
+                  const token = jwt.sign({ user: user },
+                  process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
+                    expiresIn: 86400 // expires in 24 hours
+                  });
+                  res.status(200).json({ token: token });
                 }
                 else {
-                    console.log("failed to log in");
+                    return res.status(401).send({token: null });
+
                 }
                 connection.release();
             });
         });
+    }
+
+    //register
+    register = (req, res, next) => {
+
+        var hashedPassword = bcrypt.hashSync(req.body.password);
+        const user = {
+                  rnumber : req.body.rnumber,
+                  email : req.body.email,
+                  password : hashedPassword,
+                  role : req.body.role,
+                  admin : req.body.admin
+        }
+        const sql = `INSERT INTO ${this.model} SET ?`;
+        this.executeQuery(sql, req, res, user, null);
     }
 
     resetPass = (req, res) => {
