@@ -37,7 +37,7 @@ export class RequestInterceptorService implements HttpInterceptor {
         HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
 
           console.log("intercept", req.headers);
-          this.authService = this.injector.get(AuthService);
+        this.authService = this.injector.get(AuthService);
         if (!req.headers.has('x-industria-auth')) {
 
             return next.handle(req);

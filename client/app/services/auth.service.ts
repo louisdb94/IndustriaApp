@@ -87,7 +87,7 @@ export class AuthService {
 
   loginStudent(token) {
     if (this.currentUser.rnumber == '') {
-      localStorage.setItem('x-access_token', token);
+      localStorage.setItem('token', token);
       const decodedUserStudent = this.decodeUserFromToken(token);
       this.setCurrentUser(decodedUserStudent);
     }
