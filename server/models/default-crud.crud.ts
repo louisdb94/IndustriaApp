@@ -33,15 +33,20 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         });
     }
 
-    public getBy(column_name: string, whereId: any): Promise<T> {
+    public getBy(column_name: string, whereId: any): Promise<T[]> {
         let sql = `SELECT * FROM ${this.tableName} WHERE ?? = ?`;
         const inserts = [column_name, whereId];
         sql = mysql.format(sql, inserts);
         return this.getConnection().then(conn => {
             if (conn) {
-                return new Promise<T>((resolve, reject) => {
+                return new Promise<T[]>((resolve, reject) => {
                     return conn.query(sql, (err, result) => {
-                        return resolve(this.parseObject(result));
+                        const resultObjects: T[] = [];
+
+                        for (const row of result) {
+                            resultObjects.push(this.parseObject(row));
+                        }
+                        return resolve(resultObjects);
                     });
                 });
             } else {
@@ -101,7 +106,7 @@ export abstract class DefaultCrud<T extends DefaultModel>{
                 return new Promise<T>((resolve, reject) => {
                     return conn.query(sql, values, (err, result) => {
                         if (result) {
-                            return resolve(this.parseObject(result));
+                        return resolve(result);
                         } else {
                             return reject(err);
                         }

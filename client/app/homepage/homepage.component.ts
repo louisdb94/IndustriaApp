@@ -278,8 +278,7 @@ export class HomepageComponent implements OnInit {
   getStudentsMysql() {
     this.studentService.getStudentsMysql().subscribe(
       data => {
-        let result = this.data.decryption(data);
-        this.students = result;
+        this.students = data;
       },
       error => console.log(error)
     );
@@ -293,9 +292,9 @@ export class HomepageComponent implements OnInit {
   getCompanies(){
     this.getPriorities();
     this.companyService.getCompanies().subscribe(
-      data => {
-        let result = this.data.decryption(data);
-        this.sortCompaniesByPriority(result);
+      results => {
+        //let result = this.data.decryption(data);
+        this.sortCompaniesByPriority(results);
       },
       error => console.log(error)
     )
@@ -426,19 +425,23 @@ export class HomepageComponent implements OnInit {
     editPriority.email = this.addUserForm.value.email;
     editPriority.name = this.addUserForm.value.name;
 
+    let addPriority = {name: '', id: 0};
+    addPriority.name = this.addUserForm.value.name
+
     this.userService.registerMysql(addCompanyForm)
         .subscribe( data =>{
-          let result = this.data.decryption2(data)
-          this.companyService.addCompanyFromUserId(result.insertId)
+          this.companyService.addCompanyFromUserId(data.insertId)
               .subscribe(data =>{
-                let result2 = this.data.decryption2(data);
-                editPriority.id = result2.insertId, this.updatePriority(editPriority);
+                let result2 = this.data.decryption(data);
+                editPriority.id = result2.insertId;
+                this.updatePriority(editPriority);
                 this.companyContactService.addContactFromCompanyId(result2.insertId).subscribe(
                   data => {
                     this.toast.setMessage('successfully added!', 'success');
                   }
                 );
-                this.companyService.addPrioritiesFromCompanyId(result2.insertId).subscribe(
+                addPriority.id = result2.insertId;
+                this.companyService.addPrioritiesFromCompanyId(addPriority).subscribe(
                   data => {}
                 );}
               )
@@ -498,8 +501,10 @@ export class HomepageComponent implements OnInit {
   getUsers(){
       this.userService.getAllUsers().subscribe(
         data => {
-          let result = this.data.decryption(data);
-          this.users = result;
+          // let result = this.data.decryption(data);
+          // this.users = result;
+
+          this.users = data;
         },
         error => console.error
       );

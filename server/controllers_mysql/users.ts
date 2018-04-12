@@ -98,6 +98,24 @@ export default class UserCtrl extends BaseSqlCtrl {
         this.executeQuery(sql, req, res, user, null);
     }
 
+    //Refactored insert met crud
+    Rregister = (req, res) => {
+        const map: Map<string, string> = new Map();
+        for(var key in req.body) {
+            if(req.body.hasOwnProperty(key)){
+                if(key == 'password'){
+                    req.body[key] = bcrypt.hashSync(req.body.password);
+                }
+              map.set(key, req.body[key])
+            }
+        }
+
+        var crud_controller = this.model + "Crud";
+        this[crud_controller].insert(map).then(result => {
+            res.status(200).json(result);
+        });
+    }
+
     resetPass = (req, res) => {
         var sql_update = `UPDATE ?? SET ?? = ? WHERE ?? = ?`;
         const inserts = [this.model, 'password', req.body.password, 'email', req.body.email];

@@ -11,6 +11,7 @@ export class StudentCrud extends DefaultCrud<StudentModel>{
     const _newStudent = new StudentModel();
 
     _newStudent.id = input.id;
+    _newStudent.name = input.name;
     _newStudent.rnumber = input.rnumber;
     _newStudent.whoami = input.whoami;
     _newStudent.gradYear = input.gradYear;

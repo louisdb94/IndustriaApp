@@ -51,8 +51,7 @@ export class VacatureListComponent implements OnInit {
     getCompanies(){
       this.companyService.getCompanies().subscribe(
         data => {
-          this.companies_all = this.dataService.decryption(data);
-
+          this.companies_all = data;
           for(let company of this.companies_all){
             if(company.priority !== "ONDERNEMERSDAG"){
               this.companies.push(company);

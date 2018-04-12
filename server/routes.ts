@@ -87,10 +87,8 @@ export default function setRoutes(app) {
   const companyPriorities = new CompanyPriorities();
 
   //User
-  router.route('/user-get/:id').get(usersCtrl.getbyId);
-  router.route('/user-getbyrole').get(usersCtrl.getbyRole);
-  router.route('/users-getall').get(usersCtrl.select);
-  router.route('/users-insert').post(usersCtrl.register);
+  //router.route('/user-getbyrole').get(usersCtrl.getbyRole);
+  //router.route('/users-insert').post(usersCtrl.register);
   router.route('/user-delete/:id').get(usersCtrl.delete);
   router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);
   router.route('/users-login').post(usersCtrl.login);
@@ -98,15 +96,19 @@ export default function setRoutes(app) {
   router.route('/delete-user/:student_fk').get(usersCtrl.deleteStudent);
   router.route('/delete-company').post(usersCtrl.deleteCompany);
   router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
+  router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
-//  router.route('/user-getadmin').get(usersCtrl.getAdmins);
+  //REFACTOR
+  router.route('/users-getall').get(usersCtrl.get);
+  router.route('/user-get/:id').get(usersCtrl.RgetById);
+  router.route('/user-getbyrole').get(usersCtrl.RgetByRole);
+  router.route('/users-insert').post(usersCtrl.Rregister);
 
-  router.route('/user-test').get(usersCtrl.get);
-  router.route('/user-byid:id').get(usersCtrl.getbyId);
 
+  
   //Students
   router.route('/students-get/:id').get(studentsCtrl.getbyId);
-  router.route('/students-getall').get(studentsCtrl.select);
+  //router.route('/students-getall').get(studentsCtrl.select);
   router.route('/students-getallid').get(studentsCtrl.selectIds);
   router.route('/students-insert').post(studentsCtrl.insert);
   router.route('/students-insert/:id').get(studentsCtrl.insertUser);
@@ -116,6 +118,9 @@ export default function setRoutes(app) {
   router.route('/innerjoin/:id').get(studentsCtrl.innerjoin);
   router.route('/inner').get(studentsCtrl.inner);
   router.route('/innertje').get(studentsCtrl.innertje);
+
+  //Refactor
+  router.route('/students-getall').get(studentsCtrl.get);
 
   //Cvs
   router.route('/cv-add').post(cvsCtrl.addCv);
@@ -201,7 +206,7 @@ export default function setRoutes(app) {
 
   //Companies
   router.route('/companies-get/:id').get(companiesCtrl.getbyId);
-  router.route('/companies-getall').get(companiesCtrl.select);
+  //router.route('/companies-getall').get(companiesCtrl.select);
   router.route('/companies-insert').post(companiesCtrl.insert);
   router.route('/companies-insert/:id').get(companiesCtrl.insertUser);
   router.route('/companies-delete/:id').get(companiesCtrl.delete);
@@ -215,6 +220,9 @@ export default function setRoutes(app) {
   router.route('/companies-deletepriority/:id').get(companyPriorities.delete_priorities);
   router.route('/companies-getallpriorities').get(companyPriorities.select);
   router.route('/companies-updatepriorityCompany').put(companyPriorities.updatePriority);
+
+  //Refactor
+  router.route('/companies-getall').get(companiesCtrl.get);//
 
 
   //Vacature

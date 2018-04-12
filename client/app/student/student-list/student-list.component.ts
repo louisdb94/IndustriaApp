@@ -104,8 +104,7 @@ export class StudentListComponent implements OnInit {
   getStudents() {
     this.studentService.getStudentsMysql().subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.students = result;
+        this.students = data;
       },
       error => console.log(error)
     )

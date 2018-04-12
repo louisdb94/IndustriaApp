@@ -37,8 +37,8 @@ export class CompanyService {
     return this.http.get(`/api/companies-insert/${id}`, {headers: this.header});
   }
 
-  addPrioritiesFromCompanyId(company): Observable<any> {
-    return this.http.post(`/api/companies-priority`, JSON.stringify(company), {headers: this.header});
+  addPrioritiesFromCompanyId(addPriority): Observable<any> {
+    return this.http.post(`/api/companies-priority`, JSON.stringify(addPriority), {headers: this.header});
   }
 
   deletePrioritiesFromCompanyId(id): Observable<any> {
