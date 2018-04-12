@@ -34,15 +34,11 @@ export class RequestInterceptorService implements HttpInterceptor {
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent |
         HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
 
-          // console.log("intercept", req.headers);
         this.authService = this.injector.get(AuthService);
         if (!req.headers.has('x-industria-auth')) {
-
             return next.handle(req);
         }
-
         const token = this.authService.getToken();
-        // console.log("token", token);
         if(token === null){
           this.logoutUser();
           return Observable.throw("no token found");
@@ -68,6 +64,7 @@ export class RequestInterceptorService implements HttpInterceptor {
     }
 
     private logoutUser() {
+
         this.router = this.injector.get(Router);
         this.authService = this.injector.get(AuthService);
         this.authService.logout();

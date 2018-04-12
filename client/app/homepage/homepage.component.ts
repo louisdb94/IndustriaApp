@@ -113,8 +113,10 @@ export class HomepageComponent implements OnInit {
 
   ngOnInit() {
   this.route.params.subscribe(params => {
-    if(this.auth.currentUser.rnumber == '' && this.auth.currentUser.role !== "Company"){
+    if(!localStorage.getItem('token') && this.auth.currentUser.role !== "Company" ){
       this.auth.loginStudent(params['id']);
+    }else if(localStorage.getItem('token') && this.auth.currentUser.role !== "Company"){
+      this.auth.loginStudent(localStorage.getItem('token'));
     }
     });
 
