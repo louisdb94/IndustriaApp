@@ -4,7 +4,7 @@ import {StudentContactModel} from './contact.model';
 export class StudentContactCrud extends DefaultCrud<StudentContactModel>{
 
   constructor(){
-    super("contact_company");
+    super("contact");
   }
 
   parseObject(input: any): StudentContactModel {
