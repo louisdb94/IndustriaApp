@@ -34,11 +34,16 @@ export class VacatureListComponent implements OnInit {
 
     public searchText : any;
     public searchSkill : any;
-    
+
     // review tom: added variable p
     public p: any;
 
     ngOnInit() {
+
+      if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
+        this.auth.loginStudent(localStorage.getItem('token'));
+      }
+      
       this.getinnerjoin();
       this.getCompanies();
     }
@@ -47,7 +52,7 @@ export class VacatureListComponent implements OnInit {
       this.companyService.getCompanies().subscribe(
         data => {
           this.companies_all = this.dataService.decryption(data);
-          
+
           for(let company of this.companies_all){
             if(company.priority !== "ONDERNEMERSDAG"){
               this.companies.push(company);

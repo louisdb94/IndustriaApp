@@ -72,6 +72,10 @@ export class StudentListComponent implements OnInit {
   public p: any;
 
   ngOnInit() {
+    if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
+      this.auth.loginStudent(localStorage.getItem('token'));
+    }
+    
     this.getStudents();
     this.getStudentsIds();
     this.getSkills();

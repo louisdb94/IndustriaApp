@@ -38,9 +38,13 @@ export class SettingsComponent implements OnInit {
   contact : any;
   experiences : any;
   deleteMode = false;
-  
+
 
   ngOnInit() {
+    if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
+      this.auth.loginStudent(localStorage.getItem('token'));
+    }
+    
     if(this.auth.currentUser.role == "Student"){
       this.getStudent();
       this.getExperiences();
@@ -96,7 +100,7 @@ export class SettingsComponent implements OnInit {
   }
 
   downloadPersonalInformation(){
-    let personal_information = { 
+    let personal_information = {
       content: [
         {
           text: this.student.name + "   " + this.student.rnumber + '\n',
@@ -163,9 +167,9 @@ export class SettingsComponent implements OnInit {
           fontSize: 12,
           bold: false
         }
-      } 
+      }
     };
-    pdfMake.createPdf(personal_information).open();  
+    pdfMake.createPdf(personal_information).open();
   }
 
   nodemailer(email){

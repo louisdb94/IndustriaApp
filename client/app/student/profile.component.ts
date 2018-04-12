@@ -55,6 +55,10 @@ export class StudentProfile implements OnInit {
 
   ngOnInit() {
 
+    if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
+      this.auth.loginStudent(localStorage.getItem('token'));
+    }
+
     this.dataService.idMessage.subscribe(message => this.messageId = message);
     this.dataService.navMessage.subscribe(message => this.messageNav = message);
 

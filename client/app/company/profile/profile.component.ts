@@ -43,6 +43,9 @@ export class CompanyProfile implements OnInit {
   compareID = this.compare.asObservable();
 
   ngOnInit() {
+    if(this.auth.loggedIn == false){
+      this.auth.loginStudent(localStorage.getItem('token'));
+    }
     this.activatedRoute.params.subscribe((params: Params) => {
       this.company_id = params['id'];
       this.getCompanyById(this.company_id);
