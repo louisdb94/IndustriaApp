@@ -5,7 +5,7 @@ import * as jwt from 'jsonwebtoken';
 import * as localStorage from 'localStorage';
 import {app, pool} from '../app';
 
-export default function setAuthRoutes(app) {
+export default function setShibbRoutes(app) {
 
 const router = express.Router();
 var name_id;

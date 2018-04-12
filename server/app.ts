@@ -6,7 +6,8 @@ import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import * as EmailTemplate from 'email-templates';
 import setRoutes from './routes';
-import setAuthRoutes from './config/shibboleth';
+import setShibbRoutes from './config/shibboleth';
+import setAuthRoutes from './auth-routes';
 import * as  mysql from 'mysql';
 import * as fileupload from 'express-fileupload';
 
@@ -91,6 +92,7 @@ app.use((err, req, res, next) => {
 
 
 setRoutes(app);
+setShibbRoutes(app);
 setAuthRoutes(app);
 app.listen(process.env.PORT || 3000, () => {
     console.log('Server started on port', process.env.PORT || 3000);

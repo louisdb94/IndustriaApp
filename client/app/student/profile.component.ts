@@ -58,13 +58,6 @@ export class StudentProfile implements OnInit {
     this.dataService.idMessage.subscribe(message => this.messageId = message);
     this.dataService.navMessage.subscribe(message => this.messageNav = message);
 
-    // if (this.auth.loggedIn && this.dataService.idMessage  != this.compareID) {
-    //   this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
-    //     data => (this.dataService.changeMessageId(data._id), this.dataService.changeMessageNav(true)),
-    //     error => console.log("error")
-    //   );
-    // }
-
     this.translate.setDefaultLang('en');
     this.activatedRoute.params.subscribe((params: Params) => {
       let id1 = params['id'];
@@ -86,7 +79,7 @@ export class StudentProfile implements OnInit {
       data => {
         let result = this.dataService.decryption(data);
         this.student = result[0];
-        this.countEducation = result[0].countEducation; 
+        this.countEducation = result[0].countEducation;
         this.countExperiences = result[0].countExperiences;
         this.contactChecked = result[0].contactChecked;
       },

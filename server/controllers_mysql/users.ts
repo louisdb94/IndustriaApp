@@ -15,7 +15,7 @@ export default class UserCtrl extends BaseSqlCtrl {
     model = 'user';
     dummy = sql_users;
 
-    get = (req, res) => {  
+    get = (req, res) => {
         this.userCrud.get().then(result => {
             res.status(200).json({ results: result });
         });
@@ -54,7 +54,6 @@ export default class UserCtrl extends BaseSqlCtrl {
         var sql = `SELECT * FROM ?? WHERE ?? = ?`;
         const inserts = ['user', 'email', req.body.email];
         sql = mysql.format(sql, inserts);
-
         pool.getConnection(function (error, connection) {
             if (error) {
                 connection.release();
@@ -67,7 +66,6 @@ export default class UserCtrl extends BaseSqlCtrl {
                 }
                 if (!userArray[0]) {return res.status(404).send('No user found.');}
                 var passwordIsValid = bcrypt.compareSync(req.body.password, userArray[0].password);
-
                 if(passwordIsValid) {
                   const user = userArray[0];
                   const token = jwt.sign({ user: user },

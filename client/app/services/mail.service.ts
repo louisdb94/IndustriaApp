@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelper } from 'angular2-jwt';
-import { Http, Headers, RequestOptions } from '@angular/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-
 import { UserService } from '../services/user.service';
 import { StudentService} from '../services/student.service';
 import { CompanyService} from '../services/company/company.service';
@@ -19,14 +17,13 @@ export class MailService {
 
   currentUser = { id: '', email: '', rnumber: '', password: ''};
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
-  private options = new RequestOptions({ headers: this.headers });
+  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
 
   constructor(private userService: UserService,
               private router: Router,
               private studentService: StudentService,
               private companyService: CompanyService,
-              private http: Http) {
+              private http: HttpClient) {
     const token_mail = localStorage.getItem('token_mail');
     if (token_mail) {
       const decodedUser = this.decodeUserFromToken(token_mail);
@@ -36,7 +33,7 @@ export class MailService {
 
 
   sendMail(credentials): Observable<any> {
-    return this.http.get(`/api/sendmail/${credentials}`, this.options);
+    return this.http.get(`/api/sendmail/${credentials}`, {headers: this.header});
   }
 
   nodemailer(email) {

@@ -1,52 +1,47 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ContactService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
-  private options = new RequestOptions({ headers: this.headers });
+  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
 
-
-
-  constructor(private http: Http) { }
-
+  constructor(private http: HttpClient) { }
 
   //MYSQL
 
   getContactById(id): Observable<any> {
-    return this.http.get(`/api/contact-get/${id}`).map(res => res.json());
+    return this.http.get(`/api/contact-get/${id}`, {headers: this.header});
   }
 
   getContactByStudentId(id): Observable<any> {
-    return this.http.get(`/api/contact-getbystudentfk/${id}`).map(res => res.json());
+    return this.http.get(`/api/contact-getbystudentfk/${id}`, {headers: this.header});
   }
 
   getContacts(): Observable<any> {
-    return this.http.get(`/api/contact-getall`).map(res => res.json());
+    return this.http.get(`/api/contact-getall`, {headers: this.header});
   }
 
   addContact(contact): Observable<any> {
-    return this.http.post('/api/contact-insert', JSON.stringify(contact), this.options);
+    return this.http.post('/api/contact-insert', JSON.stringify(contact), {headers: this.header});
   }
 
   deleteContact(contact): Observable<any> {
-    return this.http.get(`/api/contact-delete/${contact.id}`, this.options);
+    return this.http.get(`/api/contact-delete/${contact.id}`, {headers: this.header});
   }
 
   addContactFromStudentId(id): Observable<any> {
-    return this.http.get(`/api/contact-insert/${id}`, this.options);
+    return this.http.get(`/api/contact-insert/${id}`, {headers: this.header});
   }
 
   editContact(contact): Observable<any> {
-    return this.http.put(`/api/contact-update`, JSON.stringify(contact), this.options);
+    return this.http.put(`/api/contact-update`, JSON.stringify(contact), {headers: this.header});
   }
 
   getCounty(): Observable<any> {
-    return this.http.get(`/api/contact-getCounty`).map(res => res.json());
+    return this.http.get(`/api/contact-getCounty`, {headers: this.header});
   }
 
 

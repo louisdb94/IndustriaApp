@@ -1,73 +1,44 @@
 import { Injectable } from '@angular/core';
-
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class StudentService {
 
-  private h = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
-
+  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
 
   constructor(private httpClient: HttpClient) { }
-
-
-
-  getStudentByRnumber(rnumber): Observable<any> {
-    return this.httpClient.get(`/api/user/${rnumber}`);
-  }
-
-  // editStudent(student): Observable<any> {
-  //   return this.http.put(`/api/student/${student._id}`, JSON.stringify(student), this.options);
-  // }
-  //
-  // deleteStudent(student): Observable<any> {
-  //   return this.http.delete(`/api/cat/${student._id}`, this.options);
-  // }
-  //
-  // deleteExperience(experience): Observable<any> {
-  //   return this.http.delete(`/api/student/${experience}`, this.options);
-  // }
 
 
   //MYSQL
 
   getStudentByIdMysql(id): Observable<any> {
-    return this.httpClient.get(`/api/students-get/${id}`,{headers: this.h});
+    return this.httpClient.get(`/api/students-get/${id}`,{headers: this.header});
   }
 
-  // getStudentsMysql(): Observable<any> {
-  //   return this.http.get(`/api/students-getall`, this.options).map(res => res.json());
-  // }
-
   getStudentsMysql(): Observable<any> {
-    return this.httpClient.get(`/api/students-getall`, {headers: this.h});
+    return this.httpClient.get(`/api/students-getall`, {headers: this.header});
   }
 
   getStudentsIdsMysql(): Observable<any> {
-    return this.httpClient.get(`/api/students-getallid`,{headers: this.h});
+    return this.httpClient.get(`/api/students-getallid`,{headers: this.header});
   }
 
   addStudentMysql(student): Observable<any> {
-    return this.httpClient.post('/api/students-insert', student, {headers: this.h});
+    return this.httpClient.post('/api/students-insert', student, {headers: this.header});
   }
 
   addStudentFromUserId(id): Observable<any> {
-    return this.httpClient.get(`/api/students-insert/${id}`, {headers: this.h});
+    return this.httpClient.get(`/api/students-insert/${id}`, {headers: this.header});
   }
 
   getStudentByRnumberMysql(rnumber): Observable<any> {
-    return this.httpClient.get(`/api/student-getbyrnumber/${rnumber}`, {headers: this.h});
+    return this.httpClient.get(`/api/student-getbyrnumber/${rnumber}`, {headers: this.header});
   }
 
   editStudentMysql(student): Observable<any> {
-    return this.httpClient.put(`/api/student-update`, JSON.stringify(student), {headers: this.h});
+    return this.httpClient.put(`/api/student-update`, JSON.stringify(student), {headers: this.header});
   }
-
-
-
 
 }

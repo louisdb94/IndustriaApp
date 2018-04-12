@@ -21,8 +21,6 @@ export class RequestInterceptorService implements HttpInterceptor {
 
     constructor(private injector: Injector, private zone: NgZone, private router: Router) {
 
-
-
     }
 
     private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
@@ -36,7 +34,7 @@ export class RequestInterceptorService implements HttpInterceptor {
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent |
         HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
 
-          console.log("intercept", req.headers);
+          // console.log("intercept", req.headers);
         this.authService = this.injector.get(AuthService);
         if (!req.headers.has('x-industria-auth')) {
 
@@ -44,7 +42,7 @@ export class RequestInterceptorService implements HttpInterceptor {
         }
 
         const token = this.authService.getToken();
-        console.log("token", token);
+        // console.log("token", token);
         if(token === null){
           this.logoutUser();
           return Observable.throw("no token found");
@@ -52,7 +50,6 @@ export class RequestInterceptorService implements HttpInterceptor {
 
         return next.handle(this.addToken(req, token))
             .catch((error) => {
-                console.log("catch error", error);
                 if (error instanceof HttpErrorResponse) {
                     if (error.status === 401 || error.status === 403) {
                         return this.logoutUser();

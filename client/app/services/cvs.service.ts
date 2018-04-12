@@ -1,44 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CvsService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
-  private options = new RequestOptions({ headers: this.headers });
+  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
 
-
-
-  constructor(private http: Http) { }
-
+  constructor(private http: HttpClient) { }
 
   //MYSQL
 
   getCvsById(id): Observable<any> {
-    return this.http.get(`/api/cvs-get/${id}`).map(res => res.json());
+    return this.http.get(`/api/cvs-get/${id}`, {headers: this.header});
   }
 
   getCvsByFk(id): Observable<any> {
-    return this.http.get(`/api/cv/${id}`).map(res => res.json());
+    return this.http.get(`/api/cv/${id}`, {headers: this.header});
   }
 
   getCvs(): Observable<any> {
-    return this.http.get(`/api/cvs-getall`).map(res => res.json());
+    return this.http.get(`/api/cvs-getall`, {headers: this.header});
   }
 
   addCv(cv): Observable<any> {
-    return this.http.post('/api/cvs-insert', JSON.stringify(cv), this.options);
+    return this.http.post('/api/cvs-insert', JSON.stringify(cv), {headers: this.header});
   }
 
   deleteCv(cv): Observable<any> {
-    return this.http.get(`/api/cvs-delete/${cv.id}`, this.options);
+    return this.http.get(`/api/cvs-delete/${cv.id}`, {headers: this.header});
   }
 
   addCvsFromStudentId(id): Observable<any> {
-    return this.http.get(`/api/cvs-insert/${id}`, this.options);
+    return this.http.get(`/api/cvs-insert/${id}`, {headers: this.header});
   }
 
 

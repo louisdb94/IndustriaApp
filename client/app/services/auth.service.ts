@@ -21,16 +21,16 @@ export class AuthService {
     private studentService: StudentService,
     private dataService: DataService,
     private companyService: CompanyService) {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedUser = this.decodeUserFromToken(token);
-      if (decodedUser.role == "Company") {
-        this.setCurrentUser(decodedUser);
-      }
-      else {
-        this.setCurrentUser(decodedUser);
-      }
-    }
+    // const token = localStorage.getItem('token');
+    // if (token) {
+    //   const decodedUser = this.decodeUserFromToken(token);
+    //   if (decodedUser.role == "Company") {
+    //     this.setCurrentUser(decodedUser);
+    //   }
+    //   else {
+    //     this.setCurrentUser(decodedUser);
+    //   }
+    // }
   }
 
   login(emailAndPassword) {
@@ -63,6 +63,7 @@ export class AuthService {
     this.currentUser.role = decodedUser.role;
     this.currentUser.admin = decodedUser.admin;
     this.currentUser.email = decodedUser.email;
+
     if (decodedUser.role === 'Student') {
       this.studentService.getStudentByRnumberMysql(decodedUser.rnumber).subscribe(
         data => {
@@ -95,7 +96,6 @@ export class AuthService {
 
   getToken() {
     let token = localStorage.getItem('token');
-    console.log("authservice", token);
     if (token === undefined || token === null || token === '') {
       token = sessionStorage.getItem('token');
       if (token === undefined || token === null || token === '') {
