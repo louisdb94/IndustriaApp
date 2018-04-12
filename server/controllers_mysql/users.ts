@@ -1,5 +1,4 @@
 import { pool } from '../app';
-import { UserModel, UserCrud } from '../models/users';
 import * as  mysql from 'mysql';
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
@@ -16,21 +15,8 @@ export default class UserCtrl extends BaseSqlCtrl {
     model = 'user';
     dummy = sql_users;
 
-    private userCrud = new UserCrud();
-
-    get = (req, res) => {
-        const map: Map<string, string> = new Map();
-        map.set('rnumber', '123456789');
-
-        this.userCrud.update(14, map).then(result => {
-            res.status(200).json({ results: result });
-        });
+    get = (req, res) => {  
         this.userCrud.get().then(result => {
-            res.status(200).json({ results: result });
-        });
-    }
-    getById = (req, res) => {
-        this.userCrud.getById(req.params.id).then(result => {
             res.status(200).json({ results: result });
         });
     }

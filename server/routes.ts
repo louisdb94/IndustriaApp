@@ -89,8 +89,8 @@ export default function setRoutes(app) {
   //User
   router.route('/user-get/:id').get(usersCtrl.getbyId);
   router.route('/user-getbyrole').get(usersCtrl.getbyRole);
-  router.route('/users-getall').get(usersCtrl.select);
-  router.route('/users-insert').post(usersCtrl.register);
+  router.route('/users-getall2').get(usersCtrl.select);
+  router.route('/users-insert').post(usersCtrl.insert);
   router.route('/user-delete/:id').get(usersCtrl.delete);
   router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);
   router.route('/users-login').post(usersCtrl.login);
@@ -100,7 +100,8 @@ export default function setRoutes(app) {
   router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
   router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
-  router.route('/user-test').get(usersCtrl.get);
+  router.route('/user-test').get(usersCtrl.get);  
+  router.route('/user-update').put(usersCtrl.update);  
   router.route('/user-byid:id').get(usersCtrl.getbyId);
 
   //Students
@@ -111,7 +112,7 @@ export default function setRoutes(app) {
   router.route('/students-insert/:id').get(studentsCtrl.insertUser);
   router.route('/student-delete/:id').get(studentsCtrl.delete);
   router.route('/student-getbyrnumber/:rnumber').get(studentsCtrl.getStudentByRnumber);
-  router.route('/student-update').put(studentsCtrl.updateAll);
+  router.route('/student-update').put(studentsCtrl.update);
   router.route('/innerjoin/:id').get(studentsCtrl.innerjoin);
   router.route('/inner').get(studentsCtrl.inner);
   router.route('/innertje').get(studentsCtrl.innertje);

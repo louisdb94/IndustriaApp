@@ -1,6 +1,7 @@
 import { DefaultModel } from './default-model.model';
 import { pool } from '../app';
 import * as jwt from 'jsonwebtoken';
+import * as  mysql from 'mysql';
 
 let CryptoJS = require("crypto-js");
 
@@ -32,9 +33,10 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         });
     }
 
-    public getById(id: number): Promise<T> {
-        const sql = `SELECT * FROM ${this.tableName} WHERE id = ${id}`;
-
+    public getBy(column_name: string, whereId: any): Promise<T> {
+        let sql = `SELECT * FROM ${this.tableName} WHERE ?? = ?`;
+        const inserts = [column_name, whereId];
+        sql = mysql.format(sql, inserts);
         return this.getConnection().then(conn => {
             if (conn) {
                 return new Promise<T>((resolve, reject) => {
@@ -49,7 +51,7 @@ export abstract class DefaultCrud<T extends DefaultModel>{
     }
 
 
-    public update(id: number, params: Map<string, string>): Promise<T> {
+    public update(column_name: string, whereId: any, params: Map<string, string>): Promise<T> {
         let sql = `UPDATE ${this.tableName} SET `;
         const columns = params.keys();
 
@@ -60,7 +62,7 @@ export abstract class DefaultCrud<T extends DefaultModel>{
             sql = sql.slice(0, -1);
         }
 
-        sql += ` WHERE id = ${id}`;
+        sql += ` WHERE ${column_name} = ${whereId}`;
 
         const values = Array.from(params.values());
 
@@ -73,6 +75,53 @@ export abstract class DefaultCrud<T extends DefaultModel>{
                         } else {
                             return reject(err);
                         }
+                    });
+                });
+            } else {
+                Promise.reject('Could not create connection');
+            }
+        });
+    }
+
+    public insert(params: Map<string, string>): Promise<T> {
+        let sql = `INSERT INTO ${this.tableName} SET `;
+        const columns = params.keys();
+
+        for (const column of Array.from(columns)) {
+            sql += ` ${column} = ?,`;
+        }
+        if (sql.slice(-1) === ',') {
+            sql = sql.slice(0, -1);
+        }
+
+        const values = Array.from(params.values());
+
+        return this.getConnection().then(conn => {
+            if (conn) {
+                return new Promise<T>((resolve, reject) => {
+                    return conn.query(sql, values, (err, result) => {
+                        if (result) {
+                            return resolve(this.parseObject(result));
+                        } else {
+                            return reject(err);
+                        }
+                    });
+                });
+            } else {
+                Promise.reject('Could not create connection');
+            }
+        });
+    }
+
+    public delete(column_name: string, whereId: any): Promise<T> {
+        let sql = `DELETE FROM ${this.tableName} WHERE ?? = ?`;
+        const inserts = [column_name, whereId];
+        sql = mysql.format(sql, inserts);
+        return this.getConnection().then(conn => {
+            if (conn) {
+                return new Promise<T>((resolve, reject) => {
+                    return conn.query(sql, (err, result) => {
+                        return resolve(this.parseObject(result));
                     });
                 });
             } else {

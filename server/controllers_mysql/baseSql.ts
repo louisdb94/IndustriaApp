@@ -2,6 +2,8 @@ import { pool } from '../app';
 import * as fs from 'fs';
 import * as jwt from 'jsonwebtoken';
 import * as  mysql from 'mysql';
+import { UserModel, UserCrud } from '../models/users';
+import { StudentModel, StudentCrud } from '../models/students';
 
 var CryptoJS = require("crypto-js");
 
@@ -10,6 +12,8 @@ abstract class BaseSqlCtrl {
     abstract model: any;
     abstract dummy: any;
 
+    public userCrud = new UserCrud();
+    public studentsCrud = new StudentCrud();
     // abstract field: any;
 
     executeQuery(sql, req, res, param, resultString) {
@@ -76,6 +80,74 @@ abstract class BaseSqlCtrl {
 
         const sql = `INSERT INTO ${this.model} SET ?`;
         this.executeQuery(sql, req, res, req.body, null);
+    }
+
+    //Refactored insert met crud
+    Invoegen = (req, res) => {
+        const map: Map<string, string> = new Map();
+        for(var key in req.body) {
+            if(req.body.hasOwnProperty(key)){
+              map.set(key, req.body[key])
+            }
+        }
+
+        var crud_controller = this.model + "Crud";
+        this[crud_controller].insert(map).then(result => {
+            res.status(200).json({ results: result });
+        });
+    }
+
+    //Refactored delete met crud
+    verwijder = (req, res) => {
+        let key_body, data_body;
+        for(var key in req.body) {
+            if(req.body.hasOwnProperty(key)){
+              key_body = key;
+              data_body = req.body[key];
+            }
+        }
+        var crud_controller = this.model + "Crud";
+        this[crud_controller].delete(key_body,data_body).then(result => {
+            res.status(200).json({ results: result });
+        });
+    }
+
+    //Refactored update met crud
+    update = (req, res) => {
+        const map: Map<string, string> = new Map();
+        for(var key in req.body) {
+            if(req.body.hasOwnProperty(key)){
+              map.set(key, req.body[key])
+            }
+        }
+
+        var crud_controller = this.model + "Crud";
+        this[crud_controller].update('id',req.body.id, map).then(result => {
+            res.status(200).json({ results: result });
+        });
+    }
+
+    //Refactored select met crud
+    get = (req, res) => {  
+        var crud_controller = this.model + "Crud";
+        this[crud_controller].get().then(result => {
+            res.status(200).json({ results: result });
+        });
+    }
+
+    //Refactored select where met crud
+    getWhere = (req, res) => {
+        let key_body, data_body;
+        for(var key in req.body) {
+            if(req.body.hasOwnProperty(key)){
+              key_body = key;
+              data_body = req.body[key];
+            }
+        }
+        var crud_controller = this.model + "Crud";
+        this[crud_controller].getBy(key_body,data_body).then(result => {
+            res.status(200).json({ results: result });
+        });
     }
 
     insertStudentFK = (req, res) => {
