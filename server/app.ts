@@ -6,6 +6,7 @@ import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import * as EmailTemplate from 'email-templates';
 import setRoutes from './routes';
+import setRoutes2 from './routes2';
 import setShibbRoutes from './config/shibboleth';
 import setAuthRoutes from './auth-routes';
 import * as  mysql from 'mysql';
@@ -92,6 +93,7 @@ app.use((err, req, res, next) => {
 
 
 setRoutes(app);
+setRoutes2(app);
 setShibbRoutes(app);
 setAuthRoutes(app);
 app.listen(process.env.PORT || 3000, () => {

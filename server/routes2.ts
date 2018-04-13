@@ -86,4 +86,14 @@ export default function setRoutes2(app) {
   const requirementsCtrl = new RequirementsController();
   const vacaturesCtrl = new VacaturesController();
 
+  //Users
+  router.route('/users-getall').get(usersCtrl.get);
+  router.route('/user-get/:id').get(usersCtrl.getById);
+  router.route('/user-getbyrole').get(usersCtrl.getByRole);
+  router.route('/users-insert').post(usersCtrl.register);
+  router.route('/users-login').post(usersCtrl.login);
+  router.route('/resetpass').put(usersCtrl.updatePassword);
+
+  // Apply the routes to our application with the prefix /api
+  app.use('/api', router);
 }
