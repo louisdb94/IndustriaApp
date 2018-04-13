@@ -92,7 +92,7 @@ export default function setRoutes(app) {
   //router.route('/user-delete/:id').get(usersCtrl.delete);
   //router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);
   //router.route('/resetpass').put(usersCtrl.resetPass);
-  router.route('/delete-student/:student_fk').get(usersCtrl.deleteStudent);
+  //router.route('/delete-student/:student_fk').get(usersCtrl.deleteStudent);
   router.route('/delete-company').post(usersCtrl.deleteCompany);
   router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
   router.route('/user-getadmin').get(usersCtrl.getAdmins);

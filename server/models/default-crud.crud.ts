@@ -33,9 +33,9 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         });
     }
 
-    public getBy(column_name: string, whereId: any): Promise<T[]> {
-        let sql = `SELECT * FROM ${this.tableName} WHERE ?? = ?`;
-        const inserts = [column_name, whereId];
+    public getBy(table_name: string, column_name: string, whereId: any): Promise<T[]> {
+        let sql = `SELECT * FROM ?? WHERE ?? = ?`;
+        const inserts = [table_name, column_name, whereId];
         sql = mysql.format(sql, inserts);
         return this.getConnection().then(conn => {
             if (conn) {
@@ -118,9 +118,9 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         });
     }
 
-    public delete(column_name: string, whereId: any): Promise<T> {
-        let sql = `DELETE FROM ${this.tableName} WHERE ?? = ?`;
-        const inserts = [column_name, whereId];
+    public delete(table_name: string, column_name: string, whereId: any): Promise<T> {
+        let sql = `DELETE FROM ?? WHERE ?? = ?`;
+        const inserts = [table_name, column_name, whereId];
         sql = mysql.format(sql, inserts);
         return this.getConnection().then(conn => {
             if (conn) {

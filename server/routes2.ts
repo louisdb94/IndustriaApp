@@ -94,6 +94,11 @@ export default function setRoutes2(app) {
   router.route('/users-login').post(usersCtrl.login);
   router.route('/resetpass').put(usersCtrl.updatePassword);
 
+
+  //Students
+  router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent);
+
+
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
 }

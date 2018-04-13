@@ -32,8 +32,29 @@ export abstract class DefaultController {
 
   abstract model : any;
 
+    public userCrud = new UserCrud();
+
+    public eventsCrud = new EventCrud();
+    public privacylogCrud = new PrivacyLogCrud();
+
+    public studentsCrud = new StudentCrud();
+    public contactCrud = new StudentContactCrud();
+    public cvsCrud = new CvsCrud();
+    public educationCrud = new EducationCrud();
+    public experiencesCrud = new ExperienceCrud();
+    public languageCrud = new LanguageCrud();
+    public professionalCrud = new ProfessionalCrud();
+    public skillsCrud = new SkillsCrud();
+    public socialmediaCrud = new SocialMediaCrud();
+
+    public companiesCrud = new CompanyCrud();
+    public contact_companyCrud = new ContactCrud();
+    public priorities_companyCrud = new PrioritiesCrud();
+    public requirementsCrud = new RequirementsCrud();
+    public vacaturesCrud = new VacaturesCrud();
+
   //Refactored insert met crud
-  invoegen = (req, res) => {
+  insert = (req, res) => {
       const map: Map<string, string> = new Map();
       for(var key in req.body) {
           if(req.body.hasOwnProperty(key)){
@@ -47,18 +68,9 @@ export abstract class DefaultController {
       });
   }
 
-  //Refactored delete met crud
-  verwijder = (req, res) => {
-      let key_body, data_body;
-      for(var key in req.body) {
-          if(req.body.hasOwnProperty(key)){
-            key_body = key;
-            data_body = req.body[key];
-          }
-      }
-      var crud_controller = this.model + "Crud";
-      this[crud_controller].delete(key_body,data_body).then(result => {
-          res.status(200).json(result);
+  delete(table, name, field){
+    var crud_controller = this.model + "Crud";
+      this[crud_controller].delete(table, name, field).then(result => {
       });
   }
 
@@ -100,7 +112,7 @@ export abstract class DefaultController {
 
   getWhere(res, name, field){
       var crud_controller = this.model + "Crud";
-      this[crud_controller].getBy(name,field).then(result => {
+      this[crud_controller].getBy(this.model, name,field).then(result => {
           res.status(200).json( result );
       });
   }
