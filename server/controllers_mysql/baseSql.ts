@@ -2,6 +2,7 @@ import { pool } from '../app';
 import * as fs from 'fs';
 import * as jwt from 'jsonwebtoken';
 import * as  mysql from 'mysql';
+import * as bcrypt from 'bcryptjs';
 
 //User Model and CRUD
 import { UserModel, UserCrud } from '../models/users';
@@ -160,7 +161,18 @@ abstract class BaseSqlCtrl {
     }
 
     //Refactored update met crud
-    update = (req, res) => {
+    updateById = (req, res) => {
+        this.update(res, req, 'id', req.body.id);
+    }
+
+    //Refactored update met crud
+    updatePassword = (req, res) => {
+        req.body.password = bcrypt.hashSync(req.body.password);
+        this.update(res, req, 'email', req.body.email);
+    }
+
+    //Refactored update met crud
+    update(res, req, name, field){
         const map: Map<string, string> = new Map();
         for(var key in req.body) {
             if(req.body.hasOwnProperty(key)){
@@ -169,7 +181,7 @@ abstract class BaseSqlCtrl {
         }
 
         var crud_controller = this.model + "Crud";
-        this[crud_controller].update('id',req.body.id, map).then(result => {
+        this[crud_controller].update(name, field, map).then(result => {
             res.status(200).json(result );
         });
     }

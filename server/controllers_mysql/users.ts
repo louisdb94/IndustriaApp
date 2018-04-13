@@ -47,56 +47,43 @@ export default class UserCtrl extends BaseSqlCtrl {
         });
     }
 
-    // Select single post
+    // REFACTORED
     login = (req, res, next) => {
 
-
-        var sql = `SELECT * FROM ?? WHERE ?? = ?`;
-        const inserts = ['user', 'email', req.body.email];
-        sql = mysql.format(sql, inserts);
-        pool.getConnection(function (error, connection) {
-            if (error) {
-                connection.release();
-                throw error;
-            }
-            const query = connection.query(sql, (err, userArray) => {
-                if (err) {
-                    connection.release();
-                    throw err;
-                }
-                if (!userArray[0]) {return res.status(404).send('No user found.');}
-                var passwordIsValid = bcrypt.compareSync(req.body.password, userArray[0].password);
-                if(passwordIsValid) {
-                  const user = userArray[0];
-                  const token = jwt.sign({ user: user },
-                  process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
-                    expiresIn: 86400 // expires in 24 hours
-                  });
-                  res.status(200).json({ token: token });
-                }
-                else {
-                    return res.status(401).send({token: null });
-
-                }
-                connection.release();
+        var crud_controller = this.model + "Crud";
+        this[crud_controller].getBy('email',req.body.email).then(result => {
+            if (!result[0]) {return res.status(404).send('No user found.');}
+        var passwordIsValid = bcrypt.compareSync(req.body.password, result[0].password);
+        if(passwordIsValid) {
+            const user = result[0];
+            const token = jwt.sign({ user: user },
+            process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
+            expiresIn: 86400 // expires in 24 hours
             });
-        });
-    }
-
-    //register
-    register = (req, res, next) => {
-
-        var hashedPassword = bcrypt.hashSync(req.body.password);
-        const user = {
-                  rnumber : req.body.rnumber,
-                  email : req.body.email,
-                  password : hashedPassword,
-                  role : req.body.role,
-                  admin : req.body.admin
+            res.status(200).json({ token: token });
         }
-        const sql = `INSERT INTO ${this.model} SET ?`;
-        this.executeQuery(sql, req, res, user, null);
+        else {
+            return res.status(401).send({token: null });
+
+        }
+        });
+
     }
+
+    // //register
+    // register = (req, res, next) => {
+
+    //     var hashedPassword = bcrypt.hashSync(req.body.password);
+    //     const user = {
+    //               rnumber : req.body.rnumber,
+    //               email : req.body.email,
+    //               password : hashedPassword,
+    //               role : req.body.role,
+    //               admin : req.body.admin
+    //     }
+    //     const sql = `INSERT INTO ${this.model} SET ?`;
+    //     this.executeQuery(sql, req, res, user, null);
+    // }
 
     //Refactored insert met crud
     Rregister = (req, res) => {
