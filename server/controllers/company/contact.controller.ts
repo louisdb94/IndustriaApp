@@ -7,5 +7,5 @@ import * as bcrypt from 'bcryptjs';
 import { DefaultController} from '../default.controller';
 
 export  class ContactController extends DefaultController {
-  model = 'contact'
+  model = 'contact_company'
 }

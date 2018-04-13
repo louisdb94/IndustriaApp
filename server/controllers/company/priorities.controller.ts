@@ -7,5 +7,5 @@ import * as bcrypt from 'bcryptjs';
 import { DefaultController} from '../default.controller';
 
 export  class PrioritiesController extends DefaultController {
-  model = 'priorities';
+  model = 'priorities_company';
 }
