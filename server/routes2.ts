@@ -37,7 +37,7 @@ import { EventsController} from './controllers/admin/events.controller';
 import { PrivacylogController} from './controllers/admin/privacylog.controller';
 
 //Student Controller
-import { ContactController} from './controllers/students/contact.controller';
+import { ContactStudentsController} from './controllers/students/contact.controller';
 import { CvsController} from './controllers/students/cvs.controller';
 import { EducationController} from './controllers/students/education.controller';
 import { ExperiencesController} from './controllers/students/experiences.controller';
@@ -50,7 +50,11 @@ import { StudentsController} from './controllers/students/students.controller';
 
 
 //Company Controller
-
+import { CompaniesController} from './controllers/company/companies.controller';
+import { ContactCompanyController} from './controllers/company/contact.controller';
+import { PrioritiesController} from './controllers/company/priorities.controller';
+import { RequirementsController} from './controllers/company/requirements.controller';
+import { VacaturesController} from './controllers/company/vacatures.controller';
 
 
 var VerifyToken = require('./auth/verify-token');
@@ -58,5 +62,28 @@ var VerifyToken = require('./auth/verify-token');
 export default function setRoutes2(app) {
 
   const router = express.Router();
+
+  //Controlers
+  const usersCtrl = new UsersController();
+
+  const eventsCtrl = new EventsController();
+  const privacylogCtrl = new PrivacylogController();
+
+  const contactStudentCtrl = new ContactStudentsController();
+  const cvsCtrl = new CvsController();
+  const educationCtrl = new EducationController();
+  const experienceCtrl = new ExperiencesController();
+  const imageCtrl = new ImageController();
+  const languageCtrl = new LanguageController();
+  const professionalCtrl = new ProfessionalController();
+  const skillsCtrl = new SkillsController();
+  const socialmediaCtrl = new SocialmediaController();
+  const studentsCtrl = new StudentsController();
+
+  const companiesCtrl = new CompaniesController();
+  const contactCompanyCtrl = new ContactCompanyController();
+  const prioritiesCtrl = new PrioritiesController();
+  const requirementsCtrl = new RequirementsController();
+  const vacaturesCtrl = new VacaturesController();
 
 }
