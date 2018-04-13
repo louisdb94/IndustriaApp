@@ -166,12 +166,6 @@ abstract class BaseSqlCtrl {
     }
 
     //Refactored update met crud
-    updatePassword = (req, res) => {
-        req.body.password = bcrypt.hashSync(req.body.password);
-        this.update(res, req, 'email', req.body.email);
-    }
-
-    //Refactored update met crud
     update(res, req, name, field){
         const map: Map<string, string> = new Map();
         for(var key in req.body) {
@@ -196,10 +190,6 @@ abstract class BaseSqlCtrl {
 
     RgetById = (req, res) => {
         this.getWhere(res, 'id', req.params.id);
-    }
-
-    RgetByRole = (req, res) => {
-        this.getWhere(res, 'role', 'company');
     }
 
     RgetByCompanyFk = (req, res) => {

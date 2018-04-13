@@ -103,6 +103,17 @@ export default class UserCtrl extends BaseSqlCtrl {
         });
     }
 
+    //Refactored update met crud
+    updatePassword = (req, res) => {
+        req.body.password = bcrypt.hashSync(req.body.password);
+        this.update(res, req, 'email', req.body.email);
+    }
+
+    //Refactored
+    RgetByRole = (req, res) => {
+        this.getWhere(res, 'role', 'company');
+    }
+
     resetPass = (req, res) => {
         var sql_update = `UPDATE ?? SET ?? = ? WHERE ?? = ?`;
         const inserts = [this.model, 'password', req.body.password, 'email', req.body.email];
