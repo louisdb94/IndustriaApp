@@ -30,6 +30,8 @@ import { VacaturesModel, VacaturesCrud } from '../models/companies/vacatures';
 
 abstract class DefaultController {
 
+  abstract model : any;
+
   //Refactored insert met crud
   invoegen = (req, res) => {
       const map: Map<string, string> = new Map();

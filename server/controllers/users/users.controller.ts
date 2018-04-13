@@ -1,12 +1,14 @@
-import { pool } from '../app';
+import { pool } from '../../app';
 import * as  mysql from 'mysql';
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
-import sql_users from '../models_mysql/users';
+import sql_users from '../../models_mysql/users';
 import * as bcrypt from 'bcryptjs';
 import { DefaultController} from '../default.controller';
 
 export default class UsersController extends DefaultController {
+
+  model = 'user';
 
   // REFACTORED
   login = (req, res, next) => {
