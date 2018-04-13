@@ -34,7 +34,7 @@ import { UsersController} from './controllers/users/users.controller';
 
 //Admin Controller
 import { EventsController} from './controllers/admin/events.controller';
-import { PrivacylogController} from './controllers/events/privacylog.controller';
+import { PrivacylogController} from './controllers/admin/privacylog.controller';
 
 //Student Controller
 import { ContactController} from './controllers/students/contact.controller';
