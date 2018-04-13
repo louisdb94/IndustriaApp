@@ -33,6 +33,28 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         });
     }
 
+    public getDistinct(column_name: string, table_name: string): Promise<T[]> {
+        let sql = `SELECT DISTINCT ?? FROM ??`;
+        const inserts = [column_name, table_name];
+        sql = mysql.format(sql, inserts);
+        return this.getConnection().then(conn => {
+            if (conn) {
+                return new Promise<T[]>((resolve, reject) => {
+                    return conn.query(sql, (err, result) => {
+                        const resultObjects: T[] = [];
+
+                        for (const row of result) {
+                            resultObjects.push(this.parseObject(row));
+                        }
+                        return resolve(resultObjects);
+                    });
+                });
+            } else {
+                Promise.reject('Could not create connection');
+            }
+        });
+    }
+
     public getBy(table_name: string, column_name: string, whereId: any): Promise<T[]> {
         let sql = `SELECT * FROM ?? WHERE ?? = ?`;
         const inserts = [table_name, column_name, whereId];
@@ -49,6 +71,36 @@ export abstract class DefaultCrud<T extends DefaultModel>{
                         return resolve(resultObjects);
                     });
                 });
+            } else {
+                Promise.reject('Could not create connection');
+            }
+        });
+    }
+
+    public getBySelection(column_name: string, whereId: any, params: Map<string, string>): Promise<T[]> {
+        let sql = `SELECT  `
+        const columns = params.keys();
+        for(const column of Array.from(columns)){
+          sql += ` ${column},`;
+        }
+        if (sql.slice(-1) === ',') {
+            sql = sql.slice(0, -1);
+        }
+
+        sql += ` FROM ${this.tableName} WHERE ${column_name} = '${whereId}' `;
+
+        return this.getConnection().then(conn => {
+            if (conn) {
+              return new Promise<T[]>((resolve, reject) => {
+                  return conn.query(sql, (err, result) => {
+                      const resultObjects: T[] = [];
+
+                      for (const row of result) {
+                          resultObjects.push(this.parseObject(row));
+                      }
+                      return resolve(resultObjects);
+                  });
+              });
             } else {
                 Promise.reject('Could not create connection');
             }

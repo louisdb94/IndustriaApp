@@ -117,4 +117,25 @@ export abstract class DefaultController {
       });
   }
 
+  getDistinct(res, name ,table, selection){
+    var crud_controller = this.model + "Crud";
+    this[crud_controller].getDistinct(name, table).then(result => {
+        for (let i = 0; i < result.length; i++) {
+            if (result[i][selection] === '') {
+                result.splice(i, 1);
+            }
+        }
+        res.status(200).json( result );
+    });
+  }
+
+  //Refactored update met crud
+  getBySelection(res, selection, name, field){
+      var crud_controller = this.model + "Crud";
+      this[crud_controller].getBySelection(name, field, selection).then(result => {
+          res.status(200).json(result );
+      });
+  }
+
+
 }

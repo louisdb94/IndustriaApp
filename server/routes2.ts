@@ -98,6 +98,40 @@ export default function setRoutes2(app) {
   //Students
   router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent);
 
+  //Skills
+  router.route('/skills-getalldistinct').get(skillsCtrl.selectSkill);
+  router.route('/skills-getfkbyskill/:skill').get(skillsCtrl.getbySkill);
+  router.route('/skills-update').put(skillsCtrl.updateById);
+  router.route('/skills-get/:id').get(skillsCtrl.getById);
+
+  //Professional
+  router.route('/professional-getalldistinct').get(professionalCtrl.selectProfessional);
+  router.route('/professional-getfkbyskill/:skill').get(professionalCtrl.getbySkill);
+  router.route('/professional-update').put(professionalCtrl.updateById);
+  router.route('/professional-get/:id').get(professionalCtrl.getById);
+
+  //Language
+  router.route('/language-getalldistinct').get(languageCtrl.selectLanguage);
+  router.route('/language-getfkbylang/:lang').get(languageCtrl.getbyLanguage);
+  router.route('/language-update').put(languageCtrl.updateById);
+  router.route('/language-get/:id').get(languageCtrl.getById);
+
+  //SocialMedia
+  router.route('/socialmedia-update').put(socialmediaCtrl.updateById);
+
+  //Education
+  router.route('/education-update').put(educationCtrl.updateById);
+
+  //Experiences
+  router.route('/experience-update').put(experienceCtrl.updateById);
+
+  //Contact
+  router.route('/contact-update').put(contactStudentCtrl.updateById);
+
+
+
+
+
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', router);
