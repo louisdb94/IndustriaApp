@@ -33,14 +33,14 @@ import { VacaturesModel, VacaturesCrud } from './models/companies/vacatures';
 import { UsersController} from './controllers/users/users.controller';
 
 //Admin Controller
-import { EventController} from './controllers/admin/events.controller';
+import { EventsController} from './controllers/admin/events.controller';
 import { PrivacylogController} from './controllers/events/privacylog.controller';
 
 //Student Controller
 import { ContactController} from './controllers/students/contact.controller';
 import { CvsController} from './controllers/students/cvs.controller';
 import { EducationController} from './controllers/students/education.controller';
-import { ExperienceController} from './controllers/students/experiences.controller';
+import { ExperiencesController} from './controllers/students/experiences.controller';
 import { ImageController} from './controllers/students/image.controller';
 import { LanguageController} from './controllers/students/language.controller';
 import { ProfessionalController} from './controllers/students/professional.controller';

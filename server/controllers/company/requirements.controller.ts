@@ -6,6 +6,6 @@ import sql_users from '../../models_mysql/users';
 import * as bcrypt from 'bcryptjs';
 import { DefaultController} from '../default.controller';
 
-export default class RequirementsController extends DefaultController {
+export  class RequirementsController extends DefaultController {
   model = 'requirements';
 }

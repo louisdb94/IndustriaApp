@@ -28,7 +28,7 @@ import { PrioritiesModel, PrioritiesCrud } from '../models/companies/priorities'
 import { RequirementsModel, RequirementsCrud } from '../models/companies/requirements';
 import { VacaturesModel, VacaturesCrud } from '../models/companies/vacatures';
 
-abstract class DefaultController {
+export abstract class DefaultController {
 
   abstract model : any;
 

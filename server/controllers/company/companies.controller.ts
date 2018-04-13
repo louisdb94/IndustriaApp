@@ -6,6 +6,6 @@ import sql_users from '../../models_mysql/users';
 import * as bcrypt from 'bcryptjs';
 import { DefaultController} from '../default.controller';
 
-export default class CompaniesController extends DefaultController {
+export  class CompaniesController extends DefaultController {
   model = 'companies';
 }

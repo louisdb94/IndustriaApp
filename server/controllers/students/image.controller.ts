@@ -6,6 +6,6 @@ import sql_users from '../../models_mysql/users';
 import * as bcrypt from 'bcryptjs';
 import { DefaultController} from '../default.controller';
 
-export default class ImageController extends DefaultController {
+export class ImageController extends DefaultController {
   model = 'image';
 }
