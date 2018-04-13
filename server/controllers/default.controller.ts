@@ -27,3 +27,7 @@ import { ContactModel, ContactCrud } from '../models/companies/contacts';
 import { PrioritiesModel, PrioritiesCrud } from '../models/companies/priorities';
 import { RequirementsModel, RequirementsCrud } from '../models/companies/requirements';
 import { VacaturesModel, VacaturesCrud } from '../models/companies/vacatures';
+
+abstract class DefaultController {
+
+}
