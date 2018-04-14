@@ -106,9 +106,8 @@ export class LoginComponent implements OnInit {
       if(params['status'] == "student"){
         this.studentService.getStudentByRnumberMysql(this.userForm.value.rnumber).subscribe(
           data => {
-            let result = this.data.decryption(data);
-            this.id = result[0].id;
-            this.data.changeMessageId(result[0].id);
+            this.id = data[0].id;
+            this.data.changeMessageId(data[0].id);
 
             this.auth.login(this.loginForm.value).subscribe(
               res => {this.navigate()},

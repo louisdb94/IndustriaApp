@@ -92,10 +92,10 @@ export default function setRoutes(app) {
   //router.route('/user-delete/:id').get(usersCtrl.delete);
   //router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);
   //router.route('/resetpass').put(usersCtrl.resetPass);
-  //router.route('/delete-student/:student_fk').get(usersCtrl.deleteStudent);
+  router.route('/delete-student/:student_fk').get(usersCtrl.deleteStudent);
   router.route('/delete-company').post(usersCtrl.deleteCompany);
-  router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
-  router.route('/user-getadmin').get(usersCtrl.getAdmins);
+  //router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
+  //router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
   // //REFACTOR
   // router.route('/users-getall').get(usersCtrl.get);
@@ -108,20 +108,17 @@ export default function setRoutes(app) {
 
 
   //Students
-  router.route('/students-get/:id').get(studentsCtrl.getbyId);
+  //router.route('/students-get/:id').get(studentsCtrl.getbyId);
   //router.route('/students-getall').get(studentsCtrl.select);
-  router.route('/students-getallid').get(studentsCtrl.selectIds);
-  router.route('/students-insert').post(studentsCtrl.insert);
-  router.route('/students-insert/:id').get(studentsCtrl.insertUser);
+  //router.route('/students-getallid').get(studentsCtrl.selectIds);
+  //router.route('/students-insert').post(studentsCtrl.insert);
+  //router.route('/students-insert/:id').get(studentsCtrl.insertUser);
   router.route('/student-delete/:id').get(studentsCtrl.delete);
-  router.route('/student-getbyrnumber/:rnumber').get(studentsCtrl.getStudentByRnumber);
-  router.route('/student-update').put(studentsCtrl.updateAll);
+  //router.route('/student-getbyrnumber/:rnumber').get(studentsCtrl.getStudentByRnumber);
+  //router.route('/student-update').put(studentsCtrl.updateAll);
   router.route('/innerjoin/:id').get(studentsCtrl.innerjoin);
   router.route('/inner').get(studentsCtrl.inner);
   router.route('/innertje').get(studentsCtrl.innertje);
-
-  //Refactor
-  router.route('/students-getall').get(studentsCtrl.get);
 
   //Cvs
   router.route('/cv-add').post(cvsCtrl.addCv);

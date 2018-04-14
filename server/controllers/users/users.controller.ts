@@ -13,7 +13,7 @@ export class UsersController extends DefaultController {
   login = (req, res, next) => {
 
       var crud_controller = this.model + "Crud";
-      this[crud_controller].getBy('email',req.body.email).then(result => {
+      this[crud_controller].getBy('user', 'email', req.body.email).then(result => {
           if (!result[0]) {return res.status(404).send('No user found.');}
       var passwordIsValid = bcrypt.compareSync(req.body.password, result[0].password);
       if(passwordIsValid) {
@@ -52,12 +52,19 @@ export class UsersController extends DefaultController {
   //Refactored update met crud
   updatePassword = (req, res) => {
       req.body.password = bcrypt.hashSync(req.body.password);
-      this.update(res, req, 'email', req.body.email);
+      this.update(req, res, 'email', JSON.stringify(req.body.email));
   }
+
+  makeAdmin = (req, res) => {
+    this.update(req, res, 'email', JSON.stringify(req.body.email));
+}
 
   //Refactored
   getByRole = (req, res) => {
       this.getWhere(res, 'role', 'company');
   }
 
+  getAdmins = (req, res) => {
+      this.getWhere(res, 'admin', '1');
+  }
 }

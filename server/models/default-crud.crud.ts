@@ -197,7 +197,7 @@ export abstract class DefaultCrud<T extends DefaultModel>{
                     reject(error);
                     // throw error;
                 }
-
+                connection.release();
                 return resolve(connection);
             });
         });

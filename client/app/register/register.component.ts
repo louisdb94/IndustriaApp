@@ -91,69 +91,69 @@ export class RegisterComponent implements OnInit {
     this.appcomponent.switchLanguage(language);
   }
 
-  register() {
+  // register() {
 
-    this.registerForm.value.rnumber = this.emailStudent.substring(0,8);
-    this.registerForm.value.email = this.emailStudent;
-    this.registerForm.value.password = this.passwordStudent;
+  //   this.registerForm.value.rnumber = this.emailStudent.substring(0,8);
+  //   this.registerForm.value.email = this.emailStudent;
+  //   this.registerForm.value.password = this.passwordStudent;
 
-    let student_result : any;
-    let studentForm = this.formBuilder.group({
-      rnumber: this.emailStudent.substring(0,8),
-      name : "Name",
-      degree : "Electronics",
-      id: Number,
-      user_fk: Number
-    });
+  //   let student_result : any;
+  //   let studentForm = this.formBuilder.group({
+  //     rnumber: this.emailStudent.substring(0,8),
+  //     name : "Name",
+  //     degree : "Electronics",
+  //     id: Number,
+  //     user_fk: Number
+  //   });
 
-    if(this.registerForm.value.role == "Student"){
-      this.userService.registerMysql(this.registerForm.value)
-      .switchMap( userid =>
-        this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId)
-      .switchMap(studentid =>
-        this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
-      .switchMap(exper =>
-        this.experienceService.addExperienceFromStudentId(JSON.parse(studentid._body).insertId)
-      .switchMap(lang =>
-        this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId)
-      .switchMap(socia =>
-        this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
-      .switchMap(socia =>
-        this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
-      .switchMap(socia =>
-        this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
-      .switchMap(socia =>
-        this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
-      .switchMap(prof =>
-        this.professionalService.addProfessionalFromStudentId(JSON.parse(studentid._body).insertId)
-      .switchMap(skil =>
-        this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
-      .switchMap(skil =>
-        this.contactService.addContactFromStudentId(JSON.parse(studentid._body).insertId)
+  //   if(this.registerForm.value.role == "Student"){
+  //     this.userService.registerMysql(this.registerForm.value)
+  //     .switchMap( userid =>
+  //       this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId)
+  //     .switchMap(studentid =>
+  //       this.educationService.addEducationFromStudentId(JSON.parse(studentid._body).insertId)
+  //     .switchMap(exper =>
+  //       this.experienceService.addExperienceFromStudentId(JSON.parse(studentid._body).insertId)
+  //     .switchMap(lang =>
+  //       this.languageService.addLanguageFromStudentId(JSON.parse(studentid._body).insertId)
+  //     .switchMap(socia =>
+  //       this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
+  //     .switchMap(socia =>
+  //       this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
+  //     .switchMap(socia =>
+  //       this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
+  //     .switchMap(socia =>
+  //       this.socialmediaService.addSocialmediaFromStudentId(JSON.parse(studentid._body).insertId)
+  //     .switchMap(prof =>
+  //       this.professionalService.addProfessionalFromStudentId(JSON.parse(studentid._body).insertId)
+  //     .switchMap(skil =>
+  //       this.skillService.addSkillFromStudentId(JSON.parse(studentid._body).insertId)
+  //     .switchMap(skil =>
+  //       this.contactService.addContactFromStudentId(JSON.parse(studentid._body).insertId)
 
-         .map(result => ({
-           user_id : JSON.parse(userid._body).insertId,
-           student_id : JSON.parse(studentid._body).insertId,
-         })))))))))))))
-      .subscribe(
-        res => {  this.toast.setMessage('you successfully registered!', 'success'),
-            //      this.router.navigate(['/login']),
-                  studentForm.value.user_fk = res.user_id,
-                  studentForm.value.id = res.student_id,
-                  this.studentService.editStudentMysql(studentForm.value).subscribe(
-                    res => {console.log("gelukt", res)},
-                    error => console.log(error)
-                  )},
-        error => console.log(error)
-      )
-    }
+  //        .map(result => ({
+  //          user_id : JSON.parse(userid._body).insertId,
+  //          student_id : JSON.parse(studentid._body).insertId,
+  //        })))))))))))))
+  //     .subscribe(
+  //       res => {  this.toast.setMessage('you successfully registered!', 'success'),
+  //           //      this.router.navigate(['/login']),
+  //                 studentForm.value.user_fk = res.user_id,
+  //                 studentForm.value.id = res.student_id,
+  //                 this.studentService.editStudentMysql(studentForm.value).subscribe(
+  //                   res => {console.log("gelukt", res)},
+  //                   error => console.log(error)
+  //                 )},
+  //       error => console.log(error)
+  //     )
+  //   }
 
-    if (this.registerForm.value.role == "Company"){
-      this.userService.registerMysql(this.registerForm.value)
-      .switchMap( userid =>
-        this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId));
-    }
-  }
+  //   if (this.registerForm.value.role == "Company"){
+  //     this.userService.registerMysql(this.registerForm.value)
+  //     .switchMap( userid =>
+  //       this.studentService.addStudentFromUserId(JSON.parse(userid._body).insertId));
+  //   }
+  // }
 
   addTip(){
     this.toast.setMessage('Format is r0123456@kuleuven.be', 'info');

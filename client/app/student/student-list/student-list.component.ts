@@ -113,8 +113,9 @@ export class StudentListComponent implements OnInit {
   getStudentsIds() {
     this.studentService.getStudentsIdsMysql().subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.ids = result;
+        for(let id of data){
+          this.ids.push(id.id);
+        }
       },
       error => console.log(error)
     )
@@ -424,8 +425,7 @@ export class StudentListComponent implements OnInit {
       for (let i = 0; i < this.noDupe.length; i++) {
         this.studentService.getStudentByIdMysql(this.noDupe[i]).subscribe(
           data => {
-            let result = this.dataService.decryption(data);
-            this.students[i] = result[0];
+            this.students[i] = data[0];
           },
           error => console.log(error)
         )
@@ -473,15 +473,15 @@ export class StudentListComponent implements OnInit {
     );
   }
 
-  innerjoin() {
+  // innerjoin() {
 
-    for (let id of this.ids) {
-      this.http.get(`/api/innerjoin/${id.id}`).subscribe(
-        data => { this.studentjes += data, console.log(data) },
-        error => { console.log("gelukt") }
-      )
-    }
-  }
+  //   for (let id of this.ids) {
+  //     this.http.get(`/api/innerjoin/${id.id}`).subscribe(
+  //       data => { this.studentjes += data, console.log(data) },
+  //       error => { console.log("gelukt") }
+  //     )
+  //   }
+  // }
 
 
 }

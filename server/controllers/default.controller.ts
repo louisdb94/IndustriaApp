@@ -75,10 +75,12 @@ export abstract class DefaultController {
   }
 
   //Refactored update met crud
-  update(res, req, name, field){
+  update(req, res, name, field){
       const map: Map<string, string> = new Map();
       for(var key in req.body) {
           if(req.body.hasOwnProperty(key)){
+              console.log(key);
+              console.log(req.body[key]);
             map.set(key, req.body[key])
           }
       }
@@ -136,6 +138,4 @@ export abstract class DefaultController {
           res.status(200).json(result );
       });
   }
-
-
 }

@@ -78,7 +78,7 @@ router.route('/login').get(function(req,res){
 // Assert endpoint for when login completes
 router.route('/assert').get(function(req,res){
 
-    var rnumber = '0101100';
+    var rnumber = 'r0448083';
     checkStudent(rnumber, res);
   //res.redirect('http://localhost:4200/home-students/'+ token);
 

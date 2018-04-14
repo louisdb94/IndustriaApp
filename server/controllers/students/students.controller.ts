@@ -45,4 +45,8 @@ export class StudentsController extends DefaultController {
       res.send("gelukt");
     });
   }
+
+  getStudentByRnumber = (req, res) => {
+    this.getWhere(res, 'rnumber', req.params.rnumber);
+  }
 }

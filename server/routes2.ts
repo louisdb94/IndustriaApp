@@ -93,10 +93,18 @@ export default function setRoutes2(app) {
   router.route('/users-insert').post(usersCtrl.register);
   router.route('/users-login').post(usersCtrl.login);
   router.route('/resetpass').put(usersCtrl.updatePassword);
+  router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
+  router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
 
   //Students
-  router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent);
+  //router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent);
+  router.route('/students-get/:id').get(studentsCtrl.getById);
+  router.route('/students-getall').get(studentsCtrl.get);
+  router.route('/students-getallid').get(studentsCtrl.get);
+  router.route('/student-getbyrnumber/:rnumber').get(studentsCtrl.getStudentByRnumber);
+  router.route('/student-update').put(studentsCtrl.updateById);
+
 
   //Skills
   router.route('/skills-getalldistinct').get(skillsCtrl.selectSkill);

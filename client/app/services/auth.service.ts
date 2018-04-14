@@ -67,8 +67,7 @@ export class AuthService {
     if (decodedUser.role === 'Student') {
       this.studentService.getStudentByRnumberMysql(decodedUser.rnumber).subscribe(
         data => {
-          let result = this.dataService.decryption(data);
-          this.currentUser.studentId = result[0].id
+          this.currentUser.studentId = data[0].id
         },
         error => console.log(error)
       );

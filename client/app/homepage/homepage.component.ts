@@ -491,8 +491,7 @@ export class HomepageComponent implements OnInit {
   getAdmins(){
       this.userService.getadmin().subscribe(
         data => {
-          let result = this.data.decryption(data);
-          this.admins = result;
+          this.admins = data;
         },
         error => console.error
       );

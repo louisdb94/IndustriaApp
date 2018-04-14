@@ -81,11 +81,10 @@ export class StudentProfile implements OnInit {
   getStudentByIdMySql(id) {
     this.studentService.getStudentByIdMysql(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.student = result[0];
-        this.countEducation = result[0].countEducation;
-        this.countExperiences = result[0].countExperiences;
-        this.contactChecked = result[0].contactChecked;
+        this.student = data[0];
+        this.countEducation = data[0].countEducation;
+        this.countExperiences = data[0].countExperiences;
+        this.contactChecked = data[0].contactChecked;
       },
       error => console.log(error),
     );

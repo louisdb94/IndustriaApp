@@ -56,8 +56,7 @@ export class SettingsComponent implements OnInit {
   getStudent(){
     this.studentService.getStudentByIdMysql(this.auth.currentUser.studentId).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.student = result[0];
+        this.student = data[0];
       },
       error => console.log(error),
     );
