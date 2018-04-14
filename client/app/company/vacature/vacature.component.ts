@@ -62,6 +62,7 @@ export class CompanyVacature implements OnInit {
     this.vacatureService.getVacatureById(id).subscribe(
       data => {
         let result = this.dataService.decryption(data);
+        console.log(result[0]);
         this.vacature = result[0];
         this.company_fk = this.vacature.company_fk; 
         this.getCompanyByVacatureId(this.vacature.company_fk);

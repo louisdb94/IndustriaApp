@@ -93,6 +93,20 @@ export abstract class DefaultController {
       });
   }
 
+  updateTable(req, res, table, name, field){
+    const map: Map<string, string> = new Map();
+    for(var key in req.body) {
+        if(req.body.hasOwnProperty(key)){
+          map.set(key, req.body[key])
+        }
+    }
+
+    var crud_controller = table + "Crud";
+    this[crud_controller].update(name, field, map).then(result => {
+        res.status(200).json(result );
+    });
+}
+
   //Refactored update met crud
   updateById = (req, res) => {
       this.update(req, res, 'id', req.body.id);

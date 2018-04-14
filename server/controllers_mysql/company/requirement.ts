@@ -13,7 +13,7 @@ export default class CompanyRequirementCtrl extends BaseSqlCtrl {
     insertForm = (req, res) => {
         pool.getConnection(function (error, connection) {
             let sql = `INSERT INTO ?? SET ?? = ?, ?? = ?`;
-            const insert = [this.model, 'name', req.body.req1Form, 'vacatures_fk', req.body.idForm];
+            const insert = ['requirements', 'name', req.body.req1Form, 'vacatures_fk', req.body.idForm];
             sql = mysql.format(sql, insert);
             const query = connection.query(sql, req.body, (err, result) => {
                 if (err) {
@@ -29,7 +29,7 @@ export default class CompanyRequirementCtrl extends BaseSqlCtrl {
     getbyFkExperience = (req, res) => {
         pool.getConnection(function (error, connection) {
             let sql = `SELECT * FROM ?? WHERE ?? = ?`;
-            const insert = [this.model, 'vacatures_fk', req.params.id];
+            const insert = ['requirements', 'vacatures_fk', req.params.id];
             sql = mysql.format(sql, insert);
             const query = connection.query(sql, (err, result) => {
                 if (err) {
@@ -43,7 +43,7 @@ export default class CompanyRequirementCtrl extends BaseSqlCtrl {
     }
     updateAll = (req, res) => {
         let sql = `UPDATE ?? SET ?? = ? WHERE ?? = ?`;
-        const insert = [this.model, 'name', req.body.name, 'id', req.body.id];
+        const insert = ['requirements', 'name', req.body.name, 'id', req.body.id];
         sql = mysql.format(sql, insert);
         this.executeQuery(sql, req, res, null, 'post updated...');
     }

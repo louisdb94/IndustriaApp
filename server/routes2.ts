@@ -106,6 +106,12 @@ export default function setRoutes2(app) {
   router.route('/student-getbyrnumber/:rnumber').get(studentsCtrl.getStudentByRnumber);
   router.route('/student-update').put(studentsCtrl.updateById);
 
+  //CVs
+  router.route('/cv-add').post(cvsCtrl.insert);
+  router.route('/cv/:id').get(cvsCtrl.getByStudentFk);
+  router.route('/cv-delete/:id').delete(cvsCtrl.deleteCv);
+  router.route('/cv/upload').post(cvsCtrl.uploadCv);
+  router.route('/download/:id').get(cvsCtrl.downloadCv);
 
   //Skills
   router.route('/skills-getalldistinct').get(skillsCtrl.selectSkill);

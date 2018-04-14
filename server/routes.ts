@@ -121,15 +121,15 @@ export default function setRoutes(app) {
   router.route('/innertje').get(studentsCtrl.innertje);
 
   //Cvs
-  router.route('/cv-add').post(cvsCtrl.addCv);
-  router.route('/cv/:id').get(cvsCtrl.getbyFk);
-  router.route('/cv-delete/:id').delete(cvsCtrl.delete);
+  //router.route('/cv-add').post(cvsCtrl.addCv);
+  //router.route('/cv/:id').get(cvsCtrl.getbyFk);
+  //router.route('/cv-delete/:id').delete(cvsCtrl.delete);
   //upload a pdf or image
-  router.route('/cv/upload').post(cvsCtrl.uploadCv);
+  //router.route('/cv/upload').post(cvsCtrl.uploadCv);
   //download a cv of a student
-  router.route('/download/:id').get(cvsCtrl.downloadCv);
-  router.route('/cv/remove/:id').post(cvsCtrl.removeCv);
-  router.route('/cvs-insert/:id').get(cvsCtrl.insertStudentFK);
+  //router.route('/download/:id').get(cvsCtrl.downloadCv);
+  //router.route('/cv/remove/:id').post(cvsCtrl.removeCv);
+  //router.route('/cvs-insert/:id').get(cvsCtrl.insertStudentFK);
 
   //Education
   // router.route('/education-get/:id').get(educationCtrl.getbyFk);

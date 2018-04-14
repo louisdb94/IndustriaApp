@@ -172,12 +172,13 @@ export class HeaderProfile implements OnInit {
 
         if(this.hasFiles()) {
           student.numberCv++;
-          formData.append('cvnumber', (<any>student.numberCv));
-          this.http.post('/api/cv/upload', formData).subscribe(res => console.log('gelukt', res));
+          formData.append('numberCV', (<any>student.numberCv));
+          this.fileService.uploadCv(formData).subscribe();
+          //this.http.post('/api/cv/upload', formData).subscribe(res => console.log('gelukt', res));
 
           this.addCvForm = this.formBuilder.group({
+            student_fk: student.id,
             name: student.rnumber,
-            uploader: student.id,
             mimetype: file.type.split('/')[1],
             size: file.size,
             number: student.numberCv
@@ -232,25 +233,13 @@ export class HeaderProfile implements OnInit {
         },
         error => console.log(error)
       );
-
-
-
-      const cvs: any = {};
-      cvs.name = cv.name;
-      cvs.number = cv.number;
-      cvs.uploader = cv.uploader;
-      cvs.mimetype = cv.mimetype;
-
-
-      this.http.post(`/api/cv/remove/${cv.id}`, cvs).subscribe();
     }
   }
 
   getCvFromStudent(id){
     this.fileService.getCvFromStudent(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.cvs = result;
+        this.cvs = data;
       },
       error => console.log(error)
     )

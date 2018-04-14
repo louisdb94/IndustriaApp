@@ -32,9 +32,9 @@ export class CvsService {
     return this.http.get(`/api/cvs-delete/${cv.id}`, {headers: this.header});
   }
 
-  addCvsFromStudentId(id): Observable<any> {
-    return this.http.get(`/api/cvs-insert/${id}`, {headers: this.header});
-  }
+  // addCvsFromStudentId(id): Observable<any> {
+  //   return this.http.get(`/api/cvs-insert/${id}`, {headers: this.header});
+  // }
 
 
 }
