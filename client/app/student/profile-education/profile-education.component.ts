@@ -6,6 +6,7 @@ import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
 import { DataService } from '../../services/data.service';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import education from '../../../../server/models_mysql/students/education';
 
 
@@ -23,12 +24,20 @@ export class EducationProfile {
   countEducation = 0;
   @Input() student: any;
 
+  registerForm: FormGroup;
+  type = new FormControl(String);
+  institution = new FormControl(String);
+  date_from = new FormControl(String);
+  date_until = new FormControl(String);
+  student_fk = new FormControl(String);
+
   constructor(  private studentService: StudentService,
                 private educationService: EducationService,
                 private dataService: DataService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private http: HttpClient,
+                private formBuilder: FormBuilder,
                 public auth : AuthService){}
 
   ngOnInit() {
@@ -36,13 +45,21 @@ export class EducationProfile {
       this.student_id = params['id'];
       this.getEducationById(this.student_id);
     });
+
+    this.registerForm = this.formBuilder.group({
+      type: this.type,
+      institution: this.institution,
+      date_from: this.date_from,
+      date_until: this.date_until,
+      student_fk: this.student_fk,
+    });
   }
 
   getEducationById(id){
     this.educationService.getEducationById(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.education = result;
+        // let result = this.dataService.decryption(data);
+        this.education = data;
       },
       error => console.log(error)
     );
@@ -52,9 +69,13 @@ export class EducationProfile {
 
         this.editMode = false;
         let count = student.countEducation;
-
         for(let i = 0; i <= count; i++){
           if(this.education[i]){
+            // this.registerForm.value.type = this.education[i].type;
+            // this.registerForm.value.institution = this.education[i].institution;
+            // this.registerForm.value.date_from = this.education[i].date_from;
+            // this.registerForm.value.date_until = this.education[i].date_until;
+            // this.registerForm.value.student_fk = this.education[i].student_fk;
             this.educationService.editEducation(this.education[i]).subscribe(
               res => {},
               error => console.log(error)
@@ -73,13 +94,19 @@ export class EducationProfile {
 
   add(student){
     if (student.countEducation <= 6) {
-      this.http.get(`/api/education-insert/${student.id}`).subscribe(
-        res => {
-          student.countEducation++;
-          this.save(student, null);
-          this.getEducation(student.id)
-        },
-        error => {console.log("error")}
+      this.registerForm.value.type = 'Master Example';
+      this.registerForm.value.institution = 'KULeuven example';
+      this.registerForm.value.date_from = '2018';
+      this.registerForm.value.date_until = '2018';
+      this.registerForm.value.student_fk = student.id;
+
+      this.educationService.addEducationFromStudentId(this.registerForm.value).subscribe(
+          res => {
+            student.countEducation++;
+            this.save(student, null);
+        //    this.getEducation(student.id)
+          },
+          error => {console.log("error")}
       );
     }
   }
@@ -87,8 +114,8 @@ export class EducationProfile {
   getEducation(id){
     this.educationService.getEducationById(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.education = result;
+        // let result = this.dataService.decryption(data);
+        this.education = data;
       }
     )
   }
@@ -98,7 +125,7 @@ export class EducationProfile {
       let id = education[education.length - 1].id;
       student.countEducation--;
       this.education.splice(education.length - 1, 1);
-      this.http.get(`/api/education-delete/${id}`).subscribe(
+      this.educationService.deleteEducation(id).subscribe(
         res => {this.save(student, education)}
       );
     }

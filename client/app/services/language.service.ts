@@ -27,16 +27,16 @@ export class LanguageService {
   getLanguagesDistinct(): Observable<any> {
     return this.http.get(`/api/language-getalldistinct`, {headers: this.header});
   }
-  addLanguage(language): Observable<any> {
-    return this.http.post('/api/language-insert', JSON.stringify(language), {headers: this.header});
+  // addLanguage(language): Observable<any> {
+  //   return this.http.post('/api/language-insert', JSON.stringify(language), {headers: this.header});
+  // }
+
+  deleteLanguage(id): Observable<any> {
+    return this.http.delete(`/api/language-delete/${id}`, {headers: this.header});
   }
 
-  deleteLanguage(language): Observable<any> {
-    return this.http.get(`/api/experience-delete/${language.id}`, {headers: this.header});
-  }
-
-  addLanguageFromStudentId(id): Observable<any> {
-    return this.http.get(`/api/language-insert/${id}`, {headers: this.header});
+  addLanguageFromStudentId(form): Observable<any> {
+    return this.http.post(`/api/language-insert`, JSON.stringify(form), {headers: this.header});
   }
 
   editLanguage(language): Observable<any> {

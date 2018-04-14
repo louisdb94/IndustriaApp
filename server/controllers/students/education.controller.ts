@@ -8,4 +8,8 @@ import { DefaultController} from '../default.controller';
 
 export class EducationController extends DefaultController {
   model = 'education';
+
+  // deleteEducation = (req, res) => {
+  //   this.delete(res, this.model, 'id', req.params.id);
+  // }
 }

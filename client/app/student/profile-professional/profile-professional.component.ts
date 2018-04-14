@@ -5,6 +5,7 @@ import { DataService } from '../../services/data.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -29,6 +30,11 @@ export class ProfessionalProfile {
     filter: this.filters[0]
   };
 
+  registerForm: FormGroup;
+  skill = new FormControl(String);
+  value = new FormControl(String);
+  value_type = new FormControl(String);
+  student_fk = new FormControl(String);
 
   constructor(private studentService: StudentService,
     private activatedRoute: ActivatedRoute,
@@ -36,8 +42,17 @@ export class ProfessionalProfile {
     public dataService: DataService,
     public toast: ToastComponent,
     private http: HttpClient,
+    private formBuilder: FormBuilder,
     public auth: AuthService) { }
 
+  ngOnInit(){
+    this.registerForm = this.formBuilder.group({
+      skill: this.skill,
+      value: this.value,
+      value_type: this.value_type,
+      student_fk: this.student_fk,
+    });
+  }
 
   save(student, professional) {
     this.editMode = false;
@@ -61,12 +76,14 @@ export class ProfessionalProfile {
 
   add(student) {
     if (student.countProfessional < 7) {
-      this.http.get(`/api/professional-insert/${student.id}`).subscribe(
+      this.registerForm.value.skill = 'Example';
+      this.registerForm.value.value = 100;
+      this.registerForm.value.value_type = 'Expert';
+      this.registerForm.value.student_fk = student.id;
+      this.professionalService.addProfessionalFromStudentId(this.registerForm.value).subscribe(
         res => {this.getProfessional(student.id)},
         error => {console.log("error")}
       );
-      // let add_professional = {id: '', student_fk: '', value: '50', value_type: 'Intermediate'};
-      // this.professional.push(add_professional);
       student.countProfessional++;
     }
   }
@@ -74,8 +91,8 @@ export class ProfessionalProfile {
   getProfessional(id){
     this.professionalService.getProfessionalByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.professional = result;
+        // let result = this.dataService.decryption(data);
+        this.professional = data;
       }
     )
   }
@@ -85,7 +102,7 @@ export class ProfessionalProfile {
       let id = professional[professional.length - 1].id;
       student.countProfessional--;
       this.professional.splice(professional.length - 1, 1);
-      this.http.get(`/api/professional-delete/${id}`).subscribe(
+      this.professionalService.deleteProfessional(id).subscribe(
         res => {this.save(student, professional)}
       );
     }

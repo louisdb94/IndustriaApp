@@ -67,7 +67,11 @@ export abstract class DefaultController {
       });
   }
 
-  delete(res, table, name, field){
+  delete = (req, res) => {
+    this.deleteById(res, this.model, 'id', req.params.id);
+  }
+
+  deleteById(res, table, name, field){
     var crud_controller = this.model + "Crud";
       this[crud_controller].delete(table, name, field).then(result => {
         res.status(200).json(result);
@@ -79,8 +83,6 @@ export abstract class DefaultController {
       const map: Map<string, string> = new Map();
       for(var key in req.body) {
           if(req.body.hasOwnProperty(key)){
-              console.log(key);
-              console.log(req.body[key]);
             map.set(key, req.body[key])
           }
       }
@@ -93,7 +95,7 @@ export abstract class DefaultController {
 
   //Refactored update met crud
   updateById = (req, res) => {
-      this.update(res, req, 'id', req.body.id);
+      this.update(req, res, 'id', req.body.id);
   }
 
   //Refactored select met crud

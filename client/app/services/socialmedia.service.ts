@@ -20,17 +20,17 @@ export class SocialmediaService {
     return this.http.get(`/api/socialmedia-getall`, {headers: this.header});
   }
 
-  addSocialmedia(socialmedia): Observable<any> {
-    return this.http.post('/api/socialmedia-insert', JSON.stringify(socialmedia), {headers: this.header});
-  }
+  // addSocialmedia(socialmedia): Observable<any> {
+  //   return this.http.post('/api/socialmedia-insert', JSON.stringify(socialmedia), {headers: this.header});
+  // }
 
-  deleteSocialmedia(socialmedia): Observable<any> {
-    return this.http.get(`/api/socialmedia-delete/${socialmedia.id}`, {headers: this.header});
-  }
+  // deleteSocialmedia(socialmedia): Observable<any> {
+  //   return this.http.get(`/api/socialmedia-delete/${socialmedia.id}`, {headers: this.header});
+  // }
 
-  addSocialmediaFromStudentId(id): Observable<any> {
-    return this.http.get(`/api/socialmedia-insert/${id}`, {headers: this.header});
-  }
+  // addSocialmediaFromStudentId(id): Observable<any> {
+  //   return this.http.get(`/api/socialmedia-insert/${id}`, {headers: this.header});
+  // }
 
   editSocialmediaMysql(socialmedia): Observable<any> {
     return this.http.put(`/api/socialmedia-update`, JSON.stringify(socialmedia), {headers: this.header});

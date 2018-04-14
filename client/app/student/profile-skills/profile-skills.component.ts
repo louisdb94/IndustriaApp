@@ -5,6 +5,7 @@ import { DataService } from '../../services/data.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -30,7 +31,11 @@ export class SkillsProfile {
     filter: this.filters[0]
   };
 
-
+  registerForm: FormGroup;
+  skill = new FormControl(String);
+  value = new FormControl(String);
+  value_type = new FormControl(String);
+  student_fk = new FormControl(String);
 
   constructor(private studentService: StudentService,
     private skillService: SkillService,
@@ -38,8 +43,17 @@ export class SkillsProfile {
     private activatedRoute: ActivatedRoute,
     private http: HttpClient,
     public toast: ToastComponent,
+    private formBuilder: FormBuilder,
     public auth: AuthService) { }
 
+  ngOnInit(){
+    this.registerForm = this.formBuilder.group({
+      skill: this.skill,
+      value: this.value,
+      value_type: this.value_type,
+      student_fk: this.student_fk,
+    });
+  }
 
   save(student, skills) {
     this.editMode = false;
@@ -64,14 +78,15 @@ export class SkillsProfile {
 
   add(student) {
 
-
     if (student.countSkills < 7) {
-      this.http.get(`/api/skills-insert/${student.id}`).subscribe(
+      this.registerForm.value.skill = 'Example';
+      this.registerForm.value.value = 100;
+      this.registerForm.value.value_type = 'Expert';
+      this.registerForm.value.student_fk = student.id;
+      this.skillService.addSkillFromStudentId(this.registerForm.value).subscribe(
         res => {this.getSkills(student.id)},
         error => {console.log("error")}
       );
-      // let add_skill = {id: '', student_fk: '', value: '50', value_type: 'Intermediate'};
-      // this.skills.push(add_skill);
       student.countSkills++;
     }
   }
@@ -79,8 +94,8 @@ export class SkillsProfile {
   getSkills(id){
     this.skillService.getSkillByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.skills = result;
+        // let result = this.dataService.decryption(data);
+        this.skills = data;
       }
     )
   }
@@ -88,11 +103,9 @@ export class SkillsProfile {
   delete(student, skills) {
     if (student.countSkills > 0) {
       let id = skills[skills.length - 1].id;
-      console.log("countskills before: ", student.countSkills);
       student.countSkills--;
-      console.log("countskills after: ", student.countSkills);
       this.skills.splice(skills.length - 1, 1);
-      this.http.get(`/api/skills-delete/${id}`).subscribe(
+        this.skillService.deleteSkill(id).subscribe(
         res => {this.save(student, skills)}
       );
     }

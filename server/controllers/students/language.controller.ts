@@ -20,5 +20,4 @@ export class LanguageController extends DefaultController {
     this.getBySelection(res, map, 'type', req.params.type);
   }
 
-
 }

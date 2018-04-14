@@ -88,8 +88,8 @@ export class HeaderProfile implements OnInit {
   getSocialMediaById(id){
     this.socialmediaService.getSocialmediaById(id).subscribe(
           data => {
-            let result = this.dataService.decryption(data);
-            this.socialmedia = result;
+            // let result = this.dataService.decryption(data);
+            this.socialmedia = data;
           },
       error => console.log(error)
     );
@@ -232,16 +232,16 @@ export class HeaderProfile implements OnInit {
         },
         error => console.log(error)
       );
-  
-  
-  
+
+
+
       const cvs: any = {};
       cvs.name = cv.name;
       cvs.number = cv.number;
       cvs.uploader = cv.uploader;
       cvs.mimetype = cv.mimetype;
-  
-  
+
+
       this.http.post(`/api/cv/remove/${cv.id}`, cvs).subscribe();
     }
   }

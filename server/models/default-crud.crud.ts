@@ -150,7 +150,6 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         if (sql.slice(-1) === ',') {
             sql = sql.slice(0, -1);
         }
-
         const values = Array.from(params.values());
         return this.getConnection().then(conn => {
             if (conn) {

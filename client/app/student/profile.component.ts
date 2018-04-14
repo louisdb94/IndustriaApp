@@ -93,8 +93,8 @@ export class StudentProfile implements OnInit {
   getskillbyid(id){
     this.skillService.getSkillByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.skills = result;
+        // let result = this.dataService.decryption(data);
+        this.skills = data;
       },
       error => console.log(error)
     )
@@ -103,8 +103,8 @@ export class StudentProfile implements OnInit {
   getLanguagebyid(id){
     this.languageService.getLanguageByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.languages = result;
+        // let result = this.dataService.decryption(data);
+        this.languages = data;
       },
       error => console.log(error)
     )
@@ -123,8 +123,8 @@ export class StudentProfile implements OnInit {
   getProfessionalbyid(id){
     this.professionalService.getProfessionalByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.professional = result;
+        // let result = this.dataService.decryption(data);
+        this.professional = data;
       },
       error => console.log(error)
     )

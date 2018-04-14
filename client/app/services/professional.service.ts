@@ -27,16 +27,16 @@ export class ProfessionalService {
     return this.http.get(`/api/professional-getalldistinct`, {headers: this.header});
   }
 
-  addProfessional(professional): Observable<any> {
-    return this.http.post('/api/professional-insert', JSON.stringify(professional), {headers: this.header});
+  // addProfessional(professional): Observable<any> {
+  //   return this.http.post('/api/professional-insert', JSON.stringify(professional), {headers: this.header});
+  // }
+
+  deleteProfessional(id): Observable<any> {
+    return this.http.delete(`/api/professional-delete/${id}`, {headers: this.header});
   }
 
-  deleteProfessional(professional): Observable<any> {
-    return this.http.get(`/api/professional-delete/${professional.id}`, {headers: this.header});
-  }
-
-  addProfessionalFromStudentId(id): Observable<any> {
-    return this.http.get(`/api/professional-insert/${id}`, {headers: this.header});
+  addProfessionalFromStudentId(form): Observable<any> {
+    return this.http.post(`/api/professional-insert`, JSON.stringify(form), {headers: this.header});
   }
 
   editProfessional(professional): Observable<any> {

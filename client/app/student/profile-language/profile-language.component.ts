@@ -6,6 +6,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import language from '../../../../server/models_mysql/students/language';
 
 
@@ -29,20 +30,37 @@ export class LanguageProfile {
     filter: this.filters[0]
   };
 
+  registerForm: FormGroup;
+  type = new FormControl(String);
+  value = new FormControl(String);
+  value_type = new FormControl(String);
+  student_fk = new FormControl(String);
+
   constructor(  private studentService: StudentService,
                 private languageService: LanguageService,
                 public dataService: DataService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private http: HttpClient,
+                private formBuilder: FormBuilder,
                 public auth : AuthService){}
+
+
+  ngOnInit(){
+    this.registerForm = this.formBuilder.group({
+      type: this.type,
+      value: this.value,
+      value_type: this.value_type,
+      student_fk: this.student_fk,
+    });
+  }
 
 
   save(student, languages){
     this.editMode = false;
 
     let count = student.countLanguage;
-    for(let i = 0; i < this.languages.length; i++){
+    for(let i = 0; i <= count; i++){
       if(this.languages[i]){
         this.languageService.editLanguage(this.languages[i]).subscribe(
           res => {},
@@ -61,12 +79,14 @@ export class LanguageProfile {
 
   add(student){
     if (student.countLanguage < 5) {
-      this.http.get(`/api/language-insert/${student.id}`).subscribe(
+      this.registerForm.value.type = 'Nederlands';
+      this.registerForm.value.value = 100;
+      this.registerForm.value.value_type = 'Expert';
+      this.registerForm.value.student_fk = student.id;
+      this.languageService.addLanguageFromStudentId(this.registerForm.value).subscribe(
         res => {this.getLanguages(student.id)},
         error => {console.log("error")}
       );
-      // let add_language = {id: '', student_fk: '', value: '50', value_type: 'Intermediate'};
-      // this.languages.push(add_language);
       student.countLanguage++;
     }
   }
@@ -74,8 +94,8 @@ export class LanguageProfile {
   getLanguages(id){
     this.languageService.getLanguageByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.languages = result;
+        // let result = this.dataService.decryption(data);
+        this.languages = data;
       }
     )
   }
@@ -85,12 +105,10 @@ export class LanguageProfile {
       let id = languages[languages.length - 1].id;
       student.countLanguage--;
       this.languages.splice(languages.length - 1, 1);
-      this.http.get(`/api/language-delete/${id}`).subscribe(
+      this.languageService.deleteLanguage(id).subscribe(
         res => {this.save(student, languages)}
       );
-
-      console.log(languages.length)
-    }
+        }
   }
 
   onChange(languages){

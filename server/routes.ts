@@ -132,11 +132,11 @@ export default function setRoutes(app) {
   router.route('/cvs-insert/:id').get(cvsCtrl.insertStudentFK);
 
   //Education
-  router.route('/education-get/:id').get(educationCtrl.getbyFk);
-  router.route('/education-getall').get(educationCtrl.select);
-  router.route('/education-insert').post(educationCtrl.insert);
-  router.route('/education-insert/:id').get(educationCtrl.insertStudentFK);
-  router.route('/education-delete/:id').get(educationCtrl.delete);
+  // router.route('/education-get/:id').get(educationCtrl.getbyFk);
+  // router.route('/education-getall').get(educationCtrl.select);
+  // router.route('/education-insert').post(educationCtrl.insert);
+  // router.route('/education-insert/:id').get(educationCtrl.insertStudentFK);
+  // router.route('/education-delete/:id').get(educationCtrl.delete);
   // router.route('/education-update').put(educationCtrl.updateAll);
 
   //Experiences
@@ -152,44 +152,44 @@ export default function setRoutes(app) {
 
   //Language
   // router.route('/language-get/:id').get(languageCtrl.getbyId);
-  router.route('/language-getbystudentfk/:id').get(languageCtrl.getbyStudentId);
-  router.route('/language-getall').get(languageCtrl.select);
+  // router.route('/language-getbystudentfk/:id').get(languageCtrl.getbyStudentId);
+  // router.route('/language-getall').get(languageCtrl.select);
   // router.route('/language-getalldistinct').get(languageCtrl.selectLanguage);
-  router.route('/language-insert').post(languageCtrl.insert);
-  router.route('/language-insert/:id').get(languageCtrl.insertStudentFK);
-  router.route('/language-delete/:id').get(languageCtrl.delete);
+  // router.route('/language-insert').post(languageCtrl.insert);
+  // router.route('/language-insert/:id').get(languageCtrl.insertStudentFK);
+  // router.route('/language-delete/:id').get(languageCtrl.delete);
   // router.route('/language-update').put(languageCtrl.updateAll);
   // router.route('/language-getfkbylang/:lang').get(languageCtrl.getbyLanguage);
 
   //Professional
   // router.route('/professional-get/:id').get(professionalCtrl.getbyId);
-  router.route('/professional-getbystudentfk/:id').get(professionalCtrl.getbyStudentId);
-  router.route('/professional-getall').get(professionalCtrl.select);
+  // router.route('/professional-getbystudentfk/:id').get(professionalCtrl.getbyStudentId);
+  // router.route('/professional-getall').get(professionalCtrl.select);
   // router.route('/professional-getalldistinct').get(professionalCtrl.selectProfessional);
-  router.route('/professional-insert').post(professionalCtrl.insert);
-  router.route('/professional-insert/:id').get(professionalCtrl.insertStudentFK);
-  router.route('/professional-delete/:id').get(professionalCtrl.delete);
+  // router.route('/professional-insert').post(professionalCtrl.insert);
+  // router.route('/professional-insert/:id').get(professionalCtrl.insertStudentFK);
+  // router.route('/professional-delete/:id').get(professionalCtrl.delete);
   // router.route('/professional-update').put(professionalCtrl.updateAll);
   // router.route('/professional-getfkbyskill/:skill').get(professionalCtrl.getbySkill);
 
   //Skill
   // router.route('/skills-get/:id').get(skillsCtrl.getbyId);
-  router.route('/skills-getbystudentfk/:id').get(skillsCtrl.getbyStudentId);
-  router.route('/skills-getall').get(skillsCtrl.select);
+  // router.route('/skills-getbystudentfk/:id').get(skillsCtrl.getbyStudentId);
+  // router.route('/skills-getall').get(skillsCtrl.select);
   // router.route('/skills-getalldistinct').get(skillsCtrl.selectSkill);
-  router.route('/skills-insert').post(skillsCtrl.insert);
-  router.route('/skills-insert/:id').get(skillsCtrl.insertStudentFK);
-  router.route('/skills-delete/:id').get(skillsCtrl.delete);
+  // router.route('/skills-insert').post(skillsCtrl.insert);
+  // router.route('/skills-insert/:id').get(skillsCtrl.insertStudentFK);
+  // router.route('/skills-delete/:id').get(skillsCtrl.delete);
   // router.route('/skills-update').put(skillsCtrl.updateAll);
   // router.route('/skills-getfkbyskill/:skill').get(skillsCtrl.getbySkill);
 
 
   //SocialMedia
-  router.route('/socialmedia-get/:id').get(socialmediaCtrl.getbyFk);
-  router.route('/socialMedia-getall').get(socialmediaCtrl.select);
-  router.route('/socialmedia-insert').post(socialmediaCtrl.insert);
-  router.route('/socialmedia-insert/:id').get(socialmediaCtrl.insertStudentFK);
-  router.route('/socialmedia-delete/:id').get(socialmediaCtrl.delete);
+  // router.route('/socialmedia-get/:id').get(socialmediaCtrl.getbyFk);
+  // router.route('/socialMedia-getall').get(socialmediaCtrl.select);
+  // router.route('/socialmedia-insert').post(socialmediaCtrl.insert);
+  // router.route('/socialmedia-insert/:id').get(socialmediaCtrl.insertStudentFK);
+  // router.route('/socialmedia-delete/:id').get(socialmediaCtrl.delete);
   // router.route('/socialmedia-update').put(socialmediaCtrl.updateAll);
 
   //Contact

@@ -21,21 +21,19 @@ export class EducationService {
     return this.http.get(`/api/education-getall`, {headers: this.header});
   }
 
-  addEducation(education): Observable<any> {
-    return this.http.post('/api/educatino-insert', JSON.stringify(education), {headers: this.header});
+  // addEducation(education): Observable<any> {
+  //   return this.http.post('/api/educatino-insert', JSON.stringify(education), {headers: this.header});
+  // }
+
+  deleteEducation(id): Observable<any> {
+    return this.http.delete(`/api/education-delete/${id}`, {headers: this.header});
   }
 
-  deleteEducation(education): Observable<any> {
-    return this.http.get(`/api/education-delete/${education.id}`, {headers: this.header});
-  }
-
-  addEducationFromStudentId(id): Observable<any> {
-    return this.http.get(`/api/education-insert/${id}`, {headers: this.header});
+  addEducationFromStudentId(form): Observable<any> {
+    return this.http.post(`/api/education-insertForm`, JSON.stringify(form), {headers: this.header});
   }
 
   editEducation(education): Observable<any> {
     return this.http.put(`/api/education-update`, JSON.stringify(education), {headers: this.header});
   }
-
-
 }
