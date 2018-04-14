@@ -232,8 +232,7 @@ export default function setRoutes(app) {
   router.route('/vacatures-delete/:id').delete(vacaturesCtrl.delete);
   router.route('/vacatures-update').put(vacaturesCtrl.updateAll);
   router.route('/vacatures-insertform').post(vacaturesCtrl.insertForm);
-
-
+  
 
   //Events
   router.route('/events-insert').post(eventsCtrl.insert);

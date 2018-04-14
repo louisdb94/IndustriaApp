@@ -86,7 +86,7 @@ export default function setRoutes2(app) {
   const requirementsCtrl = new RequirementsController();
   const vacaturesCtrl = new VacaturesController();
 
-  //Users
+  //USERS
   router.route('/users-getall').get(usersCtrl.get);
   router.route('/user-get/:id').get(usersCtrl.getById);
   router.route('/user-getbyrole').get(usersCtrl.getByRole);
@@ -97,7 +97,8 @@ export default function setRoutes2(app) {
   router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
 
-  //Students
+  //STUDENTS
+
   //router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent);
   router.route('/students-get/:id').get(studentsCtrl.getById);
   router.route('/students-getall').get(studentsCtrl.get);
@@ -163,6 +164,9 @@ export default function setRoutes2(app) {
   router.route('/contact-getCounty').get(contactStudentCtrl.selectContact);
 
 
+  //COMPANIES
+
+  //Vacatures
 
 
 
