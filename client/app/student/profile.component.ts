@@ -55,7 +55,7 @@ export class StudentProfile implements OnInit {
 
   ngOnInit() {
 
-    if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
+    if(this.auth.loggedIn == false ){
       this.auth.loginStudent(localStorage.getItem('token'));
     }
 
@@ -113,8 +113,8 @@ export class StudentProfile implements OnInit {
   getContactbyid(id){
     this.contactService.getContactByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.contacts = result;
+        // let result = this.dataService.decryption(data);
+        this.contacts = data;
       },
       error => console.log(error)
     )

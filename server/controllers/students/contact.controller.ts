@@ -8,4 +8,9 @@ import { DefaultController} from '../default.controller';
 
 export class ContactStudentsController extends DefaultController {
   model = 'contact';
+
+  selectContact = (req, res) => {
+    this.getDistinct(res, 'county', this.model, 'type');
+  }
+
 }

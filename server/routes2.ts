@@ -132,9 +132,18 @@ export default function setRoutes2(app) {
 
   //Experiences
   router.route('/experience-update').put(experienceCtrl.updateById);
+  router.route('/experiences-getall').get(experienceCtrl.get);
+  router.route('/experiences-getbystudentfk/:id').get(experienceCtrl.getByStudentFk);
+  router.route('/experience-insertform').post(experienceCtrl.insert);
+  router.route('/experiences-delete/:id').delete(experienceCtrl.deleteExperience);
 
   //Contact
   router.route('/contact-update').put(contactStudentCtrl.updateById);
+  router.route('/contact-getall').get(contactStudentCtrl.get);
+  router.route('/contact-get/:id').get(contactStudentCtrl.getById);
+  router.route('/contact-getbystudentfk/:id').get(contactStudentCtrl.getByStudentFk);
+  router.route('/contact-getCounty').get(contactStudentCtrl.selectContact);
+
 
 
 

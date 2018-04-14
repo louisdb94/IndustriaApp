@@ -61,16 +61,16 @@ export abstract class DefaultController {
             map.set(key, req.body[key])
           }
       }
-
       var crud_controller = this.model + "Crud";
       this[crud_controller].insert(map).then(result => {
           res.status(200).json(result);
       });
   }
 
-  delete(table, name, field){
+  delete(res, table, name, field){
     var crud_controller = this.model + "Crud";
       this[crud_controller].delete(table, name, field).then(result => {
+        res.status(200).json(result);
       });
   }
 
@@ -110,6 +110,10 @@ export abstract class DefaultController {
 
   getByCompanyFk = (req, res) => {
       this.getWhere(res, 'company_fk', req.params.id);
+  }
+
+  getByStudentFk = (req, res) => {
+      this.getWhere(res, 'student_fk', req.params.id);
   }
 
   getWhere(res, name, field){

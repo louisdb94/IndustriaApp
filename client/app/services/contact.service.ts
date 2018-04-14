@@ -24,17 +24,9 @@ export class ContactService {
     return this.http.get(`/api/contact-getall`, {headers: this.header});
   }
 
-  addContact(contact): Observable<any> {
-    return this.http.post('/api/contact-insert', JSON.stringify(contact), {headers: this.header});
-  }
-
-  deleteContact(contact): Observable<any> {
-    return this.http.get(`/api/contact-delete/${contact.id}`, {headers: this.header});
-  }
-
-  addContactFromStudentId(id): Observable<any> {
-    return this.http.get(`/api/contact-insert/${id}`, {headers: this.header});
-  }
+  // addContactFromStudentId(id): Observable<any> {
+  //   return this.http.get(`/api/contact-insert/${id}`, {headers: this.header});
+  // }
 
   editContact(contact): Observable<any> {
     return this.http.put(`/api/contact-update`, JSON.stringify(contact), {headers: this.header});

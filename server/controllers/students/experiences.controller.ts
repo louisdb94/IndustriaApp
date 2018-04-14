@@ -8,4 +8,8 @@ import { DefaultController} from '../default.controller';
 
 export class ExperiencesController extends DefaultController {
   model = 'experiences';
+
+  deleteExperience = (req, res) => {
+    this.delete(res, this.model, 'id', req.params.id)
+  }
 }

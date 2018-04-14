@@ -152,7 +152,6 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         }
 
         const values = Array.from(params.values());
-
         return this.getConnection().then(conn => {
             if (conn) {
                 return new Promise<T>((resolve, reject) => {
@@ -178,7 +177,7 @@ export abstract class DefaultCrud<T extends DefaultModel>{
             if (conn) {
                 return new Promise<T>((resolve, reject) => {
                     return conn.query(sql, (err, result) => {
-                        return resolve(this.parseObject(result));
+                        return resolve(result);
                     });
                 });
             } else {
@@ -202,6 +201,7 @@ export abstract class DefaultCrud<T extends DefaultModel>{
             });
         });
     }
+
 
     abstract parseObject(input: any): T;
 }

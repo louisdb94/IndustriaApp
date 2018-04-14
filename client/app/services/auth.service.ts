@@ -90,6 +90,7 @@ export class AuthService {
       localStorage.setItem('token', token);
       const decodedUserStudent = this.decodeUserFromToken(token);
       this.setCurrentUser(decodedUserStudent);
+      return this.loggedIn;
     }
   }
 

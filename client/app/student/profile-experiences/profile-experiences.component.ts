@@ -29,10 +29,10 @@ export class ExperiencesProfile {
   public deleteClicked = false;
 
   registerForm: FormGroup;
-  exp1Form = new FormControl(String);
-  exp2Form = new FormControl(String);
-  exp3Form = new FormControl(String);
-  idForm = new FormControl(String);
+  function = new FormControl(String);
+  description = new FormControl(String);
+  period = new FormControl(String);
+  student_fk = new FormControl(String);
 
   experience = {};
   experiences = [];
@@ -54,10 +54,10 @@ export class ExperiencesProfile {
   ngOnInit() {
 
     this.registerForm = this.formBuilder.group({
-      exp1Form: this.exp1Form,
-      exp2Form: this.exp2Form,
-      exp3Form: this.exp3Form,
-      idForm: this.idForm,
+      function: this.function,
+      description: this.description,
+      period: this.period,
+      student_fk: this.student_fk,
     });
 
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -69,9 +69,9 @@ export class ExperiencesProfile {
   getExperiencesById(id, exp1, exp2, exp3){
     this.experienceService.getExperienceById(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.experiences = result;
-        this.lengthExperiences = Object.keys(result).length;
+        // let result = this.dataService.decryption(data);
+        this.experiences = data;
+        this.lengthExperiences = Object.keys(data).length;
         this.changeExperience(exp1, exp2, exp3);
       }
     )
@@ -100,10 +100,10 @@ export class ExperiencesProfile {
       }
     }
 
-    this.registerForm.value.exp1Form = exp1;
-    this.registerForm.value.exp2Form = exp2;
-    this.registerForm.value.exp3Form = exp3;
-    this.registerForm.value.idForm = this.id;
+    this.registerForm.value.function = exp1;
+    this.registerForm.value.description = exp2;
+    this.registerForm.value.period = exp3;
+    this.registerForm.value.student_fk = this.id;
 
     if(this.addClicked && exp1 != null && exp2 != null && exp3 != null){
       this.experienceService.addExperienceForm(this.registerForm.value).subscribe(

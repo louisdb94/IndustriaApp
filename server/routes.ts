@@ -141,12 +141,12 @@ export default function setRoutes(app) {
 
   //Experiences
   //router.route('/experiences-get/:id').get(experienceCtrl.getbyId);
-  router.route('/experiences-get/:id').get(experienceCtrl.getbyFkExperience);
-  router.route('/experiences-getall').get(experienceCtrl.select);
-  router.route('/experiences-insert').post(experienceCtrl.insert);
-  router.route('/experience-insertform').post(experienceCtrl.insertForm);
-  router.route('/experience-insert/:id').get(experienceCtrl.insertStudentFK);
-  router.route('/experiences-delete/:id').delete(experienceCtrl.delete);
+  // router.route('/experiences-get/:id').get(experienceCtrl.getbyFkExperience);
+  // router.route('/experiences-getall').get(experienceCtrl.select);
+  // router.route('/experiences-insert').post(experienceCtrl.insert);
+  // router.route('/experience-insertform').post(experienceCtrl.insertForm);
+  // router.route('/experience-insert/:id').get(experienceCtrl.insertStudentFK);
+  // router.route('/experiences-delete/:id').delete(experienceCtrl.delete);
   // router.route('/experience-update').put(experienceCtrl.updateAll);
 
 
@@ -193,14 +193,14 @@ export default function setRoutes(app) {
   // router.route('/socialmedia-update').put(socialmediaCtrl.updateAll);
 
   //Contact
-  router.route('/contact-get/:id').get(contactsCtrl.getbyId);
-  router.route('/contact-getbystudentfk/:id').get(contactsCtrl.getbyStudentId);
-  router.route('/contact-getall').get(contactsCtrl.select);
-  router.route('/contact-insert').post(contactsCtrl.insert);
-  router.route('/contact-insert/:id').get(contactsCtrl.insertStudentFK);
-  router.route('/contact-delete/:id').get(contactsCtrl.delete);
+  // router.route('/contact-get/:id').get(contactsCtrl.getbyId);
+  // router.route('/contact-getbystudentfk/:id').get(contactsCtrl.getbyStudentId);
+  // router.route('/contact-getall').get(contactsCtrl.select);
+  // router.route('/contact-insert').post(contactsCtrl.insert);
+  // router.route('/contact-insert/:id').get(contactsCtrl.insertStudentFK);
+  // router.route('/contact-delete/:id').get(contactsCtrl.delete);
   // router.route('/contact-update').put(contactsCtrl.updateAll);
-  router.route('/contact-getCounty').get(contactsCtrl.selectContact);
+  // router.route('/contact-getCounty').get(contactsCtrl.selectContact);
 
   //Companies
   router.route('/companies-get/:id').get(companiesCtrl.getbyId);
