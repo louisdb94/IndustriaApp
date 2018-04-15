@@ -177,12 +177,40 @@ export default function setRoutes2(app) {
 
 
   //COMPANIES
+  router.route('/companies-get/:id').get(companiesCtrl.getById);
+  router.route('/companies-getall').get(companiesCtrl.get);
+  router.route('/companies-insert').post(companiesCtrl.insert);
+  router.route('/companies-delete/:id').delete(companiesCtrl.delete);
+  router.route('/companies-update').put(companiesCtrl.updateById);
+  router.route('/companies-getbyemail/:email').get(companiesCtrl.getCompanyByEmail);
+  router.route('/companies-updatepriority').put(companiesCtrl.updateById);
 
   //Contact Company
   router.route('/contacts-update').put(contactCompanyCtrl.updateById);
   router.route('/contacts-getall').get(contactCompanyCtrl.get);
   router.route('/contacts-getbycompanyfk/:id').get(contactCompanyCtrl.getByCompanyFk);
   router.route('/contacts-insert').post(contactCompanyCtrl.insert);
+  //Priorities
+  router.route('/companies-priority').post(prioritiesCtrl.addPriority);
+  router.route('/companies-deletepriority/:company_fk').get(prioritiesCtrl.deletePriority);
+  router.route('/companies-getallpriorities').get(prioritiesCtrl.get);
+  router.route('/companies-updatepriorityCompany').put(prioritiesCtrl.updateById);
+
+
+  //Vacatures
+  router.route('/vacatures-get/:id').get(vacaturesCtrl.getVacatureById);
+  router.route('/vacatures-getbycompany/:id').get(vacaturesCtrl.getVacatureByCompanyFk);
+  router.route('/vacatures-getall').get(vacaturesCtrl.get);
+  router.route('/vacatures-delete/:id').delete(vacaturesCtrl.delete);
+  router.route('/vacatures-update').put(vacaturesCtrl.updateById);
+  router.route('/vacatures-insertform').post(vacaturesCtrl.insert);
+
+  // //Events
+  // router.route('/events-insert').post(eventsCtrl.insert);
+  // router.route('/events-getall').get(eventsCtrl.selectAll);
+  // router.route('/events-update').put(eventsCtrl.updateEvent);
+  // router.route('/events-delete/:id').delete(eventsCtrl.delete);
+
 
 
   // Apply the routes to our application with the prefix /api

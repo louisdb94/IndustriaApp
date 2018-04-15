@@ -4,8 +4,13 @@ import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
 import sql_users from '../../models_mysql/users';
 import * as bcrypt from 'bcryptjs';
+import * as fs from 'fs';
 import { DefaultController} from '../default.controller';
 
 export  class CompaniesController extends DefaultController {
   model = 'companies';
+
+  getCompanyByEmail = (req, res) => {
+    this.getWhere(res, 'email', req.params.email);
+  }
 }

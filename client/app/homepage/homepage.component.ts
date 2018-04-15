@@ -420,34 +420,33 @@ export class HomepageComponent implements OnInit {
     addCompanyForm.email = this.addUserForm.value.email;
     addCompanyForm.password = this.addUserForm.value.password;
 
-    let editPriority = {name: '', email: '', priority: '', id: ''};
+    let editPriority = {name: '', email: '', priority: '', user_fk: ''};
     editPriority.priority = this.addUserForm.value.priority;
     editPriority.email = this.addUserForm.value.email;
     editPriority.name = this.addUserForm.value.name;
 
-    let addPriority = {name: '', id: 0};
+    let addPriority = {name: '', company_fk: 0};
     addPriority.name = this.addUserForm.value.name
 
     this.userService.registerMysql(addCompanyForm)
         .subscribe( data =>{
-          this.companyService.addCompanyFromUserId(data.insertId)
+          editPriority.user_fk = data.insertId;
+          this.companyService.addCompanyFromUserId(editPriority)
               .subscribe(data =>{
-                let result2 = this.data.decryption(data);
-                editPriority.id = result2.insertId;
-                let company_fk = {company_fk: result2.insertId}
-                this.updatePriority(editPriority);
+                let company_fk = {company_fk: data.insertId}
                 this.companyContactService.addContactFromCompanyId(company_fk).subscribe(
                   data => {
                     this.toast.setMessage('successfully added!', 'success');
                   }
                 );
-                addPriority.id = result2.insertId;
-                this.companyService.addPrioritiesFromCompanyId(addPriority).subscribe(
-                  data => {}
-                );}
-              )
-            }
-               )
+                addPriority.company_fk = data.insertId;
+                if(editPriority.priority == "FREE"){
+                  this.companyService.addPrioritiesFromCompanyId(addPriority).subscribe(
+                    data => {}
+                  );
+                }
+              });
+            });
         this.companies.push(addCompanyForm);
   }
 
@@ -457,11 +456,17 @@ export class HomepageComponent implements OnInit {
   saveUpdatePriority(users, companies){
     for(let i = 0; i < companies.length; i++){
       if(companies[i]){
-         this.updatePriority(companies[i]);
+        let addPriority = {name: '', company_fk: 0};
+        addPriority.name = companies[i].name;
+        addPriority.company_fk = companies[i].id;
          if(companies[i].priority == "FREE"){
-           this.companyService.addPrioritiesFromCompanyId(companies[i]).subscribe();
+           this.companyService.addPrioritiesFromCompanyId(addPriority).subscribe(
+             res => {this.updatePriority(companies[i]);}
+           );
          }else{
-           this.companyService.deletePrioritiesFromCompanyId(companies[i].id).subscribe();
+           this.companyService.deletePrioritiesFromCompanyId(addPriority.company_fk).subscribe(
+             res => {this.updatePriority(companies[i]);}
+           );
          }
       }
     }
@@ -471,7 +476,7 @@ export class HomepageComponent implements OnInit {
 
   updatePriority(editPriority){
     this.companyService.editPriority(editPriority).subscribe(
-      data =>
+      data => {},
       error => console.log("error")
     );
   }
@@ -513,8 +518,7 @@ export class HomepageComponent implements OnInit {
   getPriorities(){
     this.companyService.getCompaniesPriorities().subscribe(
       data => {
-        let result = this.data.decryption(data);
-        this.priorities = result;
+        this.priorities = data;
       }
     )
   }

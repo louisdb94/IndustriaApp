@@ -75,8 +75,7 @@ export class AuthService {
     if (decodedUser.role === 'Company') {
       this.companyService.getCompanyByEmailMysql(decodedUser.email).subscribe(
         data => {
-          let result = this.dataService.decryption(data);
-          this.currentUser.companyId = result[0].id
+          this.currentUser.companyId = data[0].id
         },
         error => console.log(error)
       );

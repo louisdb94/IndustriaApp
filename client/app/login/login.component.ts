@@ -121,10 +121,9 @@ export class LoginComponent implements OnInit {
       if(params['status'] == "company"){
         this.companyService.getCompanyByEmailMysql(this.emailStudent).subscribe(
           data => {
-            let result = this.data.decryption(data);
-            if(result[0]){
-              this.id = result[0].id;
-              this.data.changeMessageId(result[0].id);
+            if(data[0]){
+              this.id = data[0].id;
+              this.data.changeMessageId(data[0].id);
 
               this.auth.login(this.loginForm.value).subscribe(
                 res => {this.navigate()},

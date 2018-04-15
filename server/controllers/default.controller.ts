@@ -55,7 +55,11 @@ export abstract class DefaultController {
 
   //Refactored insert met crud
   insert = (req, res) => {
-      const map: Map<string, string> = new Map();
+    this.insertFunction(req, res);
+  }
+
+  insertFunction(req, res){
+    const map: Map<string, string> = new Map();
       for(var key in req.body) {
           if(req.body.hasOwnProperty(key)){
             map.set(key, req.body[key])

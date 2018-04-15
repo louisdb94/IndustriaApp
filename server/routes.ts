@@ -203,35 +203,35 @@ export default function setRoutes(app) {
   // router.route('/contact-getCounty').get(contactsCtrl.selectContact);
 
   //Companies
-  router.route('/companies-get/:id').get(companiesCtrl.getbyId);
+  //router.route('/companies-get/:id').get(companiesCtrl.getbyId);
   //router.route('/companies-getall').get(companiesCtrl.select);
-  router.route('/companies-insert').post(companiesCtrl.insert);
-  router.route('/companies-insert/:id').get(companiesCtrl.insertUser);
-  router.route('/companies-delete/:id').get(companiesCtrl.delete);
-  router.route('/companies-update').put(companiesCtrl.updateAll);
+  //router.route('/companies-insert').post(companiesCtrl.insert);
+  //router.route('/companies-insert/:id').get(companiesCtrl.insertUser);
+  //router.route('/companies-delete/:id').get(companiesCtrl.delete);
+  router.route('/downloadImage-company/:id').get(companiesCtrl.download);
+  //router.route('/companies-update').put(companiesCtrl.updateAll);
   router.route('/companies-innerjoin').get(companiesCtrl.innerJoin);
   router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
-  router.route('/companies-getbyemail/:email').get(companiesCtrl.getCompanyByEmail);
-  router.route('/companies-updatepriority').put(companiesCtrl.updatePriority);
-  router.route('/companies-priority').post(companyPriorities.add_priorities);
-  router.route('/companies-deletepriority/:id').get(companyPriorities.delete_priorities);
-  router.route('/companies-getallpriorities').get(companyPriorities.select);
-  router.route('/companies-updatepriorityCompany').put(companyPriorities.updatePriority);
+  //router.route('/companies-getbyemail/:email').get(companiesCtrl.getCompanyByEmail);
+  //router.route('/companies-updatepriority').put(companiesCtrl.updatePriority);
 
-  //Refactor
-  router.route('/companies-getall').get(companiesCtrl.get);//
+  //Priorities
+  //router.route('/companies-priority').post(companyPriorities.add_priorities);
+  //router.route('/companies-deletepriority/:id').get(companyPriorities.delete_priorities);
+  //router.route('/companies-getallpriorities').get(companyPriorities.select);
+  //router.route('/companies-updatepriorityCompany').put(companyPriorities.updatePriority);
 
 
   //Vacature
-  router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyIdVacature);
-  router.route('/vacatures-getbycompany/:id').get(vacaturesCtrl.getbyCompanyId);
-  router.route('/vacatures-getall').get(vacaturesCtrl.select);
-  router.route('/vacatures-insert').post(vacaturesCtrl.insert);
-  router.route('/vacatures-insert/:id').get(vacaturesCtrl.insertCompanyFK);
-  router.route('/vacatures-delete/:id').delete(vacaturesCtrl.delete);
-  router.route('/vacatures-update').put(vacaturesCtrl.updateAll);
-  router.route('/vacatures-insertform').post(vacaturesCtrl.insertForm);
-
+  //router.route('/vacatures-get/:id').get(vacaturesCtrl.getbyIdVacature);
+  //router.route('/vacatures-getbycompany/:id').get(vacaturesCtrl.getbyCompanyId);
+  //router.route('/vacatures-getall').get(vacaturesCtrl.select);
+  //router.route('/vacatures-insert').post(vacaturesCtrl.insert);
+  //router.route('/vacatures-insert/:id').get(vacaturesCtrl.insertCompanyFK);
+  //router.route('/vacatures-delete/:id').delete(vacaturesCtrl.delete);
+  //router.route('/vacatures-update').put(vacaturesCtrl.updateAll);
+  //router.route('/vacatures-insertform').post(vacaturesCtrl.insertForm);
+  
 
   //Events
   router.route('/events-insert').post(eventsCtrl.insert);

@@ -25,17 +25,17 @@ export class VacatureService {
     return this.http.get(`/api/vacatures-getall`, {headers: this.header});
   }
 
-  addVacature(vacature): Observable<any> {
-    return this.http.post('/api/vacatures-insert', JSON.stringify(vacature), {headers: this.header});
-  }
+  // addVacature(vacature): Observable<any> {
+  //   return this.http.post('/api/vacatures-insert', JSON.stringify(vacature), {headers: this.header});
+  // }
 
   deleteVacature(id): Observable<any> {
     return this.http.delete(`/api/vacatures-delete/${id}`, {headers: this.header});
   }
 
-  addVacatureFromCompanyId(id): Observable<any> {
-    return this.http.get(`/api/vacatures-insert/${id}`, {headers: this.header});
-  }
+  // addVacatureFromCompanyId(id): Observable<any> {
+  //   return this.http.get(`/api/vacatures-insert/${id}`, {headers: this.header});
+  // }
 
   editVacature(vacature): Observable<any> {
     return this.http.put(`/api/vacatures-update`, JSON.stringify(vacature), {headers: this.header});

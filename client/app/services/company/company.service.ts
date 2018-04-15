@@ -25,24 +25,24 @@ export class CompanyService {
     return this.http.get(`/api/companies-getallpriorities`, {headers: this.header});
   }
 
-  addCompany(company): Observable<any> {
-    return this.http.post('/api/companies-insert', JSON.stringify(company), {headers: this.header});
-  }
+  // addCompany(company): Observable<any> {
+  //   return this.http.post('/api/companies-insert', JSON.stringify(company), {headers: this.header});
+  // }
 
   deleteCompany(company): Observable<any> {
-    return this.http.get(`/api/companies-delete/${company.id}`, {headers: this.header});
+    return this.http.delete(`/api/companies-delete/${company.id}`, {headers: this.header});
   }
 
-  addCompanyFromUserId(id): Observable<any> {
-    return this.http.get(`/api/companies-insert/${id}`, {headers: this.header});
+  addCompanyFromUserId(company): Observable<any> {
+    return this.http.post(`/api/companies-insert`, JSON.stringify(company), {headers: this.header});
   }
 
   addPrioritiesFromCompanyId(addPriority): Observable<any> {
     return this.http.post(`/api/companies-priority`, JSON.stringify(addPriority), {headers: this.header});
   }
 
-  deletePrioritiesFromCompanyId(id): Observable<any> {
-    return this.http.get(`/api/companies-deletepriority/${id}`, {headers: this.header});
+  deletePrioritiesFromCompanyId(company_fk): Observable<any> {
+    return this.http.get(`/api/companies-deletepriority/${company_fk}`, {headers: this.header});
   }
 
   innerJoin(id): Observable<any> {
