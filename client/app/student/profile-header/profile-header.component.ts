@@ -126,12 +126,9 @@ export class HeaderProfile implements OnInit {
       if(file.size < 2550594){
         let formData: FormData = new FormData();
         formData.append('files', file, file.name);
-
-        formData.append('students', student.rnumber);
-
+        formData.append('name', student.rnumber);
         formData.append('id', student.id);
-
-    //    let random = formData.get('students');
+        formData.append('image', '1');
 
         if(file) {
           this.fileService.uploadImage(formData).subscribe(

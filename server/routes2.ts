@@ -113,6 +113,12 @@ export default function setRoutes2(app) {
   router.route('/cv/upload').post(cvsCtrl.uploadCv);
   router.route('/download/:id').get(cvsCtrl.downloadCv);
 
+  //Image
+  router.route('/image/upload').post(imageCtrl.uploadImageStudent);
+  router.route('/image/upload-company').post(imageCtrl.uploadImageCompany);
+  router.route('/downloadImage/:id').get(imageCtrl.downloadImageStudent);
+  router.route('/downloadImage-company/:id').get(imageCtrl.downloadImageCompany);
+
   //Skills
   router.route('/skills-getalldistinct').get(skillsCtrl.selectSkill);
   router.route('/skills-getfkbyskill/:skill').get(skillsCtrl.getbySkill);
@@ -162,7 +168,7 @@ export default function setRoutes2(app) {
   router.route('/experience-insertform').post(experienceCtrl.insert);
   router.route('/experiences-delete/:id').delete(experienceCtrl.delete);
 
-  //Contact
+  //Contact Student
   router.route('/contact-update').put(contactStudentCtrl.updateById);
   router.route('/contact-getall').get(contactStudentCtrl.get);
   router.route('/contact-get/:id').get(contactStudentCtrl.getById);
@@ -172,10 +178,11 @@ export default function setRoutes2(app) {
 
   //COMPANIES
 
-  //Vacatures
-
-
-
+  //Contact Company
+  router.route('/contacts-update').put(contactCompanyCtrl.updateById);
+  router.route('/contacts-getall').get(contactCompanyCtrl.get);
+  router.route('/contacts-getbycompanyfk/:id').get(contactCompanyCtrl.getByCompanyFk);
+  router.route('/contacts-insert').post(contactCompanyCtrl.insert);
 
 
   // Apply the routes to our application with the prefix /api

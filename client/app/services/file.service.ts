@@ -16,31 +16,30 @@ export class FileService {
 
   // CV
 
-  addUpload(fileupload): Observable<any> {
-    return this.http.post('/api/upload', JSON.stringify(fileupload), this.options);
-  }
+  // addUpload(fileupload): Observable<any> {
+  //   return this.http.post('/api/upload', JSON.stringify(fileupload), this.options);
+  // }
 
-  downloadCv(cv): Observable<any> {
-    return this.http.get(`/api/download/${cv._id}`);
-  }
+  // downloadCv(cv): Observable<any> {
+  //   return this.http.get(`/api/download/${cv._id}`);
+  // }
 
-  removeCv(cv):Observable<any>{
-    return this.http.delete(`/api/cv-delete/${cv.id}`, cv);
-  }
 
   // MYSQL
 
 
-  addImage(image):Observable<any>{
-    return this.http.post('/api/image', JSON.stringify(image), this.options);
+  // addImage(image):Observable<any>{
+  //   return this.http.post('/api/image', JSON.stringify(image), this.options);
+  // }
+
+  //IMAGE
+
+  uploadImage(image):Observable<any>{
+    return this.http.post('/api/image/upload', image);
   }
 
-  getImFromStudent(id):Observable<any>{
-    return this.http.get(`/api/image/${id}`).map(res => res.json());
-  }
-
-  removeImage(image):Observable<any>{
-    return this.http.delete(`/api/image/${image._id}`, this.options);
+  uploadImageCompany(image):Observable<any>{
+    return this.http.post('/api/image/upload-company', image);
   }
 
   downloadImage(id): Observable<any> {
@@ -51,16 +50,22 @@ export class FileService {
     return this.http.get(`/api/downloadImage-company/${id}`);
   }
 
-  uploadImage(image):Observable<any>{
-    return this.http.post('/api/image/upload', image);
-  }
+  // getImFromStudent(id):Observable<any>{
+  //   return this.http.get(`/api/image/${id}`).map(res => res.json());
+  // }
 
-  uploadImageCompany(image):Observable<any>{
-    return this.http.post('/api/image/upload-company', image);
-  }
+  // removeImage(image):Observable<any>{
+  //   return this.http.delete(`/api/image/${image._id}`, this.options);
+  // }
+
+  //CV
 
   addCv(cv):Observable<any>{
     return this.http.post('/api/cv-add', JSON.stringify(cv), this.options);
+  }
+
+  removeCv(cv):Observable<any>{
+    return this.http.delete(`/api/cv-delete/${cv.id}`, cv);
   }
 
   getCvFromStudent(id):Observable<any>{

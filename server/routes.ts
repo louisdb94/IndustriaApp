@@ -208,7 +208,6 @@ export default function setRoutes(app) {
   router.route('/companies-insert').post(companiesCtrl.insert);
   router.route('/companies-insert/:id').get(companiesCtrl.insertUser);
   router.route('/companies-delete/:id').get(companiesCtrl.delete);
-  router.route('/downloadImage-company/:id').get(companiesCtrl.download);
   router.route('/companies-update').put(companiesCtrl.updateAll);
   router.route('/companies-innerjoin').get(companiesCtrl.innerJoin);
   router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
@@ -232,7 +231,7 @@ export default function setRoutes(app) {
   router.route('/vacatures-delete/:id').delete(vacaturesCtrl.delete);
   router.route('/vacatures-update').put(vacaturesCtrl.updateAll);
   router.route('/vacatures-insertform').post(vacaturesCtrl.insertForm);
-  
+
 
   //Events
   router.route('/events-insert').post(eventsCtrl.insert);
@@ -245,16 +244,15 @@ export default function setRoutes(app) {
   router.route('/privacylog-delete/:id').delete(privacylogCtrl.delete);
 
   //Contact Company
-  router.route('/contacts-get/:id').get(companyContactCtrl.getbyId);
-  router.route('/contacts-getbycompanyfk/:id').get(companyContactCtrl.getbyCompanyId);
-  router.route('/contacts-getall').get(companyContactCtrl.select);
-  router.route('/contacts-insert').post(companyContactCtrl.insert);
-  router.route('/contacts-insert/:id').get(companyContactCtrl.insertCompanyFK);
-  router.route('/contacts-delete/:id').get(companyContactCtrl.delete);
-  router.route('/contacts-update').put(companyContactCtrl.updateAll);
+  // router.route('/contacts-get/:id').get(companyContactCtrl.getbyId);
+  // router.route('/contacts-getbycompanyfk/:id').get(companyContactCtrl.getbyCompanyId);
+  // router.route('/contacts-getall').get(companyContactCtrl.select);
+  // router.route('/contacts-insert').post(companyContactCtrl.insert);
+  // router.route('/contacts-insert/:id').get(companyContactCtrl.insertCompanyFK);
+  // router.route('/contacts-delete/:id').get(companyContactCtrl.delete);
+  // router.route('/contacts-update').put(companyContactCtrl.updateAll);
 
   //
-
 
   //Requirements
   router.route('/requirements-get/:id').get(companyRequirementCtrl.getbyFkExperience);
@@ -267,14 +265,16 @@ export default function setRoutes(app) {
 
 
   // Image
-  router.route('/image').post(imageCtrl.insert);
-  router.route('/image/:id').delete(imageCtrl.delete);
+  // router.route('/image').post(imageCtrl.insert);
+  // router.route('/image/:id').delete(imageCtrl.delete);
   //upload a pdf or image
-  router.route('/image/upload').post(imageCtrl.upload);
-  router.route('/image/upload-company').post(imageCtrl.uploadCompany);
+  // router.route('/image/upload').post(imageCtrl.upload);
+  // router.route('/image/upload-company').post(imageCtrl.uploadCompany);
   //download a cv of a student
-  router.route('/downloadImage/:id').get(imageCtrl.download);
-  router.route('/image/remove/:id').post(imageCtrl.remove);
+  // router.route('/downloadImage/:id').get(imageCtrl.download);
+  // router.route('/downloadImage-company/:id').get(companiesCtrl.download);
+
+  // router.route('/image/remove/:id').post(imageCtrl.remove);
 
 
   // Students

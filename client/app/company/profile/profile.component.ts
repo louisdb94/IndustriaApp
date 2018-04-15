@@ -80,8 +80,8 @@ export class CompanyProfile implements OnInit {
   getContactById(id){
     this.companyContactService.getContactByCompanyId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.contacts = result[0];
+        // let result = this.dataService.decryption(data);
+        this.contacts = data[0];
       },
       error => console.log(error)
     )

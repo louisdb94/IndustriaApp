@@ -434,8 +434,9 @@ export class HomepageComponent implements OnInit {
               .subscribe(data =>{
                 let result2 = this.data.decryption(data);
                 editPriority.id = result2.insertId;
+                let company_fk = {company_fk: result2.insertId}
                 this.updatePriority(editPriority);
-                this.companyContactService.addContactFromCompanyId(result2.insertId).subscribe(
+                this.companyContactService.addContactFromCompanyId(company_fk).subscribe(
                   data => {
                     this.toast.setMessage('successfully added!', 'success');
                   }
