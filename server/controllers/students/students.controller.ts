@@ -31,8 +31,6 @@ deleteStudent = (req, res) => {
       });});});});});});});});});});});});
 }
 
-
-
   unlinkCV(table, name, field){
     var crud_controller = this.model + "Crud";
     this[crud_controller].getBy(table, name, field).then(result => {
@@ -42,15 +40,6 @@ deleteStudent = (req, res) => {
         }
       }
       });
-  }
-
-  deleteStudentTable(res, req, table, name, field){
-    var crud_controller = this.model + "Crud";
-    this[crud_controller].getBy(table, name, field).then(result => {
-      this.deleteById(res, 'students', 'id', req.params.student_fk);
-      this.deleteById(res, 'user', 'id', result[0].user_fk);
-      res.send("gelukt");
-    });
   }
 
   getStudentByRnumber = (req, res) => {
