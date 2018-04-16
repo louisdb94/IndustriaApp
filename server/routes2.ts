@@ -99,7 +99,7 @@ export default function setRoutes2(app) {
 
   //STUDENTS
 
-  //router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent);
+  router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent);
   router.route('/students-get/:id').get(studentsCtrl.getById);
   router.route('/students-getall').get(studentsCtrl.get);
   router.route('/students-getallid').get(studentsCtrl.get);
