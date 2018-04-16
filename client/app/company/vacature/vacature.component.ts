@@ -82,8 +82,7 @@ export class CompanyVacature implements OnInit {
   getContactByCompanyId(id){
     this.companyContactService.getContactByCompanyId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.contacts = result[0];
+        this.contacts = data[0];
       },
       error => console.log(error)
     )

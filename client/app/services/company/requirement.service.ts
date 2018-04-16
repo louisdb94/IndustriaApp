@@ -20,16 +20,8 @@ export class CompanyRequirementService {
     return this.http.get(`/api/requirements-getall`, {headers: this.header});
   }
 
-  addExperience(education): Observable<any> {
-    return this.http.post('/api/requirements-insert', JSON.stringify(education), {headers: this.header});
-  }
-
   deleteRequirement(id): Observable<any> {
     return this.http.delete(`/api/requirements-delete/${id}`, {headers: this.header});
-  }
-
-  addRequirementFromCompanyId(id): Observable<any> {
-    return this.http.get(`/api/requirements-insert/${id}`, {headers: this.header});
   }
 
   addRequirementForm(form): Observable<any> {

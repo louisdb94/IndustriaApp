@@ -1,13 +1,22 @@
 import { pool } from '../../app';
+import * as nodemailer from 'nodemailer';
 import * as  mysql from 'mysql';
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import { DefaultController} from '../default.controller';
 
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'bedrijvenrelaties2018@gmail.com',
+        pass: 'Industria2018'
+    }
+});
+
 export class UsersController extends DefaultController {
 
-  model = 'user';
+    model = 'user';
 
   // REFACTORED
   login = (req, res, next) => {
@@ -67,4 +76,45 @@ export class UsersController extends DefaultController {
   getAdmins = (req, res) => {
       this.getWhere(res, 'admin', '1');
   }
+
+  sendMail = (req, res) => {
+      var crud_controller = this.model + "Crud";
+      this[crud_controller].getBy(this.model, 'email', req.params.email).then(result => {
+        if (result.length > 0) {
+            this.sendMailBackEnd(result, req, res);
+        }
+        res.status(200).json( result );
+      });
+  }
+
+  sendMailBackEnd(user, req, res){
+    console.log("user: ", user);
+    const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
+
+    // const mailOptions = {
+    //     from: 'bedrijvenrelaties2018@gmail.com', // sender address
+    //     to: req.params.email, // list of receivers
+    //     subject: 'Password reset', // Subject line
+    //     html: 'Dear user, you can set your new password via this link:  ' +
+    //         'https://bedrijvenrelaties-industria.be/sendmail/' + token// plain text body
+    // };
+
+    const mailOptions = {
+        from: 'bedrijvenrelaties2018@gmail.com', // sender address
+        to: req.params.email, // list of receivers
+        subject: 'Password reset', // Subject line
+        html: 'Dear user, you can set your new password via this link:  ' +
+            'http://localhost:4200/sendmail/' + token// plain text body
+    };
+
+    transporter.sendMail(mailOptions, function (mailerr, info) {
+        if (mailerr) {
+            console.log(mailerr);
+        } else {
+            console.log(info);
+        }
+    });
+    res.status(200).json({ token: token });
+    }
+    
 }

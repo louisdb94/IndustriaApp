@@ -205,7 +205,7 @@ export class HomepageComponent implements OnInit {
           title: 'New event',
           start: startOfDay(new Date()),
           end: endOfDay(new Date()),
-          color: colors.red,
+          color: null,
         });
 
         this.eventIndustria.push(this.cols);
@@ -215,7 +215,7 @@ export class HomepageComponent implements OnInit {
         this.eventIndustria[0].end =  this.events[this.events.length - 1].end;
         this.eventIndustria[0].color =  this.events[this.events.length - 1].color;
 
-        this.eventsService.insertEvent(this.eventIndustria).subscribe(
+        this.eventsService.insertEvent(this.eventIndustria[0]).subscribe(
           data => {}
         );
 
@@ -230,7 +230,7 @@ export class HomepageComponent implements OnInit {
         this.eventIndustria[0].title =  event.title;
         this.eventIndustria[0].start = event.start;
         this.eventIndustria[0].end =  event.end;
-        this.eventIndustria[0].color =  event.color;
+        this.eventIndustria[0].color =  null;
 
 
         this.eventsService.editEvent(this.eventIndustria[0]).subscribe(

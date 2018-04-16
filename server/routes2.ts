@@ -95,6 +95,7 @@ export default function setRoutes2(app) {
   router.route('/resetpass').put(usersCtrl.updatePassword);
   router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
   router.route('/user-getadmin').get(usersCtrl.getAdmins);
+  router.route('/sendmail/:email').get(usersCtrl.sendMail);
 
 
   //STUDENTS
@@ -207,11 +208,22 @@ export default function setRoutes2(app) {
   router.route('/vacatures-update').put(vacaturesCtrl.updateById);
   router.route('/vacatures-insertform').post(vacaturesCtrl.insert);
 
-  // //Events
-  // router.route('/events-insert').post(eventsCtrl.insert);
-  // router.route('/events-getall').get(eventsCtrl.selectAll);
-  // router.route('/events-update').put(eventsCtrl.updateEvent);
-  // router.route('/events-delete/:id').delete(eventsCtrl.delete);
+  //Events
+  router.route('/events-insert').post(eventsCtrl.insert);
+  router.route('/events-getall').get(eventsCtrl.get);
+  router.route('/events-update').put(eventsCtrl.updateById);
+  router.route('/events-delete/:id').delete(eventsCtrl.delete);
+
+  //PrivacyLog
+  router.route('/privacylog-insert').post(privacylogCtrl.insert);
+  router.route('/privacylog-delete/:id').delete(privacylogCtrl.delete);
+
+  //Requirements
+  router.route('/requirements-get/:id').get(requirementsCtrl.getRequirementByVacature);
+  router.route('/requirements-getall').get(requirementsCtrl.get);
+  router.route('/requirements-insertform').post(requirementsCtrl.insert);
+  router.route('/requirements-delete/:id').delete(requirementsCtrl.delete);
+  router.route('/requirements-update').put(requirementsCtrl.updateById);
 
 
 

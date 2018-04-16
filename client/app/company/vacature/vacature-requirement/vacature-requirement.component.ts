@@ -25,8 +25,8 @@ export class CompanyRequirementVacature {
   public deleteClicked = false;
 
   registerForm: FormGroup;
-  req1Form = new FormControl(String);
-  idForm = new FormControl(String);
+  name = new FormControl(String);
+  vacatures_fk = new FormControl(String);
 
   requirement = {};
   requirements = [];
@@ -46,8 +46,8 @@ export class CompanyRequirementVacature {
   ngOnInit() {
 
     this.registerForm = this.formBuilder.group({
-      req1Form: this.req1Form,
-      idForm: this.idForm,
+      name: this.name,
+      vacatures_fk: this.vacatures_fk,
     });
 
     this.getRequirementsById(this.vacature.id, null);
@@ -71,17 +71,17 @@ export class CompanyRequirementVacature {
 
   save(vacature, requirements, req1){
 
-    for(let i = 0; i < this.requirements.length; i++){
-      if(this.requirements[i]){
-        this.companyRequirementService.editRequirements(requirements[i]).subscribe(
+    for(let requirement of requirements){
+      if(requirement){
+        this.companyRequirementService.editRequirements(requirement).subscribe(
           res => {},
           error => console.log(error)
         );
       }
     }
 
-    this.registerForm.value.req1Form = req1;
-    this.registerForm.value.idForm = this.vacature.id;
+    this.registerForm.value.name = req1;
+    this.registerForm.value.vacatures_fk = this.vacature.id;
 
     if(this.addClicked && req1 != null){
       this.companyRequirementService.addRequirementForm(this.registerForm.value).subscribe(

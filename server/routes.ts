@@ -234,14 +234,14 @@ export default function setRoutes(app) {
 
 
   //Events
-  router.route('/events-insert').post(eventsCtrl.insert);
-  router.route('/events-getall').get(eventsCtrl.selectAll);
-  router.route('/events-update').put(eventsCtrl.updateEvent);
-  router.route('/events-delete/:id').delete(eventsCtrl.delete);
+  //router.route('/events-insert').post(eventsCtrl.insert);
+  //router.route('/events-getall').get(eventsCtrl.selectAll);
+  //router.route('/events-update').put(eventsCtrl.updateEvent);
+  //router.route('/events-delete/:id').delete(eventsCtrl.delete);
 
   //Privacylog
-  router.route('/privacylog-insert').post(privacylogCtrl.insertPrivacylog);
-  router.route('/privacylog-delete/:id').delete(privacylogCtrl.delete);
+  //router.route('/privacylog-insert').post(privacylogCtrl.insertPrivacylog);
+  //router.route('/privacylog-delete/:id').delete(privacylogCtrl.delete);
 
   //Contact Company
   // router.route('/contacts-get/:id').get(companyContactCtrl.getbyId);
@@ -255,13 +255,13 @@ export default function setRoutes(app) {
   //
 
   //Requirements
-  router.route('/requirements-get/:id').get(companyRequirementCtrl.getbyFkExperience);
-  router.route('/requirements-getall').get(companyRequirementCtrl.select);
-  router.route('/requirements-insert').post(companyRequirementCtrl.insert);
-  router.route('/requirements-insertform').post(companyRequirementCtrl.insertForm);
-  router.route('/requirements-insert/:id').get(companyRequirementCtrl.insertVacatureFK);
-  router.route('/requirements-delete/:id').delete(companyRequirementCtrl.delete);
-  router.route('/requirements-update').put(companyRequirementCtrl.updateAll);
+  //router.route('/requirements-get/:id').get(companyRequirementCtrl.getbyFkExperience);
+  //router.route('/requirements-getall').get(companyRequirementCtrl.select);
+  //router.route('/requirements-insert').post(companyRequirementCtrl.insert);
+  //router.route('/requirements-insertform').post(companyRequirementCtrl.insertForm);
+  //router.route('/requirements-insert/:id').get(companyRequirementCtrl.insertVacatureFK);
+  //router.route('/requirements-delete/:id').delete(companyRequirementCtrl.delete);
+  //router.route('/requirements-update').put(companyRequirementCtrl.updateAll);
 
 
   // Image
@@ -297,7 +297,7 @@ export default function setRoutes(app) {
   router.route('/user/:id').delete(userCtrl.delete);
 
   //sendmail
-  router.route('/sendmail/:email').get(sendmail.mailToken);
+  //router.route('/sendmail/:email').get(sendmail.mailToken);
 
 
 
