@@ -93,7 +93,7 @@ export default function setRoutes(app) {
   //router.route('/users-getbyrnumber/:rnumber').get(usersCtrl.getByRnumber);
   //router.route('/resetpass').put(usersCtrl.resetPass);
   // router.route('/delete-student/:student_fk').get(usersCtrl.deleteStudent);
-  router.route('/delete-company').post(usersCtrl.deleteCompany);
+  // router.route('/delete-company').post(usersCtrl.deleteCompany);
   //router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
   //router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
@@ -208,7 +208,7 @@ export default function setRoutes(app) {
   //router.route('/companies-insert').post(companiesCtrl.insert);
   //router.route('/companies-insert/:id').get(companiesCtrl.insertUser);
   //router.route('/companies-delete/:id').get(companiesCtrl.delete);
-  router.route('/downloadImage-company/:id').get(companiesCtrl.download);
+  // router.route('/downloadImage-company/:id').get(companiesCtrl.download);
   //router.route('/companies-update').put(companiesCtrl.updateAll);
   router.route('/companies-innerjoin').get(companiesCtrl.innerJoin);
   router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);

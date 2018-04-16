@@ -13,4 +13,14 @@ export  class CompaniesController extends DefaultController {
   getCompanyByEmail = (req, res) => {
     this.getWhere(res, 'email', req.params.email);
   }
+
+  deleteCompany = (req, res) => {
+    var crud_controller = this.model + "Crud";
+        this[crud_controller].delete('vacatures', 'company_fk', req.body.id).then(result => {
+        this[crud_controller].delete('contact_company', 'company_fk', req.body.id).then(result => {
+        this[crud_controller].delete('companies', 'id', req.body.id).then(result => {
+        this[crud_controller].delete('user', 'id', req.body.user_fk).then(result => {
+        res.send("deleted");
+        });});});});
+  }
 }
