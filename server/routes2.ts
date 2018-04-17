@@ -94,7 +94,7 @@ export default function setRoutes2(app) {
   router.route('/users-login').post(usersCtrl.login);
   router.route('/resetpass').put(usersCtrl.updatePassword);
   router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
-  router.route('/user-getadmin').get(usersCtrl.getAdmins);
+  // router.route('/user-getadmin').get(usersCtrl.getAdmins);
   router.route('/sendmail/:email').get(usersCtrl.sendMail);
   router.route('/encrypt').get(usersCtrl.encrypt);
   router.route('/encrypt2').get(usersCtrl.encrypt2);

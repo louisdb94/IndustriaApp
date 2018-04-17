@@ -1,16 +1,17 @@
 import * as express from 'express';
-
-import UsersCtrl from './controllers_mysql/users';
-
-var VerifyToken = require('./auth/verify-token');
+import {UsersController} from './controllers/users/users.controller';
+import {Authorization} from './auth/verify-token';
 
 export default function setRoutes(app) {
   const router = express.Router();
 
-  const usersCtrl = new UsersCtrl();
+  const usersCtrl = new UsersController();
+  const authorization = new Authorization();
 
   router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
   // Apply the routes to our application with the prefix /api
-  app.use('/api', VerifyToken, router);
+  app.use('/api', authorization.checkAccess, authorization.verifyToken , router);
+
+
 }
