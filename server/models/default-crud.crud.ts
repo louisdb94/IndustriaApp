@@ -120,7 +120,6 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         }
 
         sql += ` WHERE ${column_name} = ${whereId}`;
-
         const values = Array.from(params.values());
 
         return this.getConnection().then(conn => {
@@ -191,9 +190,9 @@ export abstract class DefaultCrud<T extends DefaultModel>{
                 if (error) {
                     if (pool._freeConnections.indexOf(connection) === -1) {
                         connection.release();
+                        throw error;
                     }
                     reject(error);
-                    // throw error;
                 }
                 connection.release();
                 return resolve(connection);

@@ -45,4 +45,5 @@ deleteStudent = (req, res) => {
   getStudentByRnumber = (req, res) => {
     this.getWhere(res, 'rnumber', req.params.rnumber);
   }
+
 }
