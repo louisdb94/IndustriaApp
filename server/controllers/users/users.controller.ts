@@ -18,7 +18,25 @@ export class UsersController extends DefaultController {
 
     model = 'user';
 
-  // REFACTORED
+    //Refactored select met crud
+    get = (req, res) => {
+        var crud_controller = this.model + "Crud";
+        this[crud_controller].get().then(result => {
+            for(let item of result){
+              item.password = null;
+            }
+            res.status(200).json(result );
+        });
+    }
+
+    getById = (req, res) => {
+      var crud_controller = this.model + "Crud";
+      this[crud_controller].getBy(this.model, 'id' ,req.params.id).then(result => {
+          result[0].password = null;
+          res.status(200).json( result );
+      });
+    }
+
   login = (req, res, next) => {
 
       var crud_controller = this.model + "Crud";
