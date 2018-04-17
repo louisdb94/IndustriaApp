@@ -89,8 +89,9 @@ app.use((err, req, res, next) => {
 //     });
 // });
 
-
-
+app.get('/encrypt', (req, res) => {
+  const sql = `SELECT * FROM user `
+})
 
 setRoutes(app);
 setRoutes2(app);

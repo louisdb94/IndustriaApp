@@ -186,7 +186,7 @@ export default function setRoutes2(app) {
   router.route('/companies-getbyemail/:email').get(companiesCtrl.getCompanyByEmail);
   router.route('/companies-updatepriority').put(companiesCtrl.updateById);
   router.route('/delete-company').post(companiesCtrl.deleteCompany);
-
+  router.route('/companies-innerjoin').get(companiesCtrl.innerJoinCompany);
 
   //Contact Company
   router.route('/contacts-update').put(contactCompanyCtrl.updateById);

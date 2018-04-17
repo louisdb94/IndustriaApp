@@ -116,9 +116,9 @@ export default function setRoutes(app) {
   // router.route('/student-delete/:id').get(studentsCtrl.delete);
   //router.route('/student-getbyrnumber/:rnumber').get(studentsCtrl.getStudentByRnumber);
   //router.route('/student-update').put(studentsCtrl.updateAll);
-  router.route('/innerjoin/:id').get(studentsCtrl.innerjoin);
-  router.route('/inner').get(studentsCtrl.inner);
-  router.route('/innertje').get(studentsCtrl.innertje);
+  // router.route('/innerjoin/:id').get(studentsCtrl.innerjoin);
+  // router.route('/inner').get(studentsCtrl.inner);
+  // router.route('/innertje').get(studentsCtrl.innertje);
 
   //Cvs
   //router.route('/cv-add').post(cvsCtrl.addCv);
@@ -210,8 +210,7 @@ export default function setRoutes(app) {
   //router.route('/companies-delete/:id').get(companiesCtrl.delete);
   // router.route('/downloadImage-company/:id').get(companiesCtrl.download);
   //router.route('/companies-update').put(companiesCtrl.updateAll);
-  router.route('/companies-innerjoin').get(companiesCtrl.innerJoin);
-  router.route('/companies-innerJoin/:id').get(companiesCtrl.innerJoin);
+  // router.route('/companies-innerjoin').get(companiesCtrl.innerJoin);
   //router.route('/companies-getbyemail/:email').get(companiesCtrl.getCompanyByEmail);
   //router.route('/companies-updatepriority').put(companiesCtrl.updatePriority);
 
@@ -277,24 +276,24 @@ export default function setRoutes(app) {
   // router.route('/image/remove/:id').post(imageCtrl.remove);
 
 
-  // Students
-  router.route('/students').get(studentCtrl.getAll);
-  router.route('/students/count').get(studentCtrl.count);
-  router.route('/student').post(studentCtrl.insert);
-  router.route('/student/:id').get(studentCtrl.get);
-  router.route('/student/:id').put(studentCtrl.update);
-  router.route('/student/:id').delete(studentCtrl.delete);
-
-
-  // Users
-  router.route('/login').post(userCtrl.login);
-  router.route('/users').get(userCtrl.getAll);
-  router.route('/users/count').get(userCtrl.count);
-  router.route('/user').post(userCtrl.insert);
-  //router.route('/user/:id').get(userCtrl.get);
-  router.route('/user/:rnumber').get(userCtrl.getByRnumber);
-  router.route('/user/:id').put(userCtrl.update);
-  router.route('/user/:id').delete(userCtrl.delete);
+  // // Students
+  // router.route('/students').get(studentCtrl.getAll);
+  // router.route('/students/count').get(studentCtrl.count);
+  // router.route('/student').post(studentCtrl.insert);
+  // router.route('/student/:id').get(studentCtrl.get);
+  // router.route('/student/:id').put(studentCtrl.update);
+  // router.route('/student/:id').delete(studentCtrl.delete);
+  //
+  //
+  // // Users
+  // router.route('/login').post(userCtrl.login);
+  // router.route('/users').get(userCtrl.getAll);
+  // router.route('/users/count').get(userCtrl.count);
+  // router.route('/user').post(userCtrl.insert);
+  // //router.route('/user/:id').get(userCtrl.get);
+  // router.route('/user/:rnumber').get(userCtrl.getByRnumber);
+  // router.route('/user/:id').put(userCtrl.update);
+  // router.route('/user/:id').delete(userCtrl.delete);
 
   //sendmail
   //router.route('/sendmail/:email').get(sendmail.mailToken);

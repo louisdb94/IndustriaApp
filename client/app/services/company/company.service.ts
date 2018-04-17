@@ -45,10 +45,6 @@ export class CompanyService {
     return this.http.get(`/api/companies-deletepriority/${company_fk}`, {headers: this.header});
   }
 
-  innerJoin(id): Observable<any> {
-    return this.http.get(`/api/companies-innerJoin/${id}`, {headers: this.header});
-  }
-
   editCompany(company): Observable<any> {
     return this.http.put(`/api/companies-update`, JSON.stringify(company), {headers: this.header});
   }

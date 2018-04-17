@@ -75,7 +75,7 @@ export class StudentListComponent implements OnInit {
     if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
       this.auth.loginStudent(localStorage.getItem('token'));
     }
-    
+
     this.getStudents();
     this.getStudentsIds();
     this.getSkills();
@@ -338,10 +338,10 @@ export class StudentListComponent implements OnInit {
       if (skill != "") {
         this.professionalService.getFkbySkill(skill).subscribe(
           data => {
-            let result = this.dataService.decryption(data);
-            for (let i = 0; i < result.length; i++) {
-              this.profskillFk.push(result[i]);
-              this.fk_list.push(result[i].student_fk);
+            // let result = this.dataService.decryption(data);
+            for (let i = 0; i < data.length; i++) {
+              this.profskillFk.push(data[i]);
+              this.fk_list.push(data[i].student_fk);
             }
             this.noDupe = Array.from(new Set(this.fk_list));
           },
@@ -383,10 +383,10 @@ export class StudentListComponent implements OnInit {
       if (type != "") {
         this.languageService.getFkbyLang(type).subscribe(
           data => {
-            let result = this.dataService.decryption(data);
-            for (let i = 0; i < result.length; i++) {
-              this.languageFk.push(result[i]);
-              this.fk_list.push(result[i].student_fk);
+            // let result = this.dataService.decryption(data);
+            for (let i = 0; i < data.length; i++) {
+              this.languageFk.push(data[i]);
+              this.fk_list.push(data[i].student_fk);
             }
             this.noDupe = Array.from(new Set(this.fk_list));
           },
@@ -471,16 +471,6 @@ export class StudentListComponent implements OnInit {
       error => console.error
     );
   }
-
-  // innerjoin() {
-
-  //   for (let id of this.ids) {
-  //     this.http.get(`/api/innerjoin/${id.id}`).subscribe(
-  //       data => { this.studentjes += data, console.log(data) },
-  //       error => { console.log("gelukt") }
-  //     )
-  //   }
-  // }
 
 
 }

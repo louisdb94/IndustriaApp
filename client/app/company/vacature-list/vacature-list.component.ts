@@ -43,7 +43,7 @@ export class VacatureListComponent implements OnInit {
       if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
         this.auth.loginStudent(localStorage.getItem('token'));
       }
-      
+
       this.getinnerjoin();
       this.getCompanies();
     }
@@ -79,10 +79,10 @@ export class VacatureListComponent implements OnInit {
     getinnerjoin(){
       this.companyService.getinnerjoin().subscribe(
         data => {
-          let result = this.dataService.decryption(data);
-          for(let i =0; i< result.length ; i++){
-            if(result[i].vacature_name != ""){
-              this.vacatures.push(result[i]);
+          // let result = this.dataService.decryption(data);
+          for(let i =0; i< data.length ; i++){
+            if(data[i].vacature_name != ""){
+              this.vacatures.push(data[i]);
             }
           }},
         error => console.log(error)

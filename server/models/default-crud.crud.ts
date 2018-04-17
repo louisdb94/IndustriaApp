@@ -201,6 +201,30 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         });
     }
 
+    public innerjoin(table_name: string): Promise<T[]> {
+      let sql = `SELECT ??, ?? AS ??, ??, ?? AS ??, ?? AS ??, ?? FROM ?? INNER JOIN ?? ON ?? = ?`;
+      const insert = ['companies.id', 'companies.name', 'company_name', 'companies.url', 'vacatures.id', 'vacature_id', 'vacatures.name', 'vacature_name',
+                      'vacatures.type', table_name, 'vacatures', 'companies.id', 'vacatures.company_fk'];
+      sql = mysql.format(sql, insert);
+
+        return this.getConnection().then(conn => {
+            if (conn) {
+              return new Promise<T[]>((resolve, reject) => {
+                  return conn.query(sql, (err, result) => {
+                      const resultObjects: T[] = [];
+
+                      for (const row of result) {
+                          resultObjects.push(this.parseObject(row));
+                      }
+                      return resolve(resultObjects);
+                  });
+              });
+            } else {
+                Promise.reject('Could not create connection');
+            }
+        });
+    }
+
 
     abstract parseObject(input: any): T;
 }

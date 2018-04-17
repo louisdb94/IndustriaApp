@@ -23,4 +23,16 @@ export  class CompaniesController extends DefaultController {
         res.send("deleted");
         });});});});
   }
+
+  innerJoinCompany = (req, res) => {
+    var crud_controller = this.model + "Crud";
+    this[crud_controller].innerjoin(this.model).then(result => {
+      for (let i = 0; i < result.length; i++) {
+
+        if (result[i].vacature_name === '') {
+          result.splice(i, 1);
+        }
+      }
+    })
+  }
 }
