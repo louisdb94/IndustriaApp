@@ -13,6 +13,8 @@ import { HttpClient } from '@angular/common/http';
 import { AccordionModule } from 'primeng/primeng';
 import { AuthService } from '../../services/auth.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
+import { ParametersService } from "../../services/admin/parameters.service";
+
 
 import { Subject } from 'rxjs/Subject';
 
@@ -40,6 +42,7 @@ export class StudentListComponent implements OnInit {
     private cvsService: CvsService,
     private contactService: ContactService,
     public companyService: CompanyService,
+    private paramService : ParametersService,
     private http: HttpClient,
     public auth: AuthService,
     private dataService: DataService,
@@ -63,6 +66,7 @@ export class StudentListComponent implements OnInit {
   public searchSkill: any;
   public searchProf: any;
   public searchLang: any;
+  public searchDegrees: any;
   public priority: any;
   public company: any;
 
@@ -81,12 +85,25 @@ export class StudentListComponent implements OnInit {
     this.getSkills();
     this.getLanguages();
     this.getProffskills();
+    this.getParameters();
     // this.getCounty();
 
     if(this.auth.currentUser.role == "Company"){
       this.getCompanyById(this.auth.currentUser);
     }
 
+  }
+  degrees = [];
+
+  getParameters(){
+    this.paramService.getParametersByAdmin().subscribe(
+      data => {for(let item of data){
+        if(item.parameter == "degree"){
+          this.degrees.push(item.value);
+        }}
+      },
+      error => {console.log(error)}
+    );
   }
 
   getCompanyById(currentUser){
@@ -321,6 +338,8 @@ export class StudentListComponent implements OnInit {
       this.noDupe = Array.from(new Set(this.fk_list));
     }
   }
+
+  inputDegreeCheck(e, degree){}
 
 
 

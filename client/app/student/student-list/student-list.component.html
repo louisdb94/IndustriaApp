@@ -127,6 +127,34 @@
             </div>
           </div>
         </div>
+        <div class="card">
+          <div class="card-header" role="tab" id="headingFour">
+            <h5 class="mb-0">
+              <a translate data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                Degrees
+              </a>
+            </h5>
+          </div>
+
+          <div id="collapseFour" class="collapse show" role="tabpanel" aria-labelledby="headingFour">
+            <div class="card-block table-responsive">
+
+              <input style="float:left; width:100%; margin-bottom: 10px" type="text" class="form-control" id="filterDegrees" placeholder="Filter"
+                [(ngModel)]="searchDegrees">
+              <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 110px; width:200px">
+                <!-- <ol class="form-check-label" *ngFor="let item of degrees | FilterDegrees : searchDegrees  " type="A"> -->
+                  <ol class="form-check-label" *ngFor="let item of degrees " type="A">
+
+                  <li>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (change)="inputDegreeCheck($event,item)">
+                    <span> {{item}} </span>
+                  </li>
+                </ol>
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

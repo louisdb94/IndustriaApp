@@ -57,7 +57,6 @@ export abstract class DefaultController {
 
   //Refactored insert met crud
   insert = (req, res) => {
-  console.log(req.body);
     this.insertFunction(req, res);
   }
 

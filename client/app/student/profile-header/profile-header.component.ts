@@ -3,6 +3,7 @@ import { StudentService } from '../../services/student.service';
 import { SocialmediaService } from '../../services/socialmedia.service';
 import { FileService } from '../../services/file.service';
 import { DataService } from '../../services/data.service';
+import { ParametersService } from "../../services/admin/parameters.service";
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, NgModelGroup, NgForm } from '@angular/forms';
@@ -59,6 +60,7 @@ export class HeaderProfile implements OnInit {
                 public dataService: DataService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
+                private paramService : ParametersService,
                 private http: HttpClient,
                 public sanitizer: DomSanitizer,
                 private formBuilder: FormBuilder,
@@ -81,8 +83,22 @@ export class HeaderProfile implements OnInit {
       this.getCvFromStudent(this.student_id);
       this.downloadImage(this.student_id);
       this.getSocialMediaById(this.student_id);
+      this.getParameters();
       this.files = [];
     });
+  }
+
+  degrees = [];
+
+  getParameters(){
+    this.paramService.getParametersByAdmin().subscribe(
+      data => {for(let item of data){
+        if(item.parameter == "degree"){
+          this.degrees.push(item.value);
+        }}
+      },
+      error => {console.log(error)}
+    );
   }
 
   getSocialMediaById(id){
@@ -118,6 +134,8 @@ export class HeaderProfile implements OnInit {
       }
     }
   }
+
+
 
   fileChangeListener($event, student) {
 
