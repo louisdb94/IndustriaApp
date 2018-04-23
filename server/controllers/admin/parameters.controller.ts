@@ -3,5 +3,9 @@ import * as  mysql from 'mysql';
 import { DefaultController} from '../default.controller';
 
 export  class ParametersController extends DefaultController {
-  model = 'events';
+  model = 'parameters';
+
+  getByAdmin = (req, res) => {
+    this.getWhere(res, 'role', 'admin');
+  }
 }

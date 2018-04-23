@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FileService} from '../services/file.service';
 import { EventsService } from "../services/admin/events.service";
+import { ParametersService } from "../services/admin/parameters.service";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -94,6 +95,11 @@ export class HomepageComponent implements OnInit {
   admin = new FormControl('1');
   admin_email = new FormControl('', Validators.required);
 
+  parameters = [];
+  addParamForm: FormGroup;
+  parameter = new FormControl('', Validators.required);
+  value = new FormControl('', Validators.required);
+  user_fk = new FormControl('', Validators.required);
 
   constructor(private studentService: StudentService,
     private data: DataService,
@@ -103,6 +109,7 @@ export class HomepageComponent implements OnInit {
     private vacatureService : VacatureService,
     private companyContactService : CompanyContactService,
     private eventsService : EventsService,
+    private paramService : ParametersService,
     private fileService : FileService,
     private http: HttpClient,
     public auth: AuthService,
@@ -125,6 +132,7 @@ export class HomepageComponent implements OnInit {
   this.getStudentsMysql();
   this.getAdmins();
   this.getUsers();
+  this.getParameters();
 
   this.addUserForm = this.formBuilder.group({
   email: this.email,
@@ -137,6 +145,13 @@ export class HomepageComponent implements OnInit {
   this.addAdminForm = this.formBuilder.group({
   email: this.admin_email,
   admin: this.admin,
+  });
+
+  this.addParamForm = this.formBuilder.group({
+  parameter: this.parameter,
+  value: this.value,
+  user_fk: this.user_fk,
+  role: this.role
   });
 
   this.data.idMessage.subscribe(message => this.messageId = message);
@@ -287,6 +302,22 @@ export class HomepageComponent implements OnInit {
 
   switchLanguage(language) {
     this.translate.use(language);
+  }
+
+  getParameters(){
+    this.paramService.getParametersByAdmin().subscribe(
+      data => {this.parameters = data;},
+      error => console.log(error)
+    );
+  }
+
+  addParam(AddParamForm){
+    this.addParamForm.value.user_fk = this.auth.currentUser.id;
+    this.addParamForm.value.role = "admin";
+    this.addParamForm.value.value = AddParamForm.value;
+    this.addParamForm.value.parameter = AddParamForm.parameter;
+
+    this.paramService.addParam(this.addParamForm.value).subscribe();
   }
 
   getCompanies(){

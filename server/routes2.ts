@@ -202,6 +202,10 @@ export default function setRoutes2(app) {
   router.route('/requirements-delete/:id').delete(requirementsCtrl.delete);
   router.route('/requirements-update').put(requirementsCtrl.updateById);
 
+  //Parameters
+  router.route('/parameters-getparamsbyadmin').get(parametersCtrl.getByAdmin);
+  router.route('/parameters-add').post(parametersCtrl.insert);
+
 
 
   // Apply the routes to our application with the prefix /api

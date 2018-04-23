@@ -8,4 +8,5 @@ import { DefaultController} from '../default.controller';
 
 export  class PrivacylogController extends DefaultController {
   model = 'privacylog';
+
 }

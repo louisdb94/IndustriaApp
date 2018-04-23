@@ -21,7 +21,7 @@ import { CompanyService } from './services/company/company.service';
 import { VacatureService } from './services/company/vacature.service';
 import { EventsService } from './services/admin/events.service';
 import { PrivacylogService } from './services/admin/privacylog.service';
-
+import { ParametersService } from './services/admin/parameters.service';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -192,6 +192,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     VacatureService,
     EventsService,
     PrivacylogService,
+    ParametersService,
     MailService,
     {
       provide: HTTP_INTERCEPTORS,
