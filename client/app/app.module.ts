@@ -94,6 +94,8 @@ import { FilterSkill } from './pipes/filterSkill.pipe';
 import { FilterProfessional } from './pipes/filterProfessional.pipe';
 import { FilterLanguage } from './pipes/filterLanguage.pipe';
 import { FilterVacature } from './pipes/filterVacatures.pipe';
+import { FilterDegree } from './pipes/filterDegree.pipe';
+
 
 import { ScrollToModule } from 'ng2-scroll-to';
 import { RequestInterceptorService } from './services/request-interceptor.service';
@@ -148,7 +150,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterSkill,
     FilterProfessional,
     FilterLanguage,
-    FilterVacature
+    FilterVacature,
+    FilterDegree
 
   ],
   imports: [

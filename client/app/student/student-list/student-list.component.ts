@@ -19,6 +19,7 @@ import { ParametersService } from "../../services/admin/parameters.service";
 import { Subject } from 'rxjs/Subject';
 
 import { FilterPipe } from '../../pipes/student-list.pipe';
+import { FilterDegree } from '../../pipes/filterDegree.pipe';
 import { FilterSkill } from '../../pipes/filterSkill.pipe';
 import { FilterProfessional } from '../../pipes/filterProfessional.pipe';
 import { FilterLanguage } from '../../pipes/filterLanguage.pipe';
@@ -29,7 +30,7 @@ import { JwtHelper } from 'angular2-jwt';
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.scss'],
-  providers: [FilterPipe, FilterSkill, FilterProfessional, FilterLanguage]
+  providers: [FilterPipe, FilterSkill, FilterProfessional, FilterLanguage, FilterDegree]
 
 })
 export class StudentListComponent implements OnInit {
@@ -296,15 +297,12 @@ export class StudentListComponent implements OnInit {
 
   //keep track of what a person checks -> by checking a skill, the student_fk
   //  is stored inside skillFk[]
-  // checkedSkill keeps track of how many skills there are checked
   skillFk = [];
   skillsChecked = [];
   fk_list = [];
-  checkedSkill = 0;
   noDupe = [];
   inputSkillCheck(e, skill) {
     if (e.target.checked) {
-      this.checkedSkill++;
       this.skillsChecked[this.skillsChecked.length] = skill;
       if (skill != "") {
         this.skillService.getFkbySkill(skill).subscribe(
@@ -320,7 +318,6 @@ export class StudentListComponent implements OnInit {
       }
     }
     else {
-      this.checkedSkill--;
       for (let i = 0; i < this.skillsChecked.length; i++) {
         if (this.skillsChecked[i] == skill) {
           this.skillsChecked.splice(i, 1);
@@ -339,20 +336,12 @@ export class StudentListComponent implements OnInit {
     }
   }
 
-  inputDegreeCheck(e, degree){}
-
-
-
-
   //keep track of what a person checks -> by checking a skill, the student_fk
   //  is stored inside profskillFk[]
-  // checkedProf keeps track of how many skills there are checked
   profskillFk = [];
   profSkillsChecked = [];
-  checkedProf = 0;
   inputProfskillCheck(e, skill) {
     if (e.target.checked) {
-      this.checkedProf++;
       this.profSkillsChecked[this.profSkillsChecked.length] = skill;
       if (skill != "") {
         this.professionalService.getFkbySkill(skill).subscribe(
@@ -369,7 +358,6 @@ export class StudentListComponent implements OnInit {
       }
     }
     else {
-      this.checkedProf--;
       for (let i = 0; i < this.profSkillsChecked.length; i++) {
         if (this.profSkillsChecked[i] == skill) {
           this.profSkillsChecked.splice(i, 1);
@@ -391,13 +379,10 @@ export class StudentListComponent implements OnInit {
 
   //keep track of what a person checks -> by checking a language, the student_fk
   //  is stored inside languageFk[]
-  // checkedLang keeps track of how many skills there are checked
   languageFk = [];
   languageChecked = [];
-  checkedLang = 0;
   inputLanguageCheck(e, type) {
     if (e.target.checked) {
-      this.checkedLang++;
       this.languageChecked[this.languageChecked.length] = type;
       if (type != "") {
         this.languageService.getFkbyLang(type).subscribe(
@@ -414,7 +399,6 @@ export class StudentListComponent implements OnInit {
       }
     }
     else {
-      this.checkedLang--;
       for (let i = 0; i < this.languageChecked.length; i++) {
         if (this.languageChecked[i] == type) {
           this.languageChecked.splice(i, 1);
@@ -434,6 +418,27 @@ export class StudentListComponent implements OnInit {
   }
 
 
+  inputDegreeCheck(e, type) {
+    if (e.target.checked) {
+      for(let student of this.students){
+        if(student.degree == type){
+          this.fk_list.push(student.id);
+        }
+      }
+      this.noDupe = Array.from(new Set(this.fk_list));
+    }
+    else {
+      for(let student of this.students){
+        if(student.degree == type){
+          const index = this.fk_list.indexOf(student.id);
+          if (index !== -1) {
+              this.fk_list.splice(index, 1);
+          }
+        }
+      }
+      this.noDupe = Array.from(new Set(this.fk_list));
+    }
+  }
 
   //This method gives all the students back with the checked conditions.
   advancedSearch() {
@@ -456,29 +461,6 @@ export class StudentListComponent implements OnInit {
   clear() {
     window.location.reload();
   }
-
-  // //Download the cv in searchBox
-  // downloadCv(student) {
-
-  //   if (student.cvChecked == true) {
-  //     this.cvsService.getCvsByFk(student.id).subscribe(
-  //       data => { this.download(data[0].id) },
-  //       error => console.log(error)
-  //     )
-  //     window.open(`/api/download/25`);
-  //   } else {
-  //     alert("This students hasn't yet uploaded a CV.")
-  //   }
-  // }
-
-  // refresh: Subject<any> = new Subject();
-  // download(id) {
-  //   this.refresh.next()
-  //   if (id) {
-
-  //     //  window.open(`/api/download/${id}`);
-  //   }
-  // }
 
   deleteStudent(student) {
     this.userService.deleteWholeUser(student).subscribe(
