@@ -44,7 +44,7 @@ export class SettingsComponent implements OnInit {
     if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
       this.auth.loginStudent(localStorage.getItem('token'));
     }
-    
+
     if(this.auth.currentUser.role == "Student"){
       this.getStudent();
       this.getExperiences();
@@ -65,8 +65,8 @@ export class SettingsComponent implements OnInit {
   getExperiences(){
     this.experienceService.getExperienceById(this.auth.currentUser.studentId).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.experiences = result;
+        // let result = this.dataService.decryption(data);
+        this.experiences = data;
       },
       error => console.log(error)
     )
@@ -75,8 +75,8 @@ export class SettingsComponent implements OnInit {
   getContact(){
     this.contactService.getContactByStudentId(this.auth.currentUser.studentId).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.contact = result;
+        // let result = this.dataService.decryption(data);
+        this.contact = data;
       },
       error => console.log(error)
     )
@@ -85,8 +85,8 @@ export class SettingsComponent implements OnInit {
   getCVFromStudent(){
     this.fileService.getCvFromStudent(this.auth.currentUser.studentId).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.cvs = result;
+        // let result = this.dataService.decryption(data);
+        this.cvs = data;
       },
       error => console.log(error)
     )
@@ -99,10 +99,16 @@ export class SettingsComponent implements OnInit {
   }
 
   downloadPersonalInformation(){
+    let name;
+    if(this.student.name == undefined){
+      name = "no name input";
+    }else{
+      name = this.student.name;
+    }
     let personal_information = {
       content: [
         {
-          text: this.student.name + "   " + this.student.rnumber + '\n',
+          text: name + "   " + this.student.rnumber + '\n',
           style: 'name'
         },
         {
