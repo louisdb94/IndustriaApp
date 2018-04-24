@@ -83,7 +83,7 @@ export class AdminComponent implements OnInit {
         data => {
           this.admins = data;
         },
-        error => console.error
+        error => console.log(error)
       );
   }
 
