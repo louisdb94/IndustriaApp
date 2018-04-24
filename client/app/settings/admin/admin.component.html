@@ -1,3 +1,199 @@
-<p>
-  admin works!
-</p>
+<div>
+
+
+  <ul class="nav nav-tabs table-responsive" role="tablist" style="background-color: #f7f7f9;">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#addAdmin" role="tab">Add Admin</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#company" role="tab">Companies</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#priority" role="tab">Company Priorities</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#parameter" role="tab">Parameters</a>
+    </li>
+  </ul>
+
+  <div class="tab-content table-responsive" style="padding:2%">
+
+
+    <div class="tab-pane active" id="addAdmin" role="tabpanel">
+      <table>
+        <thead class="thead-default">
+          <tr>
+            <th>Username</th>
+            <th>Remove as admin</th>
+          </tr>
+        </thead>
+        <tr *ngFor="let item of admins">
+          <td>{{item.email}}</td>
+          <td> <button class="btn btn-danger" (click)="deleteAdmin(item)"> Delete </button> </td>
+        </tr>
+        <br><br>
+      </table>
+
+      <div class="card">
+        <div class="card-header">
+          <h4>Add Admin</h4></div>
+        <div class="card-block">
+          <form class="form-inline" [formGroup]="addAdminForm" (ngSubmit)="makeAdmin(addAdminForm._value)" style="text-align:center">
+            <div class="form-group">
+              <input class="form-control" type="text" name="email" formControlName="email" placeholder="Admin email">
+            </div>
+
+            <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane" id="priority" role="tabpanel">
+      <table>
+       <thead class="thead-default" >
+         <tr>
+           <th style="padding:1%">Company</th>
+           <th style="padding:1%">Has a profile page</th>
+           <th style="padding:1%">Access to student profiles</th>
+           <th style="padding:1%">Can post job openings</th>
+           <th style="padding:1%">Logo size
+              <button *ngIf="!editLogo" class="btn btn-primary" (click)="editLogo = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
+              <button *ngIf="editLogo" class="btn btn-primary" (click)="saveLogoSize(priorities)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
+           </th>
+         </tr>
+       </thead>
+       <tr *ngFor="let priority of priorities; let i = index">
+         <td style="padding:1%"> {{priority.name}}</td>
+         <td  style="padding:1%">
+           <label class="custom-control custom-checkbox">
+               <input [checked]="priority.profile_page" (change)="changePriority($event,priority,'profile_page')" class="custom-control-input" type="checkbox" />
+               <span class="custom-control-indicator"></span>
+           </label>
+         </td>
+         <td  style="padding:1%">
+           <label class="custom-control custom-checkbox">
+               <input [checked]="priority.student_profile" (change)="changePriority($event,priority,'student_profile')" class="custom-control-input" type="checkbox" />
+               <span class="custom-control-indicator"></span>
+           </label>
+         </td>
+         <td  style="padding:1%">
+           <label class="custom-control custom-checkbox">
+               <input [checked]="priority.job_openings" (change)="changePriority($event,priority,'job_openings')" class="custom-control-input" type="checkbox" />
+               <span class="custom-control-indicator"></span>
+           </label>
+         </td>
+         <td>
+          <span *ngIf="!editLogo ">{{priority.size}}</span>
+          <span *ngIf="editLogo ">
+                <select [(ngModel)]="priority.size" placeholder="priority">
+                    <option value="" selected disabled>Logo Size</option>
+                    <option value="Large">Large</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Small">Small</option>
+                </select>
+           </span>
+         </td>
+
+       </tr>
+       <br><br>
+     </table>
+    </div>
+    <div class="tab-pane" id="company" role="tabpanel">
+      <table>
+       <thead class="thead-default" >
+         <tr>
+           <th>Name</th>
+           <th>Email</th>
+           <th>URL</th>
+           <th>Priority
+             <button *ngIf="!editPriority" class="btn btn-primary" (click)="editPriority = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
+             <button *ngIf="editPriority" class="btn btn-primary" (click)="saveUpdatePriority(users, companies)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
+           </th>
+           <th>Delete </th>
+         </tr>
+       </thead>
+       <tr *ngFor="let company of companies; let i = index">
+         <td> <a md-line routerLink='/profile-company/{{company.id}}'> {{company.name}} </a> </td>
+         <td>{{company.email}}</td>
+         <td>{{company.url}}</td>
+         <td ><span *ngIf="!editPriority ">{{company.priority}}</span>
+              <span *ngIf="editPriority ">
+                   <select [(ngModel)]="company.priority" placeholder="priority">
+                       <option value="" selected disabled>Priority</option>
+                       <option value="HIGH">HIGH</option>
+                       <option value="MIDDLE">MIDDLE</option>
+                       <option value="LOW">LOW</option>
+                       <option value="ONDERNEMERSDAG">ONDERNEMERSDAG</option>
+                       <option value="FREE">FREE</option>
+                    </select>
+             </span>
+        </td>
+
+         <td> <button class="btn btn-danger" (click)="deleteCompany(company)"> Delete </button> </td>
+
+       </tr>
+       <br><br>
+     </table>
+
+     <div class="card">
+         <div class="card-header"><h4>Add new company</h4></div>
+         <div class="card-block">
+           <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
+             <div class="form-group">
+               <input class="form-control" type="text" name="name" formControlName="name" placeholder="Company name">
+             </div>
+             <div class="form-group">
+               <input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
+             </div>
+             <div class="form-group">
+               <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
+             </div>
+             <div class="form-group">
+                 <select class="form-control" type="text" name="priority" formControlName="priority" placeholder="priority">
+                     <option value="" selected disabled>Priority</option>
+                     <option value="HIGH">HIGH</option>
+                     <option value="MIDDLE">MIDDLE</option>
+                     <option value="LOW">LOW</option>
+                     <option value="ONDERNEMERSDAG">ONDERNEMERSDAG</option>
+                     <option value="FREE">FREE</option>
+                   </select>
+             </div>
+             <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
+           </form>
+         </div>
+       </div>
+    </div>
+    <div class="tab-pane" id="parameter" role="tabpanel">
+      <table>
+       <thead class="thead-default" >
+         <tr>
+           <th>Parameter</th>
+           <th>Value</th>
+         </tr>
+       </thead>
+       <tr *ngFor="let item of parameters">
+         <td>{{item.parameter}}</td>
+         <td> {{item.value}} </td>
+       </tr>
+       <br><br>
+     </table>
+
+     <div class="card">
+         <div class="card-header"><h4>Add Parameter</h4></div>
+         <div class="card-block">
+           <form class="form-inline" [formGroup]="addParamForm" (ngSubmit)="addParam(addParamForm._value)" style="text-align:center">
+             <div class="form-group">
+               <input class="form-control" type="text" name="parameter" formControlName="parameter" placeholder="parameter">
+               <input class="form-control" type="text" name="value" formControlName="value" placeholder="value">
+
+             </div>
+
+             <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
+           </form>
+         </div>
+       </div>
+    </div>
+
+  </div>
+
+</div>
