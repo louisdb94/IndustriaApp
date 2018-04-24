@@ -3,67 +3,51 @@
 
 <div class="container table-responsive">
 
-<div class="jumbotron " style="background-color: white">
-  <ng-template #modalContent let-close="close">
-    <div class="modal-header">
-      <h5 class="modal-title">Event action occurred</h5>
-      <button type="button" class="close" (click)="close()">
+  <div class="jumbotron " style="background-color: white">
+    <ng-template #modalContent let-close="close">
+      <div class="modal-header">
+        <h5 class="modal-title">Event action occurred</h5>
+        <button type="button" class="close" (click)="close()">
         <span aria-hidden="true">&times;</span>
       </button>
-    </div>
-    <div class="modal-body">
-      <div>
-        Action:
-        <pre>{{ modalData?.action }}</pre>
       </div>
-      <div>
-        Event:
-        <pre>{{ modalData?.event | json }}</pre>
+      <div class="modal-body">
+        <div>
+          Action:
+          <pre>{{ modalData?.action }}</pre>
+        </div>
+        <div>
+          Event:
+          <pre>{{ modalData?.event | json }}</pre>
+        </div>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
-    </div>
-  </ng-template>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+      </div>
+    </ng-template>
 
-  <h2 translate id="calendarTitle">Calendar</h2>
-  <div id="calendar">
-    <mwl-demo-utils-calendar-header
-      [(view)]="view"
-      [(viewDate)]="viewDate">
-    </mwl-demo-utils-calendar-header>
+    <h2 translate id="calendarTitle">Calendar</h2>
+    <div id="calendar">
+      <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+      </mwl-demo-utils-calendar-header>
 
-    <div [ngSwitch]="view">
-        <mwl-calendar-month-view
-        *ngSwitchCase="'month'"
-        [viewDate]="viewDate"
-        [events]="events"
-        [refresh]="refresh"
-        [activeDayIsOpen]="activeDayIsOpen"
-        (dayClicked)="dayClicked($event.day)"
-        (eventClicked)="handleEvent('Clicked', $event.event)"
-        (eventTimesChanged)="eventTimesChanged($event)">
-      </mwl-calendar-month-view>
-      <mwl-calendar-week-view
-        *ngSwitchCase="'week'"
-        [viewDate]="viewDate"
-        [events]="events"
-        [refresh]="refresh"
-        (eventClicked)="handleEvent('Clicked', $event.event)"
-        (eventTimesChanged)="eventTimesChanged($event)">
-      </mwl-calendar-week-view>
-    </div>
-  </div><br>
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-month-view>
+        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+        </mwl-calendar-week-view>
+      </div>
+    </div><br>
 
 
 
-<!-- END CALENDAR CODE -->
+    <!-- END CALENDAR CODE -->
 
 
-<!-- BEGIN EDIT CALENDAR CODE -->
+    <!-- BEGIN EDIT CALENDAR CODE -->
 
-<div style="width: 80%; margin:auto">
-  <h3 *ngIf="auth.currentUser.admin == '1'">
+    <div style="width: 80%; margin:auto">
+      <h3 *ngIf="auth.currentUser.admin == '1'">
     Edit events
     <button *ngIf = "!editMode"
       class="btn btn-primary pull-right"
@@ -78,314 +62,98 @@
     <div class="clearfix"></div>
   </h3>
 
-  <table id="tableEvents" *ngIf="auth.currentUser.admin == '1'" class="table table-bordered" align="center">
+      <table id="tableEvents" *ngIf="auth.currentUser.admin == '1'" class="table table-bordered" align="center">
 
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Starts at</th>
-        <th>Ends at</th>
-        <th *ngIf="editMode">Save</th>
-        <th *ngIf="editMode">Remove</th>
-      </tr>
-    </thead>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Starts at</th>
+            <th>Ends at</th>
+            <th *ngIf="editMode">Save</th>
+            <th *ngIf="editMode">Remove</th>
+          </tr>
+        </thead>
 
-    <tbody>
-      <tr *ngFor="let event of events; let index = index">
-        <td style="width: 40%">
-          <textarea *ngIf="editMode"
-            type="text"
-            class="form-control"
-            [(ngModel)]="event.title"
-            (keyup)="refresh.next()">
+        <tbody>
+          <tr *ngFor="let event of events; let index = index">
+            <td style="width: 40%">
+              <textarea *ngIf="editMode" type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
           </textarea>
-          <p *ngIf="!editMode">{{event.title}}</p>
-        </td>
-        <td>
-          <mwl-demo-utils-date-time-picker *ngIf="editMode"
-            [(ngModel)]="event.start"
-            (ngModelChange)="refresh.next()"
-            placeholder="Not set">
-          </mwl-demo-utils-date-time-picker>
-          <p *ngIf="!editMode">{{event.start}}</p>
-        </td>
-        <td>
-          <mwl-demo-utils-date-time-picker *ngIf="editMode"
-            [(ngModel)]="event.end"
-            (ngModelChange)="refresh.next()"
-            placeholder="Not set">
-          </mwl-demo-utils-date-time-picker>
-          <p *ngIf="!editMode">{{event.end}}</p>
-        </td>
-        <td *ngIf="editMode">
-          <button
-            class="btn btn-success"
-            (click)="saveEvent(event, index)">
+              <p *ngIf="!editMode">{{event.title}}</p>
+            </td>
+            <td>
+              <mwl-demo-utils-date-time-picker *ngIf="editMode" [(ngModel)]="event.start" (ngModelChange)="refresh.next()" placeholder="Not set">
+              </mwl-demo-utils-date-time-picker>
+              <p *ngIf="!editMode">{{event.start}}</p>
+            </td>
+            <td>
+              <mwl-demo-utils-date-time-picker *ngIf="editMode" [(ngModel)]="event.end" (ngModelChange)="refresh.next()" placeholder="Not set">
+              </mwl-demo-utils-date-time-picker>
+              <p *ngIf="!editMode">{{event.end}}</p>
+            </td>
+            <td *ngIf="editMode">
+              <button class="btn btn-success" (click)="saveEvent(event, index)">
             Save
           </button>
-        </td>
-        <td *ngIf="editMode">
-          <button
-          class="btn btn-danger"
-          (click)="deleteEvent(event)">
+            </td>
+            <td *ngIf="editMode">
+              <button class="btn btn-danger" (click)="deleteEvent(event)">
           Delete
           </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-</div>
+  </div>
 
-<!-- END EDIT CALENDAR CODE -->
+  <!-- END EDIT CALENDAR CODE -->
 
 
-<!-- BEGIN SPONSORS CODE -->
+  <!-- BEGIN SPONSORS CODE -->
 
-<div class="jumbotron ">
-  <div style="width: 50%; margin:auto">
-  <hr style="height:2px;border:none;color:#333;background-color:#333;">
-  <h1 translate style="text-align: center">Who we work with</h1>
-  <hr style="height:2px;border:none;color:#333;background-color:#333;"><br>
-  <div class="row">
-    <p  *ngFor="let item of highImg; let index = index" style="margin: auto">
-      <a class=" ab nav-link" [routerLink] ="companyProfile + item.id">
+  <div class="jumbotron ">
+    <div style="width: 50%; margin:auto">
+      <hr style="height:2px;border:none;color:#333;background-color:#333;">
+      <h1 translate style="text-align: center">Who we work with</h1>
+      <hr style="height:2px;border:none;color:#333;background-color:#333;"><br>
+      <div class="row">
+        <p *ngFor="let item of highImg; let index = index" style="margin: auto">
+          <a class=" ab nav-link" [routerLink]="companyProfile + item.id">
         <img id="highPriority" [src]='sanitizer.bypassSecurityTrustResourceUrl(item.im)'>
       </a>
-    </p>
-  </div>
+        </p>
+      </div>
 
-  <hr>
+      <hr>
 
-  <div class="row">
-    <p  *ngFor="let item of middleImg; let index = index" style="margin: auto">
-      <a class=" ab nav-link" [routerLink] ="companyProfile + item.id">
+      <div class="row">
+        <p *ngFor="let item of middleImg; let index = index" style="margin: auto">
+          <a class=" ab nav-link" [routerLink]="companyProfile + item.id">
         <img id="middlePriority" [src]='sanitizer.bypassSecurityTrustResourceUrl(item.im)'>
       </a>
-    </p>
-  </div>
+        </p>
+      </div>
 
-  <hr>
+      <hr>
 
-  <div class="row">
-    <p  *ngFor="let item of lowImg; let index = index" style="margin: auto">
-      <a class=" ab nav-link" [routerLink] ="companyProfile + item.id">
+      <div class="row">
+        <p *ngFor="let item of lowImg; let index = index" style="margin: auto">
+          <a class=" ab nav-link" [routerLink]="companyProfile + item.id">
         <img id="lowPriority" [src]='sanitizer.bypassSecurityTrustResourceUrl(item.im)'>
       </a>
-    </p>
+        </p>
+      </div>
+    </div>
   </div>
-</div>
-</div>
 
-<br><br>
+  <br><br>
 
-<!-- END SPONSORS CODE -->
+  <!-- END SPONSORS CODE -->
 
 
-<!-- BEGIN ADD NEW COMPANY CODE -->
-<div *ngIf="auth.currentUser.admin == '1'" style="width: 80%; margin:auto" >
-
-        <!-- Nav tabs -->
-      <div style="margin-top: 5%; margin-bottom: 10%; border: 1px solid #dfdfdf; border-radius: 0.25rem">
-      <ul class="nav nav-tabs table-responsive" role="tablist" style="background-color: #f7f7f9;">
-        <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#admin" role="tab">Admin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#company" role="tab">Companies</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#priority" role="tab">Company Priorities</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#parameter" role="tab">Parameters</a>
-        </li>
-      </ul>
-
-      <!-- Tab panes -->
-      <div class="tab-content table-responsive" style="padding:2%">
-        <div class="tab-pane active" id="admin" role="tabpanel">
-          <table>
-           <thead class="thead-default" >
-             <tr>
-               <th>Username</th>
-               <th>Remove as admin</th>
-             </tr>
-           </thead>
-           <tr *ngFor="let item of admins">
-             <td>{{item.email}}</td>
-             <td> <button class="btn btn-danger" (click)="deleteAdmin(item)"> Delete </button> </td>
-           </tr>
-           <br><br>
-         </table>
-
-         <div class="card">
-             <div class="card-header"><h4>Add Admin</h4></div>
-             <div class="card-block">
-               <form class="form-inline" [formGroup]="addAdminForm" (ngSubmit)="makeAdmin(addAdminForm._value)" style="text-align:center">
-                 <div class="form-group">
-                   <input class="form-control" type="text" name="email" formControlName="email" placeholder="Admin email">
-                 </div>
-
-                 <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
-               </form>
-             </div>
-           </div>
-        </div>
-        <div class="tab-pane" id="priority" role="tabpanel">
-          <table>
-           <thead class="thead-default" >
-             <tr>
-               <th style="padding:1%">Company</th>
-               <th style="padding:1%">Has a profile page</th>
-               <th style="padding:1%">Access to student profiles</th>
-               <th style="padding:1%">Can post job openings</th>
-               <th style="padding:1%">Logo size
-                  <button *ngIf="!editLogo" class="btn btn-primary" (click)="editLogo = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
-                  <button *ngIf="editLogo" class="btn btn-primary" (click)="saveLogoSize(priorities)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
-               </th>
-             </tr>
-           </thead>
-           <tr *ngFor="let priority of priorities; let i = index">
-             <td style="padding:1%"> {{priority.name}}</td>
-             <td  style="padding:1%">
-               <label class="custom-control custom-checkbox">
-                   <input [checked]="priority.profile_page" (change)="changePriority($event,priority,'profile_page')" class="custom-control-input" type="checkbox" />
-                   <span class="custom-control-indicator"></span>
-               </label>
-             </td>
-             <td  style="padding:1%">
-               <label class="custom-control custom-checkbox">
-                   <input [checked]="priority.student_profile" (change)="changePriority($event,priority,'student_profile')" class="custom-control-input" type="checkbox" />
-                   <span class="custom-control-indicator"></span>
-               </label>
-             </td>
-             <td  style="padding:1%">
-               <label class="custom-control custom-checkbox">
-                   <input [checked]="priority.job_openings" (change)="changePriority($event,priority,'job_openings')" class="custom-control-input" type="checkbox" />
-                   <span class="custom-control-indicator"></span>
-               </label>
-             </td>
-             <td>
-              <span *ngIf="!editLogo ">{{priority.size}}</span>
-              <span *ngIf="editLogo ">
-                    <select [(ngModel)]="priority.size" placeholder="priority">
-                        <option value="" selected disabled>Logo Size</option>
-                        <option value="Large">Large</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Small">Small</option>
-                    </select>
-               </span>
-             </td>
-
-           </tr>
-           <br><br>
-         </table>
-        </div>
-        <div class="tab-pane" id="company" role="tabpanel">
-          <table>
-           <thead class="thead-default" >
-             <tr>
-               <th>Name</th>
-               <th>Email</th>
-               <th>URL</th>
-               <th>Priority
-                 <button *ngIf="!editPriority" class="btn btn-primary" (click)="editPriority = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
-                 <button *ngIf="editPriority" class="btn btn-primary" (click)="saveUpdatePriority(users, companies)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
-               </th>
-               <th>Delete </th>
-             </tr>
-           </thead>
-           <tr *ngFor="let company of companies; let i = index">
-             <td> <a md-line routerLink='/profile-company/{{company.id}}'> {{company.name}} </a> </td>
-             <td>{{company.email}}</td>
-             <td>{{company.url}}</td>
-             <td ><span *ngIf="!editPriority ">{{company.priority}}</span>
-                  <span *ngIf="editPriority ">
-                       <select [(ngModel)]="company.priority" placeholder="priority">
-                           <option value="" selected disabled>Priority</option>
-                           <option value="HIGH">HIGH</option>
-                           <option value="MIDDLE">MIDDLE</option>
-                           <option value="LOW">LOW</option>
-                           <option value="ONDERNEMERSDAG">ONDERNEMERSDAG</option>
-                           <option value="FREE">FREE</option>
-                        </select>
-                 </span>
-            </td>
-
-             <td> <button class="btn btn-danger" (click)="deleteCompany(company)"> Delete </button> </td>
-
-           </tr>
-           <br><br>
-         </table>
-
-         <div class="card">
-             <div class="card-header"><h4>Add new company</h4></div>
-             <div class="card-block">
-               <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
-                 <div class="form-group">
-                   <input class="form-control" type="text" name="name" formControlName="name" placeholder="Company name">
-                 </div>
-                 <div class="form-group">
-                   <input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
-                 </div>
-                 <div class="form-group">
-                   <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
-                 </div>
-                 <div class="form-group">
-                     <select class="form-control" type="text" name="priority" formControlName="priority" placeholder="priority">
-                         <option value="" selected disabled>Priority</option>
-                         <option value="HIGH">HIGH</option>
-                         <option value="MIDDLE">MIDDLE</option>
-                         <option value="LOW">LOW</option>
-                         <option value="ONDERNEMERSDAG">ONDERNEMERSDAG</option>
-                         <option value="FREE">FREE</option>
-                       </select>
-                 </div>
-                 <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
-               </form>
-             </div>
-           </div>
-        </div>
-        <div class="tab-pane" id="parameter" role="tabpanel">
-          <table>
-           <thead class="thead-default" >
-             <tr>
-               <th>Parameter</th>
-               <th>Value</th>
-             </tr>
-           </thead>
-           <tr *ngFor="let item of parameters">
-             <td>{{item.parameter}}</td>
-             <td> {{item.value}} </td>
-           </tr>
-           <br><br>
-         </table>
-
-         <div class="card">
-             <div class="card-header"><h4>Add Parameter</h4></div>
-             <div class="card-block">
-               <form class="form-inline" [formGroup]="addParamForm" (ngSubmit)="addParam(addParamForm._value)" style="text-align:center">
-                 <div class="form-group">
-                   <input class="form-control" type="text" name="parameter" formControlName="parameter" placeholder="parameter">
-                   <input class="form-control" type="text" name="value" formControlName="value" placeholder="value">
-
-                 </div>
-
-                 <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
-               </form>
-             </div>
-           </div>
-        </div>
-      </div>
-      </div>
-
-</div>
-
-</div>
-
-<profile-footer class="component"></profile-footer>
+  <profile-footer class="component"></profile-footer>
 
 
-<!-- END ADD NEW COMPANY CODE -->
+  <!-- END ADD NEW COMPANY CODE -->

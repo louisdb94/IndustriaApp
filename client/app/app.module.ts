@@ -39,6 +39,7 @@ import { FirstPageComponent } from './firstpage/firstpage.component';
 import { StudentListComponent } from './student/student-list/student-list.component';
 import { VacatureListComponent } from './company/vacature-list/vacature-list.component';
 import { SettingsComponent } from './settings/settings.component';
+import { AdminComponent } from './settings/admin/admin.component';
 
 import { StudentProfile } from './student';
 import { HeaderProfile } from './student/profile-header';
@@ -121,6 +122,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     StudentListComponent,
     VacatureListComponent,
     SettingsComponent,
+    AdminComponent,
 
     StudentProfile,
     HeaderProfile,

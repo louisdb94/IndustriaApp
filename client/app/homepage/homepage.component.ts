@@ -2,14 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild, TemplateRef  } f
 import { StudentService } from '../services/student.service';
 import { CompanyService} from '../services/company/company.service';
 import { VacatureService} from '../services/company/vacature.service';
-import { CompanyContactService} from '../services/company/contact.service';
 import { UserService} from '../services/user.service';
 import { DataService } from "../services/data.service";
 import { AuthService } from '../services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FileService} from '../services/file.service';
 import { EventsService } from "../services/admin/events.service";
-import { ParametersService } from "../services/admin/parameters.service";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -18,24 +16,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { JwtHelper } from 'angular2-jwt';
-
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours
-} from 'date-fns';
+import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth, addHours} from 'date-fns';
 import { Subject } from 'rxjs/Subject';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent
-} from 'angular-calendar';
+import { CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent} from 'angular-calendar';
 
 const colors: any = {
   red: {
@@ -84,22 +68,7 @@ export class HomepageComponent implements OnInit {
   https = "https://";
   companyProfile = "/profile-company/";
 
-  addUserForm: FormGroup;
-  name = new FormControl('', Validators.required);
-  email = new FormControl('', Validators.required);
-  password = new FormControl('', Validators.required);
-  priority = new FormControl('', Validators.required);
-  role = new FormControl('', Validators.required);
-
-  addAdminForm: FormGroup;
-  admin = new FormControl('1');
-  admin_email = new FormControl('', Validators.required);
-
-  parameters = [];
-  addParamForm: FormGroup;
-  parameter = new FormControl('', Validators.required);
-  value = new FormControl('', Validators.required);
-  user_fk = new FormControl('', Validators.required);
+  users = [];
 
   constructor(private studentService: StudentService,
     private data: DataService,
@@ -107,63 +76,41 @@ export class HomepageComponent implements OnInit {
     private userService : UserService,
     private companyService : CompanyService,
     private vacatureService : VacatureService,
-    private companyContactService : CompanyContactService,
     private eventsService : EventsService,
-    private paramService : ParametersService,
     private fileService : FileService,
     private http: HttpClient,
     public auth: AuthService,
     private translate: TranslateService,
     public sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
-    public toast: ToastComponent, private modal: NgbModal) { }
+    public toast: ToastComponent,
+    private modal: NgbModal) { }
 
   ngOnInit() {
-  this.route.params.subscribe(params => {
-    if(!localStorage.getItem('token') && this.auth.currentUser.role !== "Company" ){
-      this.auth.loginStudent(params['id']);
-    }else if(localStorage.getItem('token') && this.auth.currentUser.role !== "Company"){
-      this.auth.loginStudent(localStorage.getItem('token'));
-    }
+    this.route.params.subscribe(params => {
+      if(!localStorage.getItem('token') && this.auth.currentUser.role !== "Company" ){
+        this.auth.loginStudent(params['id']);
+      }else if(localStorage.getItem('token') && this.auth.currentUser.role !== "Company"){
+        this.auth.loginStudent(localStorage.getItem('token'));
+      }
     });
 
-  this.getEvents();
-  this.getCompanies();
-  this.getStudentsMysql();
-  this.getAdmins();
-  this.getUsers();
-  this.getParameters();
+    this.getEvents();
+    this.getCompanies();
+    this.getStudentsMysql();
+    this.getUsers();
+    this.getPriorities();
 
-  this.addUserForm = this.formBuilder.group({
-  email: this.email,
-  password: this.password,
-  priority: this.priority,
-  role: this.role,
-  name: this.name
-  });
 
-  this.addAdminForm = this.formBuilder.group({
-  email: this.admin_email,
-  admin: this.admin,
-  });
-
-  this.addParamForm = this.formBuilder.group({
-  parameter: this.parameter,
-  value: this.value,
-  user_fk: this.user_fk,
-  role: this.role
-  });
-
-  this.data.idMessage.subscribe(message => this.messageId = message);
-  this.data.navMessage.subscribe(message => this.messageNav = message);
-}
+    this.data.idMessage.subscribe(message => this.messageId = message);
+    this.data.navMessage.subscribe(message => this.messageNav = message);
+  }
 
   //BEGIN OF CALENDAR CODE
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
     view: string = 'week';
-
     viewDate: Date = new Date();
 
     modalData: {
@@ -181,154 +128,136 @@ export class HomepageComponent implements OnInit {
     refresh: Subject<any> = new Subject();
     dateString = '2017-12-21T00:00:00';
 
-      events: CalendarEvent[] = [];
+    events: CalendarEvent[] = [];
 
-      activeDayIsOpen: boolean = true;
+    activeDayIsOpen: boolean = true;
 
-      dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-        if (isSameMonth(date, this.viewDate)) {
-          if (
-            (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-            events.length === 0
-          ) {
-            this.activeDayIsOpen = false;
-          } else {
-            this.activeDayIsOpen = true;
-            this.viewDate = date;
+    dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+      if (isSameMonth(date, this.viewDate)) {
+        if (
+          (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+          events.length === 0
+        ) {
+          this.activeDayIsOpen = false;
+        } else {
+          this.activeDayIsOpen = true;
+          this.viewDate = date;
+        }
+      }
+    }
+
+    eventTimesChanged({
+      event,
+      newStart,
+      newEnd
+    }: CalendarEventTimesChangedEvent): void {
+      event.start = newStart;
+      event.end = newEnd;
+      this.handleEvent('Dropped or resized', event);
+      this.refresh.next();
+    }
+    handleEvent(action: string, event: CalendarEvent): void {
+      this.modalData = { event, action };
+      this.modal.open(this.modalContent, { size: 'lg' });
+    }
+    addEvent(events): void {
+      this.events.push({
+        title: 'New event',
+        start: startOfDay(new Date()),
+        end: endOfDay(new Date()),
+        color: null,
+      });
+
+      this.eventIndustria.push(this.cols);
+      this.eventIndustria[0].id = events[this.events.length - 1].id + 1;
+      this.eventIndustria[0].title =  this.events[this.events.length - 1].title;
+      this.eventIndustria[0].start = this.events[this.events.length - 1].start;
+      this.eventIndustria[0].end =  this.events[this.events.length - 1].end;
+      this.eventIndustria[0].color =  this.events[this.events.length - 1].color;
+
+      this.eventsService.insertEvent(this.eventIndustria[0]).subscribe(
+        data => {}
+      );
+
+      this.editMode = false;
+      this.getEvents();
+    }
+    saveEvent(event, index){
+
+      this.eventIndustria.push(this.cols);
+      this.eventIndustria[0].id = event.id;
+      this.eventIndustria[0].title =  event.title;
+      this.eventIndustria[0].start = event.start;
+      this.eventIndustria[0].end =  event.end;
+      this.eventIndustria[0].color =  null;
+
+
+      this.eventsService.editEvent(this.eventIndustria[0]).subscribe(
+        data => {},
+        error => {console.log("Error")}
+      )
+
+      this.editMode = false;
+    }
+    deleteEvent(event){
+      this.eventsService.deleteEvent(event.id).subscribe(
+        data => {this.getEvents()},
+        error => {console.log("error")}
+      )
+    }
+    getEvents(){
+      this.eventsService.getEvents().subscribe(
+        data => {this.changeDateAndColor(data)}
+      );
+    }
+    changeDateAndColor(data){
+      this.events = data;
+      let eventLength = this.events.length;
+      this.editMode = false;
+      if(eventLength != 0){
+        for(let i = 0; i < eventLength; i++){
+          if(this.events[i]){
+            this.events[i].start = new Date(this.events[i].start);
+            this.events[i].end = new Date(this.events[i].end);
+            this.events[i].color = colors.red;
+            this.refresh.next();
           }
         }
       }
+    }
 
-      eventTimesChanged({
-        event,
-        newStart,
-        newEnd
-      }: CalendarEventTimesChangedEvent): void {
-        event.start = newStart;
-        event.end = newEnd;
-        this.handleEvent('Dropped or resized', event);
-        this.refresh.next();
-      }
-
-      handleEvent(action: string, event: CalendarEvent): void {
-        this.modalData = { event, action };
-        this.modal.open(this.modalContent, { size: 'lg' });
-      }
-
-      addEvent(events): void {
-        this.events.push({
-          title: 'New event',
-          start: startOfDay(new Date()),
-          end: endOfDay(new Date()),
-          color: null,
-        });
-
-        this.eventIndustria.push(this.cols);
-        this.eventIndustria[0].id = events[this.events.length - 1].id + 1;
-        this.eventIndustria[0].title =  this.events[this.events.length - 1].title;
-        this.eventIndustria[0].start = this.events[this.events.length - 1].start;
-        this.eventIndustria[0].end =  this.events[this.events.length - 1].end;
-        this.eventIndustria[0].color =  this.events[this.events.length - 1].color;
-
-        this.eventsService.insertEvent(this.eventIndustria[0]).subscribe(
-          data => {}
-        );
-
-        this.editMode = false;
-        this.getEvents();
-      }
-
-      saveEvent(event, index){
-
-        this.eventIndustria.push(this.cols);
-        this.eventIndustria[0].id = event.id;
-        this.eventIndustria[0].title =  event.title;
-        this.eventIndustria[0].start = event.start;
-        this.eventIndustria[0].end =  event.end;
-        this.eventIndustria[0].color =  null;
-
-
-        this.eventsService.editEvent(this.eventIndustria[0]).subscribe(
-          data => {},
-          error => {console.log("Error")}
-        )
-
-        this.editMode = false;
-      }
-
-      deleteEvent(event){
-        this.eventsService.deleteEvent(event.id).subscribe(
-          data => {this.getEvents()},
-          error => {console.log("error")}
-        )
-      }
-
-      getEvents(){
-        this.eventsService.getEvents().subscribe(
-          data => {this.changeDateAndColor(data)}
-        );
-      }
-
-      changeDateAndColor(data){
-        this.events = data;
-        let eventLength = this.events.length;
-        this.editMode = false;
-        if(eventLength != 0){
-          for(let i = 0; i < eventLength; i++){
-            if(this.events[i]){
-              this.events[i].start = new Date(this.events[i].start);
-              this.events[i].end = new Date(this.events[i].end);
-              this.events[i].color = colors.red;
-              this.refresh.next();
-            }
-          }
-        }
-      }
-
-      //END OF CALENDAR
+    //END OF CALENDAR
 
   private compare = new BehaviorSubject<String>("default message");
   compareID = this.compare.asObservable();
 
   getStudentsMysql() {
     this.studentService.getStudentsMysql().subscribe(
-      data => {
-        this.students = data;
-      },
+      data => {this.students = data;},
       error => console.log(error)
     );
 
+  }
+  getUsers(){
+      this.userService.getAllUsers().subscribe(
+        data => {this.users = data;},
+        error => console.error
+      );
+  }
+  getPriorities(){
+    this.companyService.getCompaniesPriorities().subscribe(
+      data => {this.priorities = data;}
+    )
+  }
+  getCompanies(){
+    this.companyService.getCompanies().subscribe(
+      data => {this.sortCompaniesByPriority(data);},
+      error => console.log(error)
+    )
   }
 
   switchLanguage(language) {
     this.translate.use(language);
-  }
-
-  getParameters(){
-    this.paramService.getParametersByAdmin().subscribe(
-      data => {this.parameters = data;},
-      error => console.log(error)
-    );
-  }
-
-  addParam(AddParamForm){
-    this.addParamForm.value.user_fk = this.auth.currentUser.id;
-    this.addParamForm.value.role = "admin";
-    this.addParamForm.value.value = AddParamForm.value;
-    this.addParamForm.value.parameter = AddParamForm.parameter;
-
-    this.paramService.addParam(this.addParamForm.value).subscribe();
-  }
-
-  getCompanies(){
-    this.getPriorities();
-    this.companyService.getCompanies().subscribe(
-      results => {
-        //let result = this.data.decryption(data);
-        this.sortCompaniesByPriority(results);
-      },
-      error => console.log(error)
-    )
   }
 
   sortCompaniesByPriority(data){
@@ -414,7 +343,6 @@ export class HomepageComponent implements OnInit {
       error => console.log(error)
     );
   }
-
   showImage(data, id){
     for(let i = 0; i < this.highPriority.length; i++){
       if(this.highPriority[i].id == id){
@@ -434,198 +362,5 @@ export class HomepageComponent implements OnInit {
     this.refresh.next();
   }
 
-  // addAlumni() {
-  //   this.studentService.addStudentMysql(this.addStudentForm.value).subscribe(
-  //     res => {
-  //       const newStudent = res.json();
-  //       this.students.push(newStudent);
-  //       this.addStudentForm.reset();
-  //       this.toast.setMessage('item added successfully.', 'success');
-  //     },
-  //     error => console.log(error)
-  //   );
-  // }
 
-  addCompany() {
-    let addCompanyForm = {email: '', password: '', role: 'Company', rnumber: '', admin: '0'};
-    addCompanyForm.email = this.addUserForm.value.email;
-    addCompanyForm.password = this.addUserForm.value.password;
-
-    let editPriority = {name: '', email: '', priority: '', user_fk: ''};
-    editPriority.priority = this.addUserForm.value.priority;
-    editPriority.email = this.addUserForm.value.email;
-    editPriority.name = this.addUserForm.value.name;
-
-    let addPriority = {name: '', company_fk: 0};
-    addPriority.name = this.addUserForm.value.name
-
-    this.userService.registerMysql(addCompanyForm)
-        .subscribe( data =>{
-          editPriority.user_fk = data.insertId;
-          this.companyService.addCompanyFromUserId(editPriority)
-              .subscribe(data =>{
-                let company_fk = {company_fk: data.insertId}
-                this.companyContactService.addContactFromCompanyId(company_fk).subscribe(
-                  data => {
-                    this.toast.setMessage('successfully added!', 'success');
-                  }
-                );
-                addPriority.company_fk = data.insertId;
-                if(editPriority.priority == "FREE"){
-                  this.companyService.addPrioritiesFromCompanyId(addPriority).subscribe(
-                    data => {}
-                  );
-                }
-              });
-            });
-        this.companies.push(addCompanyForm);
-  }
-
-
-  editPriority = false;
-
-  saveUpdatePriority(users, companies){
-    for(let i = 0; i < companies.length; i++){
-      if(companies[i]){
-        let addPriority = {name: '', company_fk: 0};
-        addPriority.name = companies[i].name;
-        addPriority.company_fk = companies[i].id;
-         if(companies[i].priority == "FREE"){
-           this.companyService.addPrioritiesFromCompanyId(addPriority).subscribe(
-             res => {this.updatePriority(companies[i]);}
-           );
-         }else{
-           this.companyService.deletePrioritiesFromCompanyId(addPriority.company_fk).subscribe(
-             res => {this.updatePriority(companies[i]);}
-           );
-         }
-      }
-    }
-    this.editPriority = false;
-    this.getPriorities();
-  }
-
-  updatePriority(editPriority){
-    this.companyService.editPriority(editPriority).subscribe(
-      data => {},
-      error => console.log("error")
-    );
-  }
-
-  deleteCompany(user) {
-    this.userService.deleteWholeCompany(user).subscribe(
-      data => {
-        this.toast.setMessage('item deleted successfully.', 'success');
-      },
-      error => console.error
-    );
-    const pos = this.companies.map(elem => elem.id).indexOf(user.id);
-    this.companies.splice(pos, 1);
-  }
-
-  admins = [];
-  users = [];
-  getAdmins(){
-      this.userService.getadmin().subscribe(
-        data => {
-          this.admins = data;
-        },
-        error => console.error
-      );
-  }
-
-  getUsers(){
-      this.userService.getAllUsers().subscribe(
-        data => {
-          // let result = this.data.decryption(data);
-          // this.users = result;
-
-          this.users = data;
-        },
-        error => console.error
-      );
-  }
-
-  getPriorities(){
-    this.companyService.getCompaniesPriorities().subscribe(
-      data => {
-        this.priorities = data;
-      }
-    )
-  }
-
-  decodeUserFromToken(token) {
-    return this.jwtHelper.decodeToken(token).results;
-  }
-
-  deleteAdmin(user){
-    user.admin = '0';
-    this.userService.makeAdmin(user).subscribe(
-      res => {},
-      error => console.log(error)
-    );
-    this.admins.splice(this.admins.indexOf(user.email), 1);
-
-  }
-
-  makeAdmin(user){
-    let found = false;
-    for(let i = 0; i< this.users.length;i++){
-      if(this.users[i].email == user.email ){
-        user.admin = '1';
-        this.userService.makeAdmin(user).subscribe(
-          res => {},
-          err => {}
-          );
-        this.admins.push(user);
-        found = true;
-      }
-    }
-    if(!found){
-      this.toast.setMessage('invalid user', 'danger');
-
-    }
-  }
-
-    save(priority){
-
-      this.companyService.editPriorityCompany(priority).subscribe();
-
-    }
-
-  changePriority(e, priority, type){
-    if(type == "profile_page"){
-      if(e.target.checked){
-        priority.profile_page = 1;
-      }
-      else{
-        priority.profile_page = 0;
-      }
-    }else if(type == "student_profile"){
-      if(e.target.checked){
-        priority.student_profile = 1;
-      }
-      else{
-        priority.student_profile = 0;
-      }
-    }else{
-      if(e.target.checked){
-        priority.job_openings = 1;
-      }
-      else{
-        priority.job_openings = 0;
-      }
-    }
-
-     this.save(priority);
-  }
-
-  editLogo = false;
-
-  saveLogoSize(priorities){
-    for(let priority of priorities){
-      this.save(priority);
-    }
-    this.editLogo = false;
-  }
 }
