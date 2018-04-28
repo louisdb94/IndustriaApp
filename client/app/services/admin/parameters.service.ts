@@ -17,8 +17,24 @@ export class ParametersService {
     return this.http.get(`/api/parameters-getparamsbyadmin`,{headers: this.header});
   }
 
+  getParametersCompany(): Observable<any> {
+    return this.http.get(`/api/parameters-getparamscompany`,{headers: this.header});
+  }
+
+  getParametersForCompany(user_fk): Observable<any> {
+    return this.http.get(`/api/parameters-getforcompany/${user_fk}`,{headers: this.header});
+  }
+
   addParam(param): Observable<any> {
     return this.http.post(`/api/parameters-add`, JSON.stringify(param), {headers: this.header});
+  }
+
+  deleteParameter(id): Observable<any> {
+    return this.http.delete(`/api/parameters-delete/${id}`, {headers: this.header});
+  }
+
+  deletePriorityFromValue(value): Observable<any> {
+    return this.http.delete(`/api/parameters-deletefromvalue/${value}`, {headers: this.header});
   }
 
 }

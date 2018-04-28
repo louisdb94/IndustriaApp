@@ -204,8 +204,11 @@ export default function setRoutes2(app) {
 
   //Parameters
   router.route('/parameters-getparamsbyadmin').get(parametersCtrl.getByAdmin);
+  router.route('/parameters-getparamscompany').get(parametersCtrl.getByParamsCompany);
+  router.route('/parameters-getforcompany/:user_fk').get(parametersCtrl.getParamsForCompany);
   router.route('/parameters-add').post(parametersCtrl.insert);
-
+  router.route('/parameters-delete/:id').delete(parametersCtrl.delete);
+  router.route('/parameters-deletefromvalue/:value').delete(parametersCtrl.deleteFromValue);
 
 
   // Apply the routes to our application with the prefix /api

@@ -44,6 +44,10 @@ export class AdminComponent implements OnInit {
   role = new FormControl('', Validators.required);
 
   parameters = [];
+  admin_priorities = [];
+  company_priorities = [];
+  freePriority = [];
+  checkedPriority = 0;
   addParamForm: FormGroup;
   parameter = new FormControl('', Validators.required);
   value = new FormControl('', Validators.required);
@@ -54,7 +58,8 @@ export class AdminComponent implements OnInit {
     this.getAdmins();
     this.getPriorities();
     this.getCompanies();
-    this.getParameters();
+    this.getParametersAdmin();
+    this.getParametersCompanies();
 
     this.addAdminForm = this.formBuilder.group({
     email: this.admin_email,
@@ -126,29 +131,6 @@ export class AdminComponent implements OnInit {
     )
   }
 
-  changePriority(e, priority, type) {
-    if(type == "profile_page") {
-      if (e.target.checked) {
-        priority.profile_page = 1;
-      }else {
-        priority.profile_page = 0;
-      }
-    }else if(type == "student_profile"){
-      if (e.target.checked) {
-        priority.student_profile = 1;
-      }else {
-        priority.student_profile = 0;
-      }
-    }else {
-      if (e.target.checked) {
-        priority.job_openings = 1;
-      }else {
-        priority.job_openings = 0;
-      }
-    }
-    this.save(priority);
-  }
-
   save(priority){
     this.companyService.editPriorityCompany(priority).subscribe();
   }
@@ -163,11 +145,20 @@ export class AdminComponent implements OnInit {
   //Companies tab
 
   getCompanies(){
+    this.getPriorities();
     this.companyService.getCompanies().subscribe(
-      result => {this.companies = result},
+      results => {
+        this.companies = results;
+        for(let result of results){
+          if(result.priority == "FREE"){
+            this.freePriority.push(result);
+          }
+        }
+      },
       error => console.log(error)
     )
   }
+
   saveUpdatePriority(users, companies){
     for(let i = 0; i < companies.length; i++){
       if(companies[i]){
@@ -238,9 +229,32 @@ export class AdminComponent implements OnInit {
 
   //Parameters tab
 
-  getParameters(){
+  getParametersCompanies(){
+    this.paramService.getParametersCompany().subscribe(
+      data => {
+        for(let item of data){
+          if(item.parameter == "priority"){
+            this.company_priorities.push(item);
+          }
+        }
+        if(this.company_priorities.length == 0){
+          this.company_priorities.push({});
+        }
+      },
+      error => console.log(error)
+    );
+  }
+
+  getParametersAdmin(){
     this.paramService.getParametersByAdmin().subscribe(
-      data => {this.parameters = data;},
+      data => {
+        this.parameters = data;
+        for(let item of data){
+          if(item.parameter == "priority"){
+            this.admin_priorities.push(item);
+          }
+        }
+      },
       error => console.log(error)
     );
   }
@@ -254,5 +268,30 @@ export class AdminComponent implements OnInit {
     this.paramService.addParam(this.addParamForm.value).subscribe();
   }
 
+  changePriority(e, priority, delete_priority, item){
+    if(delete_priority == true){
+      this.paramService.getParametersForCompany(item.user_fk).subscribe(
+        data => {
+          for(let company_p of data){
+            if(company_p.value == priority.value){
+              this.paramService.deleteParameter(company_p.id).subscribe();
+            }
+          }
+        }
+      );
+    }
+    else{
+      let addParam = {parameter: priority.parameter, value: priority.value, user_fk: item.user_fk};
+      this.paramService.addParam(addParam).subscribe();
+    }
+  }
+
+  removePriority(priority){
+    this.paramService.deletePriorityFromValue(priority.value).subscribe(
+      data => {
+        window.location.reload();
+      }
+    );
+  }
 
 }

@@ -49,54 +49,50 @@
       </div>
     </div>
     <div class="tab-pane" id="priority" role="tabpanel">
-      <table>
-       <thead class="thead-default" >
-         <tr>
-           <th style="padding:1%">Company</th>
-           <th style="padding:1%">Has a profile page</th>
-           <th style="padding:1%">Access to student profiles</th>
-           <th style="padding:1%">Can post job openings</th>
-           <th style="padding:1%">Logo size
-              <button *ngIf="!editLogo" class="btn btn-primary" (click)="editLogo = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
-              <button *ngIf="editLogo" class="btn btn-primary" (click)="saveLogoSize(priorities)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
-           </th>
-         </tr>
-       </thead>
-       <tr *ngFor="let priority of priorities; let i = index">
-         <td style="padding:1%"> {{priority.name}}</td>
-         <td  style="padding:1%">
-           <label class="custom-control custom-checkbox">
-               <input [checked]="priority.profile_page" (change)="changePriority($event,priority,'profile_page')" class="custom-control-input" type="checkbox" />
-               <span class="custom-control-indicator"></span>
-           </label>
-         </td>
-         <td  style="padding:1%">
-           <label class="custom-control custom-checkbox">
-               <input [checked]="priority.student_profile" (change)="changePriority($event,priority,'student_profile')" class="custom-control-input" type="checkbox" />
-               <span class="custom-control-indicator"></span>
-           </label>
-         </td>
-         <td  style="padding:1%">
-           <label class="custom-control custom-checkbox">
-               <input [checked]="priority.job_openings" (change)="changePriority($event,priority,'job_openings')" class="custom-control-input" type="checkbox" />
-               <span class="custom-control-indicator"></span>
-           </label>
-         </td>
-         <td>
-          <span *ngIf="!editLogo ">{{priority.size}}</span>
-          <span *ngIf="editLogo ">
-                <select [(ngModel)]="priority.size" placeholder="priority">
-                    <option value="" selected disabled>Logo Size</option>
-                    <option value="Large">Large</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Small">Small</option>
-                </select>
-           </span>
-         </td>
+        <table>
+         <thead class="thead-default" >
+           <tr>
+             <th style="padding:1%">Company</th>
+             <th *ngFor="let priority of admin_priorities" style="padding:1%">
+              {{priority.value}} 
+              <i class="fa fa-remove" (click)="removePriority(priority)" style="color:red"></i>
 
-       </tr>
-       <br><br>
-     </table>
+             </th>
+             <th style="padding:1%">Logo size
+                <button *ngIf="!editLogo" class="btn btn-primary" (click)="editLogo = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
+                <button *ngIf="editLogo" class="btn btn-primary" (click)="saveLogoSize(priorities)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
+             </th>
+           </tr>
+         </thead>
+         <tr *ngFor="let item of freePriority">
+           <td style="padding:1%"> {{item.name}}</td>
+           <td *ngFor="let priority of admin_priorities" style="padding:1%">
+            <span *ngFor="let company_p of company_priorities">
+              <label *ngIf="company_p.value == priority.value && company_p.user_fk == item.user_fk" class="custom-control custom-checkbox">
+                <input [checked]="true" (change)="changePriority($event,priority,true,item)" class="custom-control-input" type="checkbox" />
+                <span class="custom-control-indicator"></span>
+              </label>
+            </span>
+
+            <label class="custom-control custom-checkbox">
+              <input [checked]="false" (change)="changePriority($event,priority,false,item)" class="custom-control-input" type="checkbox" />
+              <span class="custom-control-indicator"></span>
+            </label>
+           </td>
+           <!-- <td>
+            <span *ngIf="!editLogo ">{{priority.size}}</span>
+            <span *ngIf="editLogo ">
+                  <select [(ngModel)]="priority.size" placeholder="priority">
+                      <option value="" selected disabled>Logo Size</option>
+                      <option value="Large">Large</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Small">Small</option>
+                  </select>
+             </span>
+           </td> -->
+         </tr>
+         <br><br>
+       </table>
     </div>
     <div class="tab-pane" id="company" role="tabpanel">
       <div #scrollMe style="overflow: scroll; height: 400px">
