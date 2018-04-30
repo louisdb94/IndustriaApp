@@ -17,6 +17,10 @@ export class ParametersService {
     return this.http.get(`/api/parameters-getparamsbyadmin`,{headers: this.header});
   }
 
+  getParameters(): Observable<any> {
+    return this.http.get(`/api/parameters-getall`,{headers: this.header});
+  }
+
   getParametersCompany(): Observable<any> {
     return this.http.get(`/api/parameters-getparamscompany`,{headers: this.header});
   }

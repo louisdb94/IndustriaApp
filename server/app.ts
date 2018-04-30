@@ -89,6 +89,21 @@ app.use((err, req, res, next) => {
 //     });
 // });
 
+app.get('/admincontact', (req,res) => {
+  const sql = `SELECT id, name FROM companies`;
+  this.pool.getConnection(function (err, connection) {
+          connection.query(sql, (error, result) => {
+              connection.release();
+              // Handle error after the release.
+              if (error) {
+                  throw error;
+              }
+              console.log(result);
+              res.send(result);
+          });
+      });
+});
+
 
 setRoutes(app);
 setRoutes2(app);

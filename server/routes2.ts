@@ -9,6 +9,8 @@ import { UsersController} from './controllers/users/users.controller';
 import { EventsController} from './controllers/admin/events.controller';
 import { PrivacylogController} from './controllers/admin/privacylog.controller';
 import { ParametersController} from './controllers/admin/parameters.controller';
+import { AdminCompanycontactController} from './controllers/admin/admin_contactcompany.controller';
+
 
 //Student Controller
 import { ContactStudentsController} from './controllers/students/contact.controller';
@@ -43,6 +45,7 @@ export default function setRoutes2(app) {
   const eventsCtrl = new EventsController();
   const privacylogCtrl = new PrivacylogController();
   const parametersCtrl = new ParametersController();
+  const adminContactCtrl = new AdminCompanycontactController();
 
   const contactStudentCtrl = new ContactStudentsController();
   const cvsCtrl = new CvsController();
@@ -69,7 +72,7 @@ export default function setRoutes2(app) {
   router.route('/users-login').post(usersCtrl.login);
   router.route('/resetpass').put(usersCtrl.updatePassword);
   router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
-  // router.route('/user-getadmin').get(usersCtrl.getAdmins);
+  router.route('/user-getadmin').get(usersCtrl.getAdmins);
   router.route('/sendmail/:email').get(usersCtrl.sendMail);
   router.route('/encrypt').get(usersCtrl.encrypt);
   router.route('/encrypt2').get(usersCtrl.encrypt2);
@@ -204,11 +207,17 @@ export default function setRoutes2(app) {
 
   //Parameters
   router.route('/parameters-getparamsbyadmin').get(parametersCtrl.getByAdmin);
+  router.route('/parameters-getall').get(parametersCtrl.get);
   router.route('/parameters-getparamscompany').get(parametersCtrl.getByParamsCompany);
   router.route('/parameters-getforcompany/:user_fk').get(parametersCtrl.getParamsForCompany);
   router.route('/parameters-add').post(parametersCtrl.insert);
   router.route('/parameters-delete/:id').delete(parametersCtrl.delete);
   router.route('/parameters-deletefromvalue/:value').delete(parametersCtrl.deleteFromValue);
+
+  //Admin company contact
+  router.route('admin-companycontact-getall').get(adminContactCtrl.get);
+  router.route('admin-companycontact-insert').post(adminContactCtrl.insert);
+  router.route('admin-companycontact-update').put(adminContactCtrl.updateById);
 
 
   // Apply the routes to our application with the prefix /api

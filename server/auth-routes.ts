@@ -8,7 +8,7 @@ export default function setRoutes(app) {
   const usersCtrl = new UsersController();
   const authorization = new Authorization();
 
-  router.route('/user-getadmin').get(usersCtrl.getAdmins);
+  // router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
   // Apply the routes to our application with the prefix /api
   app.use('/api', authorization.checkAccess, authorization.verifyToken , router);

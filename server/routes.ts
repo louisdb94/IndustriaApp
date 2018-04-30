@@ -95,7 +95,7 @@ export default function setRoutes(app) {
   // router.route('/delete-student/:student_fk').get(usersCtrl.deleteStudent);
   // router.route('/delete-company').post(usersCtrl.deleteCompany);
   //router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
-  //router.route('/user-getadmin').get(usersCtrl.getAdmins);
+  // router.route('/user-getadmin').get(usersCtrl.getAdmins);
 
   // //REFACTOR
   // router.route('/users-getall').get(usersCtrl.get);

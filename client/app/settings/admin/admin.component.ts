@@ -6,6 +6,8 @@ import { CompanyService} from '../../services/company/company.service';
 import { CompanyContactService} from '../../services/company/contact.service';
 import { ParametersService } from "../../services/admin/parameters.service";
 import { AuthService } from '../../services/auth.service';
+import { AdminCompanycontactService} from '../../services/admin/admin_companycontact.service';
+
 
 @Component({
   selector: 'app-admin',
@@ -19,6 +21,7 @@ export class AdminComponent implements OnInit {
                 private companyContactService : CompanyContactService,
                 private userService : UserService,
                 private paramService : ParametersService,
+                private adminContactService : AdminCompanycontactService,
                 public toast: ToastComponent,
                 public auth: AuthService,
 
@@ -35,6 +38,9 @@ export class AdminComponent implements OnInit {
 
   companies = [];
   editPriority = false;
+  adminCompanycontacts = [];
+  adminCompanycontactForm: FormGroup;
+  company_fk = new FormControl();
 
   addUserForm: FormGroup;
   name = new FormControl('', Validators.required);
@@ -49,8 +55,8 @@ export class AdminComponent implements OnInit {
   freePriority = [];
   checkedPriority = 0;
   addParamForm: FormGroup;
-  parameter = new FormControl('', Validators.required);
-  value = new FormControl('', Validators.required);
+  parameter = new FormControl('');
+  value = new FormControl('');
   user_fk = new FormControl('', Validators.required);
 
 
@@ -60,23 +66,31 @@ export class AdminComponent implements OnInit {
     this.getCompanies();
     this.getParametersAdmin();
     this.getParametersCompanies();
+    this.getAdminCompanyContacts();
+
 
     this.addAdminForm = this.formBuilder.group({
-    email: this.admin_email,
-    admin: this.admin,
+      email: this.admin_email,
+      admin: this.admin,
     });
     this.addUserForm = this.formBuilder.group({
-    email: this.email,
-    password: this.password,
-    priority: this.priority,
-    role: this.role,
-    name: this.name
+      email: this.email,
+      password: this.password,
+      priority: this.priority,
+      role: this.role,
+      name: this.name
     });
     this.addParamForm = this.formBuilder.group({
-    parameter: this.parameter,
-    value: this.value,
-    user_fk: this.user_fk,
-    role: this.role
+      parameter: this.parameter,
+      value: this.value,
+      user_fk: this.user_fk,
+      role: this.role
+    });
+    this.adminCompanycontactForm = this.formBuilder.group({
+      // name: this.name,
+      // parameter: this.parameter,
+      // value: this.value,
+      // company_fk: this.company_fk
     });
 
   }
@@ -142,6 +156,17 @@ export class AdminComponent implements OnInit {
     this.editLogo = false;
   }
 
+  setChecked : boolean = false;
+  setCheck(check){
+    if(check == 'true'){
+      this.setChecked = true;
+      return true;
+    }else if(check == 'false'){
+      this.setChecked = false;
+      return false;}
+
+  }
+
   //Companies tab
 
   getCompanies(){
@@ -158,7 +183,12 @@ export class AdminComponent implements OnInit {
       error => console.log(error)
     )
   }
-
+  getAdminCompanyContacts(){
+    // this.adminContactService.getContacts().subscribe(
+    //   data => {this.adminCompanycontacts = data;},
+    //   error => {console.log(error);}
+    // )
+  }
   saveUpdatePriority(users, companies){
     for(let i = 0; i < companies.length; i++){
       if(companies[i]){
@@ -226,6 +256,11 @@ export class AdminComponent implements OnInit {
             });
         this.companies.push(addCompanyForm);
   }
+  keyDownFunction(){
+    alert('you just clicked enter');
+    // rest of your code
+  }
+
 
   //Parameters tab
 
@@ -264,7 +299,6 @@ export class AdminComponent implements OnInit {
     this.addParamForm.value.role = "admin";
     this.addParamForm.value.value = AddParamForm.value;
     this.addParamForm.value.parameter = AddParamForm.parameter;
-
     this.paramService.addParam(this.addParamForm.value).subscribe();
   }
 

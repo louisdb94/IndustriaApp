@@ -54,9 +54,8 @@
            <tr>
              <th style="padding:1%">Company</th>
              <th *ngFor="let priority of admin_priorities" style="padding:1%">
-              {{priority.value}} 
+              {{priority.value}}
               <i class="fa fa-remove" (click)="removePriority(priority)" style="color:red"></i>
-
              </th>
              <th style="padding:1%">Logo size
                 <button *ngIf="!editLogo" class="btn btn-primary" (click)="editLogo = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
@@ -67,17 +66,21 @@
          <tr *ngFor="let item of freePriority">
            <td style="padding:1%"> {{item.name}}</td>
            <td *ngFor="let priority of admin_priorities" style="padding:1%">
-            <span *ngFor="let company_p of company_priorities">
+               <span *ngFor="let company_p of company_priorities">
               <label *ngIf="company_p.value == priority.value && company_p.user_fk == item.user_fk" class="custom-control custom-checkbox">
-                <input [checked]="true" (change)="changePriority($event,priority,true,item)" class="custom-control-input" type="checkbox" />
+                <input *ngIf="setCheck(true)" [checked]="true" (change)="changePriority($event,priority,true,item)" class="custom-control-input" type="checkbox" />
                 <span class="custom-control-indicator"></span>
               </label>
             </span>
-
-            <label class="custom-control custom-checkbox">
+            {{setChecked}}
+            <label *ngIf="setChecked === false" class="custom-control custom-checkbox">
               <input [checked]="false" (change)="changePriority($event,priority,false,item)" class="custom-control-input" type="checkbox" />
               <span class="custom-control-indicator"></span>
             </label>
+
+            <span >
+              <span *ngIf ="setCheck(false)"> </span>
+            </span>
            </td>
            <!-- <td>
             <span *ngIf="!editLogo ">{{priority.size}}</span>
@@ -96,12 +99,12 @@
     </div>
     <div class="tab-pane" id="company" role="tabpanel">
       <div #scrollMe style="overflow: scroll; height: 400px">
-      <table >
+      <table>
        <thead class="thead-default" >
          <tr>
            <th>Name</th>
            <th>Email</th>
-           <th>URL</th>
+           <th>Phone</th>
            <th>Priority
              <button *ngIf="!editPriority" class="btn btn-primary" (click)="editPriority = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
              <button *ngIf="editPriority" class="btn btn-primary" (click)="saveUpdatePriority(users, companies)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
@@ -111,7 +114,14 @@
        </thead>
        <tr *ngFor="let company of companies; let i = index">
          <td> <a md-line routerLink='/profile-company/{{company.id}}'> {{company.name}} </a> </td>
-         <td>{{company.email}}</td>
+         <td>
+           <span *ngIf="company.email != ''">
+             <form [formGroup]="adminCompanycontactForm" (keyup.enter)="keyDownFunction()">
+               <input type="text" />
+             </form>
+           </span>
+           <span *ngIf="company.email == ''"> {{company.email}} </span>
+         </td>
          <td>{{company.url}}</td>
          <td ><span *ngIf="!editPriority ">{{company.priority}}</span>
               <span *ngIf="editPriority ">
@@ -131,35 +141,34 @@
        </tr>
        <br><br>
      </table>
-   </div>
-
-     <div class="card">
-         <div class="card-header"><h4>Add new company</h4></div>
-         <div class="card-block">
-           <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
-             <div class="form-group">
-               <input class="form-control" type="text" name="name" formControlName="name" placeholder="Company name">
-             </div>
-             <div class="form-group">
-               <input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
-             </div>
-             <div class="form-group">
-               <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
-             </div>
-             <div class="form-group">
-                 <select class="form-control" type="text" name="priority" formControlName="priority" placeholder="priority">
-                     <option value="" selected disabled>Priority</option>
-                     <option value="HIGH">HIGH</option>
-                     <option value="MIDDLE">MIDDLE</option>
-                     <option value="LOW">LOW</option>
-                     <option value="ONDERNEMERSDAG">ONDERNEMERSDAG</option>
-                     <option value="FREE">FREE</option>
-                   </select>
-             </div>
-             <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
-           </form>
+      </div>
+       <div class="card">
+           <div class="card-header"><h4>Add new company</h4></div>
+           <div class="card-block">
+             <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
+               <div class="form-group">
+                 <input class="form-control" type="text" name="name" formControlName="name" placeholder="Company name">
+               </div>
+               <div class="form-group">
+                 <input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
+               </div>
+               <div class="form-group">
+                 <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
+               </div>
+               <div class="form-group">
+                   <select class="form-control" type="text" name="priority" formControlName="priority" placeholder="priority">
+                       <option value="" selected disabled>Priority</option>
+                       <option value="HIGH">HIGH</option>
+                       <option value="MIDDLE">MIDDLE</option>
+                       <option value="LOW">LOW</option>
+                       <option value="ONDERNEMERSDAG">ONDERNEMERSDAG</option>
+                       <option value="FREE">FREE</option>
+                     </select>
+               </div>
+               <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
+             </form>
+           </div>
          </div>
-       </div>
     </div>
     <div class="tab-pane" id="parameter" role="tabpanel">
       <table>
@@ -191,7 +200,6 @@
          </div>
        </div>
     </div>
-
   </div>
 
 </div>
