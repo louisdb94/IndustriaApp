@@ -66,20 +66,16 @@
          <tr *ngFor="let item of freePriority">
            <td style="padding:1%"> {{item.name}}</td>
            <td *ngFor="let priority of admin_priorities" style="padding:1%">
-               <span *ngFor="let company_p of company_priorities">
-              <label *ngIf="company_p.value == priority.value && company_p.user_fk == item.user_fk" class="custom-control custom-checkbox">
-                <input *ngIf="setCheck(true)" [checked]="true" (change)="changePriority($event,priority,true,item)" class="custom-control-input" type="checkbox" />
-                <span class="custom-control-indicator"></span>
-              </label>
+            <span *ngFor="let company_p of company_priorities">
+              <span *ngIf="company_p.value == priority.value && company_p.user_fk == item.user_fk">
+                <span *ngIf="setCheck(1)"></span>
+              </span>
             </span>
-            {{setChecked}}
-            <label *ngIf="setChecked === false" class="custom-control custom-checkbox">
-              <input [checked]="false" (change)="changePriority($event,priority,false,item)" class="custom-control-input" type="checkbox" />
-              <span class="custom-control-indicator"></span>
-            </label>
-
-            <span >
-              <span *ngIf ="setCheck(false)"> </span>
+            <span>
+              <label class="custom-control custom-checkbox">
+                <input [checked]="setChecked" (change)="changePriority($event,priority,false,item)" class="custom-control-input" type="checkbox" />
+                <span *ngIf ="setCheck(0)" class="custom-control-indicator"></span>
+              </label>
             </span>
            </td>
            <!-- <td>

@@ -54,6 +54,7 @@ export class AdminComponent implements OnInit {
   company_priorities = [];
   freePriority = [];
   checkedPriority = 0;
+  setChecked = 0;
   addParamForm: FormGroup;
   parameter = new FormControl('');
   value = new FormControl('');
@@ -156,14 +157,15 @@ export class AdminComponent implements OnInit {
     this.editLogo = false;
   }
 
-  setChecked : boolean = false;
   setCheck(check){
-    if(check == 'true'){
-      this.setChecked = true;
+    if(check == 1){
+      this.setChecked = 1;
       return true;
-    }else if(check == 'false'){
-      this.setChecked = false;
-      return false;}
+    }
+    else {
+      this.setChecked = 0;
+      return true;
+    }
 
   }
 
