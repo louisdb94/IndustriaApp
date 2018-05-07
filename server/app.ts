@@ -6,7 +6,9 @@ import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import * as EmailTemplate from 'email-templates';
 import setRoutes from './routes';
-import setAuthRoutes from './config/shibboleth';
+import setRoutes2 from './routes2';
+import setShibbRoutes from './config/shibboleth';
+import setAuthRoutes from './auth-routes';
 import * as  mysql from 'mysql';
 import * as fileupload from 'express-fileupload';
 
@@ -87,11 +89,26 @@ app.use((err, req, res, next) => {
 //     });
 // });
 
-
+app.get('/admincontact', (req,res) => {
+  const sql = `SELECT id, name FROM companies`;
+  this.pool.getConnection(function (err, connection) {
+          connection.query(sql, (error, result) => {
+              connection.release();
+              // Handle error after the release.
+              if (error) {
+                  throw error;
+              }
+              console.log(result);
+              res.send(result);
+          });
+      });
+});
 
 
 setRoutes(app);
-// setAuthRoutes(app);
+setRoutes2(app);
+setShibbRoutes(app);
+setAuthRoutes(app);
 app.listen(process.env.PORT || 3000, () => {
     console.log('Server started on port', process.env.PORT || 3000);
 });

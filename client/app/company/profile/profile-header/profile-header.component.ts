@@ -86,10 +86,11 @@ export class CompanyHeaderProfile {
         formData.append('files', file, file.name);
         formData.append('name', company.name);
         formData.append('id', company.id);
+        formData.append('image', '1');
 
         if(file) {
           this.fileService.uploadImageCompany(formData).subscribe(
-            res => {} 
+            res => {}
           );}
       }
       else{

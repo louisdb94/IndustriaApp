@@ -38,9 +38,13 @@ export class SettingsComponent implements OnInit {
   contact : any;
   experiences : any;
   deleteMode = false;
-  
+
 
   ngOnInit() {
+    if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
+      this.auth.loginStudent(localStorage.getItem('token'));
+    }
+
     if(this.auth.currentUser.role == "Student"){
       this.getStudent();
       this.getExperiences();
@@ -52,8 +56,7 @@ export class SettingsComponent implements OnInit {
   getStudent(){
     this.studentService.getStudentByIdMysql(this.auth.currentUser.studentId).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.student = result[0];
+        this.student = data[0];
       },
       error => console.log(error),
     );
@@ -62,8 +65,8 @@ export class SettingsComponent implements OnInit {
   getExperiences(){
     this.experienceService.getExperienceById(this.auth.currentUser.studentId).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.experiences = result;
+        // let result = this.dataService.decryption(data);
+        this.experiences = data;
       },
       error => console.log(error)
     )
@@ -72,8 +75,8 @@ export class SettingsComponent implements OnInit {
   getContact(){
     this.contactService.getContactByStudentId(this.auth.currentUser.studentId).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.contact = result;
+        // let result = this.dataService.decryption(data);
+        this.contact = data;
       },
       error => console.log(error)
     )
@@ -82,8 +85,8 @@ export class SettingsComponent implements OnInit {
   getCVFromStudent(){
     this.fileService.getCvFromStudent(this.auth.currentUser.studentId).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.cvs = result;
+        // let result = this.dataService.decryption(data);
+        this.cvs = data;
       },
       error => console.log(error)
     )
@@ -96,10 +99,16 @@ export class SettingsComponent implements OnInit {
   }
 
   downloadPersonalInformation(){
-    let personal_information = { 
+    let name;
+    if(this.student.name == undefined){
+      name = "no name input";
+    }else{
+      name = this.student.name;
+    }
+    let personal_information = {
       content: [
         {
-          text: this.student.name + "   " + this.student.rnumber + '\n',
+          text: name + "   " + this.student.rnumber + '\n',
           style: 'name'
         },
         {
@@ -163,9 +172,9 @@ export class SettingsComponent implements OnInit {
           fontSize: 12,
           bold: false
         }
-      } 
+      }
     };
-    pdfMake.createPdf(personal_information).open();  
+    pdfMake.createPdf(personal_information).open();
   }
 
   nodemailer(email){

@@ -63,20 +63,6 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/home-students']);
     }
 
-    if (this.auth.loggedIn) {
-      this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
-        data => (this.id = data._id, this.data.changeMessageId(data._id), this.data.changeMessageNav(data._id), console.log("data: ", this.id)),
-        error => console.log("error")
-      );
-
-      this.activatedRoute.params.subscribe((params: Params) => {
-        this.data.changeMessageNav(params['status']);
-        this.messageNav = params['status'];
-      });
-
-      this.router.navigate(['/students']);
-    }
-
     this.loginForm = this.formBuilder.group({
       email: this.email,
       password: this.password
@@ -120,9 +106,8 @@ export class LoginComponent implements OnInit {
       if(params['status'] == "student"){
         this.studentService.getStudentByRnumberMysql(this.userForm.value.rnumber).subscribe(
           data => {
-            let result = this.data.decryption(data);
-            this.id = result[0].id;
-            this.data.changeMessageId(result[0].id);
+            this.id = data[0].id;
+            this.data.changeMessageId(data[0].id);
 
             this.auth.login(this.loginForm.value).subscribe(
               res => {this.navigate()},
@@ -136,10 +121,9 @@ export class LoginComponent implements OnInit {
       if(params['status'] == "company"){
         this.companyService.getCompanyByEmailMysql(this.emailStudent).subscribe(
           data => {
-            let result = this.data.decryption(data);
-            if(result[0]){
-              this.id = result[0].id; 
-              this.data.changeMessageId(result[0].id);
+            if(data[0]){
+              this.id = data[0].id;
+              this.data.changeMessageId(data[0].id);
 
               this.auth.login(this.loginForm.value).subscribe(
                 res => {this.navigate()},

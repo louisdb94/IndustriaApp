@@ -34,11 +34,16 @@ export class VacatureListComponent implements OnInit {
 
     public searchText : any;
     public searchSkill : any;
-    
+
     // review tom: added variable p
     public p: any;
 
     ngOnInit() {
+
+      if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
+        this.auth.loginStudent(localStorage.getItem('token'));
+      }
+
       this.getinnerjoin();
       this.getCompanies();
     }
@@ -46,8 +51,7 @@ export class VacatureListComponent implements OnInit {
     getCompanies(){
       this.companyService.getCompanies().subscribe(
         data => {
-          this.companies_all = this.dataService.decryption(data);
-          
+          this.companies_all = data;
           for(let company of this.companies_all){
             if(company.priority !== "ONDERNEMERSDAG"){
               this.companies.push(company);
@@ -75,10 +79,10 @@ export class VacatureListComponent implements OnInit {
     getinnerjoin(){
       this.companyService.getinnerjoin().subscribe(
         data => {
-          let result = this.dataService.decryption(data);
-          for(let i =0; i< result.length ; i++){
-            if(result[i].vacature_name != ""){
-              this.vacatures.push(result[i]);
+          // let result = this.dataService.decryption(data);
+          for(let i =0; i< data.length ; i++){
+            if(data[i].vacature_name != ""){
+              this.vacatures.push(data[i]);
             }
           }},
         error => console.log(error)

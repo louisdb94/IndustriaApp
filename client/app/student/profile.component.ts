@@ -55,15 +55,12 @@ export class StudentProfile implements OnInit {
 
   ngOnInit() {
 
+    if(this.auth.loggedIn == false ){
+      this.auth.loginStudent(localStorage.getItem('token'));
+    }
+
     this.dataService.idMessage.subscribe(message => this.messageId = message);
     this.dataService.navMessage.subscribe(message => this.messageNav = message);
-
-    // if (this.auth.loggedIn && this.dataService.idMessage  != this.compareID) {
-    //   this.studentService.getStudentByRnumber(this.auth.currentUser.rnumber).subscribe(
-    //     data => (this.dataService.changeMessageId(data._id), this.dataService.changeMessageNav(true)),
-    //     error => console.log("error")
-    //   );
-    // }
 
     this.translate.setDefaultLang('en');
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -84,11 +81,10 @@ export class StudentProfile implements OnInit {
   getStudentByIdMySql(id) {
     this.studentService.getStudentByIdMysql(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.student = result[0];
-        this.countEducation = result[0].countEducation; 
-        this.countExperiences = result[0].countExperiences;
-        this.contactChecked = result[0].contactChecked;
+        this.student = data[0];
+        this.countEducation = data[0].countEducation;
+        this.countExperiences = data[0].countExperiences;
+        this.contactChecked = data[0].contactChecked;
       },
       error => console.log(error),
     );
@@ -97,8 +93,8 @@ export class StudentProfile implements OnInit {
   getskillbyid(id){
     this.skillService.getSkillByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.skills = result;
+        // let result = this.dataService.decryption(data);
+        this.skills = data;
       },
       error => console.log(error)
     )
@@ -107,8 +103,8 @@ export class StudentProfile implements OnInit {
   getLanguagebyid(id){
     this.languageService.getLanguageByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.languages = result;
+        // let result = this.dataService.decryption(data);
+        this.languages = data;
       },
       error => console.log(error)
     )
@@ -117,8 +113,8 @@ export class StudentProfile implements OnInit {
   getContactbyid(id){
     this.contactService.getContactByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.contacts = result;
+        // let result = this.dataService.decryption(data);
+        this.contacts = data;
       },
       error => console.log(error)
     )
@@ -127,8 +123,8 @@ export class StudentProfile implements OnInit {
   getProfessionalbyid(id){
     this.professionalService.getProfessionalByStudentId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.professional = result;
+        // let result = this.dataService.decryption(data);
+        this.professional = data;
       },
       error => console.log(error)
     )

@@ -1,36 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class EventsService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-  private options = new RequestOptions({ headers: this.headers });
+  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
 
-
-
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
 
   //MYSQL
 
   insertEvent(event): Observable<any> {
-    return this.http.post('/api/events-insert', JSON.stringify(event), this.options);
+    return this.http.post('/api/events-insert', JSON.stringify(event), {headers: this.header});
   }
 
   getEvents(): Observable<any> {
-    return this.http.get(`/api/events-getall`).map(res => res.json());
+    return this.http.get(`/api/events-getall`,{headers: this.header});
   }
 
   editEvent(event): Observable<any> {
-    return this.http.put(`/api/events-update`, JSON.stringify(event), this.options);
+    return this.http.put(`/api/events-update`, JSON.stringify(event), {headers: this.header});
   }
 
   deleteEvent(id): Observable<any> {
-    return this.http.delete(`/api/events-delete/${id}`, this.options);
+    return this.http.delete(`/api/events-delete/${id}`, {headers: this.header});
   }
 
 }

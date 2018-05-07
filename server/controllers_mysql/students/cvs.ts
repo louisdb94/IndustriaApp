@@ -16,7 +16,7 @@ export default class CvsCtrl extends BaseSqlCtrl {
     //retrieve all data from formdata
     let rnumber = req.body.rnumber;
     let id = req.body.id;
-    let cvnumber = req.body.cvnumber;
+    let cvnumber = req.body.numberCv;
 
     //check if there is a file in formdata
     if (!(<any>req.files).files) {

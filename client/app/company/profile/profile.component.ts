@@ -43,6 +43,9 @@ export class CompanyProfile implements OnInit {
   compareID = this.compare.asObservable();
 
   ngOnInit() {
+    if(this.auth.loggedIn == false){
+      this.auth.loginStudent(localStorage.getItem('token'));
+    }
     this.activatedRoute.params.subscribe((params: Params) => {
       this.company_id = params['id'];
       this.getCompanyById(this.company_id);
@@ -56,9 +59,8 @@ export class CompanyProfile implements OnInit {
   getCompanyById(id){
     this.companyService.getCompanyById(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.company = result[0];
-        this.priority = result[0].priority;
+        this.company = data[0];
+        this.priority = data[0].priority;
       },
       error => console.log("error")
     );
@@ -67,8 +69,7 @@ export class CompanyProfile implements OnInit {
   getVacaturesByCompanyId(id){
     this.vacatureService.getVacatureByCompanyId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.vacatures = result;
+        this.vacatures = data;
       },
       error => console.log("error")
     );
@@ -77,8 +78,8 @@ export class CompanyProfile implements OnInit {
   getContactById(id){
     this.companyContactService.getContactByCompanyId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.contacts = result[0];
+        // let result = this.dataService.decryption(data);
+        this.contacts = data[0];
       },
       error => console.log(error)
     )

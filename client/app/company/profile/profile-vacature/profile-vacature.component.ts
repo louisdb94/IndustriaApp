@@ -30,10 +30,10 @@ export class CompanyVacatureProfile {
   public deleteClicked = false;
 
   registerForm: FormGroup;
-  vac1Form = new FormControl(String);
-  vac2Form = new FormControl(String);
-  vac3Form = new FormControl(String);
-  idForm = new FormControl(String);
+  name = new FormControl(String);
+  type = new FormControl(String);
+  about = new FormControl(String);
+  company_fk = new FormControl(String);
 
   @Input() vacatures;
   @Input() company;
@@ -49,10 +49,10 @@ export class CompanyVacatureProfile {
   ngOnInit() {
 
     this.registerForm = this.formBuilder.group({
-      vac1Form: this.vac1Form,
-      vac2Form: this.vac2Form,
-      vac3Form: this.vac3Form,
-      idForm: this.idForm,
+      name: this.name,
+      type: this.type,
+      about: this.about,
+      company_fk: this.company_fk,
     });
 
     this.changeVacature(this.vacatures, null, null, null, null);
@@ -85,10 +85,10 @@ export class CompanyVacatureProfile {
 
   save(vacatures, vac1, vac2, vac3, vacature){
 
-    this.registerForm.value.vac1Form = vac1;
-    this.registerForm.value.vac2Form = vac2;
-    this.registerForm.value.vac3Form = vac3;
-    this.registerForm.value.idForm = this.company.id;
+    this.registerForm.value.name = vac1;
+    this.registerForm.value.type = vac2;
+    this.registerForm.value.about = vac3;
+    this.registerForm.value.company_fk = this.company.id;
 
     if(this.addClicked && vac1 != null && vac2 != null && vac3 != null){
       this.vacatureService.addVacatureForm(this.registerForm.value).subscribe(

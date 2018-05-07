@@ -3,6 +3,7 @@ import { StudentService } from '../../services/student.service';
 import { SocialmediaService } from '../../services/socialmedia.service';
 import { FileService } from '../../services/file.service';
 import { DataService } from '../../services/data.service';
+import { ParametersService } from "../../services/admin/parameters.service";
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, NgModelGroup, NgForm } from '@angular/forms';
@@ -59,6 +60,7 @@ export class HeaderProfile implements OnInit {
                 public dataService: DataService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
+                private paramService : ParametersService,
                 private http: HttpClient,
                 public sanitizer: DomSanitizer,
                 private formBuilder: FormBuilder,
@@ -81,15 +83,29 @@ export class HeaderProfile implements OnInit {
       this.getCvFromStudent(this.student_id);
       this.downloadImage(this.student_id);
       this.getSocialMediaById(this.student_id);
+      this.getParameters();
       this.files = [];
     });
+  }
+
+  degrees = [];
+
+  getParameters(){
+    this.paramService.getParametersByAdmin().subscribe(
+      data => {for(let item of data){
+        if(item.parameter == "degree"){
+          this.degrees.push(item.value);
+        }}
+      },
+      error => {console.log(error)}
+    );
   }
 
   getSocialMediaById(id){
     this.socialmediaService.getSocialmediaById(id).subscribe(
           data => {
-            let result = this.dataService.decryption(data);
-            this.socialmedia = result;
+            // let result = this.dataService.decryption(data);
+            this.socialmedia = data;
           },
       error => console.log(error)
     );
@@ -119,6 +135,8 @@ export class HeaderProfile implements OnInit {
     }
   }
 
+
+
   fileChangeListener($event, student) {
 
       //Upload image to server
@@ -126,12 +144,9 @@ export class HeaderProfile implements OnInit {
       if(file.size < 2550594){
         let formData: FormData = new FormData();
         formData.append('files', file, file.name);
-
-        formData.append('students', student.rnumber);
-
+        formData.append('name', student.rnumber);
         formData.append('id', student.id);
-
-    //    let random = formData.get('students');
+        formData.append('image', '1');
 
         if(file) {
           this.fileService.uploadImage(formData).subscribe(
@@ -172,12 +187,13 @@ export class HeaderProfile implements OnInit {
 
         if(this.hasFiles()) {
           student.numberCv++;
-          formData.append('cvnumber', (<any>student.numberCv));
-          this.http.post('/api/cv/upload', formData).subscribe(res => console.log('gelukt', res));
+          formData.append('numberCV', (<any>student.numberCv));
+          this.fileService.uploadCv(formData).subscribe();
+          //this.http.post('/api/cv/upload', formData).subscribe(res => console.log('gelukt', res));
 
           this.addCvForm = this.formBuilder.group({
+            student_fk: student.id,
             name: student.rnumber,
-            uploader: student.id,
             mimetype: file.type.split('/')[1],
             size: file.size,
             number: student.numberCv
@@ -232,25 +248,13 @@ export class HeaderProfile implements OnInit {
         },
         error => console.log(error)
       );
-  
-  
-  
-      const cvs: any = {};
-      cvs.name = cv.name;
-      cvs.number = cv.number;
-      cvs.uploader = cv.uploader;
-      cvs.mimetype = cv.mimetype;
-  
-  
-      this.http.post(`/api/cv/remove/${cv.id}`, cvs).subscribe();
     }
   }
 
   getCvFromStudent(id){
     this.fileService.getCvFromStudent(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.cvs = result;
+        this.cvs = data;
       },
       error => console.log(error)
     )

@@ -12,11 +12,8 @@
 
             <h3>
                 <div class="form-group">
-                    <select id="editText" *ngIf="editMode" [(ngModel)]="student.degree" placeholder="Select your major">
-                        <option value="Electronics-ICT">Electronics-ICT</option>
-                        <option value="Electromechanics">Electromechanics</option>
-                        <option value="Biochemistry">Biochemistry</option>
-                        <option value="Chemistry">Chemistry</option>
+                    <select id="editText" *ngIf="editMode" [(ngModel)]="student.degree" placeholder="Select your major" >
+                        <option *ngFor="let degree of degrees">{{degree}}</option>
                     </select>
                 </div>
                 <!-- <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.degree" placeholder="Select your major" rows="1" ></textarea> -->

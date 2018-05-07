@@ -61,8 +61,7 @@ export class CompanyVacature implements OnInit {
   getVacatureById(id){
     this.vacatureService.getVacatureById(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.vacature = result[0];
+        this.vacature = data[0];
         this.company_fk = this.vacature.company_fk; 
         this.getCompanyByVacatureId(this.vacature.company_fk);
         this.getContactByCompanyId(this.vacature.company_fk);
@@ -74,8 +73,7 @@ export class CompanyVacature implements OnInit {
   getCompanyByVacatureId(id){
     this.companyService.getCompanyById(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.company = result[0];
+        this.company = data[0];
       },
       error => console.log("error")
     );
@@ -84,8 +82,7 @@ export class CompanyVacature implements OnInit {
   getContactByCompanyId(id){
     this.companyContactService.getContactByCompanyId(id).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.contacts = result[0];
+        this.contacts = data[0];
       },
       error => console.log(error)
     )

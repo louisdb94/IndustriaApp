@@ -1,48 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CompanyRequirementService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-  private options = new RequestOptions({ headers: this.headers });
+  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
 
-
-
-  constructor(private http: Http) { }
-
+  constructor(private http: HttpClient) { }
 
   //MYSQL
 
   getRequirementById(id): Observable<any> {
-    return this.http.get(`/api/requirements-get/${id}`).map(res => res.json());
+    return this.http.get(`/api/requirements-get/${id}`, {headers: this.header});
   }
 
   getRequirements(): Observable<any> {
-    return this.http.get(`/api/requirements-getall`).map(res => res.json());
-  }
-
-  addExperience(education): Observable<any> {
-    return this.http.post('/api/requirements-insert', JSON.stringify(education), this.options);
+    return this.http.get(`/api/requirements-getall`, {headers: this.header});
   }
 
   deleteRequirement(id): Observable<any> {
-    return this.http.delete(`/api/requirements-delete/${id}`, this.options);
-  }
-
-  addRequirementFromCompanyId(id): Observable<any> {
-    return this.http.get(`/api/requirements-insert/${id}`, this.options);
+    return this.http.delete(`/api/requirements-delete/${id}`, {headers: this.header});
   }
 
   addRequirementForm(form): Observable<any> {
-    return this.http.post('/api/requirements-insertform', JSON.stringify(form), this.options);
+    return this.http.post('/api/requirements-insertform', JSON.stringify(form), {headers: this.header});
   }
 
   editRequirements(requirement): Observable<any> {
-    return this.http.put(`/api/requirements-update`, JSON.stringify(requirement), this.options);
+    return this.http.put(`/api/requirements-update`, JSON.stringify(requirement), {headers: this.header});
   }
 
 

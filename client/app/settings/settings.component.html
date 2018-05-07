@@ -22,6 +22,11 @@
           <h5>Delete Account</h5>
         </a>
       </li>
+      <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#admin" role="tab">
+            <h5>Admin</h5>
+        </a>
+      </li>
       </ul>
 
       <!-- Tab panes -->
@@ -56,6 +61,9 @@
               <p *ngIf="deleteMode">Are you sure that you want to delete your account? This will be irreversible and all of your information will be lost</p>
               <button *ngIf="deleteMode" class="btn btn-info" (click)="delete()"> YES </button>
               <button *ngIf="deleteMode" (click)="deleteMode = false" class="btn btn-info"> NO </button>
+          </div>
+          <div *ngIf="auth.currentUser.admin == '1'" class="tab-pane" id="admin" role="tabpanel">
+            <app-admin class="component" id="app-admin"></app-admin>
           </div>
       </div>
   </div>

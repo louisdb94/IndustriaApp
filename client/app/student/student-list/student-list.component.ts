@@ -13,10 +13,13 @@ import { HttpClient } from '@angular/common/http';
 import { AccordionModule } from 'primeng/primeng';
 import { AuthService } from '../../services/auth.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
+import { ParametersService } from "../../services/admin/parameters.service";
+
 
 import { Subject } from 'rxjs/Subject';
 
 import { FilterPipe } from '../../pipes/student-list.pipe';
+import { FilterDegree } from '../../pipes/filterDegree.pipe';
 import { FilterSkill } from '../../pipes/filterSkill.pipe';
 import { FilterProfessional } from '../../pipes/filterProfessional.pipe';
 import { FilterLanguage } from '../../pipes/filterLanguage.pipe';
@@ -27,7 +30,7 @@ import { JwtHelper } from 'angular2-jwt';
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.scss'],
-  providers: [FilterPipe, FilterSkill, FilterProfessional, FilterLanguage]
+  providers: [FilterPipe, FilterSkill, FilterProfessional, FilterLanguage, FilterDegree]
 
 })
 export class StudentListComponent implements OnInit {
@@ -40,6 +43,7 @@ export class StudentListComponent implements OnInit {
     private cvsService: CvsService,
     private contactService: ContactService,
     public companyService: CompanyService,
+    private paramService : ParametersService,
     private http: HttpClient,
     public auth: AuthService,
     private dataService: DataService,
@@ -63,6 +67,7 @@ export class StudentListComponent implements OnInit {
   public searchSkill: any;
   public searchProf: any;
   public searchLang: any;
+  public searchDegrees: any;
   public priority: any;
   public company: any;
 
@@ -72,11 +77,16 @@ export class StudentListComponent implements OnInit {
   public p: any;
 
   ngOnInit() {
+    if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
+      this.auth.loginStudent(localStorage.getItem('token'));
+    }
+
     this.getStudents();
     this.getStudentsIds();
     this.getSkills();
     this.getLanguages();
     this.getProffskills();
+    this.getParameters();
     // this.getCounty();
 
     if(this.auth.currentUser.role == "Company"){
@@ -84,13 +94,24 @@ export class StudentListComponent implements OnInit {
     }
 
   }
+  degrees = [];
+
+  getParameters(){
+    this.paramService.getParametersByAdmin().subscribe(
+      data => {for(let item of data){
+        if(item.parameter == "degree"){
+          this.degrees.push(item.value);
+        }}
+      },
+      error => {console.log(error)}
+    );
+  }
 
   getCompanyById(currentUser){
     this.companyService.getCompanyByEmailMysql(currentUser.email).subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.company = result[0];
-        this.priority = result[0].priority;
+        this.company = data[0];
+        this.priority = data[0].priority;
       },
       error => console.log("error")
     );
@@ -100,8 +121,7 @@ export class StudentListComponent implements OnInit {
   getStudents() {
     this.studentService.getStudentsMysql().subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.students = result;
+        this.students = data;
       },
       error => console.log(error)
     )
@@ -110,8 +130,9 @@ export class StudentListComponent implements OnInit {
   getStudentsIds() {
     this.studentService.getStudentsIdsMysql().subscribe(
       data => {
-        let result = this.dataService.decryption(data);
-        this.ids = result;
+        for(let id of data){
+          this.ids.push(id.id);
+        }
       },
       error => console.log(error)
     )
@@ -276,15 +297,12 @@ export class StudentListComponent implements OnInit {
 
   //keep track of what a person checks -> by checking a skill, the student_fk
   //  is stored inside skillFk[]
-  // checkedSkill keeps track of how many skills there are checked
   skillFk = [];
   skillsChecked = [];
   fk_list = [];
-  checkedSkill = 0;
   noDupe = [];
   inputSkillCheck(e, skill) {
     if (e.target.checked) {
-      this.checkedSkill++;
       this.skillsChecked[this.skillsChecked.length] = skill;
       if (skill != "") {
         this.skillService.getFkbySkill(skill).subscribe(
@@ -300,7 +318,6 @@ export class StudentListComponent implements OnInit {
       }
     }
     else {
-      this.checkedSkill--;
       for (let i = 0; i < this.skillsChecked.length; i++) {
         if (this.skillsChecked[i] == skill) {
           this.skillsChecked.splice(i, 1);
@@ -319,26 +336,20 @@ export class StudentListComponent implements OnInit {
     }
   }
 
-
-
-
   //keep track of what a person checks -> by checking a skill, the student_fk
   //  is stored inside profskillFk[]
-  // checkedProf keeps track of how many skills there are checked
   profskillFk = [];
   profSkillsChecked = [];
-  checkedProf = 0;
   inputProfskillCheck(e, skill) {
     if (e.target.checked) {
-      this.checkedProf++;
       this.profSkillsChecked[this.profSkillsChecked.length] = skill;
       if (skill != "") {
         this.professionalService.getFkbySkill(skill).subscribe(
           data => {
-            let result = this.dataService.decryption(data);
-            for (let i = 0; i < result.length; i++) {
-              this.profskillFk.push(result[i]);
-              this.fk_list.push(result[i].student_fk);
+            // let result = this.dataService.decryption(data);
+            for (let i = 0; i < data.length; i++) {
+              this.profskillFk.push(data[i]);
+              this.fk_list.push(data[i].student_fk);
             }
             this.noDupe = Array.from(new Set(this.fk_list));
           },
@@ -347,7 +358,6 @@ export class StudentListComponent implements OnInit {
       }
     }
     else {
-      this.checkedProf--;
       for (let i = 0; i < this.profSkillsChecked.length; i++) {
         if (this.profSkillsChecked[i] == skill) {
           this.profSkillsChecked.splice(i, 1);
@@ -369,21 +379,18 @@ export class StudentListComponent implements OnInit {
 
   //keep track of what a person checks -> by checking a language, the student_fk
   //  is stored inside languageFk[]
-  // checkedLang keeps track of how many skills there are checked
   languageFk = [];
   languageChecked = [];
-  checkedLang = 0;
   inputLanguageCheck(e, type) {
     if (e.target.checked) {
-      this.checkedLang++;
       this.languageChecked[this.languageChecked.length] = type;
       if (type != "") {
         this.languageService.getFkbyLang(type).subscribe(
           data => {
-            let result = this.dataService.decryption(data);
-            for (let i = 0; i < result.length; i++) {
-              this.languageFk.push(result[i]);
-              this.fk_list.push(result[i].student_fk);
+            // let result = this.dataService.decryption(data);
+            for (let i = 0; i < data.length; i++) {
+              this.languageFk.push(data[i]);
+              this.fk_list.push(data[i].student_fk);
             }
             this.noDupe = Array.from(new Set(this.fk_list));
           },
@@ -392,7 +399,6 @@ export class StudentListComponent implements OnInit {
       }
     }
     else {
-      this.checkedLang--;
       for (let i = 0; i < this.languageChecked.length; i++) {
         if (this.languageChecked[i] == type) {
           this.languageChecked.splice(i, 1);
@@ -412,6 +418,27 @@ export class StudentListComponent implements OnInit {
   }
 
 
+  inputDegreeCheck(e, type) {
+    if (e.target.checked) {
+      for(let student of this.students){
+        if(student.degree == type){
+          this.fk_list.push(student.id);
+        }
+      }
+      this.noDupe = Array.from(new Set(this.fk_list));
+    }
+    else {
+      for(let student of this.students){
+        if(student.degree == type){
+          const index = this.fk_list.indexOf(student.id);
+          if (index !== -1) {
+              this.fk_list.splice(index, 1);
+          }
+        }
+      }
+      this.noDupe = Array.from(new Set(this.fk_list));
+    }
+  }
 
   //This method gives all the students back with the checked conditions.
   advancedSearch() {
@@ -421,8 +448,7 @@ export class StudentListComponent implements OnInit {
       for (let i = 0; i < this.noDupe.length; i++) {
         this.studentService.getStudentByIdMysql(this.noDupe[i]).subscribe(
           data => {
-            let result = this.dataService.decryption(data);
-            this.students[i] = result[0];
+            this.students[i] = data[0];
           },
           error => console.log(error)
         )
@@ -436,29 +462,6 @@ export class StudentListComponent implements OnInit {
     window.location.reload();
   }
 
-  // //Download the cv in searchBox
-  // downloadCv(student) {
-
-  //   if (student.cvChecked == true) {
-  //     this.cvsService.getCvsByFk(student.id).subscribe(
-  //       data => { this.download(data[0].id) },
-  //       error => console.log(error)
-  //     )
-  //     window.open(`/api/download/25`);
-  //   } else {
-  //     alert("This students hasn't yet uploaded a CV.")
-  //   }
-  // }
-
-  // refresh: Subject<any> = new Subject();
-  // download(id) {
-  //   this.refresh.next()
-  //   if (id) {
-
-  //     //  window.open(`/api/download/${id}`);
-  //   }
-  // }
-
   deleteStudent(student) {
     this.userService.deleteWholeUser(student).subscribe(
       data => {
@@ -468,16 +471,6 @@ export class StudentListComponent implements OnInit {
       },
       error => console.error
     );
-  }
-
-  innerjoin() {
-
-    for (let id of this.ids) {
-      this.http.get(`/api/innerjoin/${id.id}`).subscribe(
-        data => { this.studentjes += data, console.log(data) },
-        error => { console.log("gelukt") }
-      )
-    }
   }
 
 

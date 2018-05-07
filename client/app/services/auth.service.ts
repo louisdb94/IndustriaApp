@@ -21,16 +21,16 @@ export class AuthService {
     private studentService: StudentService,
     private dataService: DataService,
     private companyService: CompanyService) {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedUser = this.decodeUserFromToken(token);
-      if (decodedUser.role == "Company") {
-        this.setCurrentUser(decodedUser);
-      }
-      else {
-        this.setCurrentUser(decodedUser);
-      }
-    }
+    // const token = localStorage.getItem('token');
+    // if (token) {
+    //   const decodedUser = this.decodeUserFromToken(token);
+    //   if (decodedUser.role == "Company") {
+    //     this.setCurrentUser(decodedUser);
+    //   }
+    //   else {
+    //     this.setCurrentUser(decodedUser);
+    //   }
+    // }
   }
 
   login(emailAndPassword) {
@@ -63,11 +63,11 @@ export class AuthService {
     this.currentUser.role = decodedUser.role;
     this.currentUser.admin = decodedUser.admin;
     this.currentUser.email = decodedUser.email;
+
     if (decodedUser.role === 'Student') {
       this.studentService.getStudentByRnumberMysql(decodedUser.rnumber).subscribe(
         data => {
-          let result = this.dataService.decryption(data);
-          this.currentUser.studentId = result[0].id
+          this.currentUser.studentId = data[0].id
         },
         error => console.log(error)
       );
@@ -75,8 +75,7 @@ export class AuthService {
     if (decodedUser.role === 'Company') {
       this.companyService.getCompanyByEmailMysql(decodedUser.email).subscribe(
         data => {
-          let result = this.dataService.decryption(data);
-          this.currentUser.companyId = result[0].id
+          this.currentUser.companyId = data[0].id
         },
         error => console.log(error)
       );
@@ -90,13 +89,14 @@ export class AuthService {
       localStorage.setItem('token', token);
       const decodedUserStudent = this.decodeUserFromToken(token);
       this.setCurrentUser(decodedUserStudent);
+      return this.loggedIn;
     }
   }
 
   getToken() {
-    let token = localStorage.getItem('access_token');
+    let token = localStorage.getItem('token');
     if (token === undefined || token === null || token === '') {
-      token = sessionStorage.getItem('access_token');
+      token = sessionStorage.getItem('token');
       if (token === undefined || token === null || token === '') {
         return null;
       }

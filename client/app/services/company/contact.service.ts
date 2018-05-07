@@ -1,48 +1,44 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CompanyContactService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-  private options = new RequestOptions({ headers: this.headers });
+  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
 
-
-
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
 
   //MYSQL
 
-  getContactById(id): Observable<any> {
-    return this.http.get(`/api/contacts-get/${id}`).map(res => res.json());
-  }
+  // getContactById(id): Observable<any> {
+  //   return this.http.get(`/api/contacts-get/${id}`, {headers: this.header});
+  // }
 
   getContactByCompanyId(id): Observable<any> {
-    return this.http.get(`/api/contacts-getbycompanyfk/${id}`).map(res => res.json());
+    return this.http.get(`/api/contacts-getbycompanyfk/${id}`, {headers: this.header});
   }
 
   getContacts(): Observable<any> {
-    return this.http.get(`/api/contacts-getall`).map(res => res.json());
+    return this.http.get(`/api/contacts-getall`, {headers: this.header});
   }
 
-  addContact(contact): Observable<any> {
-    return this.http.post('/api/contacts-insert', JSON.stringify(contact), this.options);
-  }
+  // addContact(contact): Observable<any> {
+  //   return this.http.post('/api/contacts-insert', JSON.stringify(contact), {headers: this.header});
+  // }
 
-  deleteContact(contact): Observable<any> {
-    return this.http.get(`/api/contacts-delete/${contact.id}`, this.options);
-  }
+  // deleteContact(contact): Observable<any> {
+  //   return this.http.get(`/api/contacts-delete/${contact.id}`, {headers: this.header});
+  // }
 
-  addContactFromCompanyId(id): Observable<any> {
-    return this.http.get(`/api/contacts-insert/${id}`, this.options);
+  addContactFromCompanyId(form): Observable<any> {
+    return this.http.post(`/api/contacts-insert`, form, {headers: this.header});
   }
 
   editContact(contact): Observable<any> {
-    return this.http.put(`/api/contacts-update`, JSON.stringify(contact), this.options);
+    return this.http.put(`/api/contacts-update`, JSON.stringify(contact), {headers: this.header});
   }
 
 

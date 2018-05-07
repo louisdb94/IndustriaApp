@@ -21,7 +21,8 @@ import { CompanyService } from './services/company/company.service';
 import { VacatureService } from './services/company/vacature.service';
 import { EventsService } from './services/admin/events.service';
 import { PrivacylogService } from './services/admin/privacylog.service';
-
+import { ParametersService } from './services/admin/parameters.service';
+import { AdminCompanycontactService} from './services/admin/admin_companycontact.service';
 
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
@@ -39,6 +40,7 @@ import { FirstPageComponent } from './firstpage/firstpage.component';
 import { StudentListComponent } from './student/student-list/student-list.component';
 import { VacatureListComponent } from './company/vacature-list/vacature-list.component';
 import { SettingsComponent } from './settings/settings.component';
+import { AdminComponent } from './settings/admin/admin.component';
 
 import { StudentProfile } from './student';
 import { HeaderProfile } from './student/profile-header';
@@ -94,6 +96,8 @@ import { FilterSkill } from './pipes/filterSkill.pipe';
 import { FilterProfessional } from './pipes/filterProfessional.pipe';
 import { FilterLanguage } from './pipes/filterLanguage.pipe';
 import { FilterVacature } from './pipes/filterVacatures.pipe';
+import { FilterDegree } from './pipes/filterDegree.pipe';
+
 
 import { ScrollToModule } from 'ng2-scroll-to';
 import { RequestInterceptorService } from './services/request-interceptor.service';
@@ -119,6 +123,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     StudentListComponent,
     VacatureListComponent,
     SettingsComponent,
+    AdminComponent,
 
     StudentProfile,
     HeaderProfile,
@@ -148,7 +153,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FilterSkill,
     FilterProfessional,
     FilterLanguage,
-    FilterVacature
+    FilterVacature,
+    FilterDegree
 
   ],
   imports: [
@@ -192,12 +198,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     VacatureService,
     EventsService,
     PrivacylogService,
+    ParametersService,
+    AdminCompanycontactService,
     MailService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptorService,
       multi: true,
-    }, 
+    },
     CvsService,
     EducationService,
     ExperienceService,

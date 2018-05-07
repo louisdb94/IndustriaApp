@@ -1,45 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class EducationService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
-  private options = new RequestOptions({ headers: this.headers });
+  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
 
-
-
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
 
   //MYSQL
 
   getEducationById(id): Observable<any> {
-    return this.http.get(`/api/education-get/${id}`).map(res => res.json());
+    return this.http.get(`/api/education-get/${id}`, {headers: this.header});
   }
 
   getEducations(): Observable<any> {
-    return this.http.get(`/api/education-getall`).map(res => res.json());
+    return this.http.get(`/api/education-getall`, {headers: this.header});
   }
 
-  addEducation(education): Observable<any> {
-    return this.http.post('/api/educatino-insert', JSON.stringify(education), this.options);
+  // addEducation(education): Observable<any> {
+  //   return this.http.post('/api/educatino-insert', JSON.stringify(education), {headers: this.header});
+  // }
+
+  deleteEducation(id): Observable<any> {
+    return this.http.delete(`/api/education-delete/${id}`, {headers: this.header});
   }
 
-  deleteEducation(education): Observable<any> {
-    return this.http.get(`/api/education-delete/${education.id}`, this.options);
-  }
-
-  addEducationFromStudentId(id): Observable<any> {
-    return this.http.get(`/api/education-insert/${id}`, this.options);
+  addEducationFromStudentId(form): Observable<any> {
+    return this.http.post(`/api/education-insertForm`, JSON.stringify(form), {headers: this.header});
   }
 
   editEducation(education): Observable<any> {
-    return this.http.put(`/api/education-update`, JSON.stringify(education), this.options);
+    return this.http.put(`/api/education-update`, JSON.stringify(education), {headers: this.header});
   }
-
-
 }

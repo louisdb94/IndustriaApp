@@ -5,7 +5,7 @@ import * as jwt from 'jsonwebtoken';
 import * as localStorage from 'localStorage';
 import {app, pool} from '../app';
 
-export default function setAuthRoutes(app) {
+export default function setShibbRoutes(app) {
 
 const router = express.Router();
 var name_id;
@@ -78,7 +78,7 @@ router.route('/login').get(function(req,res){
 // Assert endpoint for when login completes
 router.route('/assert').get(function(req,res){
 
-    var rnumber = 'r0696969';
+    var rnumber = '0202020';
     checkStudent(rnumber, res);
   //res.redirect('http://localhost:4200/home-students/'+ token);
 
@@ -132,9 +132,11 @@ function checkStudent(rnumber, res){
                   user_value.admin = result[0].admin;
                   user_value.email = result[0].email;
 
-
                   const token = jwt.sign({ user: user_value },
-                      process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'token'  , { expiresIn: 10 });
+                  process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
+                    expiresIn: 86400 // expires in 24 hours
+                  });
+                //  res.status(200).json({ token: token });
                   res.redirect('http://localhost:4200/home-students/'+ token);
                   //res.redirect('https://bedrijvenrelaties-industria.be/home-students/' + token);
 

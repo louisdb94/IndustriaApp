@@ -1,92 +1,57 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Http, Headers, RequestOptions } from '@angular/http';
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class UserService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
+  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
+  private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
   private options = new RequestOptions({ headers: this.headers });
 
-  constructor(private http: Http) { }
-
-  register(user): Observable<any> {
-    return this.http.post('/api/user', JSON.stringify(user), this.options);
-  }
-
-  login(credentials): Observable<any> {
-    return this.http.post('/api/login', JSON.stringify(credentials), this.options);
-  }
-
-  getUsers(): Observable<any> {
-    return this.http.get('/api/users').map(res => res.json());
-  }
-
-  countUsers(): Observable<any> {
-    return this.http.get('/api/users/count').map(res => res.json());
-  }
-
-  addUser(user): Observable<any> {
-    return this.http.post('/api/user', JSON.stringify(user), this.options);
-  }
-
-  getUser(user): Observable<any> {
-    return this.http.get(`/api/user/${user._id}`).map(res => res.json());
-  }
-
-  editUser(user): Observable<any> {
-    return this.http.put(`/api/user/${user._id}`, JSON.stringify(user), this.options);
-  }
-
-  deleteUser(user): Observable<any> {
-    return this.http.delete(`/api/user/${user._id}`, this.options);
-  }
+  constructor(private http: HttpClient, private h: Http) { }
 
   //MYSQL
 
   getAllUsers(): Observable<any> {
-    return this.http.get('/api/users-getall').map(res => res.json());
+    return this.http.get('/api/users-getall', {headers: this.header});
   }
 
   getUserByRoleMysql(): Observable<any> {
-    return this.http.get(`/api/user-getbyrole`).map(res => res.json());
+    return this.http.get(`/api/user-getbyrole`, {headers: this.header});
   }
 
   registerMysql(user): Observable<any> {
-    return this.http.post('/api/users-insert', JSON.stringify(user), this.options);
+    return this.http.post('/api/users-insert', JSON.stringify(user), {headers: this.header});
   }
 
   getUserMysql(rnumber): Observable<any> {
-    return this.http.get(`/api/users-getbyrnumber/${rnumber}`).map(res => res.json());
+    return this.http.get(`/api/users-getbyrnumber/${rnumber}`, {headers: this.header});
   }
 
   loginMysql(credentials): Observable<any> {
-    return this.http.post('/api/users-login', JSON.stringify(credentials), this.options);
+    return this.h.post('/api/users-login', JSON.stringify(credentials), this.options);
   }
 
   deleteWholeUser(user): Observable<any> {
-    return this.http.get(`api/delete-user/${user.id}`, this.options);
+    return this.http.get(`api/delete-student/${user.id}`, {headers: this.header});
   }
 
   deleteWholeCompany(user): Observable<any> {
-    return this.http.post(`api/delete-company`,JSON.stringify(user), this.options);
+    return this.http.post(`api/delete-company`,JSON.stringify(user), {headers: this.header});
   }
 
   makeAdmin(user): Observable<any> {
-    return this.http.put(`/api/user-makeadmin`, JSON.stringify(user), this.options);
+    return this.http.put(`/api/user-makeadmin`, JSON.stringify(user), {headers: this.header});
   }
   deleteAdmin(user): Observable<any> {
-    return this.http.put(`/api/user-deleteadmin`, JSON.stringify(user), this.options);
+    return this.http.put(`/api/user-deleteadmin`, JSON.stringify(user), {headers: this.header});
   }
 
   getadmin(): Observable<any> {
-    return this.http.get(`/api/user-getadmin`).map(res => res.json());
+    return this.http.get(`/api/user-getadmin`, {headers: this.header});
   }
-
-
-
-
 
 }

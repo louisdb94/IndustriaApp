@@ -17,15 +17,16 @@ export class RequestInterceptorService implements HttpInterceptor {
 
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
+    private authService: AuthService;
 
-    constructor(private injector: Injector, private zone: NgZone, private router: Router, private authService: AuthService) {
+    constructor(private injector: Injector, private zone: NgZone, private router: Router) {
 
     }
 
     private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
         return req.clone({
             setHeaders: {
-                Authorization: 'Bearer ' + token,
+                Authorization: token,
                 'Content-Type': req.headers.get('Content-Type')
             }
         });
@@ -33,11 +34,17 @@ export class RequestInterceptorService implements HttpInterceptor {
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent |
         HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
 
+        this.authService = this.injector.get(AuthService);
         if (!req.headers.has('x-industria-auth')) {
             return next.handle(req);
         }
+        const token = this.authService.getToken();
+        if(token === null){
+          this.logoutUser();
+          return Observable.throw("no token found");
+        }
 
-        return next.handle(this.addToken(req, this.authService.getToken()))
+        return next.handle(this.addToken(req, token))
             .catch((error) => {
                 if (error instanceof HttpErrorResponse) {
                     if (error.status === 401 || error.status === 403) {
@@ -57,10 +64,11 @@ export class RequestInterceptorService implements HttpInterceptor {
     }
 
     private logoutUser() {
+
         this.router = this.injector.get(Router);
         this.authService = this.injector.get(AuthService);
         this.authService.logout();
-        this.router.navigate(["/login"]);
+        this.router.navigate(["/"]);
         return Observable.empty();
     }
 }
