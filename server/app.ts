@@ -89,17 +89,27 @@ app.use((err, req, res, next) => {
 //     });
 // });
 
+
+//http://localhost:3000/admincontact   -> naar dit routen
 app.get('/admincontact', (req,res) => {
-  const sql = `SELECT id, name FROM companies`;
+  const sql = `SELECT name, id FROM companies`;
   this.pool.getConnection(function (err, connection) {
           connection.query(sql, (error, result) => {
-              connection.release();
               // Handle error after the release.
               if (error) {
                   throw error;
               }
-              console.log(result);
+              for (let res of result){
+                const sql2 = `INSERT INTO admin_companycontact SET name = '${res.name}', company_fk = '${res.id}'`;
+                connection.query(sql2, (error, result1) => {
+                  if(error){throw error}
+                })
+              }
+
+
+              connection.release();
               res.send(result);
+
           });
       });
 });

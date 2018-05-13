@@ -38,9 +38,10 @@ export class AdminComponent implements OnInit {
 
   companies = [];
   editPriority = false;
+  editEmail = false;
+  editPhone = false;
   adminCompanycontacts = [];
-  adminCompanycontactForm: FormGroup;
-  company_fk = new FormControl();
+  newMail : string;
 
   addUserForm: FormGroup;
   name = new FormControl('', Validators.required);
@@ -86,12 +87,6 @@ export class AdminComponent implements OnInit {
       value: this.value,
       user_fk: this.user_fk,
       role: this.role
-    });
-    this.adminCompanycontactForm = this.formBuilder.group({
-      // name: this.name,
-      // parameter: this.parameter,
-      // value: this.value,
-      // company_fk: this.company_fk
     });
 
   }
@@ -186,10 +181,10 @@ export class AdminComponent implements OnInit {
     )
   }
   getAdminCompanyContacts(){
-    // this.adminContactService.getContacts().subscribe(
-    //   data => {this.adminCompanycontacts = data;},
-    //   error => {console.log(error);}
-    // )
+    this.adminContactService.getContacts().subscribe(
+      data => {this.adminCompanycontacts = data;},
+      error => {console.log(error);}
+    )
   }
   saveUpdatePriority(users, companies){
     for(let i = 0; i < companies.length; i++){
@@ -237,12 +232,17 @@ export class AdminComponent implements OnInit {
     let addPriority = {name: '', company_fk: 0};
     addPriority.name = this.addUserForm.value.name
 
+    let admin_companycontact = {name: '', email: '', phone: '', address: '', company_fk: 0};
+    admin_companycontact.name = this.addUserForm.value.name;
+    admin_companycontact.email = this.addUserForm.value.email;
+
     this.userService.registerMysql(addCompanyForm)
         .subscribe( data =>{
           editPriority.user_fk = data.insertId;
           this.companyService.addCompanyFromUserId(editPriority)
               .subscribe(data =>{
-                let company_fk = {company_fk: data.insertId}
+                let company_fk = {company_fk: data.insertId};
+                admin_companycontact.company_fk = data.insertId;
                 this.companyContactService.addContactFromCompanyId(company_fk).subscribe(
                   data => {
                     this.toast.setMessage('successfully added!', 'success');
@@ -254,15 +254,22 @@ export class AdminComponent implements OnInit {
                     data => {}
                   );
                 }
+                this.adminContactService.insertContact(admin_companycontact).subscribe();
               });
             });
         this.companies.push(addCompanyForm);
   }
-  keyDownFunction(){
-    alert('you just clicked enter');
-    // rest of your code
+  keyDownFunctionMail(item, company){
+    company.email = item;
+    this.adminContactService.editContact(company).subscribe();
+    this.editEmail = false;
   }
+  keyDownFunctionPhone(item, company){
+    company.phone = item;
+    this.adminContactService.editContact(company).subscribe();
+    this.editPhone = false;
 
+  }
 
   //Parameters tab
 

@@ -99,16 +99,16 @@ export class SettingsComponent implements OnInit {
   }
 
   downloadPersonalInformation(){
-    let name;
-    if(this.student.name == undefined){
-      name = "no name input";
-    }else{
-      name = this.student.name;
-    }
+    // let name;
+    // if(this.student.name == undefined){
+    //   name = "no name input";
+    // }else{
+    //   name = this.student.name;
+    // }
     let personal_information = {
       content: [
         {
-          text: name + "   " + this.student.rnumber + '\n',
+          text: this.student.name + "   " + this.student.rnumber + '\n',
           style: 'name'
         },
         {

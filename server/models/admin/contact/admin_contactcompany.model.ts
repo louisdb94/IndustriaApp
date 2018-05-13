@@ -1,6 +1,6 @@
 import {DefaultModel} from '../../default-model.model';
 
-export class AdminContactCompanyModel extends DefaultModel{
+export class Admin_companycontactModel extends DefaultModel{
   name: string;
   email: string;
   phone: number;

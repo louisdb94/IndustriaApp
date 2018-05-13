@@ -1,14 +1,14 @@
 import {DefaultCrud} from '../../default-crud.crud';
-import {AdminContactCompanyModel} from './admin_contactcompany.model';
+import {Admin_companycontactModel} from './admin_contactcompany.model';
 
-export class AdminContactCompanyCrud extends DefaultCrud<AdminContactCompanyModel>{
+export class Admin_companycontactCrud extends DefaultCrud<Admin_companycontactModel>{
 
   constructor(){
     super("admin_companycontact");
   }
 
-  parseObject(input: any): AdminContactCompanyModel {
-    const _newAdminContact = new AdminContactCompanyModel();
+  parseObject(input: any): Admin_companycontactModel {
+    const _newAdminContact = new Admin_companycontactModel();
 
     _newAdminContact.id = input.id;
     _newAdminContact.name = input.name;

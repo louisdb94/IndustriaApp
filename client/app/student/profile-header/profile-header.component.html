@@ -49,7 +49,10 @@
             </label>
         </div>
 
-        <p-fileUpload *ngIf="student.cvChecked && auth.currentUser.role == 'Student'" name="cv" customUpload="true" accept="application/pdf" maxFileSize="1000000"  (uploadHandler)="myUploader($event, student)"></p-fileUpload>
+        <p-fileUpload *ngIf="student.cvChecked && auth.currentUser.role == 'Student'"
+                      name="cv" customUpload="true" accept="application/pdf"
+                      maxFileSize="1000000"  (uploadHandler)="myUploader($event, student)">
+        </p-fileUpload>
 
         <div *ngIf="student.cvChecked">
             <table class="table table-bordered">

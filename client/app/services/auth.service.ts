@@ -15,12 +15,15 @@ export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
 
   currentUser = { id: 0, email: '', rnumber: '', role: '', studentId: 0, companyId: 0, admin: '' };
+  // token = localStorage.getItem('token');
+  token : any;
 
   constructor(private userService: UserService,
     private router: Router,
     private studentService: StudentService,
     private dataService: DataService,
     private companyService: CompanyService) {
+
     // const token = localStorage.getItem('token');
     // if (token) {
     //   const decodedUser = this.decodeUserFromToken(token);
@@ -31,6 +34,10 @@ export class AuthService {
     //     this.setCurrentUser(decodedUser);
     //   }
     // }
+    this.token = localStorage.getItem('item');
+    if(this.token){
+      this.setCurrentUser(this.decodeUserFromToken(this.token));
+    }
   }
 
   login(emailAndPassword) {

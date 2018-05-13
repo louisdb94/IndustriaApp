@@ -10,6 +10,8 @@ import { UserModel, UserCrud } from '../models/users';
 import { EventModel, EventCrud } from '../models/admin/events';
 import { PrivacyLogModel, PrivacyLogCrud } from '../models/admin/privacylog';
 import { ParametersModel, ParametersCrud } from '../models/admin/parameters';
+import { Admin_companycontactModel, Admin_companycontactCrud } from '../models/admin/contact';
+
 
 //Student Model and CRUD
 import { StudentModel, StudentCrud } from '../models/students';
@@ -38,6 +40,7 @@ export abstract class DefaultController {
     public eventsCrud = new EventCrud();
     public privacylogCrud = new PrivacyLogCrud();
     public parametersCrud = new ParametersCrud();
+    public admin_companycontactCrud = new Admin_companycontactCrud();
 
     public studentsCrud = new StudentCrud();
     public contactCrud = new StudentContactCrud();

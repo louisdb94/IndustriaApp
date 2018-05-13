@@ -215,9 +215,9 @@ export default function setRoutes2(app) {
   router.route('/parameters-deletefromvalue/:value').delete(parametersCtrl.deleteFromValue);
 
   //Admin company contact
-  router.route('admin-companycontact-getall').get(adminContactCtrl.get);
-  router.route('admin-companycontact-insert').post(adminContactCtrl.insert);
-  router.route('admin-companycontact-update').put(adminContactCtrl.updateById);
+  router.route('/admin-companycontact-getall').get(adminContactCtrl.get);
+  router.route('/admin-companycontact-insert').post(adminContactCtrl.insert);
+  router.route('/admin-companycontact-update').put(adminContactCtrl.updateById);
 
 
   // Apply the routes to our application with the prefix /api
