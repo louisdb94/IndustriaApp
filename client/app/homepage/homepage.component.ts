@@ -92,9 +92,9 @@ export class HomepageComponent implements OnInit {
         this.auth.loginStudent(params['id']);
       }else if(localStorage.getItem('token') && this.auth.currentUser.role !== "Company"){
         this.auth.loginStudent(localStorage.getItem('token'));
+      }else{
       }
     });
-
     this.getEvents();
     this.getCompanies();
     this.getStudentsMysql();

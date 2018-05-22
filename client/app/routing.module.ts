@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, Params } from '@angular/router';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
@@ -20,6 +20,7 @@ import { SettingsComponent} from './settings/settings.component';
 import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
+
 const routes: Routes = [
   //First page when you redirect to our website
   { path: '', component: FirstPageComponent},
@@ -36,7 +37,13 @@ const routes: Routes = [
   { path: 'home-companies', component: HomepageComponent},
 
   //Profile pages for respectively the students and companies
-  { path: 'profile-student/:id', component: StudentProfile},
+  { path: 'profile-student/:id',
+    component: StudentProfile,
+    // canActivate: [AuthGuardAdmin],
+    // data: {
+    //   expectedRole: 'Company'
+    // }
+  },
   { path: 'profile-company/:id', component: CompanyProfile},
 
   //This is the way for a student to go to a company profile page from the home page

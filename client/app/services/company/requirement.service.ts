@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class CompanyRequirementService {
 
-  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
+  private header = new HttpHeaders({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth'  });
 
   constructor(private http: HttpClient) { }
 

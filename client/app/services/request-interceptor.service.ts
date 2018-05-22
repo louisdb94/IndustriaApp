@@ -15,9 +15,11 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class RequestInterceptorService implements HttpInterceptor {
 
+
     tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
     private authService: AuthService;
+
 
     constructor(private injector: Injector, private zone: NgZone, private router: Router) {
 
@@ -34,10 +36,12 @@ export class RequestInterceptorService implements HttpInterceptor {
     public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent |
         HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
 
+
         this.authService = this.injector.get(AuthService);
         if (!req.headers.has('x-industria-auth')) {
             return next.handle(req);
         }
+
         const token = this.authService.getToken();
         if(token === null){
           this.logoutUser();

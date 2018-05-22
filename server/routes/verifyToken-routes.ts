@@ -1,43 +1,46 @@
 import * as express from 'express';
+import {Authorization} from '../auth/verify-token';
+
 
 //CONTROLLERS
 
 //User Controller
-import { UsersController} from './controllers/users/users.controller';
+import { UsersController} from '../controllers/users/users.controller';
 
 //Admin Controller
-import { EventsController} from './controllers/admin/events.controller';
-import { PrivacylogController} from './controllers/admin/privacylog.controller';
-import { ParametersController} from './controllers/admin/parameters.controller';
-import { AdminCompanycontactController} from './controllers/admin/admin_contactcompany.controller';
+import { EventsController} from '../controllers/admin/events.controller';
+import { PrivacylogController} from '../controllers/admin/privacylog.controller';
+import { ParametersController} from '../controllers/admin/parameters.controller';
+import { AdminCompanycontactController} from '../controllers/admin/admin_contactcompany.controller';
 
 
 //Student Controller
-import { ContactStudentsController} from './controllers/students/contact.controller';
-import { CvsController} from './controllers/students/cvs.controller';
-import { EducationController} from './controllers/students/education.controller';
-import { ExperiencesController} from './controllers/students/experiences.controller';
-import { ImageController} from './controllers/students/image.controller';
-import { LanguageController} from './controllers/students/language.controller';
-import { ProfessionalController} from './controllers/students/professional.controller';
-import { SkillsController} from './controllers/students/skills.controller';
-import { SocialmediaController} from './controllers/students/socialmedia.controller';
-import { StudentsController} from './controllers/students/students.controller';
+import { ContactStudentsController} from '../controllers/students/contact.controller';
+import { CvsController} from '../controllers/students/cvs.controller';
+import { EducationController} from '../controllers/students/education.controller';
+import { ExperiencesController} from '../controllers/students/experiences.controller';
+import { ImageController} from '../controllers/students/image.controller';
+import { LanguageController} from '../controllers/students/language.controller';
+import { ProfessionalController} from '../controllers/students/professional.controller';
+import { SkillsController} from '../controllers/students/skills.controller';
+import { SocialmediaController} from '../controllers/students/socialmedia.controller';
+import { StudentsController} from '../controllers/students/students.controller';
 
 
 //Company Controller
-import { CompaniesController} from './controllers/company/companies.controller';
-import { ContactCompanyController} from './controllers/company/contact.controller';
-import { PrioritiesController} from './controllers/company/priorities.controller';
-import { RequirementsController} from './controllers/company/requirements.controller';
-import { VacaturesController} from './controllers/company/vacatures.controller';
+import { CompaniesController} from '../controllers/company/companies.controller';
+import { ContactCompanyController} from '../controllers/company/contact.controller';
+import { PrioritiesController} from '../controllers/company/priorities.controller';
+import { RequirementsController} from '../controllers/company/requirements.controller';
+import { VacaturesController} from '../controllers/company/vacatures.controller';
 
 
-var VerifyToken = require('./auth/verify-token');
+var VerifyToken = require('../auth/verify-token');
 
 export default function setRoutes2(app) {
 
   const router = express.Router();
+  const authorization = new Authorization();
 
   //Controlers
   const usersCtrl = new UsersController();
@@ -65,13 +68,12 @@ export default function setRoutes2(app) {
   const vacaturesCtrl = new VacaturesController();
 
   //USERS
-  router.route('/users-getall').get(usersCtrl.get);
-  router.route('/user-get/:id').get(usersCtrl.getById);
+  // router.route('/users-getall').get(usersCtrl.get); //ADMIN
+  router.route('/user-get/:id').get(usersCtrl.getById); //ADMIN
   router.route('/user-getbyrole').get(usersCtrl.getByRole);
   router.route('/users-insert').post(usersCtrl.register);
-  router.route('/users-login').post(usersCtrl.login);
   router.route('/resetpass').put(usersCtrl.updatePassword);
-  router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
+  router.route('/user-makeadmin').put(usersCtrl.makeAdmin); //ADMIN
   router.route('/user-getadmin').get(usersCtrl.getAdmins);
   router.route('/sendmail/:email').get(usersCtrl.sendMail);
   router.route('/encrypt').get(usersCtrl.encrypt);
@@ -80,25 +82,12 @@ export default function setRoutes2(app) {
 
   //STUDENTS
 
-  router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent);
-  router.route('/students-get/:id').get(studentsCtrl.getById);
-  router.route('/students-getall').get(studentsCtrl.get);
-  router.route('/students-getallid').get(studentsCtrl.get);
-  router.route('/student-getbyrnumber/:rnumber').get(studentsCtrl.getStudentByRnumber);
+  router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent); // stud zelf of Admin
+  router.route('/students-get/:id').get(studentsCtrl.getById); // comp of stud zelf
+  router.route('/students-getall').get(studentsCtrl.get); // admin of company
+  router.route('/students-getallid').get(studentsCtrl.get); // admin of company
   router.route('/student-update').put(studentsCtrl.updateById);
 
-  //CVs
-  router.route('/cv-add').post(cvsCtrl.insert);
-  router.route('/cv/:id').get(cvsCtrl.getByStudentFk);
-  router.route('/cv-delete/:id').delete(cvsCtrl.deleteCv);
-  router.route('/cv/upload').post(cvsCtrl.uploadCv);
-  router.route('/download/:id').get(cvsCtrl.downloadCv);
-
-  //Image
-  router.route('/image/upload').post(imageCtrl.uploadImageStudent);
-  router.route('/image/upload-company').post(imageCtrl.uploadImageCompany);
-  router.route('/downloadImage/:id').get(imageCtrl.downloadImageStudent);
-  router.route('/downloadImage-company/:id').get(imageCtrl.downloadImageCompany);
 
   //Skills
   router.route('/skills-getalldistinct').get(skillsCtrl.selectSkill);
@@ -163,7 +152,6 @@ export default function setRoutes2(app) {
   router.route('/companies-insert').post(companiesCtrl.insert);
   router.route('/companies-delete/:id').delete(companiesCtrl.delete);
   router.route('/companies-update').put(companiesCtrl.updateById);
-  router.route('/companies-getbyemail/:email').get(companiesCtrl.getCompanyByEmail);
   router.route('/companies-updatepriority').put(companiesCtrl.updateById);
   router.route('/delete-company').post(companiesCtrl.deleteCompany);
   router.route('/companies-innerjoin').get(companiesCtrl.innerJoinCompany);
@@ -221,5 +209,5 @@ export default function setRoutes2(app) {
 
 
   // Apply the routes to our application with the prefix /api
-  app.use('/api', router);
+  app.use('/api',authorization.verifyToken, router);
 }
