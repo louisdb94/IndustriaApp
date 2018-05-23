@@ -12,6 +12,7 @@ export class StudentsController extends DefaultController {
   model = 'students';
 
 deleteStudent = (req, res) => {
+  console.log(req.params.student_fk);
   var crud_controller = this.model + "Crud";
       this.unlinkCV('cvs', 'student_fk', req.params.student_fk);
       this[crud_controller].delete('contact', 'student_fk', req.params.student_fk).then(result => {

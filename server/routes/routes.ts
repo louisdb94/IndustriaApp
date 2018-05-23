@@ -45,22 +45,46 @@ export function setRoutes(app) {
 
 
 }
-// export function setCheckRoutes(app) {
-//   const router = express.Router();
-//
-//   const usersCtrl = new UsersController();
-//   const authorization = new Authorization();
-//   const studentsCtrl = new StudentsController();
-//   const companiesCtrl = new CompaniesController();
-//   const imageCtrl = new ImageController();
-//   const cvsCtrl = new CvsController();
-//
-//
-//   router.route('/users-getall').get(usersCtrl.get); //ADMIN
-//
-//
-//
-//   app.use('/api', authorization.verifyToken, authorization.checkAccessAdmin, router);
-//
-//
-// }
+
+export function setAdminRoutes(app) {
+  const router = express.Router();
+
+  const usersCtrl = new UsersController();
+  const authorization = new Authorization();
+
+  router.route('/users-getall').get(usersCtrl.get);
+  router.route('/user-get/:id').get(usersCtrl.getById);
+  router.route('/user-getbyrole').get(usersCtrl.getByRole);
+  router.route('/user-makeadmin').put(usersCtrl.makeAdmin);
+  router.route('/user-getadmin').get(usersCtrl.getAdmins);
+
+
+  app.use('/api', authorization.verifyToken, authorization.checkAccessAdmin, router);
+
+}
+
+export function setAdminOrStudentRoutes(app) {
+  const router = express.Router();
+
+  const usersCtrl = new UsersController();
+  const authorization = new Authorization();
+  const studentsCtrl = new StudentsController();
+  const companiesCtrl = new CompaniesController();
+
+  router.route('/users-insert').post(usersCtrl.register);
+
+  app.use('/api', authorization.verifyToken, authorization.checkAccessAdminORStudent, router);
+}
+
+export function setAdminOrStudentZelfRoutes(app) {
+  const router = express.Router();
+
+  const usersCtrl = new UsersController();
+  const authorization = new Authorization();
+  const studentsCtrl = new StudentsController();
+  const companiesCtrl = new CompaniesController();
+
+  router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent);
+
+  app.use('/api', authorization.verifyToken, authorization.checkAccessAdminORStudentZelf, router);
+}

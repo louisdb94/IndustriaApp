@@ -69,20 +69,20 @@ export default function setRoutes2(app) {
 
   //USERS
   // router.route('/users-getall').get(usersCtrl.get); //ADMIN
-  router.route('/user-get/:id').get(usersCtrl.getById); //ADMIN
-  router.route('/user-getbyrole').get(usersCtrl.getByRole);
-  router.route('/users-insert').post(usersCtrl.register);
-  router.route('/resetpass').put(usersCtrl.updatePassword);
-  router.route('/user-makeadmin').put(usersCtrl.makeAdmin); //ADMIN
-  router.route('/user-getadmin').get(usersCtrl.getAdmins);
+  // router.route('/user-get/:id').get(usersCtrl.getById); //ADMIN
+  //router.route('/user-getbyrole').get(usersCtrl.getByRole); //ADMIN
+  //router.route('/users-insert').post(usersCtrl.register); //ADMIN OR STUDENT
+  router.route('/resetpass').put(usersCtrl.updatePassword); // COMPANY ZELF OR STUDENT ZELF
+  //router.route('/user-makeadmin').put(usersCtrl.makeAdmin); //ADMIN
+  //router.route('/user-getadmin').get(usersCtrl.getAdmins); //ADMIN
   router.route('/sendmail/:email').get(usersCtrl.sendMail);
-  router.route('/encrypt').get(usersCtrl.encrypt);
-  router.route('/encrypt2').get(usersCtrl.encrypt2);
+  // router.route('/encrypt').get(usersCtrl.encrypt);
+  // router.route('/encrypt2').get(usersCtrl.encrypt2);
 
 
   //STUDENTS
 
-  router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent); // stud zelf of Admin
+  //router.route('/delete-student/:student_fk').get(studentsCtrl.deleteStudent); // stud zelf of Admin
   router.route('/students-get/:id').get(studentsCtrl.getById); // comp of stud zelf
   router.route('/students-getall').get(studentsCtrl.get); // admin of company
   router.route('/students-getallid').get(studentsCtrl.get); // admin of company

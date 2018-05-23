@@ -35,8 +35,8 @@ export class UserService {
     return this.h.post('/api/users-login', JSON.stringify(credentials), this.options);
   }
 
-  deleteWholeUser(user): Observable<any> {
-    return this.http.get(`api/delete-student/${user.id}`, {headers: this.header});
+  deleteWholeUser(student): Observable<any> {
+    return this.http.get(`api/delete-student/${student.id}`, {headers: this.header});
   }
 
   deleteWholeCompany(user): Observable<any> {

@@ -12,6 +12,7 @@ import { ExperienceService } from '../services/experience.service';
 import {MailService} from '../services/mail.service';
 import * as pdfMake from 'pdfmake/build/pdfmake.js';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+import * as jwt from 'jsonwebtoken';
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 @Component({
@@ -57,6 +58,8 @@ export class SettingsComponent implements OnInit {
     this.studentService.getStudentByIdMysql(this.auth.currentUser.studentId).subscribe(
       data => {
         this.student = data[0];
+        let currentToken = jwt.sign(JSON.stringify(this.auth.currentUser), 'user');
+        localStorage.setItem('token', currentToken);
       },
       error => console.log(error),
     );
@@ -188,7 +191,9 @@ export class SettingsComponent implements OnInit {
     if(this.auth.currentUser.role == "Student"){
       this.userService.deleteWholeUser(this.student).subscribe(
         data => {
-          this.auth.logout();
+          if(data){
+            this.auth.logout();
+          }
         }
       );
     }

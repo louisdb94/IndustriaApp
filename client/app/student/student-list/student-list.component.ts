@@ -110,6 +110,7 @@ export class StudentListComponent implements OnInit {
   getCompanyById(currentUser){
     this.companyService.getCompanyByEmailMysql(currentUser.email).subscribe(
       data => {
+        data = JSON.parse(data._body);
         this.company = data[0];
         this.priority = data[0].priority;
       },
