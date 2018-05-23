@@ -9,22 +9,22 @@
       </li>
       <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#activityLog" role="tab">
-            <h5>Activity Log</h5>
+            <h5 translate>Activity Log</h5>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#passwordReset" role="tab">
-          <h5>Password Reset</h5>
+          <h5 translate>Password Reset</h5>
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#deleteAccount" role="tab">
-          <h5>Delete Account</h5>
+          <h5 translate>Delete Account</h5>
         </a>
       </li>
       <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#admin" role="tab">
-            <h5>Admin</h5>
+            <h5 translate>Admin</h5>
         </a>
       </li>
       </ul>
@@ -33,9 +33,8 @@
       <div class="tab-content table-responsive" style="padding:2%">
           <div *ngIf="auth.currentUser.role == 'Student'" class="tab-pane active" id="downloadInformation" role="tabpanel">
             <div style="width: 60%; margin: auto">
-              <p style="margin-top: 10%">
-                Below are two download buttons. One is for downloading your personal information and
-                the other is to download your resume if you have uploaded one.
+              <p translate style="margin-top: 10%">
+                Download Personal Info
               </p>
               <button (click)="downloadCv()" class="btn btn-md btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download Resume</button>
               <button (click)="downloadPersonalInformation()" class="btn btn-md btn-secondary"><i class="fa fa-download" aria-hidden="true"></i> Download Personal information</button>
@@ -44,25 +43,25 @@
           <div *ngIf="auth.currentUser.admin == '1'" class="tab-pane" id="activityLog" role="tabpanel">
           </div>
           <div class="tab-pane" id="passwordReset" role="tabpanel" style="width: 60%; margin: auto">
-            <p style="margin-top: 10%">
-              By sending a mail to the account email, you can change/reset your password.
+            <p translate style="margin-top: 10%">
+              Email Reset
             </p>
             <div>
             <span style=""id="login" class="input-group" >
               <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
               <input [(ngModel)]="emailStudent" type="email" name="email" placeholder="Email" email pattern="[r||s]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
-              <button class="btn btn-primary" type="submit" (click)="nodemailer(emailStudent)"><i class="fa fa-sign-in"></i> Send Mail</button>
+              <button translate class="btn btn-primary" type="submit" (click)="nodemailer(emailStudent)"><i class="fa fa-sign-in"></i> Send Mail</button>
             </span>
           </div>
           </div>
           <div class="tab-pane" id="deleteAccount" role="tabpanel" style="margin: auto; width: 60%">
-            <p style="margin-top: 10%">
-              Below you can find a delete button. By clicking this button your account will be deleted, included all the information about you.
+            <p translate style="margin-top: 10%">
+              Delete Account Info
             </p>
-              <button *ngIf="!deleteMode" class="btn btn-md btn-danger" (click)="deleteMode = true"><i class="fa fa-trash"></i> Delete Account</button>
-              <p *ngIf="deleteMode">Are you sure that you want to delete your account? This will be irreversible and all of your information will be lost</p>
-              <button *ngIf="deleteMode" class="btn btn-info" (click)="delete()"> YES </button>
-              <button *ngIf="deleteMode" (click)="deleteMode = false" class="btn btn-info"> NO </button>
+              <button translate *ngIf="!deleteMode" class="btn btn-md btn-danger" (click)="deleteMode = true"><i class="fa fa-trash"></i> Delete Account</button>
+              <p translate *ngIf="deleteMode">Delete Account Info 2</p>
+              <button translate *ngIf="deleteMode" class="btn btn-info" (click)="delete()">Yes</button>
+              <button translate *ngIf="deleteMode" (click)="deleteMode = false" class="btn btn-info">No</button>
           </div>
           <div *ngIf="auth.currentUser.admin == '1'" class="tab-pane" id="admin" role="tabpanel">
             <app-admin class="component" id="app-admin"></app-admin>

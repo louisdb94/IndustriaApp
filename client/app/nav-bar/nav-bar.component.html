@@ -44,10 +44,10 @@
 
         </li>
         <li *ngIf="auth.currentUser.admin == '1' || auth.currentUser.role == 'Company' " class="nav-item">
-          <a translate="" id="homeid" translate class=" ab nav-link" routerLink="/student-list"><i class="fa fa-briefcase" aria-hidden="true"> Student Search </i> </a>
+          <a id="homeid" class=" ab nav-link" routerLink="/student-list"><i translate class="fa fa-list-alt" aria-hidden="true"> Student Search </i> </a>
         </li>
         <li *ngIf="auth.currentUser.admin == '1'|| auth.currentUser.role == 'Student'" class="nav-item">
-          <a translate id="homeid" translate class=" ab nav-link" routerLink="/vacature-list"><i class="fa fa-briefcase" aria-hidden="true"> Job Openings</i> </a>
+          <a id="homeid" class=" ab nav-link" routerLink="/vacature-list"><i translate class="fa fa-briefcase" aria-hidden="true"> Job Openings</i> </a>
         </li>
 
         <li class="nav-item dropdown active" >

@@ -64,5 +64,31 @@
 
     "Degrees" : "Degrees",
 
-    "Filter on" : "Filter on"
+    "Filter on" : "Filter on",
+
+    "Edit events": "Edit events",
+    "Add New Event": "Add new event",
+    "Title": "Title",
+    "Starts at": "Starts at",
+    "Ends at": "Ends at",
+
+    "Feature": "Feature",
+    "URL": "URL of your website",
+
+    "Company bio": "Write a short bio about your company",
+
+    "Email Placeholder": "Write your personal Email address",
+    "Phone Placeholder": "Write your phone number",
+    "Address Placeholder": "Write your address",
+
+    "Activity Log": "Activity Log",
+    "Password Reset": "Reset Password",
+    "Delete Account": "Delete Account",
+    "Download Personal Info": "Below are two download buttons. One is for downloading your personal information and the other is to download your resume if you have uploaded one.",
+    "Email Reset": "You can change your password by providing your email account down below and afterwards clicking on the link sent to you by mail.",
+    "Send Mail": "Send Mail",
+    "Delete Account Info": "Below you can find a delete button. By clicking this button your account will be deleted, including all of the information about you.",
+    "Delete Account Info 2": "Are you sure that you want to delete your account? This will be irreversible and all of your information will be lost",
+    "Yes": " Yes ",
+    "No": " No "
 }

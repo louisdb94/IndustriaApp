@@ -9,7 +9,7 @@
         <div style="padding:1%;margin-bottom:3%">
 
           <div class="form-group">
-            <input style="float:left; width:70%" type="text" class="form-control" id="filter" placeholder="Filter on {{model.filter}} "
+            <input style="float:left; width:70%" type="text" class="form-control" id="filter" placeholder="{{'Filter on' | translate}} {{model.filter}} "
               [(ngModel)]="searchText">
             <select style="float:left;width:30%" class="form-control" id="filters" required [(ngModel)]="model.filter" name="filter">
               <option *ngFor="let pow of filters" [value]="pow">{{pow}}</option>

@@ -17,7 +17,7 @@
             </div>
 
             <h3>
-                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.url" placeholder="URL of your website" rows="1" (keyup.enter)="save(company)"></textarea>
+                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.url" placeholder="{{'URL' | translate}}" rows="1" (keyup.enter)="save(company)"></textarea>
                 <a [href]="https + company.url" target="_blank"  *ngIf="!editMode">{{company.url}}</a>
             </h3>
 
@@ -27,13 +27,13 @@
             </div><br>
 
             <div>
-                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature1" placeholder="Feature 1" rows="1" (keyup.enter)="save(company)"></textarea>
+                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature1" placeholder="{{'Feature' | translate}}" rows="1" (keyup.enter)="save(company)"></textarea>
                 <button class="btn btn-sm btn-secondary" *ngIf="!editMode">{{company.feature1}}</button>
 
-                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature2" placeholder="Feature 2" rows="1" (keyup.enter)="save(company)"></textarea>
+                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature2" placeholder="{{'Feature' | translate}}" rows="1" (keyup.enter)="save(company)"></textarea>
                 <button class="btn btn-sm btn-secondary" *ngIf="!editMode">{{company.feature2}}</button>
 
-                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature3" placeholder="Feature 3" rows="1" (keyup.enter)="save(company)"></textarea>
+                <textarea id="editText" *ngIf="editMode" [(ngModel)]="company.feature3" placeholder="{{'Feature' | translate}}" rows="1" (keyup.enter)="save(company)"></textarea>
                 <button class="btn btn-sm btn-secondary" *ngIf="!editMode">{{company.feature3}}</button>
             </div>
         </div>

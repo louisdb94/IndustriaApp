@@ -4,7 +4,7 @@
         <button translate *ngIf="editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE' || company.priority == 'LOW')" (click)="save(company)"style="float: right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
         <h2 translate style="margin-bottom : 25px">Who Are We</h2>
         <div class="row">
-            <textarea *ngIf="editMode" [(ngModel)]="company.whoami" rows="7" cols="400" placeholder="Write a short bio about your company" (keyup.enter)="save(company)"></textarea>
+            <textarea *ngIf="editMode" [(ngModel)]="company.whoami" rows="7" cols="400" placeholder="{{'Company bio' | translate}}" (keyup.enter)="save(company)"></textarea>
             <p *ngIf="!editMode">{{company.whoami}}</p>
         </div>
     </div>

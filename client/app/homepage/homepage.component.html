@@ -47,14 +47,14 @@
     <!-- BEGIN EDIT CALENDAR CODE -->
 
     <div style="width: 80%; margin:auto">
-      <h3 *ngIf="auth.currentUser.admin == '1'">
+      <h3 translate *ngIf="auth.currentUser.admin == '1'">
     Edit events
-    <button *ngIf = "!editMode"
+    <button translate *ngIf = "!editMode"
       class="btn btn-primary pull-right"
       (click)="editMode = true">
       Edit
     </button>
-    <button *ngIf = "editMode"
+    <button translate *ngIf = "editMode"
       class="btn btn-primary pull-right"
       (click)="addEvent(events)">
       Add New Event
@@ -66,11 +66,11 @@
 
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Starts at</th>
-            <th>Ends at</th>
-            <th *ngIf="editMode">Save</th>
-            <th *ngIf="editMode">Remove</th>
+            <th translate>Title</th>
+            <th translate>Starts at</th>
+            <th translate>Ends at</th>
+            <th translate *ngIf="editMode">Save</th>
+            <th translate *ngIf="editMode">Delete</th>
           </tr>
         </thead>
 
