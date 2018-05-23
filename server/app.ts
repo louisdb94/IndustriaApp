@@ -5,10 +5,8 @@ import * as morgan from 'morgan';
 import * as path from 'path';
 import * as nodemailer from 'nodemailer';
 import * as EmailTemplate from 'email-templates';
-// import setRoutes from './routes';
-import setRoutes2 from './routes/verifyToken-routes';
 import setShibbRoutes from './config/shibboleth';
-import {setRoutes, setAdminRoutes, setAdminOrStudentRoutes, setAdminOrStudentZelfRoutes} from './routes/routes';
+import {setRoutes } from './routes/routes';
 import * as  mysql from 'mysql';
 import * as fileupload from 'express-fileupload';
 
@@ -113,15 +111,9 @@ app.get('/admincontact', (req,res) => {
           });
       });
 });
-
-
-setRoutes(app);
+var router = express.Router();
+setRoutes(app,router);
 setShibbRoutes(app);
-setRoutes2(app);
-setAdminRoutes(app);
-setAdminOrStudentRoutes(app);
-setAdminOrStudentZelfRoutes(app);
-
 
 
 app.listen(process.env.PORT || 3000, () => {

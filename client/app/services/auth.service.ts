@@ -34,6 +34,7 @@ export class AuthService {
     //     this.setCurrentUser(decodedUser);
     //   }
     // }
+
     this.token = localStorage.getItem('item');
     if(this.token){
       this.setCurrentUser(this.decodeUserFromToken(this.token));
@@ -70,24 +71,27 @@ export class AuthService {
     this.currentUser.role = decodedUser.role;
     this.currentUser.admin = decodedUser.admin;
     this.currentUser.email = decodedUser.email;
+    this.currentUser.studentId = decodedUser.studentId;
+    this.currentUser.companyId = decodedUser.companyId;
 
-    if (decodedUser.role === 'Student') {
-      this.studentService.getStudentByRnumberMysql(decodedUser.rnumber).subscribe(
-        data => {
-          this.currentUser.studentId = data[0].id
-        },
-        error => console.log(error)
-      );
-    }
-    if (decodedUser.role === 'Company') {
-      this.companyService.getCompanyByEmailMysql(decodedUser.email).subscribe(
-        data => {
-          data = JSON.parse(data._body);
-          this.currentUser.companyId = data[0].id
-        },
-        error => console.log(error)
-      );
-    }
+
+    // if (decodedUser.role === 'Student') {
+    //   this.studentService.getStudentByRnumberMysql(decodedUser.rnumber).subscribe(
+    //     data => {
+    //       this.currentUser.studentId = data[0].id
+    //     },
+    //     error => console.log(error)
+    //   );
+    // }
+    // if (decodedUser.role === 'Company') {
+    //   this.companyService.getCompanyByEmailMysql(decodedUser.email).subscribe(
+    //     data => {
+    //       data = JSON.parse(data._body);
+    //       this.currentUser.companyId = data[0].id
+    //     },
+    //     error => console.log(error)
+    //   );
+    // }
     decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
     delete decodedUser.role;
   }

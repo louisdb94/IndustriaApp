@@ -58,8 +58,6 @@ export class SettingsComponent implements OnInit {
     this.studentService.getStudentByIdMysql(this.auth.currentUser.studentId).subscribe(
       data => {
         this.student = data[0];
-        let currentToken = jwt.sign(JSON.stringify(this.auth.currentUser), 'user');
-        localStorage.setItem('token', currentToken);
       },
       error => console.log(error),
     );
@@ -191,18 +189,22 @@ export class SettingsComponent implements OnInit {
     if(this.auth.currentUser.role == "Student"){
       this.userService.deleteWholeUser(this.student).subscribe(
         data => {
-          if(data){
+
+
             this.auth.logout();
-          }
-        }
+
+        },
+        error => {console.log(error)}
       );
     }
     if(this.auth.currentUser.role == "Company"){
       let company = {id: 0, user_fk: 0};
       company.id = this.auth.currentUser.companyId;
       company.user_fk = this.auth.currentUser.id;
-      this.userService.deleteWholeCompany(company).subscribe();
+      this.userService.deleteWholeCompany(company).subscribe(
+        data => {this.auth.logout();},
+        error => {console.log(error)}
+      );
     }
-    this.auth.logout();
   }
 }

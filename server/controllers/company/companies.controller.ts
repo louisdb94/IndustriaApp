@@ -20,7 +20,7 @@ export  class CompaniesController extends DefaultController {
         this[crud_controller].delete('contact_company', 'company_fk', req.body.id).then(result => {
         this[crud_controller].delete('companies', 'id', req.body.id).then(result => {
         this[crud_controller].delete('user', 'id', req.body.user_fk).then(result => {
-        res.send("deleted");
+          res.status(200).json( result );
         });});});});
   }
 

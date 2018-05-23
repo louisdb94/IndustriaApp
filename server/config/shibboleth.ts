@@ -78,7 +78,7 @@ router.route('/login').get(function(req,res){
 // Assert endpoint for when login completes
 router.route('/assert').get(function(req,res){
 
-    var rnumber = 'r0696969';
+    var rnumber = 'r8585858';
     checkStudent(rnumber, res);
   //res.redirect('http://localhost:4200/home-students/'+ token);
 
@@ -132,13 +132,25 @@ function checkStudent(rnumber, res){
                   user_value.admin = result[0].admin;
                   user_value.email = result[0].email;
 
-                  const token = jwt.sign({ user: user_value },
-                  process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
-                    expiresIn: 86400 // expires in 24 hours
+                  const sql1 = `SELECT id FROM students WHERE user_fk = '${result[0].id}'`;
+                  connection.query(sql1, (err,result1) => {
+                    if(err){
+                      connection.release();
+                      throw err;
+                    }
+                    user_value.studentId = result1[0].id;
+
+                    const token = jwt.sign({ user: user_value },
+                    process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
+                      expiresIn: 86400 // expires in 24 hours
+                    });
+                  //  res.status(200).json({ token: token });
+                    res.redirect('http://localhost:4200/home-students/'+ token);
+                    //res.redirect('https://bedrijvenrelaties-industria.be/home-students/' + token);
+
                   });
-                //  res.status(200).json({ token: token });
-                  res.redirect('http://localhost:4200/home-students/'+ token);
-                  //res.redirect('https://bedrijvenrelaties-industria.be/home-students/' + token);
+
+
 
                 }
                 else{

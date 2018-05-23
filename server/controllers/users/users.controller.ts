@@ -44,12 +44,25 @@ export class UsersController extends DefaultController {
           if (!result[0]) {return res.status(404).send('No user found.');}
       var passwordIsValid = bcrypt.compareSync(req.body.password, result[0].password);
       if(passwordIsValid) {
-          const user = result[0];
-          const token = jwt.sign({ user: user },
-          process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
-          expiresIn: 86400 // expires in 24 hours
+          var user_value = { id: 0, email: '', rnumber: '', role: '', studentId: 0 , companyId: 0, admin: ''};
+          user_value.id = result[0].id;
+          user_value.rnumber = result[0].rnumber;
+          user_value.role = result[0].role;
+          user_value.admin = result[0].admin;
+          user_value.email = result[0].email;
+
+          this.companiesCrud.getBy('companies', 'user_fk', result[0].id).then(result1 => {
+              if (!result1[0]) {return res.status(404).send('No user found.');}
+              user_value.companyId = result1[0].id;
+              
+              const token = jwt.sign({ user: user_value },
+              process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
+              expiresIn: 86400 // expires in 24 hours
+              });
+              res.status(200).json({ token: token });
           });
-          res.status(200).json({ token: token });
+
+
       }
       else {
           return res.status(401).send({token: null });
