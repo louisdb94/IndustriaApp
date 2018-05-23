@@ -48,6 +48,7 @@ export class CompanyVacatureProfile {
 
   ngOnInit() {
 
+
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
     });

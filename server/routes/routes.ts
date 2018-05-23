@@ -89,61 +89,61 @@ export  function setRoutes(app, router) {
 
   router.route('/delete-student/:student_fk').get(authorization.checkAccessAdminORStudentZelf,studentsCtrl.deleteStudent);
   router.route('/students-get/:id').get(authorization.checkAccessCompanyORStudentZelf,studentsCtrl.getById);
-  router.route('/students-getall').get(authorization.verifyToken,studentsCtrl.get); // admin of company
-  router.route('/students-getallid').get(authorization.verifyToken,studentsCtrl.get); // admin of company
-  router.route('/student-update').put(authorization.verifyToken,studentsCtrl.updateById);
+  router.route('/students-getall').get(authorization.checkAccessAdminORCompany,studentsCtrl.get); // admin of company
+  router.route('/students-getallid').get(authorization.checkAccessAdminORCompany,studentsCtrl.get); // admin of company
+  router.route('/student-update').put(authorization.checkAccessStudentZelfInsertOrUpdate,studentsCtrl.updateById);
 
   //Skills
   router.route('/skills-getalldistinct').get(authorization.verifyToken,skillsCtrl.selectSkill);
   router.route('/skills-getfkbyskill/:skill').get(authorization.verifyToken,skillsCtrl.getbySkill);
-  router.route('/skills-update').put(authorization.verifyToken,skillsCtrl.updateById);
+  router.route('/skills-update').put(authorization.checkAccessStudentZelfInsertOrUpdate,skillsCtrl.updateById);
   router.route('/skills-get/:id').get(authorization.verifyToken,skillsCtrl.getById);
   router.route('/skills-getall').get(authorization.verifyToken,skillsCtrl.get);
   router.route('/skills-getbystudentfk/:id').get(authorization.verifyToken,skillsCtrl.getByStudentFk);
-  router.route('/skills-insert').post(authorization.verifyToken,skillsCtrl.insert);
+  router.route('/skills-insert').post(authorization.checkAccessStudentZelfInsertOrUpdate,skillsCtrl.insert);
   router.route('/skills-delete/:id').delete(authorization.verifyToken,skillsCtrl.delete);
 
   //Professional
   router.route('/professional-getalldistinct').get(authorization.verifyToken,professionalCtrl.selectProfessional);
   router.route('/professional-getfkbyskill/:skill').get(authorization.verifyToken,professionalCtrl.getbySkill);
-  router.route('/professional-update').put(authorization.verifyToken,professionalCtrl.updateById);
+  router.route('/professional-update').put(authorization.checkAccessStudentZelfInsertOrUpdate,professionalCtrl.updateById);
   router.route('/professional-getall').get(authorization.verifyToken,professionalCtrl.get);
   router.route('/professional-get/:id').get(authorization.verifyToken,professionalCtrl.getById);
   router.route('/professional-getbystudentfk/:id').get(authorization.verifyToken,professionalCtrl.getByStudentFk);
-  router.route('/professional-insert').post(authorization.verifyToken,professionalCtrl.insert);
+  router.route('/professional-insert').post(authorization.checkAccessStudentZelfInsertOrUpdate,professionalCtrl.insert);
   router.route('/professional-delete/:id').delete(authorization.verifyToken,professionalCtrl.delete);
 
   //Language
   router.route('/language-getalldistinct').get(authorization.verifyToken,languageCtrl.selectLanguage);
   router.route('/language-getfkbylang/:lang').get(authorization.verifyToken,languageCtrl.getbyLanguage);
-  router.route('/language-update').put(authorization.verifyToken,languageCtrl.updateById);
+  router.route('/language-update').put(authorization.checkAccessStudentZelfInsertOrUpdate,languageCtrl.updateById);
   router.route('/language-get/:id').get(authorization.verifyToken,languageCtrl.getById);
   router.route('/language-getall').get(authorization.verifyToken,languageCtrl.get);
   router.route('/language-getbystudentfk/:id').get(authorization.verifyToken,languageCtrl.getByStudentFk);
-  router.route('/language-insert').post(authorization.verifyToken,languageCtrl.insert);
+  router.route('/language-insert').post(authorization.checkAccessStudentZelfInsertOrUpdate,languageCtrl.insert);
   router.route('/language-delete/:id').delete(authorization.verifyToken,languageCtrl.delete);
 
   //SocialMedia
-  router.route('/socialmedia-update').put(authorization.verifyToken,socialmediaCtrl.updateById);
+  router.route('/socialmedia-update').put(authorization.checkAccessStudentZelfInsertOrUpdate,socialmediaCtrl.updateById);
   router.route('/socialMedia-getall').get(authorization.verifyToken,socialmediaCtrl.get);
   router.route('/socialmedia-get/:id').get(authorization.verifyToken,socialmediaCtrl.getByStudentFk);
 
   //Education
-  router.route('/education-update').put(authorization.verifyToken,educationCtrl.updateById);
+  router.route('/education-update').put(authorization.checkAccessStudentZelfInsertOrUpdate,educationCtrl.updateById);
   router.route('/education-getall').get(authorization.verifyToken,educationCtrl.get);
   router.route('/education-get/:id').get(authorization.verifyToken,educationCtrl.getByStudentFk);
-  router.route('/education-insertForm').post(authorization.verifyToken,educationCtrl.insert);
+  router.route('/education-insertForm').post(authorization.checkAccessStudentZelfInsertOrUpdate,educationCtrl.insert);
   router.route('/education-delete/:id').delete(authorization.verifyToken,educationCtrl.delete);
 
   //Experiences
-  router.route('/experience-update').put(authorization.verifyToken,experienceCtrl.updateById);
+  router.route('/experience-update').put(authorization.checkAccessStudentZelfInsertOrUpdate,experienceCtrl.updateById);
   router.route('/experiences-getall').get(authorization.verifyToken,experienceCtrl.get);
   router.route('/experiences-getbystudentfk/:id').get(authorization.verifyToken,experienceCtrl.getByStudentFk);
-  router.route('/experience-insertform').post(authorization.verifyToken,experienceCtrl.insert);
+  router.route('/experience-insertform').post(authorization.checkAccessStudentZelfInsertOrUpdate,experienceCtrl.insert);
   router.route('/experiences-delete/:id').delete(authorization.verifyToken,experienceCtrl.delete);
 
   //Contact Student
-  router.route('/contact-update').put(authorization.verifyToken,contactStudentCtrl.updateById);
+  router.route('/contact-update').put(authorization.checkAccessStudentZelfInsertOrUpdate,contactStudentCtrl.updateById);
   router.route('/contact-getall').get(authorization.verifyToken,contactStudentCtrl.get);
   router.route('/contact-get/:id').get(authorization.verifyToken,contactStudentCtrl.getById);
   router.route('/contact-getbystudentfk/:id').get(authorization.verifyToken,contactStudentCtrl.getByStudentFk);
@@ -153,41 +153,41 @@ export  function setRoutes(app, router) {
   //COMPANIES
   router.route('/companies-get/:id').get(authorization.verifyToken,companiesCtrl.getById);
   router.route('/companies-getall').get(authorization.verifyToken,companiesCtrl.get);
-  router.route('/companies-insert').post(authorization.verifyToken,companiesCtrl.insert);
-  router.route('/companies-delete/:id').delete(authorization.verifyToken,companiesCtrl.delete);
-  router.route('/companies-update').put(authorization.verifyToken,companiesCtrl.updateById);
-  router.route('/companies-updatepriority').put(authorization.verifyToken,companiesCtrl.updateById);
-  router.route('/delete-company').post(authorization.verifyToken,companiesCtrl.deleteCompany);
-  router.route('/companies-innerjoin').get(authorization.verifyToken,companiesCtrl.innerJoinCompany);
+  router.route('/companies-insert').post(authorization.checkAccessAdmin,companiesCtrl.insert);
+  router.route('/companies-delete/:id').delete(authorization.checkAccessAdmin,companiesCtrl.delete);
+  router.route('/companies-update').put(authorization.checkAccessCompanyZelfInsertOrUpdate,companiesCtrl.updateById);
+  router.route('/companies-updatepriority').put(authorization.checkAccessAdmin,companiesCtrl.updateById);
+  router.route('/delete-company').post(authorization.checkAccessAdmin,companiesCtrl.deleteCompany);
+  router.route('/companies-innerjoin').get(companiesCtrl.innerJoinCompany);
 
   //Contact Company
-  router.route('/contacts-update').put(authorization.verifyToken,contactCompanyCtrl.updateById);
+  router.route('/contacts-update').put(authorization.checkAccessCompanyZelfInsertOrUpdate,contactCompanyCtrl.updateById);
   router.route('/contacts-getall').get(authorization.verifyToken,contactCompanyCtrl.get);
   router.route('/contacts-getbycompanyfk/:id').get(authorization.verifyToken,contactCompanyCtrl.getByCompanyFk);
-  router.route('/contacts-insert').post(authorization.verifyToken,contactCompanyCtrl.insert);
+  router.route('/contacts-insert').post(authorization.checkAccessCompanyZelfInsertOrUpdate,contactCompanyCtrl.insert);
   //Priorities
-  router.route('/companies-priority').post(authorization.verifyToken,prioritiesCtrl.addPriority);
-  router.route('/companies-deletepriority/:company_fk').get(authorization.verifyToken,prioritiesCtrl.deletePriority);
+  router.route('/companies-priority').post(authorization.checkAccessAdmin,prioritiesCtrl.addPriority);
+  router.route('/companies-deletepriority/:company_fk').get(authorization.checkAccessAdmin,prioritiesCtrl.deletePriority);
   router.route('/companies-getallpriorities').get(authorization.verifyToken,prioritiesCtrl.get);
-  router.route('/companies-updatepriorityCompany').put(authorization.verifyToken,prioritiesCtrl.updateById);
+  router.route('/companies-updatepriorityCompany').put(authorization.checkAccessAdmin,prioritiesCtrl.updateById);
 
 
   //Vacatures
-  router.route('/vacatures-get/:id').get(authorization.verifyToken,vacaturesCtrl.getVacatureById);
+  router.route('/vacatures-get/:id').get(vacaturesCtrl.getVacatureById);
   router.route('/vacatures-getbycompany/:id').get(authorization.verifyToken,vacaturesCtrl.getVacatureByCompanyFk);
   router.route('/vacatures-getall').get(authorization.verifyToken,vacaturesCtrl.get);
   router.route('/vacatures-delete/:id').delete(authorization.verifyToken,vacaturesCtrl.delete);
-  router.route('/vacatures-update').put(authorization.verifyToken,vacaturesCtrl.updateById);
-  router.route('/vacatures-insertform').post(authorization.verifyToken,vacaturesCtrl.insert);
+  router.route('/vacatures-update').put(authorization.checkAccessCompanyZelfInsertOrUpdate,vacaturesCtrl.updateById);
+  router.route('/vacatures-insertform').post(authorization.checkAccessCompanyZelfInsertOrUpdate,vacaturesCtrl.insert);
 
   //Events
   router.route('/events-insert').post(authorization.verifyToken,eventsCtrl.insert);
   router.route('/events-getall').get(authorization.verifyToken,eventsCtrl.get);
-  router.route('/events-update').put(authorization.verifyToken,eventsCtrl.updateById);
+  router.route('/events-update').put(authorization.checkAccessAdmin,eventsCtrl.updateById);
   router.route('/events-delete/:id').delete(authorization.verifyToken,eventsCtrl.delete);
 
   //PrivacyLog
-  router.route('/privacylog-insert').post(authorization.verifyToken,privacylogCtrl.insert);
+  router.route('/privacylog-insert').post(privacylogCtrl.insert);
   router.route('/privacylog-delete/:id').delete(authorization.verifyToken,privacylogCtrl.delete);
 
   //Requirements
@@ -202,14 +202,14 @@ export  function setRoutes(app, router) {
   router.route('/parameters-getall').get(authorization.verifyToken,parametersCtrl.get);
   router.route('/parameters-getparamscompany').get(authorization.verifyToken,parametersCtrl.getByParamsCompany);
   router.route('/parameters-getforcompany/:user_fk').get(authorization.verifyToken,parametersCtrl.getParamsForCompany);
-  router.route('/parameters-add').post(authorization.verifyToken,parametersCtrl.insert);
-  router.route('/parameters-delete/:id').delete(authorization.verifyToken,parametersCtrl.delete);
+  router.route('/parameters-add').post(authorization.checkAccessAdmin,parametersCtrl.insert);
+  router.route('/parameters-delete/:id').delete(authorization.checkAccessAdmin,parametersCtrl.delete);
   router.route('/parameters-deletefromvalue/:value').delete(authorization.verifyToken,parametersCtrl.deleteFromValue);
 
   //Admin company contact
-  router.route('/admin-companycontact-getall').get(authorization.verifyToken,adminContactCtrl.get);
-  router.route('/admin-companycontact-insert').post(authorization.verifyToken,adminContactCtrl.insert);
-  router.route('/admin-companycontact-update').put(authorization.verifyToken,adminContactCtrl.updateById);
+  router.route('/admin-companycontact-getall').get(authorization.checkAccessAdmin,adminContactCtrl.get);
+  router.route('/admin-companycontact-insert').post(authorization.checkAccessAdmin,adminContactCtrl.insert);
+  router.route('/admin-companycontact-update').put(authorization.checkAccessAdmin,adminContactCtrl.updateById);
 
   // //Image
   router.route('/image/upload').post(imageCtrl.uploadImageStudent);

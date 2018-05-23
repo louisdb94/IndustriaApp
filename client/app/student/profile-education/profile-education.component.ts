@@ -103,6 +103,7 @@ export class EducationProfile {
       this.educationService.addEducationFromStudentId(this.registerForm.value).subscribe(
           res => {
             student.countEducation++;
+            this.getEducationById(student.id);
             this.save(student, null);
         //    this.getEducation(student.id)
           },

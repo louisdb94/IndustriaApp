@@ -17,10 +17,10 @@
               <a [routerLink] ="companyVacature + vacature.id"><p>{{vacature.name}}</p></a>
             </td>
             <td>
-                <a [routerLink] ="companyVacature + vacature.id"><p>{{vacature.type}}</p></a>
+                <p>{{vacature.type}}</p>
             </td>
             <td>
-                <a [routerLink] ="companyVacature + vacature.id"><p>{{vacature.about}}</p></a>
+                <p>{{vacature.about}}</p>
             </td>
             <td *ngIf="auth.currentUser.companyId == id">
                 <button translate (click)="deleteVacature(vacatures, vacature)"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>

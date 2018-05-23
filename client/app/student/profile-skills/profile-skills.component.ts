@@ -57,7 +57,6 @@ export class SkillsProfile {
 
   save(student, skills) {
     this.editMode = false;
-
     for (let i = 0; i < this.skills.length; i++) {
         if (this.skills[i]) {
         this.skillService.editSkill(this.skills[i]).subscribe(

@@ -26,15 +26,34 @@ export class Authorization {
     }
   }
 
-  checkAccessStudentZelf(req, res, next){
+  checkAccessStudentZelfInsertOrUpdate(req, res, next){
     var token = req.headers.authorization;
     if (!token){
       return res.status(403).send({ auth: false, message: 'No token provided.' });
     }else{
       jwt.verify(token, process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', function(err, decoded) {
-        var student_fk = req.originalUrl.match(/\d+/g).map(Number);
+        var student_fk = req.body.student_fk;
+        if(student_fk == undefined){
+          student_fk = req.body.id;
+        }
         if (err){return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });}
         if(decoded.user.studentId == student_fk){next()}else{res.status(403).send({ auth: false, message: 'No token provided.' });}
+      });
+    }
+  }
+
+  checkAccessCompanyZelfInsertOrUpdate(req, res, next){
+    var token = req.headers.authorization;
+    if (!token){
+      return res.status(403).send({ auth: false, message: 'No token provided.' });
+    }else{
+      jwt.verify(token, process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', function(err, decoded) {
+        var company_fk = req.body.company_fk;
+        if(company_fk == undefined){
+          company_fk = req.body.id;
+        }
+        if (err){return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });}
+        if(decoded.user.companyId == company_fk){next()}else{res.status(403).send({ auth: false, message: 'No token provided.' });}
       });
     }
   }
