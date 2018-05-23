@@ -26,6 +26,19 @@ export class Authorization {
     }
   }
 
+  checkAccessStudentZelf(req, res, next){
+    var token = req.headers.authorization;
+    if (!token){
+      return res.status(403).send({ auth: false, message: 'No token provided.' });
+    }else{
+      jwt.verify(token, process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', function(err, decoded) {
+        var student_fk = req.originalUrl.match(/\d+/g).map(Number);
+        if (err){return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });}
+        if(decoded.user.studentId == student_fk){next()}else{res.status(403).send({ auth: false, message: 'No token provided.' });}
+      });
+    }
+  }
+
   checkAccessAdminORStudent(req, res, next){
     var token = req.headers.authorization;
     if (!token){
