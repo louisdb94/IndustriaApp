@@ -56,5 +56,8 @@
     "Register": "Student job portal registration",
     "RegisterButton": "Register here",
 
-    "Calendar": "Industria Event Calendar"
+    "Calendar": "Industria Event Calendar",
+
+    "Next" : "Next",
+    "Previous" : "Previous"
 }
