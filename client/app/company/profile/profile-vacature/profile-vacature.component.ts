@@ -34,7 +34,7 @@ export class CompanyVacatureProfile {
   type = new FormControl(String);
   about = new FormControl(String);
   company_fk = new FormControl(String);
-
+  id: number;
   @Input() vacatures;
   @Input() company;
 
@@ -47,6 +47,10 @@ export class CompanyVacatureProfile {
 
 
   ngOnInit() {
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.id = params['id'];
+    });
 
     this.registerForm = this.formBuilder.group({
       name: this.name,

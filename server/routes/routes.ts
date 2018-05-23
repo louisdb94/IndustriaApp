@@ -77,7 +77,7 @@ export  function setRoutes(app, router) {
   router.route('/user-get/:id').get(authorization.checkAccessAdmin, usersCtrl.getById);
   router.route('/user-getbyrole').get(authorization.checkAccessAdmin, usersCtrl.getByRole);
   router.route('/users-insert').post(authorization.checkAccessAdminORStudent, usersCtrl.register);
-  router.route('/resetpass').put(authorization.verifyToken, usersCtrl.updatePassword); // COMPANY ZELF OR STUDENT ZELF
+  router.route('/resetpass').put(authorization.verifyToken, usersCtrl.updatePassword); 
   router.route('/user-makeadmin').put(authorization.checkAccessAdmin, usersCtrl.makeAdmin);
   router.route('/user-getadmin').get(authorization.checkAccessAdmin, usersCtrl.getAdmins);
   router.route('/sendmail/:email').get(authorization.verifyToken, usersCtrl.sendMail);

@@ -55,20 +55,20 @@
         <table>
          <thead class="thead-default" >
            <tr>
-             <th style="padding:1%">Company</th>
-             <th *ngFor="let priority of admin_priorities" style="padding:1%">
+             <th >Company</th>
+             <th *ngFor="let priority of admin_priorities" >
               {{priority.value}}
               <i class="fa fa-remove" (click)="removePriority(priority)" style="color:red"></i>
              </th>
-             <th style="padding:1%">Logo size
+             <th >Logo size
                 <button *ngIf="!editLogo" class="btn btn-primary" (click)="editLogo = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
                 <button *ngIf="editLogo" class="btn btn-primary" (click)="saveLogoSize(priorities)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
              </th>
            </tr>
          </thead>
          <tr *ngFor="let item of freePriority">
-           <td style="padding:1%"> {{item.name}}</td>
-           <td *ngFor="let priority of admin_priorities" style="padding:1%">
+           <td > {{item.name}}</td>
+           <td *ngFor="let priority of admin_priorities" >
             <span *ngFor="let company_p of company_priorities">
               <span *ngIf="company_p.value == priority.value && company_p.user_fk == item.user_fk">
                 <span *ngIf="setCheck(1)"></span>
@@ -201,7 +201,6 @@
                <button *ngIf="!editPhone" class="btn btn-primary" (click)="editPhone = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
                <button *ngIf="editPhone" class="btn btn-primary" (click)="editPhone = false"style="padding: -3px"><i class="fa fa-floppy-o"></i> Cancel</button>
              </th>
-             <th>Delete </th>
            </tr>
          </thead>
          <tr *ngFor="let company of adminCompanycontacts;">
@@ -222,8 +221,6 @@
              </span>
              <span *ngIf="editPhone == false"> {{company.phone}} </span>
            </td>
-    
-           <td> <button class="btn btn-danger" (click)="deleteCompany(company)"> Delete </button> </td>
 
          </tr>
          <br><br>

@@ -47,11 +47,13 @@
             <p style="margin-top: 10%">
               By sending a mail to the account email, you can change/reset your password.
             </p>
-            <div style=""id="login" class="input-group" >
+            <div>
+            <span style=""id="login" class="input-group" >
               <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
               <input [(ngModel)]="emailStudent" type="email" name="email" placeholder="Email" email pattern="[r||s]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
-            </div>
-            <button  style="margin-bottom: 2%;"class="btn btn-primary" type="submit" (click)="nodemailer(emailStudent)"><i class="fa fa-sign-in"></i> Send Mail</button>
+              <button class="btn btn-primary" type="submit" (click)="nodemailer(emailStudent)"><i class="fa fa-sign-in"></i> Send Mail</button>
+            </span>
+          </div>
           </div>
           <div class="tab-pane" id="deleteAccount" role="tabpanel" style="margin: auto; width: 60%">
             <p style="margin-top: 10%">
