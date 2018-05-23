@@ -58,8 +58,11 @@
 
     "Calendar": "Industria Event Calendar",
 
+
     "Next" : "Next",
     "Previous" : "Previous",
 
-    "Degrees" : "Degrees"
+    "Degrees" : "Degrees",
+
+    "Filter on" : "Filter on"
 }
