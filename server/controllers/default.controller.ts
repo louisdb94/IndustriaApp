@@ -152,7 +152,7 @@ export abstract class DefaultController {
     var crud_controller = this.model + "Crud";
     this[crud_controller].getDistinct(name, table).then(result => {
         for (let i = 0; i < result.length; i++) {
-            if (result[i][selection] === '') {
+            if (result[i][selection] === '' || result[i][selection] === null ) {
                 result.splice(i, 1);
             }
         }

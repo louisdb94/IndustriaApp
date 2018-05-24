@@ -145,7 +145,7 @@ export class StudentListComponent implements OnInit {
   //get all distinct languages -> add them to languages[]
   getLanguages() {
     this.languageService.getLanguagesDistinct().subscribe(
-      data => { this.languages = data, this.sortLang(this.languages) },
+      data => { this.languages = data, this.sortLang(this.languages)},
       error => console.log(error)
     )
   }
