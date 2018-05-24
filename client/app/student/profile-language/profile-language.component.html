@@ -1,18 +1,18 @@
 <div class="jumbotron">
     <div class="container">
-        <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student, languages)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-        <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="editMode = true" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+        <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student, languages)"  class="btn btn-sm btn-primary floatright"><i class="fa fa-floppy-o"></i> Save</button>
+        <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="editMode = true" class="btn btn-sm btn-primary floatright" ><i class="fa fa-pencil"></i> Edit</button>
         <h2 translate>Language knowledge</h2><br>
 
-        <div *ngFor="let item of languages; let i = index" style="display:inline-block;padding:1%">
+        <div *ngFor="let item of languages; let i = index" id="div1">
             <div *ngIf="languages[i]" >
-              <div style='margin-top: 10px;'>
+              <div class="margin-top10">
                 <textarea *ngIf="editMode" [(ngModel)]="languages[i].type" placeholder="Education experiences" rows="1" (keyup.enter)="save()"></textarea>
-                <p id="languageTitle" *ngIf="!editMode" style="font-size : 20px">{{languages[i].type}}</p>
+                <p id="languageTitle" *ngIf="!editMode" class="font-size: 20px">{{languages[i].type}}</p>
               </div>
               <p-progressBar #progressBar1 [style]="{'height': '50px', 'width': '250px'}" [(value)]="languages[i].value"></p-progressBar>
 
-                <select  *ngIf="editMode" style="width:250px" class="form-control" id="filters" required [(ngModel)]="languages[i].value_type" name="filter" (change)="onChange(languages[i])" >
+                <select  *ngIf="editMode"  class="form-control width250" id="filters" required [(ngModel)]="languages[i].value_type" name="filter" (change)="onChange(languages[i])" >
                   <option *ngFor="let pow of filters" [value]="pow" >{{pow}}</option>
                 </select>
 
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <button *ngIf="editMode" class="btn btn-sm btn-danger" (click)="delete(student, languages)" style="float : right"><i class="fa fa-trash"></i> Delete</button>
-        <button *ngIf="editMode" class="btn btn-sm btn-success" (click)="add(student)" style="float : right"><i class="fa fa-plus"></i> Add</button>
+        <button *ngIf="editMode" class="btn btn-sm btn-danger floatright" (click)="delete(student, languages)"><i class="fa fa-trash"></i> Delete</button>
+        <button *ngIf="editMode" class="btn btn-sm btn-success floatright" (click)="add(student)" ><i class="fa fa-plus"></i> Add</button>
     </div>
 </div>
