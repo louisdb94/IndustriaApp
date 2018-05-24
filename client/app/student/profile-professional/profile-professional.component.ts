@@ -1,7 +1,6 @@
 import { Component, ViewChild, OnInit, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ProfessionalService } from '../../services/professional.service';
-import { DataService } from '../../services/data.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
@@ -18,10 +17,8 @@ import { HttpClient } from '@angular/common/http';
 export class ProfessionalProfile {
 
   public editMode = false;
-  public valueInput: number;
   public isUpdated = false;
 
-  data: any;
   @Input() student: any;
   @Input() professional = [];
 
@@ -39,7 +36,6 @@ export class ProfessionalProfile {
   constructor(private studentService: StudentService,
     private activatedRoute: ActivatedRoute,
     private professionalService: ProfessionalService,
-    public dataService: DataService,
     public toast: ToastComponent,
     private http: HttpClient,
     private formBuilder: FormBuilder,
@@ -74,6 +70,7 @@ export class ProfessionalProfile {
     );
   }
 
+  //A student can have a maximum of 7 professional skills
   add(student) {
     if (student.countProfessional < 7) {
       this.registerForm.value.skill = 'Example';
@@ -91,7 +88,6 @@ export class ProfessionalProfile {
   getProfessional(id){
     this.professionalService.getProfessionalByStudentId(id).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.professional = data;
       }
     )
@@ -108,6 +104,7 @@ export class ProfessionalProfile {
     }
   }
 
+  //Change the value of the progress bar corresponding to the selected professional skills
   onChange(professional){
     if (professional.value_type == this.filters[0]) {
       professional.value = 25;

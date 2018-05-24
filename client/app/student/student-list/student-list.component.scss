@@ -9,10 +9,98 @@ td {
 
 .my-pagination /deep/ .ngx-pagination .current {
     margin-top: 3%;
-
+    text-align: center;
   }
 
 md-list.make-scrollable {
     height: 20px; //Or any other height you wish
     overflow-y: scroll;
+}
+
+.container{
+  display: flex;
+}
+
+#studentcontainer{
+  margin-top: 15%;
+}
+
+#studentlist{
+  float: left; 
+  width:70%; 
+  border-radius: 1%;
+  border: 2px solid #bbbbbb;
+}
+
+.width100{
+  width:100%;
+}
+
+#filterstudent{
+  padding:1%;
+  margin-bottom:3%;
+}
+
+#search{
+  float:left;
+  width:70%;
+}
+
+#searchValue{
+  float:left;
+  width:30%;
+}
+
+#searchBox{
+  text-align: center;
+  font-size: 30px; 
+  background: #d4d4d4;
+  height: 50px;
+}
+
+#responsiveTable{
+  border: 1px solid #dedede; 
+  width:100%;
+}
+
+#filterBox{
+  float: right; 
+  width: 25%; 
+  border: 1px solid #d4d4d4; 
+  border-radius: 1%; 
+  padding:6px;
+}
+
+#filterprof{
+  float:left; 
+  width:100%; 
+  margin-bottom: 10px;
+}
+
+#checkForm{
+  overflow: scroll; 
+  height: 110px; 
+  width:200px;
+}
+
+#button1{
+  width: 60%; 
+  margin-bottom:2%;
+}
+
+#button2{
+  width: 30%; 
+  margin-bottom:2%;
+}
+
+#filterSkill{
+  float:left; 
+  width:100%; 
+  margin-bottom: 10px;
+}
+
+#div1{
+  overflow: scroll; 
+  height: 110px; 
+  width:200px;
 }

@@ -21,7 +21,6 @@ export class BioProfile {
 
   save(student){
     this.editMode = false;
-
     this.studentService.editStudentMysql(student).subscribe(
       res => {
         this.student = student;

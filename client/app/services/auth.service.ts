@@ -5,7 +5,6 @@ import { JwtHelper } from 'angular2-jwt';
 import { UserService } from '../services/user.service';
 import { StudentService } from '../services/student.service';
 import { CompanyService } from '../services/company/company.service';
-import { DataService } from '../services/data.service';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +19,6 @@ export class AuthService {
   constructor(private userService: UserService,
     private router: Router,
     private studentService: StudentService,
-    private dataService: DataService,
     private companyService: CompanyService) {
 
     this.token = localStorage.getItem('item');

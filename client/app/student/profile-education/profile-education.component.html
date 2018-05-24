@@ -1,11 +1,11 @@
 <div class="jumbotron">
     <div class="container">
-        <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="editMode = true" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
-        <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student, education)" style="float : right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-        <button translate *ngIf="!editMode && auth.currentUser.role == 'Student'" class="btn btn-sm btn-success" (click)="add(student)" style="float : right"><i class="fa fa-plus"></i>Add</button>
-        <button translate *ngIf="editMode && auth.currentUser.role == 'Student'" class="btn btn-sm btn-danger" (click)="delete(student, education)" style="float : right"><i class="fa fa-trash"></i>Delete</button>
+        <button translate *ngIf="!editMode  && auth.currentUser.role == 'Student'" (click)="editMode = true" class="btn btn-sm btn-primary floatright"><i class="fa fa-pencil"></i> Edit</button>
+        <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student, education)" class="btn btn-sm btn-primary floatright"><i class="fa fa-floppy-o"></i> Save</button>
+        <button translate *ngIf="!editMode && auth.currentUser.role == 'Student'" class="btn btn-sm btn-success floatright" (click)="add(student)"><i class="fa fa-plus"></i>Add</button>
+        <button translate *ngIf="editMode && auth.currentUser.role == 'Student'" class="btn btn-sm btn-danger floatright" (click)="delete(student, education)"><i class="fa fa-trash"></i>Delete</button>
         <h2 translate>Education</h2>
-        <ul *ngFor="let item of education; let i = index;" class="timeline" style="margin-bottom: -5%;">
+        <ul id="ul1" *ngFor="let item of education; let i = index;" class="timeline">
             <li *ngIf="i == 0 || i == 2 || i == 4 || i == 6  "  >
                 <div class="timeline-badge">
                     <a><i class="fa fa-circle " id=""></i></a>
@@ -23,11 +23,9 @@
                     </div>
                     <div *ngIf="education[0]" class="timeline-footer">
                         <div class="text-right">
-                            <textarea *ngIf="editMode" [(ngModel)]="education[i].date_from" placeholder="{{'Education From' | translate}}" rows="1" cols="40" (keyup.enter)="save()"
-                                style="float: left">
+                            <textarea class="floatleft" *ngIf="editMode" [(ngModel)]="education[i].date_from" placeholder="{{'Education From' | translate}}" rows="1" cols="40" (keyup.enter)="save()">
                             </textarea>
-                            <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[i].date_until" placeholder="{{'Education Until' | translate}}" rows="1" cols="40" (keyup.enter)="save()"
-                                style="float: right">
+                            <textarea class="floatright" #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[i].date_until" placeholder="{{'Education Until' | translate}}" rows="1" cols="40" (keyup.enter)="save()">
                             </textarea>
                             <p *ngIf="!editMode">{{education[i].date_from}} - {{education[i].date_until}}</p>
                         </div>
@@ -43,21 +41,19 @@
                 <div *ngIf="education[i]" class="timeline-panel">
                     <div class="timeline-heading">
                         <h4>
-                            <textarea *ngIf="editMode" [(ngModel)]="education[i].type" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                            <textarea *ngIf="editMode" [(ngModel)]="education[i].type" placeholder="{{'Education Major' | translate}}" rows="1" cols="40" (keyup.enter)="save()"></textarea>
                             <p *ngIf="!editMode">{{education[i].type}}</p>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <textarea *ngIf="editMode" [(ngModel)]="education[i].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                        <textarea *ngIf="editMode" [(ngModel)]="education[i].institution" placeholder="{{'Education Institution' | translate}}" rows="1" cols="40" (keyup.enter)="save()"></textarea>
                         <p *ngIf="!editMode">{{education[i].institution}}</p>
                     </div>
                     <div *ngIf="education[0]" class="timeline-footer">
                         <div class="text-right">
-                            <textarea *ngIf="editMode" [(ngModel)]="education[i].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                style="float: left">
+                            <textarea class="floatleft" *ngIf="editMode" [(ngModel)]="education[i].date_from" placeholder="{{'Education From' | translate}}" rows="1" cols="40" (keyup.enter)="save()">
                             </textarea>
-                            <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[i].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
-                                style="float: right">
+                            <textarea class="floatright" #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[i].date_until" placeholder="{{'Education Until' | translate}}" rows="1" cols="40" (keyup.enter)="save()">
                             </textarea>
                             <p *ngIf="!editMode">{{education[i].date_from}} - {{education[i].date_until}}</p>
                         </div>

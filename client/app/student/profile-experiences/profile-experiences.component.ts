@@ -1,12 +1,10 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ExperienceService } from '../../services/experience.service';
-import { DataService } from '../../services/data.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { DataTableModule } from "ng2-data-table";
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import {StudentProfile} from '../profile.component';
 import { checkAndUpdateNode } from '@angular/core/src/view/view';
 import { AuthService } from '../../services/auth.service';
 
@@ -22,8 +20,6 @@ export class ExperiencesProfile {
   exp2: String;
   exp3: String;
 
-  public valueInput : number;
-  public isUpdated = false;
   public editMode = false;
   public addClicked = false;
   public deleteClicked = false;
@@ -34,7 +30,6 @@ export class ExperiencesProfile {
   period = new FormControl(String);
   student_fk = new FormControl(String);
 
-  experience = {};
   experiences = [];
   id: Number;
   lengthExperiences: any;
@@ -44,15 +39,12 @@ export class ExperiencesProfile {
   constructor(  private formBuilder: FormBuilder,
                 private studentService: StudentService,
                 private experienceService: ExperienceService,
-                public dataService: DataService,
-                private studentProfile: StudentProfile,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 public auth : AuthService){}
 
 
   ngOnInit() {
-
     this.registerForm = this.formBuilder.group({
       function: this.function,
       description: this.description,
@@ -69,7 +61,6 @@ export class ExperiencesProfile {
   getExperiencesById(id, exp1, exp2, exp3){
     this.experienceService.getExperienceById(id).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.experiences = data;
         this.lengthExperiences = Object.keys(data).length;
         this.changeExperience(exp1, exp2, exp3);
@@ -77,8 +68,8 @@ export class ExperiencesProfile {
     )
   }
 
+  //Edit an experience
   changeExperience(exp1, exp2, exp3){
-
     if(this.addClicked == true && exp1 != null && exp2 != null && exp3 != null){
       let i = this.lengthExperiences--;
       if(this.experiences[i]){
@@ -90,7 +81,6 @@ export class ExperiencesProfile {
   }
 
   save(student, experiences, exp1, exp2, exp3){
-
     for(let i = 0; i < this.experiences.length; i++){
       if(this.experiences[i]){
         this.experienceService.editExperience(experiences[i]).subscribe(
@@ -99,7 +89,6 @@ export class ExperiencesProfile {
         );
       }
     }
-
     this.registerForm.value.function = exp1;
     this.registerForm.value.description = exp2;
     this.registerForm.value.period = exp3;
@@ -133,7 +122,6 @@ export class ExperiencesProfile {
 
   deleteExperience(){
     this.deleteClicked = true;
-
     let i = this.lengthExperiences - 1;
     let experienceId = this.experiences[i].id;
     this.experienceService.deleteExperience(experienceId).subscribe(

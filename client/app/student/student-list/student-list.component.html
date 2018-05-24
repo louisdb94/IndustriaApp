@@ -1,60 +1,52 @@
 <app-toast [message]="toast.message"></app-toast>
-<div class="container" style="display:flex" *ngIf="priority != 'LOW'">
-  <div style="margin-top: 15%;">
-    <div style="float: left; width:70%; border-radius: 1%;border: 2px solid #bbbbbb;">
+<div class="container" *ngIf="priority != 'LOW'">
+  <div id="studentcontainer">
+    <div id="studentlist">
 
-      <div style="width:100%;">
-        <div translate style="text-align: center;     font-size: 30px; background: #d4d4d4;height: 50px;"> Search </div>
+      <div class="width100">
+        <div translate id="searchBox"> Search </div>
 
-        <div style="padding:1%;margin-bottom:3%">
+        <div id="filterstudent">
 
           <div class="form-group">
-            <input style="float:left; width:70%" type="text" class="form-control" id="filter" placeholder="{{'Filter on' | translate}} {{model.filter}} "
+            <input type="text" class="form-control" id="search" placeholder="{{'Filter on' | translate}} {{model.filter}} "
               [(ngModel)]="searchText">
-            <select style="float:left;width:30%" class="form-control" id="filters" required [(ngModel)]="model.filter" name="filter">
+            <select class="form-control" id="searchValue" required [(ngModel)]="model.filter" name="filter">
               <option *ngFor="let pow of filters" [value]="pow">{{pow}}</option>
             </select>
           </div>
 
         </div>
 
-        <table class="list1 table table-hover table-responsive" style="border: 1px solid #dedede; width:100%">
-
-          <tr style="width:100%">
+        <table id="responsiveTable" class="list1 table table-hover table-responsive">
+          <tr class="width100">
             <th translate (click)="sortName()">Name</th>
             <th translate (click)="sortDegree()">Degree</th>
             <th translate (click)="sortGradYear()">GradYear</th>
-            <!-- <th> Download CV </th> -->
             <th translate *ngIf="auth.currentUser.admin == '1'"> Delete student </th>
-
           </tr>
           <tr *ngFor="let item of students |  paginate: { itemsPerPage: 8, currentPage: p }">
 
-            <tr *ngFor="let item of students | FilterPipe : searchText : model.filter |  paginate: { itemsPerPage: 8, currentPage: p }"
-            style="width:100%">
+            <tr class="width100" *ngFor="let item of students | FilterPipe : searchText : model.filter |  paginate: { itemsPerPage: 8, currentPage: p }">
             <td>
               <a *ngIf="item.id" href="/profile-student/{{item.id}}">{{item.name}} </a>
-
             </td>
             <td>{{item.degree}}</td>
             <td>{{item.gradYear}}</td>
-            <!-- <td>
-              <button class="btn btn-primary" (click)="downloadCv(item)"> CV </button>
-            </td> -->
             <td *ngIf="auth.currentUser.admin == '1'">
               <button class="btn btn-danger" (click)="deleteStudent(item)"> Delete </button>
             </td>
           </tr>
         </table>
 
-        <pagination-controls style="text-align: center;" autoHide="true" nextLabel="{{'Next' | translate}}" previousLabel="{{'Previous' | translate}}" directionLinks="true" class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+        <pagination-controls autoHide="true" nextLabel="{{'Next' | translate}}" previousLabel="{{'Previous' | translate}}" directionLinks="true" class="my-pagination" (pageChange)="p = $event"></pagination-controls>
 
       </div>
     </div>
 
-    <div class=".hidden-xs-down" style="float: right; width: 25%; border: 1px solid #d4d4d4; border-radius: 1%; padding:6px">
-      <button translate style="width: 60%; margin-bottom:2%" type="button" class="btn btn-primary" (click)="advancedSearch()">Advanced Search</button>
-      <button translate type="button" name="button" class="btn btn-secondary" style="width: 30%; margin-bottom:2%" (click)="clear()"> Clear</button>
+    <div class=".hidden-xs-down" id="filterBox">
+      <button translate id="button1" type="button" class="btn btn-primary" (click)="advancedSearch()">Advanced Search</button>
+      <button translate id="button2" type="button" name="button" class="btn btn-secondary" (click)="clear()"> Clear</button>
       <div id="accordion" role="tablist" aria-multiselectable="true">
         <div class="card">
           <div class="card-header" role="tab" id="headingOne">
@@ -68,9 +60,9 @@
           <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
             <div class="card-block table-responsive">
 
-              <input style="float:left; width:100%; margin-bottom: 10px" type="text" class="form-control" id="filterskill" placeholder="Filter"
+              <input type="text" class="form-control" id="filterskill" placeholder="Filter"
                 [(ngModel)]="searchSkill">
-              <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 110px; width:200px">
+              <div id="div1" class="form-check form-check-inline" #scrollMe>
                 <ol class="form-check-label" *ngFor="let item of skills | FilterSkill : searchSkill  " type="A">
                   <li>
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (change)="inputSkillCheck($event,item.skill)">
@@ -92,9 +84,9 @@
           </div>
           <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
             <div class="card-block table-responsive">
-              <input style="float:left; width:100%; margin-bottom: 10px" type="text" class="form-control" id="filterprof" placeholder="Filter" [(ngModel)]="searchProf">
+              <input type="text" class="form-control" id="filterprof" placeholder="Filter" [(ngModel)]="searchProf">
 
-              <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 110px; width:200px">
+              <div id="checkForm" class="form-check form-check-inline" #scrollMe>
                 <ol class="form-check-label" *ngFor="let item of proffskills | FilterProfessional : searchProf ">
                   <li>
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (change)="inputProfskillCheck($event,item.skill)">
@@ -115,9 +107,9 @@
           </div>
           <div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingThree">
             <div class="card-block table-responsive">
-              <input style="float:left; width:100%; margin-bottom: 10px" type="text" class="form-control" id="filterlanguage" placeholder="Filter" [(ngModel)]="searchLang">
+              <input type="text" class="form-control" id="filterprof" placeholder="Filter" [(ngModel)]="searchLang">
 
-              <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 110px; width:200px">
+              <div id="checkForm" class="form-check form-check-inline" #scrollMe>
                   <ol class="form-check-label"  *ngFor="let item of languages | FilterLanguage : searchLang ">
                     <li>
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (change)="inputLanguageCheck($event,item.type)">
@@ -140,16 +132,15 @@
           <div id="collapseFour" class="collapse show" role="tabpanel" aria-labelledby="headingFour">
             <div class="card-block table-responsive">
 
-              <input style="float:left; width:100%; margin-bottom: 10px" type="text" class="form-control" id="filterDegrees" placeholder="Filter"
+              <input type="text" class="form-control" id="filterprof" placeholder="Filter"
                 [(ngModel)]="searchDegrees">
-              <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 110px; width:200px">
+              <div id="checkForm" class="form-check form-check-inline" #scrollMe>
                 <ol class="form-check-label" *ngFor="let item of degrees | FilterDegree : searchDegrees  " type="A">
                   <li>
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" (change)="inputDegreeCheck($event,item)">
                     <span> {{item}} </span>
                   </li>
                 </ol>
-
               </div>
             </div>
           </div>

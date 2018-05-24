@@ -1,7 +1,3 @@
-/* Colors: http://brandcolors.net/ */
-/* Icons: https://fortawesome.github.io/Font-Awesome/icons/ */
-
-/* Utils */
 $darken-percentage: 5%;
 
 a {
@@ -10,8 +6,6 @@ a {
 
 td {
   width: 20%;
-
-
 }
 
 img{
@@ -25,8 +19,6 @@ table {
   margin-top: 5px;
   margin-bottom: 5%;
   background-color: white;
-
-
 }
 
 #profilepic{
@@ -113,183 +105,14 @@ $icon-linkedin: "\f0e1";
 }
 /* End LinkedIn */
 
-/* YouTube */
-$color-youtube: #bb0000;
-$icon-youtube: "\f16a";
-.btn-youtube {
-  @include btn-variant($color-youtube, $icon-youtube);
+.floatleft{
+  float: left;
 }
-/* End YouTube */
 
-/* Instagram */
-$color-instagram: #517fa4;
-$icon-instagram: "\f16d";
-.btn-instagram {
-  @include btn-variant($color-instagram, $icon-instagram);
+.floatright{
+  float: right;
 }
-/* End Instagram */
 
-/* Pinterest */
-$color-pinterest: #cb2027;
-$icon-pinterest: "\f0d2";
-.btn-pinterest {
-  @include btn-variant($color-pinterest, $icon-pinterest);
+#span1{
+  color:#984444;
 }
-/* End Pinterest */
-
-
-/* Vine */
-$color-vine: #00bf8f;
-$icon-vine: "\f1ca";
-.btn-vine {
-  @include btn-variant($color-vine, $icon-vine);
-}
-/* End Vine */
-
-/* Flickr */
-$color-flickr-blue: #0063dc;
-$color-flickr-pink: #ff0084;
-$icon-flickr: "\f16e";
-.btn-flickr {
-  @include btn-variant($color-flickr-blue, $icon-flickr);
-  /* @include btn-variant($color-flickr-pink, $icon-flickr); */
-}
-/* End Flickr */
-
-/* Tumblr */
-$color-tumblr: #35465c;
-$icon-tumblr: "\f173";
-.btn-tumblr {
-  @include btn-variant($color-tumblr, $icon-tumblr);
-}
-/* End Tumblr */
-
-/* Vimeo */
-$color-vimeo: #1ab7ea;
-$icon-vimeo: "\f194";
-.btn-vimeo {
-  @include btn-variant($color-vimeo, $icon-vimeo);
-}
-/* End Vimeo */
-
-/* Foursquare */
-$color-foursquare-pink: #f94877;
-$color-foursquare-blue: #2d5be3;
-$icon-foursquare: "\f180";
-.btn-foursquare {
-  @include btn-variant($color-foursquare-pink, $icon-foursquare);
-  /* @include btn-variant($color-foursquare-blue, $icon-foursquare); */
-}
-/* End Foursquare */
-
-/* WordPress */
-$color-wordpress-blue: #21759b;
-$color-wordpress-red: #d54e21;
-$color-wordpress-grey: #464646;
-$icon-wordpress: "\f19a";
-.btn-wordpress {
-  @include btn-variant($color-wordpress-blue, $icon-wordpress);
-  /* @include btn-variant($color-wordpress-red, $icon-wordpress); */
-  /* @include btn-variant($color-wordpress-grey, $icon-wordpress); */
-}
-/* End WordPress */
-
-/* Twitch */
-$color-twitch: #6441a5;
-$icon-twitch: "\f1e8";
-.btn-twitch {
-  @include btn-variant($color-twitch, $icon-twitch);
-}
-/* End Twitch */
-
-/* Behance */
-$color-behance: #1769ff;
-$icon-behance: "\f1b4";
-.btn-behance {
-  @include btn-variant($color-behance, $icon-behance);
-}
-/* End Behance */
-
-/* Bitbucket */
-$color-bitbucket: #205081;
-$icon-bitbucket: "\f171";
-.btn-bitbucket {
-  @include btn-variant($color-bitbucket, $icon-bitbucket);
-}
-/* End Bitbucket */
-
-/* Delicious */
-$color-delicious: #3399ff;
-$icon-delicious: "\f1a5";
-.btn-delicious {
-  @include btn-variant($color-delicious, $icon-delicious);
-}
-/* End Delicious */
-
-/* DeviantArt */
-$color-deviantart: #05cc47;
-$icon-deviantart: "\f1bd";
-.btn-deviantart {
-  @include btn-variant($color-deviantart, $icon-deviantart);
-}
-/* End DeviantArt */
-
-/* Digg */
-$color-digg: #000000;
-$icon-digg: "\f1a6";
-.btn-digg {
-  @include btn-variant($color-digg, $icon-digg);
-}
-/* End Digg */
-
-/* Dribbble */
-$color-dribbble-pink: #ea4c89;
-$color-dribbble-black: #444444;
-$color-dribbble-green: #8aba56;
-$color-dribbble-orange: #ff8833;
-$color-dribbble-blue: #00b6e3;
-$color-dribbble-grey: #9ba5a8;
-$icon-dribbble: "\f17d";
-.btn-dribbble {
-  @include btn-variant($color-dribbble-pink, $icon-dribbble);
-  /* @include btn-variant($color-dribbble-black, $icon-dribbble); */
-  /* @include btn-variant($color-dribbble-green, $icon-dribbble); */
-  /* @include btn-variant($color-dribbble-orange, $icon-dribbble); */
-  /* @include btn-variant($color-dribbble-blue, $icon-dribbble); */
-  /* @include btn-variant($color-dribbble-grey, $icon-dribbble); */
-}
-/* End Dribbble */
-
-/* Dropbox */
-$color-dropbox-blue: #007ee5;
-$color-dropbox-lightgrey: #7b8994;
-$color-dropbox-grey: #47525d;
-$color-dropbox-darkgrey: #3d464d;
-$icon-dropbox: "\f16b";
-.btn-dropbox {
-  @include btn-variant($color-dropbox-blue, $icon-dropbox);
-  /* @include btn-variant($color-dropbox-lightgrey, $icon-dropbox); */
-  /* @include btn-variant($color-dropbox-grey, $icon-dropbox); */
-  /* @include btn-variant($color-dropbox-darkgrey, $icon-dropbox); */
-}
-/* End Dropbox */
-
-/* Github */
-$color-github-blue: #4183c4;
-$color-github-brown: #999999;
-$color-github-darkbrown: #666666;
-$color-github-black: #333333;
-$color-github-green: #6cc644;
-$color-github-maroon: #bd2c00;
-$color-github-orange: #ff9933;
-$icon-github: "\f09b";
-.btn-github {
-  @include btn-variant($color-github-blue, $icon-github);
-  /* @include btn-variant($color-github-brown, $icon-github); */
-  /* @include btn-variant($color-github-darkbrown, $icon-github); */
-  /* @include btn-variant($color-github-black, $icon-github); */
-  /* @include btn-variant($color-github-green, $icon-github); */
-  /* @include btn-variant($color-github-maroon, $icon-github); */
-  /* @include btn-variant($color-github-orange, $icon-github); */
-}
-/* End Github */

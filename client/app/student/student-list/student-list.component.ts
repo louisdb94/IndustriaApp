@@ -5,11 +5,9 @@ import { SkillService } from '../../services/skill.service';
 import { ProfessionalService } from '../../services/professional.service';
 import { LanguageService } from '../../services/language.service';
 import { ContactService } from '../../services/contact.service';
-import { CvsService } from '../../services/cvs.service';
 import { DataService } from '../../services/data.service';
 import { CompanyService } from '../../services/company/company.service';
 import { OrderListModule } from 'primeng/primeng';
-import { HttpClient } from '@angular/common/http';
 import { AccordionModule } from 'primeng/primeng';
 import { AuthService } from '../../services/auth.service';
 import { ToastComponent } from '../../shared/toast/toast.component';
@@ -23,7 +21,6 @@ import { FilterDegree } from '../../pipes/filterDegree.pipe';
 import { FilterSkill } from '../../pipes/filterSkill.pipe';
 import { FilterProfessional } from '../../pipes/filterProfessional.pipe';
 import { FilterLanguage } from '../../pipes/filterLanguage.pipe';
-import { JwtHelper } from 'angular2-jwt';
 
 
 @Component({
@@ -40,11 +37,9 @@ export class StudentListComponent implements OnInit {
     private skillService: SkillService,
     private languageService: LanguageService,
     private professionalService: ProfessionalService,
-    private cvsService: CvsService,
     private contactService: ContactService,
     public companyService: CompanyService,
     private paramService : ParametersService,
-    private http: HttpClient,
     public auth: AuthService,
     private dataService: DataService,
     public toast: ToastComponent) { }
@@ -54,9 +49,7 @@ export class StudentListComponent implements OnInit {
   skills = [];
   proffskills = [];
   languages = [];
-  cities = [];
-  studentjes: any;
-  jwtHelper: JwtHelper = new JwtHelper();
+  degrees = [];
 
   filters = ['Name', 'Degree'];
   model = {
@@ -72,10 +65,6 @@ export class StudentListComponent implements OnInit {
   public company: any;
 
 
-
-  // review tom: added variable p
-  public p: any;
-
   ngOnInit() {
     if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
       this.auth.loginStudent(localStorage.getItem('token'));
@@ -87,14 +76,12 @@ export class StudentListComponent implements OnInit {
     this.getLanguages();
     this.getProffskills();
     this.getParameters();
-    // this.getCounty();
 
     if(this.auth.currentUser.role == "Company"){
       this.getCompanyById(this.auth.currentUser);
     }
 
   }
-  degrees = [];
 
   getParameters(){
     this.paramService.getParametersByAdmin().subscribe(
@@ -127,6 +114,7 @@ export class StudentListComponent implements OnInit {
       error => console.log(error)
     )
   }
+
   //Get all the ids of the students -> add to ids[]
   getStudentsIds() {
     this.studentService.getStudentsIdsMysql().subscribe(
@@ -138,6 +126,7 @@ export class StudentListComponent implements OnInit {
       error => console.log(error)
     )
   }
+
   //get all distinct skills of all students -> add to skills[]
   //sort them alphabetically
   getSkills() {
@@ -146,6 +135,7 @@ export class StudentListComponent implements OnInit {
       error => console.log(error)
     )
   }
+
   //get all disctinct professional skills of all students -> add to proffskills[]
   getProffskills() {
     this.professionalService.getProfessionalDistinct().subscribe(
@@ -153,20 +143,13 @@ export class StudentListComponent implements OnInit {
       error => console.log(error)
     )
   }
+
   //get all distinct languages -> add them to languages[]
   getLanguages() {
     this.languageService.getLanguagesDistinct().subscribe(
       data => { this.languages = data, this.sortLang(this.languages) },
       error => console.log(error)
     )
-  }
-
-  getCounty(){
-    this.contactService.getCounty().subscribe(
-      data => { this.cities = data, this.sortCities(this.cities), console.log(this.cities)},
-      error => console.log(error)
-    )
-
   }
 
   //sort array on skills alphabetically
@@ -181,6 +164,7 @@ export class StudentListComponent implements OnInit {
       }
     });
   }
+
   //sort array on language type alphabetically
   sortCities(array) {
     array.sort(function (name1, name2) {
@@ -206,7 +190,6 @@ export class StudentListComponent implements OnInit {
       }
     });
   }
-
 
 
   //order by gradYear in searchBox when clicking on 'GradYear'
@@ -237,6 +220,7 @@ export class StudentListComponent implements OnInit {
       this.clickGrad = 0;
     }
   }
+
   //order by Name in searchBox when clicking on 'Name'
   clickName = 0;
   sortName() {
@@ -347,7 +331,6 @@ export class StudentListComponent implements OnInit {
       if (skill != "") {
         this.professionalService.getFkbySkill(skill).subscribe(
           data => {
-            // let result = this.dataService.decryption(data);
             for (let i = 0; i < data.length; i++) {
               this.profskillFk.push(data[i]);
               this.fk_list.push(data[i].student_fk);
@@ -388,7 +371,6 @@ export class StudentListComponent implements OnInit {
       if (type != "") {
         this.languageService.getFkbyLang(type).subscribe(
           data => {
-            // let result = this.dataService.decryption(data);
             for (let i = 0; i < data.length; i++) {
               this.languageFk.push(data[i]);
               this.fk_list.push(data[i].student_fk);
@@ -473,6 +455,4 @@ export class StudentListComponent implements OnInit {
       error => console.error
     );
   }
-
-
 }

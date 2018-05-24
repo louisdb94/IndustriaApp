@@ -2,7 +2,6 @@ import { Component, ViewChild, OnInit, enableProdMode, Input} from '@angular/cor
 import { StudentService } from '../../services/student.service';
 import { SocialmediaService } from '../../services/socialmedia.service';
 import { FileService } from '../../services/file.service';
-import { DataService } from '../../services/data.service';
 import { ParametersService } from "../../services/admin/parameters.service";
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -27,28 +26,21 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
   templateUrl: './profile-header.component.html'
 })
 export class HeaderProfile implements OnInit {
-  files: File[];
-  data: any;
-  id: String;
-  rnumber = String;
-  numberCv = Number;
 
+  //Variables used in profile-header
+  files: File[];
   socialmedia = [];
   @Input() student: any;
-  cv= <any>{};
   cvs= [];
   student_id = 0;
-  marked = false;
   cropperSettings: CropperSettings;
   addCvForm: FormGroup;
-  addImageForm: FormGroup;
   editMode = false;
   cropDone = false;
-  editCV = false;
-  height: number | string = '100px';
-
   im = 'data:image/JPEG;base64,';
   privacylog = { student_fk: '', cvCheck: '', contactCheck: '', timestamp_cv: '' , timestamp_contact: ''};
+  degrees = [];
+  isValid = false;
 
   @ViewChild('cropper', undefined)
   cropper: ImageCropperComponent;
@@ -57,7 +49,6 @@ export class HeaderProfile implements OnInit {
                 private fileService: FileService,
                 private socialmediaService: SocialmediaService,
                 private privacylogService: PrivacylogService,
-                public dataService: DataService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
                 private paramService : ParametersService,
@@ -75,7 +66,6 @@ export class HeaderProfile implements OnInit {
                     this.cropperSettings.canvasHeight = 300;
                     this.cropperSettings.noFileInput = true;
 
-                    this.data = {};
                 }
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -88,7 +78,6 @@ export class HeaderProfile implements OnInit {
     });
   }
 
-  degrees = [];
 
   getParameters(){
     this.paramService.getParametersByAdmin().subscribe(
@@ -104,19 +93,16 @@ export class HeaderProfile implements OnInit {
   getSocialMediaById(id){
     this.socialmediaService.getSocialmediaById(id).subscribe(
           data => {
-            // let result = this.dataService.decryption(data);
             this.socialmedia = data;
           },
       error => console.log(error)
     );
-
   }
 
+  //Save the updated student and socialmedia field in the database
   save(student, socialmedia){
-
     this.editMode = false;
     this.cropDone = true;
-
     this.studentService.editStudentMysql(student).subscribe(
       res => {
         this.student = student;
@@ -136,10 +122,8 @@ export class HeaderProfile implements OnInit {
   }
 
 
-
+  //Upload image to server
   fileChangeListener($event, student) {
-
-      //Upload image to server
       var file:File = $event.target.files[0];
       if(file.size < 2550594){
         let formData: FormData = new FormData();
@@ -159,14 +143,13 @@ export class HeaderProfile implements OnInit {
       }
   }
 
-  isValid = false;
-
+  //Reload the page after uploading image to make sure that the image is displayed
   add(){
     return window.location.reload();
   }
 
+  //Upload a document in the project
   myUploader(event, student) {
-
     let files: File[] = event.files;
 
     let formData: FormData = new FormData();
@@ -189,7 +172,6 @@ export class HeaderProfile implements OnInit {
           student.numberCv++;
           formData.append('numberCV', (<any>student.numberCv));
           this.fileService.uploadCv(formData).subscribe();
-          //this.http.post('/api/cv/upload', formData).subscribe(res => console.log('gelukt', res));
 
           this.addCvForm = this.formBuilder.group({
             student_fk: student.id,
@@ -209,9 +191,7 @@ export class HeaderProfile implements OnInit {
     }
   }
 
-
-
-
+  //Function aiding the 'myUploader' function
   isFileSelected(file: File): boolean{
         for(let sFile of this.files){
             if((sFile.name + sFile.type + sFile.size) === (file.name + file.type+file.size)) {
@@ -220,16 +200,18 @@ export class HeaderProfile implements OnInit {
         }
         return false;
   }
+
+  //Function aiding the 'myUploader' function
   hasFiles(): boolean {
     return this.files && this.files.length > 0;
   }
 
-
+  //Download a particular CV
   downloadCv(cv){
     window.open('/api/download/' + cv.id)
   }
 
-
+  //Display the image from the server
   downloadImage(id){
     this.fileService.downloadImage(id).subscribe(
       data => {this.im += data._body},
@@ -260,6 +242,7 @@ export class HeaderProfile implements OnInit {
     )
   }
 
+  //Checkbutton for CV upload function as well as privacylog insertion after eacht time that a checkbox is checked (GDPR)
   changeChecked(e, student){
     this.privacylog.student_fk = student.id;
     this.privacylog.timestamp_cv = JSON.parse(JSON.stringify(new Date(Date.now())));
@@ -282,7 +265,6 @@ export class HeaderProfile implements OnInit {
     else{
       socialmedia[i].checked = 0;
     }
-
     this.save(student, socialmedia);
   }
 }

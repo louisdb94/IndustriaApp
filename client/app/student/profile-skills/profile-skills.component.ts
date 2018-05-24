@@ -1,7 +1,6 @@
 import { Component, ViewChild, OnInit, Input } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { SkillService } from '../../services/skill.service';
-import { DataService } from '../../services/data.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { AuthService } from '../../services/auth.service';
@@ -16,13 +15,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SkillsProfile {
 
-
-
   public editMode = false;
   public isUpdated = false;
 
-
-  data: any;
   @Input() student: any;
   @Input() skills = [];
 
@@ -39,7 +34,6 @@ export class SkillsProfile {
 
   constructor(private studentService: StudentService,
     private skillService: SkillService,
-    public dataService: DataService,
     private activatedRoute: ActivatedRoute,
     private http: HttpClient,
     public toast: ToastComponent,
@@ -55,6 +49,7 @@ export class SkillsProfile {
     });
   }
 
+  //Edit and save the student together with its seperate skills
   save(student, skills) {
     this.editMode = false;
     for (let i = 0; i < this.skills.length; i++) {
@@ -75,8 +70,8 @@ export class SkillsProfile {
     );
   }
 
+  //Students can only have a maximum of 7 skills
   add(student) {
-
     if (student.countSkills < 7) {
       this.registerForm.value.skill = 'Example';
       this.registerForm.value.value = 100;
@@ -93,7 +88,6 @@ export class SkillsProfile {
   getSkills(id){
     this.skillService.getSkillByStudentId(id).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.skills = data;
       }
     )
@@ -110,6 +104,7 @@ export class SkillsProfile {
     }
   }
 
+  //Change the value of the progress bar corresponding to the selected skills
   onChange(skills){
     if (skills.value_type == this.filters[0]) {
       skills.value = 25;

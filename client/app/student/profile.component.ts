@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import {FileUploadModule} from 'primeng/primeng';
-import { HttpClient } from '@angular/common/http';
 import { StudentService } from '../services/student.service';
 import { AuthService } from '../services/auth.service';
-import { DataService } from '../services/data.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
@@ -29,20 +26,17 @@ export class StudentProfile implements OnInit {
                 private languageService : LanguageService,
                 private contactService : ContactService,
                 public auth: AuthService,
-                public dataService: DataService,
                 private translate: TranslateService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent) {}
 
-  data: any;
   student: any;
-  experiences = [];
   countEducation: Number;
   countExperiences: Number;
   contactChecked: boolean;
 
-  messageId: String;
-  messageNav: String;
+  //messageId: String;
+  //messageNav: String;
 
   skills = [];
   professional = [];
@@ -58,9 +52,6 @@ export class StudentProfile implements OnInit {
     if(this.auth.loggedIn == false ){
       this.auth.loginStudent(localStorage.getItem('token'));
     }
-
-    this.dataService.idMessage.subscribe(message => this.messageId = message);
-    this.dataService.navMessage.subscribe(message => this.messageNav = message);
 
     this.translate.setDefaultLang('en');
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -93,7 +84,6 @@ export class StudentProfile implements OnInit {
   getskillbyid(id){
     this.skillService.getSkillByStudentId(id).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.skills = data;
       },
       error => console.log(error)
@@ -103,7 +93,6 @@ export class StudentProfile implements OnInit {
   getLanguagebyid(id){
     this.languageService.getLanguageByStudentId(id).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.languages = data;
       },
       error => console.log(error)
@@ -113,7 +102,6 @@ export class StudentProfile implements OnInit {
   getContactbyid(id){
     this.contactService.getContactByStudentId(id).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.contacts = data;
       },
       error => console.log(error)
@@ -123,7 +111,6 @@ export class StudentProfile implements OnInit {
   getProfessionalbyid(id){
     this.professionalService.getProfessionalByStudentId(id).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.professional = data;
       },
       error => console.log(error)

@@ -1,8 +1,6 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 <div class="jumbotron">
-
-
     <div class="container">
         <div class="col-md-12 text-center">
             <h1 class="display-4 text-center table-responsive" >
@@ -24,7 +22,7 @@
                 <p translate *ngIf="!editMode">{{'Expected graduation year:' | translate}} {{student.gradYear}}</p>
             </div>
 
-            <div *ngIf="auth.currentUser.role == 'Student'" class="row" style="float : right">
+            <div *ngIf="auth.currentUser.role == 'Student'" class="row floatright">
                 <button translate class="btn btn-sm btn-primary" *ngIf="!editMode" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
                 <button translate class="btn btn-sm btn-primary" *ngIf="editMode" (click)="save(student)"><i class="fa fa-floppy-o"></i> Save</button>
             </div>
@@ -44,7 +42,7 @@
             <label class="custom-control custom-checkbox">
                 <input checked="student.cvChecked" class="custom-control-input" type="checkbox" [(ngModel)]="student.cvChecked" (change)= "changeChecked($event, student)"/>
                 <span id="checkboxCV" class="custom-control-indicator"></span>
-                <span translate class="custom-control-description" style="color:#984444;">CVcheck</span>
+                <span id="span1" translate class="custom-control-description">CVcheck</span>
             </label>
         </div>
 
@@ -63,9 +61,9 @@
                     </tr>
                 </thead>
                 <tr *ngFor="let cv of cvs">
-                    <td><p style="float: left"> {{cv.customName}}  </p> </td>
-                    <td><p style="float: left"><button (click)="downloadCv(cv)" class="btn btn-sm btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download</button></p> </td>
-                    <td *ngIf="auth.currentUser.role == 'Student'"><p style="float: left"><button (click)="removeCv(cv)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Remove</button></p> </td>
+                    <td><p class="floatleft"> {{cv.customName}}  </p> </td>
+                    <td><p class="floatleft"><button (click)="downloadCv(cv)" class="btn btn-sm btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download</button></p> </td>
+                    <td *ngIf="auth.currentUser.role == 'Student'"><p class="floatleft"><button (click)="removeCv(cv)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Remove</button></p> </td>
                 </tr>
             </table>
         </div>
