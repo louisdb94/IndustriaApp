@@ -10,7 +10,6 @@ export class AdminCompanycontactService {
 
   constructor(private http: HttpClient) { }
 
-
   //MYSQL
 
   insertContact(contact): Observable<any> {

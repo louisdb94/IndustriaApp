@@ -21,10 +21,6 @@ export class EducationService {
     return this.http.get(`/api/education-getall`, {headers: this.header});
   }
 
-  // addEducation(education): Observable<any> {
-  //   return this.http.post('/api/educatino-insert', JSON.stringify(education), {headers: this.header});
-  // }
-
   deleteEducation(id): Observable<any> {
     return this.http.delete(`/api/education-delete/${id}`, {headers: this.header});
   }

@@ -12,9 +12,7 @@ export class CompanyService {
   private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
   private options = new RequestOptions({ headers: this.headers });
 
-
   constructor(private http: HttpClient, private h: Http) { }
-
 
   //MYSQL
 
@@ -29,10 +27,6 @@ export class CompanyService {
   getCompaniesPriorities(): Observable<any> {
     return this.http.get(`/api/companies-getallpriorities`, {headers: this.header});
   }
-
-  // addCompany(company): Observable<any> {
-  //   return this.http.post('/api/companies-insert', JSON.stringify(company), {headers: this.header});
-  // }
 
   deleteCompany(company): Observable<any> {
     return this.http.delete(`/api/companies-delete/${company.id}`, {headers: this.header});

@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../services/auth.service';
-import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,7 +14,9 @@ export class NavBarComponent {
   companyString: String;
   collapse: boolean = true;
 
-  constructor(public auth: AuthService, public data: DataService, private translate: TranslateService) {
+  constructor(  public auth: AuthService,
+                private translate: TranslateService) {
+
     translate.setDefaultLang('en');
     this.studentString = "/profile-student/";
     this.companyString = "/profile-company/";
@@ -26,8 +27,6 @@ export class NavBarComponent {
   }
 
   logout(){
-    this.data.changeMessageId("");
-    this.data.changeMessageNav("default message");
     this.auth.loggedIn = false;
     this.auth.logout();
   }

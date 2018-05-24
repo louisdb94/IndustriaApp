@@ -10,7 +10,6 @@ export class EventsService {
 
   constructor(private http: HttpClient) { }
 
-
   //MYSQL
 
   insertEvent(event): Observable<any> {

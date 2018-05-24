@@ -1,4 +1,4 @@
-<nav *ngIf="auth.currentUser.role == 'Student' || auth.currentUser.role == 'Company' " id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded" style="background: #4c4c4c">
+<nav *ngIf="auth.currentUser.role == 'Student' || auth.currentUser.role == 'Company' " id="nav" class="navbar fixed-top navbar-toggleable-md navbar-dark bg-faded">
     <a class="navbar-brand" href="https://www2.industria.be/">
       <img src="../assets/img/Industria.PNG" width="45" height="60">
     </a>
@@ -17,7 +17,7 @@
         <li *ngIf="auth.currentUser.role == 'Student'" class="nav-item dropdown active" >
           <a id="homeid" data-toggle="dropdown" [routerLink] ="studentString + this.auth.currentUser.studentId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
             <i translate class="fa fa-list" > Profile </i>
-            <i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
+            <i class="fa fa-caret-down i-profile" ></i>
           </a>
           <div   class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
               <a scrollTo class="dropdown-item" scrollTargetSelector="#profile-header">header</a>
@@ -33,7 +33,7 @@
         <li *ngIf="auth.currentUser.role == 'Company'" class="nav-item dropdown active" >
           <a id="homeid" data-toggle="dropdown" [routerLink] ="companyString + auth.currentUser.companyId" class="ab nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
             <i translate class="fa fa-list" > Profile </i>
-            <i class="fa fa-caret-down" style="font-size:78%; margin-left:1%"></i>
+            <i class="fa fa-caret-down i-profile"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
               <a scrollTo class="dropdown-item" scrollTargetSelector="#company-header">header</a>
@@ -52,8 +52,8 @@
 
         <li class="nav-item dropdown active" >
           <a id="homeid" data-toggle="dropdown" class="ab nav-item nav-link">
-            <i translate class="fa fa-user"  style="font-size:27px;color:white;"> Account </i>
-            <i class="fa fa-caret-down" style="font-size:78%;color:white; margin-left:1%"></i>
+            <i translate class="fa fa-user" id="i-profile2"> Account </i>
+            <i class="fa fa-caret-down" id="i-profile1"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" >
             <a  class="dropdown-item"><i routerLink="/settings" translate class="fa fa-cog">Settings </i></a>

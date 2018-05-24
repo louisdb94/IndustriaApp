@@ -25,14 +25,6 @@ export class StudentService {
     return this.httpClient.get(`/api/students-getallid`,{headers: this.header});
   }
 
-  // addStudentMysql(student): Observable<any> {
-  //   return this.httpClient.post('/api/students-insert', student, {headers: this.header});
-  // }
-
-  // addStudentFromUserId(id): Observable<any> {
-  //   return this.httpClient.get(`/api/students-insert/${id}`, {headers: this.header});
-  // }
-
   getStudentByRnumberMysql(rnumber): Observable<any> {
     return this.httpClient.get(`/api/student-getbyrnumber/${rnumber}`, {headers: this.header});
   }

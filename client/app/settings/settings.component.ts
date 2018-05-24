@@ -4,7 +4,6 @@ import { AppComponent } from '../app.component';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { AuthService } from '../services/auth.service';
 import { FileService } from '../services/file.service';
-import { DataService } from '../services/data.service';
 import { StudentService } from '../services/student.service';
 import { UserService } from '../services/user.service';
 import { ContactService} from '../services/contact.service';
@@ -25,7 +24,6 @@ export class SettingsComponent implements OnInit {
   constructor(private router: Router,
               public auth: AuthService,
               private fileService: FileService,
-              public dataService: DataService,
               public studentService: StudentService,
               public userService: UserService,
               public contactService: ContactService,

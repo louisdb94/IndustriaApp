@@ -27,10 +27,6 @@ export class SkillService {
     return this.http.get(`/api/skills-getalldistinct`, {headers: this.header});
   }
 
-  // addSkill(skill): Observable<any> {
-  //   return this.http.post('/api/skills-insert', JSON.stringify(skill), {headers: this.header});
-  // }
-
   deleteSkill(id): Observable<any> {
     return this.http.delete(`/api/skills-delete/${id}`, {headers: this.header});
   }

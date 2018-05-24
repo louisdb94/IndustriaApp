@@ -1,71 +1,71 @@
 <!-- Nav tabs -->
-<div class="jumbotron" style="background-color: white; text-align:center">
-  <div  style="margin-top: 5%; border: 1px solid #dfdfdf; border-radius: 0.25rem; height: 700px; display:inline-block">
-      <ul class="nav nav-tabs" role="tablist" style="background-color: #f7f7f9;">
-      <li *ngIf="auth.currentUser.role == 'Student'" class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#downloadInformation" role="tab">
-          <h5>Download information</h5>
-        </a>
-      </li>
-      <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#activityLog" role="tab">
-            <h5 translate>Activity Log</h5>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#passwordReset" role="tab">
-          <h5 translate>Password Reset</h5>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#deleteAccount" role="tab">
-          <h5 translate>Delete Account</h5>
-        </a>
-      </li>
-      <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#admin" role="tab">
+<div class="jumbotron" >
+  <div  id="div1">
+      <ul class="nav nav-tabs background-f7" role="tablist">
+        <li *ngIf="auth.currentUser.role == 'Student'" class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#downloadInformation" role="tab">
+            <h5>Download information</h5>
+          </a>
+        </li>
+        <!-- <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#activityLog" role="tab">
+                  <h5 translate>Activity Log</h5>
+              </a>
+            </li> -->
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#passwordReset" role="tab">
+            <h5 translate>Password Reset</h5>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#deleteAccount" role="tab">
+            <h5 translate>Delete Account</h5>
+          </a>
+        </li>
+        <li *ngIf="auth.currentUser.admin == '1'" class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#admin" role="tab">
             <h5 translate>Admin</h5>
-        </a>
-      </li>
+          </a>
+        </li>
       </ul>
 
-      <!-- Tab panes -->
-      <div class="tab-content table-responsive" style="padding:2%">
-          <div *ngIf="auth.currentUser.role == 'Student'" class="tab-pane active" id="downloadInformation" role="tabpanel">
-            <div style="width: 60%; margin: auto">
-              <p translate style="margin-top: 10%">
-                Download Personal Info
-              </p>
-              <button (click)="downloadCv()" class="btn btn-md btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download Resume</button>
-              <button (click)="downloadPersonalInformation()" class="btn btn-md btn-secondary"><i class="fa fa-download" aria-hidden="true"></i> Download Personal information</button>
-            </div>
-          </div>
-          <div *ngIf="auth.currentUser.admin == '1'" class="tab-pane" id="activityLog" role="tabpanel">
-          </div>
-          <div class="tab-pane" id="passwordReset" role="tabpanel" style="width: 60%; margin: auto">
-            <p translate style="margin-top: 10%">
-              Email Reset
+            <!-- Tab panes -->
+      <div class="tab-content table-responsive padding2">
+        <div *ngIf="auth.currentUser.role == 'Student'" class="tab-pane active" id="downloadInformation" role="tabpanel">
+          <div class="tabPanel1">
+            <p translate class="margin-top10" >
+              Download Personal Info
             </p>
-            <div>
-            <span style=""id="login" class="input-group" >
-              <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-              <input [(ngModel)]="emailStudent" type="email" name="email" placeholder="Email" email pattern="[r||s]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
-              <button translate class="btn btn-primary" type="submit" (click)="nodemailer(emailStudent)"><i class="fa fa-sign-in"></i> Send Mail</button>
+            <button (click)="downloadCv()" class="btn btn-md btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download Resume</button>
+            <button (click)="downloadPersonalInformation()" class="btn btn-md btn-secondary"><i class="fa fa-download" aria-hidden="true"></i> Download Personal information</button>
+          </div>
+        </div>
+        <!-- <div *ngIf="auth.currentUser.admin == '1'" class="tab-pane" id="activityLog" role="tabpanel">
+                </div> -->
+        <div class="tab-pane tabPanel1" id="passwordReset" role="tabpanel" >
+          <p translate class="margin-top10">
+            Email Reset
+          </p>
+          <div>
+            <span id="login" class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+            <input [(ngModel)]="emailStudent" type="email" name="email" placeholder="Email" email pattern="[r||s]{1}[Z0-9]{7}[@kuleuven]{2,}[.]{1}[be]{2}" autofocus>
+            <button translate class="btn btn-primary" type="submit" (click)="nodemailer(emailStudent)"><i class="fa fa-sign-in"></i> Send Mail</button>
             </span>
           </div>
-          </div>
-          <div class="tab-pane" id="deleteAccount" role="tabpanel" style="margin: auto; width: 60%">
-            <p translate style="margin-top: 10%">
-              Delete Account Info
-            </p>
-              <button translate *ngIf="!deleteMode" class="btn btn-md btn-danger" (click)="deleteMode = true"><i class="fa fa-trash"></i> Delete Account</button>
-              <p translate *ngIf="deleteMode">Delete Account Info 2</p>
-              <button translate *ngIf="deleteMode" class="btn btn-info" (click)="delete()">Yes</button>
-              <button translate *ngIf="deleteMode" (click)="deleteMode = false" class="btn btn-info">No</button>
-          </div>
-          <div *ngIf="auth.currentUser.admin == '1'" class="tab-pane" id="admin" role="tabpanel">
-            <app-admin class="component" id="app-admin"></app-admin>
-          </div>
+        </div>
+        <div class="tab-pane tabPanel1" id="deleteAccount" role="tabpanel">
+          <p translate class="margin-top10">
+            Delete Account Info
+          </p>
+          <button translate *ngIf="!deleteMode" class="btn btn-md btn-danger" (click)="deleteMode = true"><i class="fa fa-trash"></i> Delete Account</button>
+          <p translate *ngIf="deleteMode">Delete Account Info 2</p>
+          <button translate *ngIf="deleteMode" class="btn btn-info" (click)="delete()">Yes</button>
+          <button translate *ngIf="deleteMode" (click)="deleteMode = false" class="btn btn-info">No</button>
+        </div>
+        <div *ngIf="auth.currentUser.admin == '1'" class="tab-pane" id="admin" role="tabpanel">
+          <app-admin class="component" id="app-admin"></app-admin>
+        </div>
       </div>
   </div>
 

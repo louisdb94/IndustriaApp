@@ -23,11 +23,7 @@ export class ContactService {
   getContacts(): Observable<any> {
     return this.http.get(`/api/contact-getall`, {headers: this.header});
   }
-
-  // addContactFromStudentId(id): Observable<any> {
-  //   return this.http.get(`/api/contact-insert/${id}`, {headers: this.header});
-  // }
-
+  
   editContact(contact): Observable<any> {
     return this.http.put(`/api/contact-update`, JSON.stringify(contact), {headers: this.header});
   }

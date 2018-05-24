@@ -1,7 +1,5 @@
 <div>
-
-
-  <ul class="nav nav-tabs table-responsive" role="tablist" style="background-color: #f7f7f9;">
+  <ul class="nav nav-tabs table-responsive" role="tablist" id="ul1" >
     <li class="nav-item">
       <a class="nav-link active" data-toggle="tab" href="#addAdmin" role="tab">Add Admin</a>
     </li>
@@ -19,7 +17,7 @@
     </li>
   </ul>
 
-  <div class="tab-content table-responsive" style="padding:2%">
+  <div class="tab-content table-responsive" id="div1">
 
 
     <div class="tab-pane active" id="addAdmin" role="tabpanel">
@@ -41,12 +39,12 @@
         <div class="card-header">
           <h4>Add Admin</h4></div>
         <div class="card-block">
-          <form class="form-inline" [formGroup]="addAdminForm" (ngSubmit)="makeAdmin(addAdminForm._value)" style="text-align:center">
+          <form class="form-inline text-align-center" [formGroup]="addAdminForm" (ngSubmit)="makeAdmin(addAdminForm._value)" >
             <div class="form-group">
               <input class="form-control" type="text" name="email" formControlName="email" placeholder="Admin email">
             </div>
 
-            <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
+            <button class="btn btn-primary floatright" type="submit" ><i class="fa fa-floppy-o"></i> Add</button>
           </form>
         </div>
       </div>
@@ -61,8 +59,8 @@
               <i class="fa fa-remove" (click)="removePriority(priority)" style="color:red"></i>
              </th>
              <th >Logo size
-                <button *ngIf="!editLogo" class="btn btn-primary" (click)="editLogo = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
-                <button *ngIf="editLogo" class="btn btn-primary" (click)="saveLogoSize(priorities)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
+                <button *ngIf="!editLogo" class="btn btn-primary padding-3" (click)="editLogo = true"><i class="fa fa-pencil"></i> Edit</button>
+                <button *ngIf="editLogo" class="btn btn-primary" (click)="saveLogoSize(priorities)"><i class="fa fa-floppy-o"></i> Save</button>
              </th>
            </tr>
          </thead>
@@ -81,30 +79,19 @@
               </label>
             </span>
            </td>
-           <!-- <td>
-            <span *ngIf="!editLogo ">{{priority.size}}</span>
-            <span *ngIf="editLogo ">
-                  <select [(ngModel)]="priority.size" placeholder="priority">
-                      <option value="" selected disabled>Logo Size</option>
-                      <option value="Large">Large</option>
-                      <option value="Medium">Medium</option>
-                      <option value="Small">Small</option>
-                  </select>
-             </span>
-           </td> -->
          </tr>
          <br><br>
        </table>
     </div>
     <div class="tab-pane" id="company" role="tabpanel">
-      <div #scrollMe style="overflow: scroll; height: 400px">
+      <div #scrollMe class="divA">
       <table>
        <thead class="thead-default" >
          <tr>
            <th>Name</th>
            <th>Priority
-             <button *ngIf="!editPriority" class="btn btn-primary" (click)="editPriority = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
-             <button *ngIf="editPriority" class="btn btn-primary" (click)="saveUpdatePriority(users, companies)"style="padding: -3px"><i class="fa fa-floppy-o"></i> Save</button>
+             <button *ngIf="!editPriority" class="btn btn-primary padding-3" (click)="editPriority = true"><i class="fa fa-pencil"></i> Edit</button>
+             <button *ngIf="editPriority" class="btn btn-primary padding-3" (click)="saveUpdatePriority(users, companies)"><i class="fa fa-floppy-o"></i> Save</button>
            </th>
            <th>Delete </th>
          </tr>
@@ -132,7 +119,7 @@
        <div class="card">
            <div class="card-header"><h4>Add new company</h4></div>
            <div class="card-block">
-             <form class="form-inline" [formGroup]="addUserForm" (ngSubmit)="addCompany()" style="text-align:center">
+             <form class="form-inline text-align-center" [formGroup]="addUserForm" (ngSubmit)="addCompany()">
                <div class="form-group">
                  <input class="form-control" type="text" name="name" formControlName="name" placeholder="Company name">
                </div>
@@ -152,7 +139,7 @@
                        <option value="FREE">FREE</option>
                      </select>
                </div>
-               <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
+               <button class="btn btn-primary floatright" type="submit" ><i class="fa fa-floppy-o"></i> Add</button>
              </form>
            </div>
          </div>
@@ -175,31 +162,31 @@
      <div class="card">
          <div class="card-header"><h4>Add Parameter</h4></div>
          <div class="card-block">
-           <form class="form-inline" [formGroup]="addParamForm" (ngSubmit)="addParam(addParamForm._value)" style="text-align:center">
+           <form class="form-inline text-align-center" [formGroup]="addParamForm" (ngSubmit)="addParam(addParamForm._value)" >
              <div class="form-group">
                <input class="form-control" type="text" name="parameter" formControlName="parameter" placeholder="parameter">
                <input class="form-control" type="text" name="value" formControlName="value" placeholder="value">
 
              </div>
 
-             <button class="btn btn-primary" type="submit" style="float: right"><i class="fa fa-floppy-o"></i> Add</button>
+             <button class="btn btn-primary floatright" type="submit"><i class="fa fa-floppy-o"></i> Add</button>
            </form>
          </div>
        </div>
     </div>
     <div class="tab-pane" id="contact" role="tabpanel">
-      <div #scrollMe style="overflow: scroll; height: 400px">
+      <div #scrollMe class="divA">
         <table>
          <thead class="thead-default" >
            <tr>
              <th>Name</th>
              <th>Email
-               <button *ngIf="!editEmail" class="btn btn-primary" (click)="editEmail = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
-               <button *ngIf="editEmail" class="btn btn-primary" (click)="editEmail = false"style="padding: -3px"><i class="fa fa-floppy-o"></i> Cancel</button>
+               <button *ngIf="!editEmail" class="btn btn-primary padding-3" (click)="editEmail = true"><i class="fa fa-pencil"></i> Edit</button>
+               <button *ngIf="editEmail" class="btn btn-primary padding-3" (click)="editEmail = false"><i class="fa fa-floppy-o"></i> Cancel</button>
              </th>
              <th>Phone
-               <button *ngIf="!editPhone" class="btn btn-primary" (click)="editPhone = true"style="padding: -3px"><i class="fa fa-pencil"></i> Edit</button>
-               <button *ngIf="editPhone" class="btn btn-primary" (click)="editPhone = false"style="padding: -3px"><i class="fa fa-floppy-o"></i> Cancel</button>
+               <button *ngIf="!editPhone" class="btn btn-primary padding-3" (click)="editPhone = true" ><i class="fa fa-pencil"></i> Edit</button>
+               <button *ngIf="editPhone" class="btn btn-primary padding-3" (click)="editPhone = false"><i class="fa fa-floppy-o"></i> Cancel</button>
              </th>
            </tr>
          </thead>
@@ -207,17 +194,13 @@
            <td> <a md-line routerLink='/profile-company/{{company.company_fk}}'> {{company.name}} </a> </td>
            <td>
              <span *ngIf="editEmail == true ">
-               <!-- <form [formGroup]="adminCompanycontactForm" (keyup.enter)="keyDownFunction(adminCompanycontactForm.value)"> -->
                  <input  type="text" (keyup.enter)="keyDownFunctionMail($event.target.value, company)" placeholder="{{company.email}}" />
-               <!-- </form> -->
              </span>
              <span *ngIf="editEmail == false"> {{company.email}} </span>
            </td>
            <td>
              <span *ngIf="editPhone == true">
-               <!-- <form [formGroup]="adminCompanycontactForm" (keyup.enter)="keyDownFunction(adminCompanycontactForm.value)"> -->
                  <input  type="text" (keyup.enter)="keyDownFunctionPhone($event.target.value, company)" placeholder="{{company.phone}}" />
-               <!-- </form> -->
              </span>
              <span *ngIf="editPhone == false"> {{company.phone}} </span>
            </td>

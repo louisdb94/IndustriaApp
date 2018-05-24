@@ -1,3 +1,26 @@
+.jumbotron {
+  background-color: white;
+}
+
+.editCalendar {
+  width: 80%; margin:auto;
+}
+
+.divImage {
+  width: 50%; margin:auto;
+}
+
+#divImage-hr {
+  height:2px;
+  border:none;
+  color:#333;
+  background-color:#333;
+}
+
+#divImage-h1 {
+  text-align: center;
+}
+
 #calendar {
   margin: auto;
   margin-top: 3%;
@@ -57,4 +80,8 @@ td {
 img{
   width: 100%;
   height: auto;
+}
+
+.marginAuto {
+  margin: auto;
 }

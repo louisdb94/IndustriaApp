@@ -10,7 +10,6 @@ export class ParametersService {
 
   constructor(private http: HttpClient) { }
 
-
   //MYSQL
 
   getParametersByAdmin(): Observable<any> {

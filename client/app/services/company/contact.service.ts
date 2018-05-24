@@ -13,10 +13,6 @@ export class CompanyContactService {
 
   //MYSQL
 
-  // getContactById(id): Observable<any> {
-  //   return this.http.get(`/api/contacts-get/${id}`, {headers: this.header});
-  // }
-
   getContactByCompanyId(id): Observable<any> {
     return this.http.get(`/api/contacts-getbycompanyfk/${id}`, {headers: this.header});
   }
@@ -24,14 +20,6 @@ export class CompanyContactService {
   getContacts(): Observable<any> {
     return this.http.get(`/api/contacts-getall`, {headers: this.header});
   }
-
-  // addContact(contact): Observable<any> {
-  //   return this.http.post('/api/contacts-insert', JSON.stringify(contact), {headers: this.header});
-  // }
-
-  // deleteContact(contact): Observable<any> {
-  //   return this.http.get(`/api/contacts-delete/${contact.id}`, {headers: this.header});
-  // }
 
   addContactFromCompanyId(form): Observable<any> {
     return this.http.post(`/api/contacts-insert`, form, {headers: this.header});

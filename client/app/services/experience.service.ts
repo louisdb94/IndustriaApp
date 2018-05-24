@@ -20,17 +20,9 @@ export class ExperienceService {
     return this.http.get(`/api/experience-getall`, {headers: this.header});
   }
 
-  // addExperience(education): Observable<any> {
-  //   return this.http.post('/api/experience-insert', JSON.stringify(education), {headers: this.header});
-  // }
-
   deleteExperience(id): Observable<any> {
     return this.http.delete(`/api/experiences-delete/${id}`, {headers: this.header});
   }
-
-  // addExperienceFromStudentId(id): Observable<any> {
-  //   return this.http.get(`/api/experience-insert/${id}`, {headers: this.header});
-  // }
 
   addExperienceForm(form): Observable<any> {
     return this.http.post('/api/experience-insertform', JSON.stringify(form), {headers: this.header});

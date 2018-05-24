@@ -14,26 +14,6 @@ export class FileService {
 
   constructor(private http: Http, private httpClient: HttpClient) { }
 
-  // CV
-
-  // addUpload(fileupload): Observable<any> {
-  //   return this.http.post('/api/upload', JSON.stringify(fileupload), this.options);
-  // }
-
-  // downloadCv(cv): Observable<any> {
-  //   return this.http.get(`/api/download/${cv._id}`);
-  // }
-
-
-  // MYSQL
-
-
-  // addImage(image):Observable<any>{
-  //   return this.http.post('/api/image', JSON.stringify(image), this.options);
-  // }
-
-  //IMAGE
-
   uploadImage(image):Observable<any>{
     return this.http.post('/api/image/upload', image);
   }
@@ -49,16 +29,6 @@ export class FileService {
   downloadImageCompany(id): Observable<any> {
     return this.http.get(`/api/downloadImage-company/${id}`);
   }
-
-  // getImFromStudent(id):Observable<any>{
-  //   return this.http.get(`/api/image/${id}`).map(res => res.json());
-  // }
-
-  // removeImage(image):Observable<any>{
-  //   return this.http.delete(`/api/image/${image._id}`, this.options);
-  // }
-
-  //CV
 
   addCv(cv):Observable<any>{
     return this.http.post('/api/cv-add', JSON.stringify(cv), this.options);

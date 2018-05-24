@@ -4,7 +4,6 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { UserService } from '../services/user.service';
 import { CompanyService } from '../services/company/company.service';
 import { StudentService } from '../services/student.service';
-import { DataService } from '../services/data.service';
 import { CvsService} from '../services/cvs.service';
 import { EducationService} from '../services/education.service';
 import { ExperienceService} from '../services/experience.service';
@@ -51,7 +50,6 @@ export class RegisterComponent implements OnInit {
               public toast: ToastComponent,
               private studentService: StudentService,
               private userService: UserService,
-              private dataService: DataService,
               private cvsService: CvsService,
               private educationService: EducationService,
               private experienceService: ExperienceService,
@@ -76,9 +74,6 @@ export class RegisterComponent implements OnInit {
       user_fk: this.user_fk
     });
 
-    this.dataService.id_user.subscribe(message => this.id_user = message);
-    this.dataService.idMessage.subscribe(message => this.messageId = message);
-    this.dataService.dataRnumber.subscribe(message => this.dataRnumber = message);
   }
   setClassEmail() {
     return { 'has-danger': !this.email.pristine && !this.email.valid };

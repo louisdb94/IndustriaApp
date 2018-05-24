@@ -3,51 +3,48 @@
 
 <div class="container table-responsive">
 
-  <div class="jumbotron " style="background-color: white">
-    <ng-template #modalContent let-close="close">
-      <div class="modal-header">
-        <h5 class="modal-title">Event action occurred</h5>
-        <button type="button" class="close" (click)="close()">
+  <div class="jumbotron " >
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Event action occurred</h5>
+    <button type="button" class="close" (click)="close()">
         <span aria-hidden="true">&times;</span>
       </button>
-      </div>
-      <div class="modal-body">
-        <div>
-          Action:
-          <pre>{{ modalData?.action }}</pre>
-        </div>
-        <div>
-          Event:
-          <pre>{{ modalData?.event | json }}</pre>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
-      </div>
-    </ng-template>
+  </div>
+  <div class="modal-body">
+    <div>
+      Action:
+      <pre>{{ modalData?.action }}</pre>
+    </div>
+    <div>
+      Event:
+      <pre>{{ modalData?.event | json }}</pre>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+  </div>
+</ng-template>
 
-    <h2 translate id="calendarTitle">Calendar</h2>
-    <div id="calendar">
-      <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate">
-      </mwl-demo-utils-calendar-header>
+<h2 translate id="calendarTitle">Calendar</h2>
+<div id="calendar">
+  <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+  </mwl-demo-utils-calendar-header>
 
-      <div [ngSwitch]="view">
-        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
-        </mwl-calendar-month-view>
-        <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
-        </mwl-calendar-week-view>
-      </div>
-    </div><br>
-
-
-
-    <!-- END CALENDAR CODE -->
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+    </mwl-calendar-week-view>
+  </div>
+</div><br>
+  <!-- END CALENDAR CODE -->
 
 
     <!-- BEGIN EDIT CALENDAR CODE -->
 
-    <div style="width: 80%; margin:auto">
-      <h3 translate *ngIf="auth.currentUser.admin == '1'">
+<div class="editCalendar">
+  <h3 translate *ngIf="auth.currentUser.admin == '1'">
     Edit events
     <button translate *ngIf = "!editMode"
       class="btn btn-primary pull-right"
@@ -62,49 +59,49 @@
     <div class="clearfix"></div>
   </h3>
 
-      <table id="tableEvents" *ngIf="auth.currentUser.admin == '1'" class="table table-bordered" align="center">
+  <table id="tableEvents" *ngIf="auth.currentUser.admin == '1'" class="table table-bordered" align="center">
 
-        <thead>
-          <tr>
-            <th translate>Title</th>
-            <th translate>Starts at</th>
-            <th translate>Ends at</th>
-            <th translate *ngIf="editMode">Save</th>
-            <th translate *ngIf="editMode">Delete</th>
-          </tr>
-        </thead>
+    <thead>
+      <tr>
+        <th translate>Title</th>
+        <th translate>Starts at</th>
+        <th translate>Ends at</th>
+        <th translate *ngIf="editMode">Save</th>
+        <th translate *ngIf="editMode">Delete</th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <tr *ngFor="let event of events; let index = index">
-            <td style="width: 40%">
-              <textarea *ngIf="editMode" type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
+    <tbody>
+      <tr *ngFor="let event of events; let index = index">
+        <td style="width: 40%">
+          <textarea *ngIf="editMode" type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
           </textarea>
-              <p *ngIf="!editMode">{{event.title}}</p>
-            </td>
-            <td>
-              <mwl-demo-utils-date-time-picker *ngIf="editMode" [(ngModel)]="event.start" (ngModelChange)="refresh.next()" placeholder="Not set">
-              </mwl-demo-utils-date-time-picker>
-              <p *ngIf="!editMode">{{event.start}}</p>
-            </td>
-            <td>
-              <mwl-demo-utils-date-time-picker *ngIf="editMode" [(ngModel)]="event.end" (ngModelChange)="refresh.next()" placeholder="Not set">
-              </mwl-demo-utils-date-time-picker>
-              <p *ngIf="!editMode">{{event.end}}</p>
-            </td>
-            <td *ngIf="editMode">
-              <button class="btn btn-success" (click)="saveEvent(event, index)">
+          <p *ngIf="!editMode">{{event.title}}</p>
+        </td>
+        <td>
+          <mwl-demo-utils-date-time-picker *ngIf="editMode" [(ngModel)]="event.start" (ngModelChange)="refresh.next()" placeholder="Not set">
+          </mwl-demo-utils-date-time-picker>
+          <p *ngIf="!editMode">{{event.start}}</p>
+        </td>
+        <td>
+          <mwl-demo-utils-date-time-picker *ngIf="editMode" [(ngModel)]="event.end" (ngModelChange)="refresh.next()" placeholder="Not set">
+          </mwl-demo-utils-date-time-picker>
+          <p *ngIf="!editMode">{{event.end}}</p>
+        </td>
+        <td *ngIf="editMode">
+          <button class="btn btn-success" (click)="saveEvent(event, index)">
             Save
           </button>
-            </td>
-            <td *ngIf="editMode">
-              <button class="btn btn-danger" (click)="deleteEvent(event)">
+        </td>
+        <td *ngIf="editMode">
+          <button class="btn btn-danger" (click)="deleteEvent(event)">
           Delete
           </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
   </div>
 
@@ -114,12 +111,12 @@
   <!-- BEGIN SPONSORS CODE -->
 
   <div class="jumbotron ">
-    <div style="width: 50%; margin:auto">
-      <hr style="height:2px;border:none;color:#333;background-color:#333;">
-      <h1 translate style="text-align: center">Who we work with</h1>
-      <hr style="height:2px;border:none;color:#333;background-color:#333;"><br>
+    <div class="divImage" >
+      <hr id="divImage-hr">
+      <h1 id="divImage-h1" translate>Who we work with</h1>
+      <hr id="divImage-hr"><br>
       <div class="row">
-        <p *ngFor="let item of highImg; let index = index" style="margin: auto">
+        <p *ngFor="let item of highImg; let index = index" class="marginAuto">
           <a class=" ab nav-link" [routerLink]="companyProfile + item.id">
         <img id="highPriority" [src]='sanitizer.bypassSecurityTrustResourceUrl(item.im)'>
       </a>
@@ -129,7 +126,7 @@
       <hr>
 
       <div class="row">
-        <p *ngFor="let item of middleImg; let index = index" style="margin: auto">
+        <p *ngFor="let item of middleImg; let index = index" class="marginAuto">
           <a class=" ab nav-link" [routerLink]="companyProfile + item.id">
         <img id="middlePriority" [src]='sanitizer.bypassSecurityTrustResourceUrl(item.im)'>
       </a>
@@ -139,7 +136,7 @@
       <hr>
 
       <div class="row">
-        <p *ngFor="let item of lowImg; let index = index" style="margin: auto">
+        <p *ngFor="let item of lowImg; let index = index" class="marginAuto">
           <a class=" ab nav-link" [routerLink]="companyProfile + item.id">
         <img id="lowPriority" [src]='sanitizer.bypassSecurityTrustResourceUrl(item.im)'>
       </a>

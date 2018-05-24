@@ -17,16 +17,11 @@ export class AuthGuardAdmin implements CanActivate {
     // on the data property
     const expectedRole = route.data.expectedRole;
     const id = route.data.id;
-    console.log("ID", id);
 
     const token = localStorage.getItem('token');
     // decode the token to get its payload
     const tokenPayload = this.jwtHelper.decodeToken(token).user;
 
-    console.log("TOKENPAYLOAD", tokenPayload);
-    console.log("AUTH TOKEN", this.auth.currentUser);
-
-    console.log("params", this.auth.currentUser.studentId)
     if (tokenPayload.role == expectedRole || this.auth.currentUser.studentId == this.id) {
       // this.router.navigate(['login']);
       return true;

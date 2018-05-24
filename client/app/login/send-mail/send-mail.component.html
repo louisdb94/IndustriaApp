@@ -1,10 +1,10 @@
 <app-toast [message]="toast.message"></app-toast>
-<div class="jumbotron" style="background: white">
+<div class="jumbotron">
   <div id="loginpage" class="mx-auto">
     <div class="card text-center">
-      <div class="card-header" style="font-size: 30px">
+      <div class="card-header" id="card-headerA">
         <img src="../assets/img/Industria.PNG" width="45" height="60">
-        <p translate style="margin-left:8%">
+        <p translate id="p1">
           Reset Password
           <select id="languageselector" class="custom-select" (change)="switchLanguage($event.target.value)">
               <option selected value="en" (ngModelChange)="switchLanguage('en')">EN</option>
@@ -21,7 +21,7 @@
       <br>
 
       <form [formGroup]="resetForm">
-        <p style="font-weight: bold"> {{currentUser.email}} </p>
+        <p id="p2" > {{currentUser.email}} </p>
         <div id="login" class="input-group" [ngClass]="setClassPassword()">
           <span class="input-group-addon">
             <i class="fa fa-key"></i>
@@ -38,7 +38,7 @@
         </div>
         <br>
         <br>
-        <button style="margin-bottom: 2%;" class="btn btn-primary" type="submit" (click)="check()">
+        <button class="btn btn-primary" id="buttonReset" type="submit" (click)="check()">
           <i class="fa fa-sign-in"></i> Reset Password</button>
 
       </form>

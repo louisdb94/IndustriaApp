@@ -15,7 +15,6 @@ export class AuthService {
   jwtHelper: JwtHelper = new JwtHelper();
 
   currentUser = { id: 0, email: '', rnumber: '', role: '', studentId: 0, companyId: 0, admin: '' };
-  // token = localStorage.getItem('token');
   token : any;
 
   constructor(private userService: UserService,
@@ -23,17 +22,6 @@ export class AuthService {
     private studentService: StudentService,
     private dataService: DataService,
     private companyService: CompanyService) {
-
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   const decodedUser = this.decodeUserFromToken(token);
-    //   if (decodedUser.role == "Company") {
-    //     this.setCurrentUser(decodedUser);
-    //   }
-    //   else {
-    //     this.setCurrentUser(decodedUser);
-    //   }
-    // }
 
     this.token = localStorage.getItem('item');
     if(this.token){
@@ -73,25 +61,6 @@ export class AuthService {
     this.currentUser.email = decodedUser.email;
     this.currentUser.studentId = decodedUser.studentId;
     this.currentUser.companyId = decodedUser.companyId;
-
-
-    // if (decodedUser.role === 'Student') {
-    //   this.studentService.getStudentByRnumberMysql(decodedUser.rnumber).subscribe(
-    //     data => {
-    //       this.currentUser.studentId = data[0].id
-    //     },
-    //     error => console.log(error)
-    //   );
-    // }
-    // if (decodedUser.role === 'Company') {
-    //   this.companyService.getCompanyByEmailMysql(decodedUser.email).subscribe(
-    //     data => {
-    //       data = JSON.parse(data._body);
-    //       this.currentUser.companyId = data[0].id
-    //     },
-    //     error => console.log(error)
-    //   );
-    // }
     decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
     delete decodedUser.role;
   }
