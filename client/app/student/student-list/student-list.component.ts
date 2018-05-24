@@ -5,7 +5,6 @@ import { SkillService } from '../../services/skill.service';
 import { ProfessionalService } from '../../services/professional.service';
 import { LanguageService } from '../../services/language.service';
 import { ContactService } from '../../services/contact.service';
-import { DataService } from '../../services/data.service';
 import { CompanyService } from '../../services/company/company.service';
 import { OrderListModule } from 'primeng/primeng';
 import { AccordionModule } from 'primeng/primeng';
@@ -41,7 +40,6 @@ export class StudentListComponent implements OnInit {
     public companyService: CompanyService,
     private paramService : ParametersService,
     public auth: AuthService,
-    private dataService: DataService,
     public toast: ToastComponent) { }
 
   students = [];

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
-import { DataService } from '../../services/data.service';
 import { CompanyService } from '../../services/company/company.service';
 import { VacatureService } from '../../services/company/vacature.service';
 import { CompanyContactService } from '../../services/company/contact.service';
@@ -21,7 +20,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class CompanyProfile implements OnInit {
 
   constructor(  public auth: AuthService,
-                public dataService: DataService,
                 public companyService: CompanyService,
                 public companyContactService: CompanyContactService,
                 public vacatureService: VacatureService,
@@ -53,8 +51,6 @@ export class CompanyProfile implements OnInit {
       this.getVacaturesByCompanyId(this.company_id);
       this.getContactById(this.company_id);
     });
-    this.dataService.idMessage.subscribe(message => this.messageId = message);
-    this.dataService.navMessage.subscribe(message => this.messageNav = message);
   }
 
   getCompanyById(id){
@@ -79,7 +75,6 @@ export class CompanyProfile implements OnInit {
   getContactById(id){
     this.companyContactService.getContactByCompanyId(id).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.contacts = data[0];
       },
       error => console.log(error)

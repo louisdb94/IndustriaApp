@@ -2,7 +2,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
-import { DataService } from './services/data.service';
 import { UserService } from './services/user.service';
 import { StudentService } from './services/student.service';
 import { FileService } from './services/file.service';
@@ -193,7 +192,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserService,
     StudentService,
     FileService,
-    DataService,
     CompanyService,
     VacatureService,
     EventsService,

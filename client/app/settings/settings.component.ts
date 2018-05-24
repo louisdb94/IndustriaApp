@@ -64,7 +64,6 @@ export class SettingsComponent implements OnInit {
   getExperiences(){
     this.experienceService.getExperienceById(this.auth.currentUser.studentId).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.experiences = data;
       },
       error => console.log(error)
@@ -74,7 +73,6 @@ export class SettingsComponent implements OnInit {
   getContact(){
     this.contactService.getContactByStudentId(this.auth.currentUser.studentId).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.contact = data;
       },
       error => console.log(error)
@@ -84,7 +82,6 @@ export class SettingsComponent implements OnInit {
   getCVFromStudent(){
     this.fileService.getCvFromStudent(this.auth.currentUser.studentId).subscribe(
       data => {
-        // let result = this.dataService.decryption(data);
         this.cvs = data;
       },
       error => console.log(error)

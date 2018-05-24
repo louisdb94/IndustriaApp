@@ -3,7 +3,6 @@ import { StudentService } from '../services/student.service';
 import { CompanyService} from '../services/company/company.service';
 import { VacatureService} from '../services/company/vacature.service';
 import { UserService} from '../services/user.service';
-import { DataService } from "../services/data.service";
 import { AuthService } from '../services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FileService} from '../services/file.service';
@@ -69,7 +68,6 @@ export class HomepageComponent implements OnInit {
   users = [];
 
   constructor(private studentService: StudentService,
-    private data: DataService,
     private route: ActivatedRoute,
     private userService : UserService,
     private companyService : CompanyService,
@@ -97,10 +95,6 @@ export class HomepageComponent implements OnInit {
     this.getCompanies();
     this.getUsers();
     this.getPriorities();
-
-
-    this.data.idMessage.subscribe(message => this.messageId = message);
-    this.data.navMessage.subscribe(message => this.messageNav = message);
   }
 
   //BEGIN OF CALENDAR CODE

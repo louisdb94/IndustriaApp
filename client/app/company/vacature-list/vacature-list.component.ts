@@ -3,7 +3,6 @@ import {CompanyService} from '../../services/company/company.service';
 import {VacatureService} from '../../services/company/vacature.service';
 
 import { AuthService } from '../../services/auth.service';
-import { DataService } from '../../services/data.service';
 import {OrderListModule} from 'primeng/primeng';
 import { HttpClient } from '@angular/common/http';
 import {AccordionModule} from 'primeng/primeng';
@@ -25,8 +24,7 @@ export class VacatureListComponent implements OnInit {
     constructor(  private companyService: CompanyService,
                   private vacatureService: VacatureService,
                   public auth: AuthService,
-                  private http: HttpClient,
-                  private dataService: DataService) { }
+                  private http: HttpClient) { }
 
     vacatures = [];
     companies = [];

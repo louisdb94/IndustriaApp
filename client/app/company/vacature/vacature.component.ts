@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
-import { DataService } from '../../services/data.service';
 import { CompanyService } from '../../services/company/company.service';
 import { CompanyContactService } from '../../services/company/contact.service';
 import { VacatureService } from '../../services/company/vacature.service';
@@ -24,7 +23,6 @@ import CryptoJS from 'crypto-js';
 export class CompanyVacature implements OnInit {
 
   constructor(  public auth: AuthService,
-                public dataService: DataService,
                 public companyService: CompanyService,
                 public companyContactService: CompanyContactService,
                 public vacatureService: VacatureService,
