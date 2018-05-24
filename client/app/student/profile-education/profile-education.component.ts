@@ -81,6 +81,7 @@ export class EducationProfile {
   }
 
   add(student){
+    console.log(student.countEducation);
     if (student.countEducation <= 6) {
       this.registerForm.value.type = 'Master Example';
       this.registerForm.value.institution = 'KULeuven example';

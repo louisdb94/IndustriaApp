@@ -34,10 +34,12 @@ deleteStudent = (req, res) => {
 }
 
   unlinkCV(table, name, field){
-    var crud_controller = this.model + "Crud";
+    console.log("param", field);
+    var crud_controller = "cvsCrud";
     this[crud_controller].getBy(table, name, field).then(result => {
       if (result[0]) {
         if(result[0].name){
+          console.log(result);
             fs.unlink('./uploads/cvs/' + result[0].name + '(' + result[0].number + ')' + '.' + result[0].mimetype);
         }
       }

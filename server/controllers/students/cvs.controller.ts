@@ -37,10 +37,11 @@ export class CvsController extends DefaultController {
     newCv.mv(root + '/uploads/cvs/' + rnumber + "(" + cvnumber + ")" + "." + type, function (err) {
       if (err)
         return res.status(500).send(err);
+        //res.finished = true;
     });
-    res.status(200).redirect('back');
 
     this.updateTable(req, res, 'students', 'id', req.body.id);
+    res.finished = true;
   }
 
   downloadCv = (req, res) => {

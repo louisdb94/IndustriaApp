@@ -34,9 +34,6 @@ export  class CompaniesController extends DefaultController {
         }
       }
       res.json(result2);
-
-    //  res.json(result);
-
     })
   }
 }

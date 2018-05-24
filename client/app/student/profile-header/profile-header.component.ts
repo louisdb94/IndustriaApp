@@ -55,6 +55,7 @@ export class HeaderProfile implements OnInit {
                 private http: HttpClient,
                 public sanitizer: DomSanitizer,
                 private formBuilder: FormBuilder,
+                private router: Router,
                 public auth: AuthService) {
 
                     this.cropperSettings = new CropperSettings();
@@ -170,8 +171,11 @@ export class HeaderProfile implements OnInit {
 
         if(this.hasFiles()) {
           student.numberCv++;
-          formData.append('numberCV', (<any>student.numberCv));
-          this.fileService.uploadCv(formData).subscribe();
+          formData.append('numberCv', student.numberCv);
+          this.fileService.uploadCv(formData).subscribe(
+            data =>{
+            }
+          );
 
           this.addCvForm = this.formBuilder.group({
             student_fk: student.id,
