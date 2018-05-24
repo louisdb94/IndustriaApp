@@ -23,6 +23,9 @@ table {
 
 
 }
+.row {
+  float: right;
+}
 
 #profilepic{
   max-height: 400px;
@@ -47,6 +50,7 @@ table {
 
 #divprofile{
   padding-left: 40px;
+  margin-top:6%;
 }
 
 #checkboxCV{
@@ -60,6 +64,6 @@ table {
 .link
 {
    color:aqua;
-   text-decoration: none; 
+   text-decoration: none;
    background-color: none;
 }

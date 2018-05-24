@@ -1,7 +1,7 @@
 <div class="jumbotron">
     <div class="container">
-      <button translate *ngIf="editMode && auth.currentUser.role == 'Company' &&(company.priority == 'HIGH' || company.priority == 'MIDDLE' || company.priority == 'LOW')" (click)="save(vacatures, vac1, vac2, vac3, vacature)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-      <button translate *ngIf="!editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE' || company.priority == 'LOW')" (click)="edit()" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+      <button translate *ngIf="editMode && auth.currentUser.role == 'Company'  && auth.currentUser.companyId == id" (click)="save(vacatures, vac1, vac2, vac3, vacature)" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+      <button translate *ngIf="!editMode && auth.currentUser.role == 'Company'  && auth.currentUser.companyId == id" (click)="edit()" class="btn btn-sm btn-primary" ><i class="fa fa-pencil"></i> Edit</button>
       <h2 translate>Vacatures</h2>
       <table class="table table-bordered">
         <thead class="thead-default" >
@@ -16,14 +16,10 @@
             <td>
               <a [routerLink] ="companyVacature + vacature.id"><p>{{vacature.name}}</p></a>
             </td>
-            <td>
-                <p>{{vacature.type}}</p>
-            </td>
-            <td>
-                <p>{{vacature.about}}</p>
-            </td>
+            <td><p>{{vacature.type}}</p></td>
+            <td><p>{{vacature.about}}</p></td>
             <td *ngIf="auth.currentUser.companyId == id">
-                <button translate (click)="deleteVacature(vacatures, vacature)"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
+                <button translate (click)="deleteVacature(vacatures, vacature)"  class="btn btn-sm btn-danger" type="submit"><i class="fa fa-plus"></i> Delete</button>
             </td>
         </tr>
 
@@ -34,6 +30,6 @@
             <td></td>
         </tr>
       </table>
-      <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>
+      <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" ><i class="fa fa-trash"></i> Add</button>
     </div>
   </div>

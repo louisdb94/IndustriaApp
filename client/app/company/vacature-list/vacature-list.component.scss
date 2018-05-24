@@ -1,3 +1,68 @@
+.container {
+  display: flex;
+}
+
+.containerA {
+  margin-top: 15%;
+  width: 100%;
+}
+
+.containerB {
+  float:left;
+  width:70%;
+  border-radius: 1%;
+  border: 2px solid #bbbbbb;
+  margin-left: auto;
+  margin-right:auto
+}
+
+.containerC {
+  text-align: center;
+  font-size: 30px;
+  background: #d4d4d4;
+  height: 50px;
+}
+
+.containerD {
+  padding:1%;
+  margin-bottom:3%
+}
+
+.containerE {
+  float: right;
+  width: 25%;
+  border: 1px solid #d4d4d4;
+  border-radius: 1%;
+  padding:6px
+}
+
+.form-group input {
+  float:left;
+  width:70%
+}
+
+.form-group select {
+  float:left;
+  width:30%
+}
+
+.list1 {
+   border: 1px solid #dedede;
+   width:100%
+}
+
+.block1 input {
+  float:left;
+  width:100%;
+  margin-bottom: 10px
+}
+
+.block1 div {
+  overflow: scroll;
+  height: 300px;
+  width:220px
+}
+
 td {
   padding: 20px;
 }

@@ -1,28 +1,28 @@
-<div class="container" style="display:flex" *ngIf="auth.currentUser.role == 'Student' || auth.currentUser.admin == '1'">
-  <div style="margin-top: 15%; width: 100%; ">
-    <div style=" float:left; width:70%; border-radius: 1%;border: 2px solid #bbbbbb; margin-left: auto; margin-right:auto">
+<div class="container" *ngIf="auth.currentUser.role == 'Student' || auth.currentUser.admin == '1'">
+  <div class="containerA">
+    <div class="containerB">
 
-        <div class="table-responsive" translate style="text-align: center;     font-size: 30px; background: #d4d4d4;height: 50px;"> Search Vacature </div>
+        <div class="table-responsive containerC" translate > Search Vacature </div>
 
-        <div style="padding:1%;margin-bottom:3%">
+        <div class="containerD">
 
           <div class="form-group">
-            <input style="float:left; width:70%" type="text" class="form-control" id="filter" placeholder="{{'Filter on' | translate}}  {{model.filter}} " [(ngModel)]="searchText">
-            <select style="float:left;width:30%" class="form-control" id="filters" required [(ngModel)]="model.filter" name="filter">
+            <input  type="text" class="form-control" id="filter" placeholder="{{'Filter on' | translate}}  {{model.filter}} " [(ngModel)]="searchText">
+            <select class="form-control" id="filters" required [(ngModel)]="model.filter" name="filter">
               <option *ngFor="let pow of filters" [value]="pow">{{pow}}</option>
             </select>
           </div>
 
         </div>
 
-        <table class="list1 table table-hover table-responsive" style="border: 1px solid #dedede; width:100%">
+        <table class="list1 table table-hover table-responsive">
 
-          <tr style="width:100%">
+          <tr >
             <th translate (click)="sortVacature()">Vacatures</th>
             <th translate (click)="sortType()">Type</th>
             <th translate (click)="sortCompanyName()">Company</th>
           </tr>
-          <tr *ngFor="let item of vacatures  |  paginate: { itemsPerPage: 5, currentPage: p }" style="width:100%">
+          <tr *ngFor="let item of vacatures  |  paginate: { itemsPerPage: 5, currentPage: p }" >
           <tr *ngFor="let item of vacatures | FilterVacature : searchText : model.filter |  paginate: { itemsPerPage: 5, currentPage: p }">
             <td>
               <a href="/vacature-company/{{item.vacature_id}}">{{item.vacature_name}} </a>
@@ -36,7 +36,7 @@
 
     </div>
 
-    <div class=".hidden-xs-down" style="float: right; width: 25%; border: 1px solid #d4d4d4; border-radius: 1%; padding:6px">
+    <div class=".hidden-xs-down containerE" >
       <div id="accordion" role="tablist" aria-multiselectable="true">
         <div class="card">
           <div class="card-header" role="tab" id="headingOne">
@@ -48,9 +48,9 @@
           </div>
 
           <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-            <div class="card-block table-responsive">
-              <input style="float:left; width:100%; margin-bottom: 10px" type="text" class="form-control" id="filterskill" placeholder="Filter" [(ngModel)]="searchSkill">
-              <div class="form-check form-check-inline" #scrollMe style="overflow: scroll; height: 300px; width:220px">
+            <div class="card-block table-responsive block1">
+              <input type="text" class="form-control" id="filterskill" placeholder="Filter" [(ngModel)]="searchSkill">
+              <div class="form-check form-check-inline" #scrollMe >
                   <ul class="form-check-label"  *ngFor="let item of companies | FilterVacature : searchSkill : 'Com'  ">
                     <li>
                     <span> <a href="/profile-company/{{item.id}}"> {{item.name}} </a></span>

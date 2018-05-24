@@ -1,25 +1,25 @@
 <div class="jumbotron">
     <div class="container">
-      <button translate *ngIf="editMode  && auth.currentUser.role == 'Company'" (click)="save(vacature, requirements, req1)" style="float:right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-      <button translate *ngIf="!editMode  && auth.currentUser.role == 'Company'" (click)="edit()" class="btn btn-sm btn-primary" style="float:right"><i class="fa fa-pencil"></i> Edit</button>
+      <button translate *ngIf="editMode  && auth.currentUser.role == 'Company'" (click)="save(vacature, requirements, req1)" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+      <button translate *ngIf="!editMode  && auth.currentUser.role == 'Company'" (click)="edit()" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
       <h2 translate>Requirements</h2>
       <table data-toggle="table" data-striped="true">
         <li *ngFor="let requirement of requirements; let i = index">
-            <ol *ngIf="!editMode" style="width: 80%; margin-top: 5%">{{requirement.name}}</ol>
-            <ol *ngIf="editMode" style="width: 80%; margin-top: 5%">
+            <span *ngIf="!editMode" >{{requirement.name}}</span>
+            <span *ngIf="editMode">
               <textarea *ngIf="editMode" rows="1" cols="100" [(ngModel)]="requirements[i].name"></textarea>
-            </ol>
+            </span>
 
         </li>
 
         <div class="row">
             <tr *ngIf="addClicked">
-                <td style="margin-top: 5%"><textarea *ngIf="editMode" rows="1" cols="100" [(ngModel)]="req1"></textarea></td>
+                <td><textarea *ngIf="editMode" rows="1" cols="100" [(ngModel)]="req1"></textarea></td>
             </tr>
         </div>
       </table>
 
-      <button *ngIf="editMode && !addClicked" (click)="deleteRequirement()"  class="btn btn-sm btn-danger" type="submit" style="float: right"><i class="fa fa-plus"></i> Delete</button>
-      <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit" style="float: right"><i class="fa fa-trash"></i> Add</button>
+      <button *ngIf="editMode && !addClicked" (click)="deleteRequirement()"  class="btn btn-sm btn-danger" type="submit"><i class="fa fa-plus"></i> Delete</button>
+      <button *ngIf="editMode && !addClicked" (click)="addClicked = true"  class="btn btn-sm btn-success" type="submit"><i class="fa fa-trash"></i> Add</button>
     </div>
   </div>

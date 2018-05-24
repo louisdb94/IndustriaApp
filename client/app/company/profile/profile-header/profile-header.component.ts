@@ -102,9 +102,6 @@ export class CompanyHeaderProfile {
     window.location.reload();
   }
 
-
-
-
   downloadImage(id){
     this.fileService.downloadImageCompany(id).subscribe(
       data => {this.im += data._body},

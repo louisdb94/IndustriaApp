@@ -18,6 +18,7 @@ import { AuthService } from '../../../services/auth.service';
 export class CompanyContactProfile implements OnInit {
 
   data: any;
+  id: number;
 
   public latitude: number;
   public longitude: number;
@@ -44,6 +45,10 @@ export class CompanyContactProfile implements OnInit {
 
 
   ngOnInit(){
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.id = params['id'];
+    })
+  }
     // //load Places Autocomplete
     // this.mapsAPILoader.load().then(() => {
     //   let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
@@ -71,8 +76,26 @@ export class CompanyContactProfile implements OnInit {
     //     });
     //   });
     // });
+
+
+  save(company){
+    this.editMode = false;
+    this.companyService.editCompany(company).subscribe(
+      res => {
+        this.company = company;
+      },
+      error => console.log(error)
+    );
   }
 
+  saveContact(contacts){
+    this.companyContactService.editContact(contacts).subscribe(
+      res => {},
+      error => console.log(error)
+    );
+
+    this.editMode = false;
+  }
 
   // showMap(){
 
@@ -95,23 +118,4 @@ export class CompanyContactProfile implements OnInit {
   //     });
   //   }
   // }
-
-  save(company){
-    this.editMode = false;
-    this.companyService.editCompany(company).subscribe(
-      res => {
-        this.company = company;
-      },
-      error => console.log(error)
-    );
-  }
-
-  saveContact(contacts){
-    this.companyContactService.editContact(contacts).subscribe(
-      res => {},
-      error => console.log(error)
-    );
-
-    this.editMode = false;
-  }
 }
