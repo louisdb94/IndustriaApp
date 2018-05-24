@@ -5,6 +5,7 @@ import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
 import sql_users from '../../models_mysql/users';
 import * as bcrypt from 'bcryptjs';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { DefaultController} from '../default.controller';
 
 export class ImageController extends DefaultController {
@@ -19,7 +20,7 @@ export class ImageController extends DefaultController {
     }
 
     //add file to server
-    let name = req.body.name;
+    let name = req.body.rnumber;
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
     newImage.mv(root + '/uploads/images/' + name + mime, function (err) {
@@ -32,6 +33,8 @@ export class ImageController extends DefaultController {
     let mime = '.jpg';
     this.upload(req,res, mime);
     this.updateTable(req, res, 'students', 'id', req.body.id);
+    res.finished = true;
+
   }
   uploadImageCompany = (req, res) => {
     let mime = '.png';

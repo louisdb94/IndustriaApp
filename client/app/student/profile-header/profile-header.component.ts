@@ -128,13 +128,13 @@ export class HeaderProfile implements OnInit {
       if(file.size < 2550594){
         let formData: FormData = new FormData();
         formData.append('files', file, file.name);
-        formData.append('name', student.rnumber);
+        formData.append('rnumber', student.rnumber);
         formData.append('id', student.id);
         formData.append('image', '1');
 
         if(file) {
           this.fileService.uploadImage(formData).subscribe(
-            res => {console.log('gelukt', res)});
+            res => {});
         }
         this.isValid = true;
       }

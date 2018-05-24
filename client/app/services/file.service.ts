@@ -10,7 +10,7 @@ export class FileService {
   private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8', 'x-industria-auth' : 'auth' });
   private options = new RequestOptions({ headers: this.headers });
 
-  private headersFile = new HttpHeaders({ 'Content-Type': 'multipart/form-data', 'x-industria-auth' : 'auth' });
+  private headersFile = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'x-industria-auth' : 'auth' });
 
   constructor(private http: Http, private httpClient: HttpClient) { }
 
