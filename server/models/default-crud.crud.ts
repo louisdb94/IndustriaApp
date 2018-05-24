@@ -77,6 +77,23 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         });
     }
 
+    public getByImage(table_name: string, column_name: string, whereId: any): Promise<T[]> {
+        let sql = `SELECT * FROM ?? WHERE ?? = ?`;
+        const inserts = [table_name, column_name, whereId];
+        sql = mysql.format(sql, inserts);
+        return this.getConnection().then(conn => {
+            if (conn) {
+                return new Promise<T[]>((resolve, reject) => {
+                    return conn.query(sql, (err, result) => {
+                        return resolve(result);
+                    });
+                });
+            } else {
+                Promise.reject('Could not create connection');
+            }
+        });
+    }
+
     public getBySelection(column_name: string, whereId: any, params: Map<string, string>): Promise<T[]> {
         let sql = `SELECT  `
         const columns = params.keys();

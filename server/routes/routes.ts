@@ -176,7 +176,7 @@ export  function setRoutes(app, router) {
   router.route('/vacatures-get/:id').get(vacaturesCtrl.getVacatureById);
   router.route('/vacatures-getbycompany/:id').get(authorization.verifyToken,vacaturesCtrl.getVacatureByCompanyFk);
   router.route('/vacatures-getall').get(authorization.verifyToken,vacaturesCtrl.get);
-  router.route('/vacatures-delete/:id').delete(authorization.verifyToken,vacaturesCtrl.delete);
+  router.route('/vacatures-delete/:id').delete(authorization.verifyToken,vacaturesCtrl.deleteVacature);
   router.route('/vacatures-update').put(authorization.checkAccessCompanyZelfInsertOrUpdate,vacaturesCtrl.updateById);
   router.route('/vacatures-insertform').post(authorization.checkAccessCompanyZelfInsertOrUpdate,vacaturesCtrl.insert);
 

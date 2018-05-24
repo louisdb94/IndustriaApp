@@ -20,7 +20,13 @@ export class ImageController extends DefaultController {
     }
 
     //add file to server
-    let name = req.body.rnumber;
+    let name;
+    if(req.body.rnumber == undefined){
+      name = req.body.name;
+    }
+    else{
+      name = req.body.rnumber;
+    } 
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
     newImage.mv(root + '/uploads/images/' + name + mime, function (err) {
@@ -80,7 +86,7 @@ export class ImageController extends DefaultController {
   downloadImageCompany = (req, res) => {
     const root = process.cwd();
     var crud_controller = "companiesCrud";
-    this[crud_controller].getBy('companies', 'id', req.params.id).then(result => {
+    this[crud_controller].getByImage('companies', 'id', req.params.id).then(result => {
         if (result[0].image === 1) {
           fs.readFile(root + '/uploads/images/' + result[0].name + '.png', 'base64', function (err1, data) {
             if (err1) {
