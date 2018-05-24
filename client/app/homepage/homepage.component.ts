@@ -47,8 +47,6 @@ export class HomepageComponent implements OnInit {
   rnbShibb : any;
   jwtHelper: JwtHelper = new JwtHelper();
 
-  students = [];
-  student = {};
   rnumberStudent: String;
   messageId: String;
   messageNav: String;
@@ -97,7 +95,6 @@ export class HomepageComponent implements OnInit {
     });
     this.getEvents();
     this.getCompanies();
-    this.getStudentsMysql();
     this.getUsers();
     this.getPriorities();
 
@@ -231,13 +228,6 @@ export class HomepageComponent implements OnInit {
   private compare = new BehaviorSubject<String>("default message");
   compareID = this.compare.asObservable();
 
-  getStudentsMysql() {
-    this.studentService.getStudentsMysql().subscribe(
-      data => {this.students = data;},
-      error => console.log(error)
-    );
-
-  }
   getUsers(){
       this.userService.getAllUsers().subscribe(
         data => {this.users = data;},

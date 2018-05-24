@@ -12,17 +12,16 @@
 
             <h3>
                 <div class="form-group">
-                    <select id="editText" *ngIf="editMode" [(ngModel)]="student.degree" placeholder="Select your major" >
+                    <select id="editText" *ngIf="editMode" [(ngModel)]="student.degree" placeholder="" >
                         <option *ngFor="let degree of degrees">{{degree}}</option>
                     </select>
                 </div>
-                <!-- <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.degree" placeholder="Select your major" rows="1" ></textarea> -->
                 <p  *ngIf="!editMode">{{student.degree}}</p>
             </h3>
 
             <div>
-                <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.gradYear" placeholder="Select your year of graduation" rows="1" ></textarea>
-                <p *ngIf="!editMode">Expected graduation year: {{student.gradYear}}</p>
+                <textarea id="editText" *ngIf="editMode" [(ngModel)]="student.gradYear" placeholder="{{'Select your year of graduation' | translate}}" rows="1" ></textarea>
+                <p translate *ngIf="!editMode">{{'Expected graduation year:' | translate}} {{student.gradYear}}</p>
             </div>
 
             <div *ngIf="auth.currentUser.role == 'Student'" class="row" style="float : right">
@@ -87,7 +86,7 @@
                     <span class="custom-control-indicator"></span>
                 </label>
                 <a href="#" class="btn-facebook">Facebook</a>
-                <input *ngIf="socialmedia[0]" [(ngModel)]="socialmedia[0].url" placeholder="Link your Facebook page">
+                <input *ngIf="socialmedia[0]" [(ngModel)]="socialmedia[0].url" placeholder="{{'Facebook' | translate}}">
             </div>
             <div>
                 <label class="custom-control custom-checkbox">
@@ -95,7 +94,7 @@
                     <span class="custom-control-indicator"></span>
                 </label>
                 <a href="#" class="btn-twitter">Twitter</a>
-                <input *ngIf="socialmedia[1]" [(ngModel)]="socialmedia[1].url" placeholder="Link your Twitter page">
+                <input *ngIf="socialmedia[1]" [(ngModel)]="socialmedia[1].url" placeholder="{{'Twitter' | translate}}">
             </div>
             <div>
                 <label class="custom-control custom-checkbox">
@@ -103,7 +102,7 @@
                     <span class="custom-control-indicator"></span>
                 </label>
                 <a href="#" class="btn-google-plus">Google+</a>
-                <input *ngIf="socialmedia[2]" [(ngModel)]="socialmedia[2].url" placeholder="Link your Google+ page">
+                <input *ngIf="socialmedia[2]" [(ngModel)]="socialmedia[2].url" placeholder="{{'Google+' | translate}}">
             </div>
             <div>
                 <label class="custom-control custom-checkbox">
@@ -111,7 +110,7 @@
                     <span class="custom-control-indicator"></span>
                 </label>
                 <a href="#" class="btn-linkedin">LinkedIn</a>
-                <input *ngIf="socialmedia[3]" [(ngModel)]="socialmedia[3].url" placeholder="Link your LinkedIn page">
+                <input *ngIf="socialmedia[3]" [(ngModel)]="socialmedia[3].url" placeholder="{{'LinkedIn' | translate}}">
             </div>
         </div>
     </div>

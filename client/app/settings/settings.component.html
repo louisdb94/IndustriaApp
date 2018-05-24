@@ -36,8 +36,8 @@
               <p translate style="margin-top: 10%">
                 Download Personal Info
               </p>
-              <button (click)="downloadCv()" class="btn btn-md btn-primary"><i class="fa fa-download" aria-hidden="true"></i> Download Resume</button>
-              <button (click)="downloadPersonalInformation()" class="btn btn-md btn-secondary"><i class="fa fa-download" aria-hidden="true"></i> Download Personal information</button>
+              <button translate (click)="downloadCv()" class="btn btn-md btn-primary"><i class="fa fa-download" aria-hidden="true"></i>Download Resume</button>
+              <button translate (click)="downloadPersonalInformation()" class="btn btn-md btn-secondary"><i class="fa fa-download" aria-hidden="true"></i>Download Personal</button>
             </div>
           </div>
           <div *ngIf="auth.currentUser.admin == '1'" class="tab-pane" id="activityLog" role="tabpanel">

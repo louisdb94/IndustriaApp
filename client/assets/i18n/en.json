@@ -80,6 +80,8 @@
     "Email Placeholder": "Write your personal Email address",
     "Phone Placeholder": "Write your phone number",
     "Address Placeholder": "Write your address",
+    "City Placeholder": "Write your city",
+    "County Placeholder": "Write your county",
 
     "Activity Log": "Activity Log",
     "Password Reset": "Reset Password",
@@ -90,5 +92,42 @@
     "Delete Account Info": "Below you can find a delete button. By clicking this button your account will be deleted, including all of the information about you.",
     "Delete Account Info 2": "Are you sure that you want to delete your account? This will be irreversible and all of your information will be lost",
     "Yes": " Yes ",
-    "No": " No "
+    "No": " No ",
+    "Download Resume": " Download Resume",
+    "Download Personal": " Download Personal information",
+
+    "Add Admin": "Add Admin",
+    "Add Companies": "Add Companies",
+    "Company Priorities": "Company Priorities",
+    "Parameters": "Parameters",
+    "Company Contact": "Company Contact",
+
+    "Username": "Username",
+    "Remove as admin": "Remove as admin",
+
+    "Logo Size": "Logo Size",
+    "Priority": "Priority",
+
+    "Add new company": "Add new company",
+    "Company name": "Company name",
+    "Password": "Password",
+
+    "Value": "Value",
+    "Add Parameter": "Add Parameter",
+
+    "Select your year of graduation": "Select your year of graduation",
+    "Expected graduation year:": "Expected graduation year:",
+
+    "Facebook": "Link your Facebook page",
+    "Twitter": "Link your Twitter page",
+    "Google+": "Link your Google+ page",
+    "LinkedIn": "Link your LinkedIn page",
+
+    "Write a short bio about yourself": "Write a short bio about yourself",
+
+    "Education Major": "Education Major",
+    "Education Institution": "Education Institution",
+    "Education From": "Education From",
+    "Education Until": "Education Until"
+    
 }

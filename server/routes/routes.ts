@@ -81,8 +81,8 @@ export  function setRoutes(app, router) {
   router.route('/user-makeadmin').put(authorization.checkAccessAdmin, usersCtrl.makeAdmin);
   router.route('/user-getadmin').get(authorization.checkAccessAdmin, usersCtrl.getAdmins);
   router.route('/sendmail/:email').get(authorization.verifyToken, usersCtrl.sendMail);
-  // router.route('/encrypt').get(usersCtrl.encrypt);
-  // router.route('/encrypt2').get(usersCtrl.encrypt2);
+  router.route('/encrypt').get(usersCtrl.encrypt);
+  router.route('/encrypt2').get(usersCtrl.encrypt2);
 
 
   //STUDENTS

@@ -13,20 +13,20 @@
                 <div *ngIf="education[i]" class="timeline-panel">
                     <div class="timeline-heading">
                         <h4>
-                            <textarea *ngIf="editMode" [(ngModel)]="education[i].type" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                            <textarea *ngIf="editMode" [(ngModel)]="education[i].type" placeholder="{{'Education Major' | translate}}" rows="1" cols="40" (keyup.enter)="save()"></textarea>
                             <p *ngIf="!editMode">{{education[i].type}}</p>
                         </h4>
                     </div>
                     <div class="timeline-body">
-                        <textarea *ngIf="editMode" [(ngModel)]="education[i].institution" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"></textarea>
+                        <textarea *ngIf="editMode" [(ngModel)]="education[i].institution" placeholder="{{'Education Institution' | translate}}" rows="1" cols="40" (keyup.enter)="save()"></textarea>
                         <p *ngIf="!editMode">{{education[i].institution}}</p>
                     </div>
                     <div *ngIf="education[0]" class="timeline-footer">
                         <div class="text-right">
-                            <textarea *ngIf="editMode" [(ngModel)]="education[i].date_from" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <textarea *ngIf="editMode" [(ngModel)]="education[i].date_from" placeholder="{{'Education From' | translate}}" rows="1" cols="40" (keyup.enter)="save()"
                                 style="float: left">
                             </textarea>
-                            <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[i].date_until" placeholder="Education experiences" rows="1" cols="40" (keyup.enter)="save()"
+                            <textarea #myDateTimeInput *ngIf="editMode" [(ngModel)]="education[i].date_until" placeholder="{{'Education Until' | translate}}" rows="1" cols="40" (keyup.enter)="save()"
                                 style="float: right">
                             </textarea>
                             <p *ngIf="!editMode">{{education[i].date_from}} - {{education[i].date_until}}</p>

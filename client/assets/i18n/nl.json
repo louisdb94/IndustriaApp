@@ -79,6 +79,8 @@
     "Email Placeholder": "Schrijf jouw persoonlijk email adres op",
     "Phone Placeholder": "Schrijf jouw telefoonnummer op",
     "Address Placeholder": "Schrijf jouw adres op",
+    "City Placeholder": "Schrijf jouw stad op",
+    "County Placeholder": "Schrijf jouw provincie op",
 
     "Activity Log": "Activiteitslog",
     "Password Reset": "Wijzig Wachtwoord",
@@ -89,5 +91,40 @@
     "Delete Account Info": "Hieronder vind je een verwijder knop. Het klikken op deze knop zal ervoor zorgen dat je account verwijderd wordt, inclusief al je persoonlijke informatie.",
     "Delete Account Info 2": "Ben je zeker dat je je account wilt verwijderen? Dit zal onomkeerbaar zijn en al je persoonlijke informatie, inclusief foto's en CV's zullen worden verwijderd.",
     "Yes": " Ja ",
-    "No": " Nee "
+    "No": " Nee ",
+    "Download Resume": " Download CV",
+    "Download Personal": " Download Persoonlijke informatie",
+
+    "Add Admin": "Voeg Admin Toe",
+    "Add Companies": "Voeg bedrijven toe",
+    "Company Priorities": "Bedrijfsprioriteiten",
+    "Parameters": "Parameters",
+    "Company Contact": "Bedrijfscontact",
+
+    "Username": "Gebruikersnaam",
+    "Remove as admin": "Verwijder als admin",
+
+    "Logo Size": "Logo Grootte",
+    "Priority": "Prioriteit",
+
+    "Add new company": "Voeg nieuw bedrijf toe",
+    "Company name": "Bedrijfsnaam",
+    "Password": "Wachtwoord",
+
+    "Value": "Waarde",
+    "Add Parameter": "Voeg Parameter Toe",
+
+    "Select your year of graduation": "Kies jouw afstudeerjaar",
+    "Expected graduation year:": "Verwacht afstudeerjaar:",
+    "Facebook": "Link jouw Facebook pagina",
+    "Twitter": "Link jouw Twitter pagina",
+    "Google+": "Link jouw Google+ pagina",
+    "LinkedIn": "Link jouw LinkedIn pagina",
+
+    "Write a short bio about yourself": "Schrijf een korte biografie over jezelf",
+
+    "Education Major": "Opleidingsrichting",
+    "Education Institution": "Opleidingsinstelling",
+    "Education From": "Opleiding van",
+    "Education Until": "Opleiding tot"
 }

@@ -4,7 +4,7 @@
         <button translate *ngIf="editMode  && auth.currentUser.role == 'Student'" (click)="save(student)"style="float: right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
         <h2 translate style="margin-bottom : 25px">WhoAmI</h2>
         <div class="row">
-            <textarea *ngIf="editMode" [(ngModel)]="student.whoami" rows="7" cols="400" placeholder="Write a short bio about yourself" (keyup.enter)="save()"></textarea>
+            <textarea *ngIf="editMode" [(ngModel)]="student.whoami" rows="7" cols="400" placeholder="{{'Write a short bio about yourself' | translate}}" (keyup.enter)="save()"></textarea>
             <p *ngIf="!editMode">{{student.whoami}}</p>
         </div>
     </div>
