@@ -1,4 +1,4 @@
-<div *ngIf="auth.currentUser.companyId === company_fk || auth.currentUser.role === 'Student' || auth.currentUser.admin === '1'">
+<div *ngIf="auth.currentUser.companyId === company_fk || auth.currentUser.role === 'Student' || auth.currentUser.admin == 1">
     <div *ngIf="company">
         <vacature-header class="component" [vacature]="vacature" [company]="company"></vacature-header>
     </div>

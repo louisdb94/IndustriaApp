@@ -88,7 +88,7 @@ export  function setRoutes(app, router) {
   //STUDENTS
 
   router.route('/delete-student/:student_fk').get(authorization.checkAccessAdminORStudentZelf,studentsCtrl.deleteStudent);
-  router.route('/students-get/:id').get(authorization.checkAccessCompanyORStudentZelf,studentsCtrl.getById);
+  router.route('/students-get/:id').get(authorization.checkAccessCompanyORStudentZelfORAdmin,studentsCtrl.getById);
   router.route('/students-getall').get(authorization.checkAccessAdminORCompany,studentsCtrl.get); // admin of company
   router.route('/students-getallid').get(authorization.checkAccessAdminORCompany,studentsCtrl.get); // admin of company
   router.route('/student-update').put(authorization.checkAccessStudentZelfInsertOrUpdate,studentsCtrl.updateById);
@@ -112,7 +112,7 @@ export  function setRoutes(app, router) {
   router.route('/professional-getbystudentfk/:id').get(authorization.verifyToken,professionalCtrl.getByStudentFk);
   router.route('/professional-insert').post(authorization.checkAccessStudentZelfInsertOrUpdate,professionalCtrl.insert);
   router.route('/professional-delete/:id').delete(authorization.verifyToken,professionalCtrl.delete);
-
+  
   //Language
   router.route('/language-getalldistinct').get(authorization.verifyToken,languageCtrl.selectLanguage);
   router.route('/language-getfkbylang/:lang').get(authorization.verifyToken,languageCtrl.getbyLanguage);

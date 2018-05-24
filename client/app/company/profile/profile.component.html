@@ -1,4 +1,4 @@
-<div class="profile-component" *ngIf="auth.currentUser.companyId == company_id || auth.currentUser.role =='Student' || auth.currentUser.admin == '1'">
+<div class="profile-component" *ngIf="auth.currentUser.companyId == company_id || auth.currentUser.role =='Student' || auth.currentUser.admin == 1">
 
     <div *ngIf="priority == 'ONDERNEMERSDAG' && auth.currentUser.role == 'Company'"> <p> If you want to have a profile page so you can add vacatures for students to find you, please contact Industria!</p> </div>
 

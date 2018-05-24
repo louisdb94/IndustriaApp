@@ -31,7 +31,7 @@ export class CompanyVacature implements OnInit {
                 public toast: ToastComponent) {}
 
   data: any;
-  vacature_id: Number;
+  id: Number;
   company: any;
   contacts: any;
   vacature: any;
@@ -46,9 +46,12 @@ export class CompanyVacature implements OnInit {
   compareID = this.compare.asObservable();
 
   ngOnInit() {
+    if(this.auth.loggedIn == false){
+      this.auth.loginStudent(localStorage.getItem('token'));
+    }
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.vacature_id = params['id'];
-      this.getVacatureById(this.vacature_id);
+      this.id = params['id'];
+      this.getVacatureById(this.id);
     });
   }
 
@@ -60,7 +63,7 @@ export class CompanyVacature implements OnInit {
     this.vacatureService.getVacatureById(id).subscribe(
       data => {
         this.vacature = data[0];
-        this.company_fk = this.vacature.company_fk; 
+        this.company_fk = this.vacature.company_fk;
         this.getCompanyByVacatureId(this.vacature.company_fk);
         this.getContactByCompanyId(this.vacature.company_fk);
       },
