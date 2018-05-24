@@ -1,8 +1,8 @@
 <div class="jumbotron" style="background-color:white">
     <div class="container">
-        <button translate *ngIf="!editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE' || company.priority == 'LOW')" (click)="editMode = true" style="float: right" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
-        <button translate *ngIf="editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE' || company.priority == 'LOW')" (click)="save(company)"style="float: right" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-        <h2 translate style="margin-bottom : 25px">Who Are We</h2>
+        <button translate *ngIf="!editMode && auth.currentUser.role == 'Company' && auth.currentUser.companyId == id" (click)="editMode = true" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Edit</button>
+        <button translate *ngIf="editMode && auth.currentUser.role == 'Company'  && auth.currentUser.companyId == id" (click)="save(company)" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+        <h2 translate >Who Are We</h2>
         <div class="row">
             <textarea *ngIf="editMode" [(ngModel)]="company.whoami" rows="7" cols="400" placeholder="{{'Company bio' | translate}}" (keyup.enter)="save(company)"></textarea>
             <p *ngIf="!editMode">{{company.whoami}}</p>

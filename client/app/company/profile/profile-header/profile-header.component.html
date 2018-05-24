@@ -2,10 +2,9 @@
 
 <div class="jumbotron">
 
-
     <div class="container">
         <div class="col-md-12 text-center">
-            <div id="divprofile" class="mx-auto" style="margin-top:6%">
+            <div id="divprofile" class="mx-auto">
                 <img id="profilepic" [src]="sanitizer.bypassSecurityTrustResourceUrl(im)">
                 <div class="file-upload">
                     <div class="file-upload" *ngIf="editMode">
@@ -21,9 +20,9 @@
                 <a [href]="https + company.url" target="_blank"  *ngIf="!editMode">{{company.url}}</a>
             </h3>
 
-            <div class="row" style="float : right">
-                <button translate class="btn btn-sm btn-primary" *ngIf="!editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE' || company.priority == 'LOW')" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
-                <button translate class="btn btn-sm btn-primary" *ngIf="editMode && auth.currentUser.role == 'Company' && (company.priority == 'HIGH' || company.priority == 'MIDDLE' || company.priority == 'LOW')" (click)="save(company)"><i class="fa fa-floppy-o"></i> Save</button>
+            <div class="row">
+                <button translate class="btn btn-sm btn-primary" *ngIf="!editMode && auth.currentUser.role == 'Company' && auth.currentUser.companyId == company_id" (click)="editMode = true"><i class="fa fa-pencil"></i> Edit</button>
+                <button translate class="btn btn-sm btn-primary" *ngIf="editMode && auth.currentUser.role == 'Company' && auth.currentUser.companyId == company_id" (click)="save(company)"><i class="fa fa-floppy-o"></i> Save</button>
             </div><br>
 
             <div>

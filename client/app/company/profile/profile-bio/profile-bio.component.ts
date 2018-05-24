@@ -13,6 +13,8 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class CompanyBioProfile {
   public editMode = false;
+  id: number;
+
   @Input() company: any;
 
   constructor(  private companyService: CompanyService,
@@ -20,9 +22,14 @@ export class CompanyBioProfile {
                 public toast: ToastComponent,
                 public auth: AuthService) {}
 
+  ngOnInit(){
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.id = params['id'];
+    })
+  }
+
   save(company){
     this.editMode = false;
-
     this.companyService.editCompany(company).subscribe(
       res => {
         this.company = company;
