@@ -26,13 +26,17 @@ export  class CompaniesController extends DefaultController {
 
   innerJoinCompany = (req, res) => {
     var crud_controller = this.model + "Crud";
+    let result2 = [];
     this[crud_controller].innerjoin(this.model).then(result => {
       for (let i = 0; i < result.length; i++) {
-
-        if (result[i].vacature_name === '') {
-          result.splice(i, 1);
+        if (result[i].vacature_name != '') {
+          result2.push(result[i])
         }
       }
+      res.json(result2);
+
+    //  res.json(result);
+
     })
   }
 }

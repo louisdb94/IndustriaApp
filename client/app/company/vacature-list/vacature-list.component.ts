@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CompanyService} from '../../services/company/company.service';
+import {VacatureService} from '../../services/company/vacature.service';
+
 import { AuthService } from '../../services/auth.service';
 import { DataService } from '../../services/data.service';
 import {OrderListModule} from 'primeng/primeng';
@@ -20,30 +22,27 @@ import {FilterVacature} from '../../pipes/filterVacatures.pipe';
 export class VacatureListComponent implements OnInit {
 
 
-    constructor(  private companyService: CompanyService, public auth: AuthService,
-                  private http: HttpClient, private dataService: DataService) { }
+    constructor(  private companyService: CompanyService,
+                  private vacatureService: VacatureService,
+                  public auth: AuthService,
+                  private http: HttpClient,
+                  private dataService: DataService) { }
 
     vacatures = [];
     companies = [];
     companies_all = [];
 
     filters = ['Vacature', 'Type', 'Company'];
-    model = {
-      filter: this.filters[0]
-    };
+    model = { filter: this.filters[0]};
 
     public searchText : any;
     public searchSkill : any;
-
-    // review tom: added variable p
     public p: any;
 
     ngOnInit() {
-
       if(this.auth.loggedIn == false && this.auth.currentUser.role !== "Company" ){
         this.auth.loginStudent(localStorage.getItem('token'));
       }
-
       this.getinnerjoin();
       this.getCompanies();
     }
@@ -61,6 +60,19 @@ export class VacatureListComponent implements OnInit {
         error => console.log(error)
        )
     }
+    //
+    // getVacatures(){
+    //   this.vacatureService.getVacatures().subscribe(
+    //     data => {
+    //               for(let item of data){
+    //                 if (item.name != "" || item.type != "" || item.about != ""){
+    //                   this.vacatures.push(item);
+    //                 }
+    //               }; console.log(this.vacatures);
+    //     },
+    //     error => {console.log(error)}
+    //   )
+    // }
 
     //sort array on companies alphabetically
     sort(array){
@@ -78,13 +90,7 @@ export class VacatureListComponent implements OnInit {
     //Get all students -> add to students[]
     getinnerjoin(){
       this.companyService.getinnerjoin().subscribe(
-        data => {
-          // let result = this.dataService.decryption(data);
-          for(let i =0; i< data.length ; i++){
-            if(data[i].vacature_name != ""){
-              this.vacatures.push(data[i]);
-            }
-          }},
+        data => {this.vacatures = data},
         error => console.log(error)
       )
     }
@@ -175,9 +181,4 @@ export class VacatureListComponent implements OnInit {
         this.clickDegree = 0;
       }
     }
-
-
-
-
-
   }
