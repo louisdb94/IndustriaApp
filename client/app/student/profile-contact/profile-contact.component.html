@@ -10,7 +10,7 @@
         <div class="row" *ngIf="contactChecked">
             <label translate class="col-md-2 control-label" for="email">Email: </label>
             <div class="col-md-9">
-                <input id="email" name="email" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].email" placeholder="Write your personal Email address" type="text" (keyup.enter)="save()">
+                <input id="email" name="email" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].email" placeholder="{{'Email Placeholder' | translate}}" type="text" (keyup.enter)="save()">
                 <p *ngIf="!editMode">{{contacts[0].email}}</p>
             </div>
         </div><br>
@@ -18,7 +18,7 @@
         <div class="row" *ngIf="contactChecked ">
             <label translate class="col-md-2 control-label" for="phone">Phone number: </label>
             <div class="col-md-9">
-                <input id="phone" name="phone" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].phone" placeholder="Write your phone number" type="text" (keyup.enter)="save()">
+                <input id="phone" name="phone" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].phone" placeholder="{{'Phone Placeholder' | translate}}" type="text" (keyup.enter)="save()">
                 <p *ngIf="!editMode">{{contacts[0].phone}}</p>
             </div>
         </div><br>
@@ -26,7 +26,7 @@
         <div class="row" *ngIf="contactChecked">
             <label translate class="col-md-2 control-label" for="province">Province: </label>
             <div class="col-md-9">
-                <input id="province" name="province" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].county" placeholder="Write your address" type="text" (keyup.enter)="save()">
+                <input id="province" name="province" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].county" placeholder="{{'County Placeholder' | translate}}" type="text" (keyup.enter)="save()">
                 <p *ngIf="!editMode">{{contacts[0].county}}</p>
             </div>
         </div><br>
@@ -34,7 +34,7 @@
         <div class="row" *ngIf="contactChecked">
             <label translate class="col-md-2 control-label" for="city">City: </label>
             <div class="col-md-9">
-                <input id="city" name="city" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].city" placeholder="Write your address" type="text" (keyup.enter)="save()">
+                <input id="city" name="city" class="form-control" *ngIf="editMode" [(ngModel)]="contacts[0].city" placeholder="{{'City Placeholder' | translate}}" type="text" (keyup.enter)="save()">
                 <p *ngIf="!editMode">{{contacts[0].city}}</p>
             </div>
         </div><br>

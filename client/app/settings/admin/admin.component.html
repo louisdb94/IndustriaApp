@@ -1,19 +1,19 @@
 <div>
   <ul class="nav nav-tabs table-responsive" role="tablist" id="ul1" >
     <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#addAdmin" role="tab">Add Admin</a>
+      <a translate class="nav-link active" data-toggle="tab" href="#addAdmin" role="tab">Add Admin</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#company" role="tab">Add Companies</a>
+      <a translate class="nav-link" data-toggle="tab" href="#company" role="tab">Add Companies</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#priority" role="tab">Company Priorities</a>
+      <a translate class="nav-link" data-toggle="tab" href="#priority" role="tab">Company Priorities</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#parameter" role="tab">Parameters</a>
+      <a translate class="nav-link" data-toggle="tab" href="#parameter" role="tab">Parameters</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#contact" role="tab">Company contact</a>
+      <a translate class="nav-link" data-toggle="tab" href="#contact" role="tab">Company Contact</a>
     </li>
   </ul>
 
@@ -24,20 +24,20 @@
       <table>
         <thead class="thead-default">
           <tr>
-            <th>Username</th>
-            <th>Remove as admin</th>
+            <th translate>Username</th>
+            <th translate>Remove as admin</th>
           </tr>
         </thead>
         <tr *ngFor="let item of admins">
           <td>{{item.email}}</td>
-          <td> <button class="btn btn-danger" (click)="deleteAdmin(item)"> Delete </button> </td>
+          <td><button translate class="btn btn-danger" (click)="deleteAdmin(item)">Delete</button> </td>
         </tr>
         <br><br>
       </table>
 
       <div class="card">
         <div class="card-header">
-          <h4>Add Admin</h4></div>
+          <h4 translate>Add Admin</h4></div>
         <div class="card-block">
           <form class="form-inline text-align-center" [formGroup]="addAdminForm" (ngSubmit)="makeAdmin(addAdminForm._value)" >
             <div class="form-group">
@@ -53,7 +53,7 @@
         <table>
          <thead class="thead-default" >
            <tr>
-             <th >Company</th>
+             <th translate>Company</th>
              <th *ngFor="let priority of admin_priorities" >
               {{priority.value}}
               <i class="fa fa-remove" (click)="removePriority(priority)" style="color:red"></i>
@@ -93,7 +93,7 @@
              <button *ngIf="!editPriority" class="btn btn-primary padding-3" (click)="editPriority = true"><i class="fa fa-pencil"></i> Edit</button>
              <button *ngIf="editPriority" class="btn btn-primary padding-3" (click)="saveUpdatePriority(users, companies)"><i class="fa fa-floppy-o"></i> Save</button>
            </th>
-           <th>Delete </th>
+           <th translate>Delete </th>
          </tr>
        </thead>
        <tr *ngFor="let company of companies; let i = index">
@@ -101,7 +101,7 @@
          <td ><span *ngIf="!editPriority ">{{company.priority}}</span>
               <span *ngIf="editPriority ">
                    <select [(ngModel)]="company.priority" placeholder="priority">
-                       <option value="" selected disabled>Priority</option>
+                       <option translate value="" selected disabled>Priority</option>
                        <option value="HIGH">HIGH</option>
                        <option value="MIDDLE">MIDDLE</option>
                        <option value="LOW">LOW</option>
@@ -110,24 +110,24 @@
                     </select>
              </span>
         </td>
-         <td> <button class="btn btn-danger" (click)="deleteCompany(company)"> Delete </button> </td>
+         <td> <button translate class="btn btn-danger" (click)="deleteCompany(company)">Delete</button> </td>
 
        </tr>
        <br><br>
      </table>
       </div>
        <div class="card">
-           <div class="card-header"><h4>Add new company</h4></div>
+           <div class="card-header"><h4 translate>Add new company</h4></div>
            <div class="card-block">
              <form class="form-inline text-align-center" [formGroup]="addUserForm" (ngSubmit)="addCompany()">
                <div class="form-group">
-                 <input class="form-control" type="text" name="name" formControlName="name" placeholder="Company name">
+                 <input class="form-control" type="text" name="name" formControlName="name" placeholder="{{'Company name' | translate}}">
                </div>
                <div class="form-group">
                  <input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
                </div>
                <div class="form-group">
-                 <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
+                 <input class="form-control" type="password" name="password" formControlName="password" placeholder="{{'Password' | translate}}">
                </div>
                <div class="form-group">
                    <select class="form-control" type="text" name="priority" formControlName="priority" placeholder="priority">
@@ -149,7 +149,7 @@
        <thead class="thead-default" >
          <tr>
            <th>Parameter</th>
-           <th>Value</th>
+           <th translate>Value</th>
          </tr>
        </thead>
        <tr *ngFor="let item of parameters">
@@ -160,12 +160,12 @@
      </table>
 
      <div class="card">
-         <div class="card-header"><h4>Add Parameter</h4></div>
+         <div class="card-header"><h4 translate>Add Parameter</h4></div>
          <div class="card-block">
            <form class="form-inline text-align-center" [formGroup]="addParamForm" (ngSubmit)="addParam(addParamForm._value)" >
              <div class="form-group">
                <input class="form-control" type="text" name="parameter" formControlName="parameter" placeholder="parameter">
-               <input class="form-control" type="text" name="value" formControlName="value" placeholder="value">
+               <input class="form-control" type="text" name="value" formControlName="value" placeholder="{{'Value' | translate}}">
 
              </div>
 
@@ -179,7 +179,7 @@
         <table>
          <thead class="thead-default" >
            <tr>
-             <th>Name</th>
+             <th translate>Name</th>
              <th>Email
                <button *ngIf="!editEmail" class="btn btn-primary padding-3" (click)="editEmail = true"><i class="fa fa-pencil"></i> Edit</button>
                <button *ngIf="editEmail" class="btn btn-primary padding-3" (click)="editEmail = false"><i class="fa fa-floppy-o"></i> Cancel</button>
