@@ -164,7 +164,7 @@ export  function setRoutes(app, router) {
   router.route('/contacts-update').put(authorization.checkAccessCompanyZelfInsertOrUpdate,contactCompanyCtrl.updateById);
   router.route('/contacts-getall').get(authorization.verifyToken,contactCompanyCtrl.get);
   router.route('/contacts-getbycompanyfk/:id').get(authorization.verifyToken,contactCompanyCtrl.getByCompanyFk);
-  router.route('/contacts-insert').post(authorization.checkAccessCompanyZelfInsertOrUpdate,contactCompanyCtrl.insert);
+  router.route('/contacts-insert').post(authorization.checkAccessCompanyZelfOrAdminInsertOrUpdate,contactCompanyCtrl.insert);
   //Priorities
   router.route('/companies-priority').post(authorization.checkAccessAdmin,prioritiesCtrl.addPriority);
   router.route('/companies-deletepriority/:company_fk').get(authorization.checkAccessAdmin,prioritiesCtrl.deletePriority);

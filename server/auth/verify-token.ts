@@ -58,6 +58,22 @@ export class Authorization {
     }
   }
 
+  checkAccessCompanyZelfOrAdminInsertOrUpdate(req, res, next){
+    var token = req.headers.authorization;
+    if (!token){
+      return res.status(403).send({ auth: false, message: 'No token provided.' });
+    }else{
+      jwt.verify(token, process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', function(err, decoded) {
+        var company_fk = req.body.company_fk;
+        if(company_fk == undefined){
+          company_fk = req.body.id;
+        }
+        if (err){return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });}
+        if(decoded.user.companyId == company_fk || decoded.user.admin == 1){next()}else{res.status(403).send({ auth: false, message: 'No token provided.' });}
+      });
+    }
+  }
+
   checkAccessAdminORStudent(req, res, next){
     var token = req.headers.authorization;
     if (!token){

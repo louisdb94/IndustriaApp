@@ -39,7 +39,9 @@ export class ImageController extends DefaultController {
   uploadImageCompany = (req, res) => {
     let mime = '.png';
     this.upload(req,res, mime);
-    this.updateTable(req, res, 'company', 'id', req.body.id);
+    this.updateTable(req, res, 'companies', 'id', req.body.id);
+    res.finished = true;
+
   }
 
   remove = (req, res) => {
@@ -77,7 +79,7 @@ export class ImageController extends DefaultController {
 
   downloadImageCompany = (req, res) => {
     const root = process.cwd();
-    var crud_controller = "studentsCrud";
+    var crud_controller = "companiesCrud";
     this[crud_controller].getBy('companies', 'id', req.params.id).then(result => {
         if (result[0].image === 1) {
           fs.readFile(root + '/uploads/images/' + result[0].name + '.png', 'base64', function (err1, data) {
