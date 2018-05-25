@@ -76,7 +76,7 @@ router.route('/assert').post(function(req,res){
 });
 
 
-// // Test scenario for localhost usage
+// // Test scenario for localhost usage  -> verander in firstpage component html de href van /api/login naar /api/assert
 // router.route('/assert').get(function(req,res){
 //
 //     var rnumber = 'r0909090';

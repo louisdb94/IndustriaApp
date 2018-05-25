@@ -157,30 +157,5 @@ export class UsersController extends DefaultController {
     res.status(200);
     }
 
-    ids : any;
-    encrypt = (req, res) => {
-      var crud_controller = this.model + "Crud";
-      this[crud_controller].getBy(this.model, 'role', 'Company').then(result => {
-        this.ids = result;
-        res.status(200).send(result);
-      });
-    }
-
-    encrypt2 = (req, res) => {
-      var crud_controller = this.model + "Crud";
-
-      for(let i = 0; i< this.ids.length; i ++){
-        this[crud_controller].getBy(this.model, 'id', this.ids[i].id).then(result => {
-            result[0].password = bcrypt.hashSync(result[0].password);
-            const map: Map<string, string> = new Map();
-            map.set('password', result[0].password);
-
-            this[crud_controller].update('id', result[0].id, map).then(result => {
-            })
-        });
-
-      }
-      res.send("gelukt")
-    }
 
 }
