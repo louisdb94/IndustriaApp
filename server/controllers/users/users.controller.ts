@@ -38,7 +38,6 @@ export class UsersController extends DefaultController {
     }
 
   login = (req, res, next) => {
-
       var crud_controller = this.model + "Crud";
       this[crud_controller].getBy('user', 'email', req.body.email).then(result => {
           if (!result[0]) {return res.status(404).send('No user found.');}
@@ -51,17 +50,29 @@ export class UsersController extends DefaultController {
           user_value.admin = result[0].admin;
           user_value.email = result[0].email;
 
-          this.companiesCrud.getBy('companies', 'user_fk', result[0].id).then(result1 => {
-              if (!result1[0]) {return res.status(404).send('No user found.');}
-              user_value.companyId = result1[0].id;
-              
-              const token = jwt.sign({ user: user_value },
-              process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
-              expiresIn: 86400 // expires in 24 hours
-              });
-              res.status(200).json({ token: token });
-          });
+          if(result[0].role == "Company"){
+            this.companiesCrud.getBy('companies', 'user_fk', result[0].id).then(result1 => {
+                if (!result1[0]) {return res.status(404).send('No user found.');}
+                user_value.companyId = result1[0].id;
 
+                const token = jwt.sign({ user: user_value },
+                process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
+                expiresIn: 86400 // expires in 24 hours
+                });
+                res.status(200).json({ token: token });
+            });
+          }else if (result[0].role == "Student"){
+            this.companiesCrud.getBy('students', 'user_fk', result[0].id).then(result2 => {
+                if (!result2[0]) {return res.status(404).send('No user found.');}
+                user_value.studentId = result2[0].id;
+
+                const token = jwt.sign({ user: user_value },
+                process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
+                expiresIn: 86400 // expires in 24 hours
+                });
+                res.status(200).json({ token: token });
+            });
+          }
 
       }
       else {
@@ -109,25 +120,23 @@ export class UsersController extends DefaultController {
   }
 
   sendMail = (req, res) => {
-      var crud_controller = this.model + "Crud";
-      this[crud_controller].getBy(this.model, 'email', req.params.email).then(result => {
-        if (result.length > 0) {
-            this.sendMailBackEnd(result, req, res);
+
+    var decoded = jwt.decode(req.headers.authorization);
+    if(req.params.email == decoded.user.email){
+            this.sendMailBackEnd(req.headers.authorization, req, res);
         }
-        res.status(200).json( result );
-      });
-  }
+    };
+
+
 
   sendMailBackEnd(user, req, res){
-    console.log("user: ", user);
-    const token = jwt.sign({ user: user }, process.env.SECRET_TOKEN); // , { expiresIn: 10 } seconds
 
     // const mailOptions = {
     //     from: 'bedrijvenrelaties2018@gmail.com', // sender address
     //     to: req.params.email, // list of receivers
     //     subject: 'Password reset', // Subject line
     //     html: 'Dear user, you can set your new password via this link:  ' +
-    //         'https://bedrijvenrelaties-industria.be/sendmail/' + token// plain text body
+    //         'https://bedrijvenrelaties-industria.be/sendmail/' + user// plain text body
     // };
 
     const mailOptions = {
@@ -135,17 +144,15 @@ export class UsersController extends DefaultController {
         to: req.params.email, // list of receivers
         subject: 'Password reset', // Subject line
         html: 'Dear user, you can set your new password via this link:  ' +
-            'http://localhost:4200/sendmail/' + token// plain text body
+            'http://localhost:4200/sendmail/' + user// plain text body
     };
 
     transporter.sendMail(mailOptions, function (mailerr, info) {
         if (mailerr) {
             console.log(mailerr);
-        } else {
-            console.log(info);
         }
     });
-    res.status(200).json({ token: token });
+    res.status(200);
     }
 
     ids : any;

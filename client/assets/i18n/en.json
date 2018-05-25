@@ -52,7 +52,7 @@
     "Company": "Company",
     "Visitor": "Visitor",
 
-    "Login": "Login page for companies",
+    "Login": "Login",
     "Register": "Student job portal registration",
     "RegisterButton": "Register here",
 
@@ -129,5 +129,5 @@
     "Education Institution": "Education Institution",
     "Education From": "Education From",
     "Education Until": "Education Until"
-    
+
 }

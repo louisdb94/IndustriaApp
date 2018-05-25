@@ -77,7 +77,7 @@ export  function setRoutes(app, router) {
   router.route('/user-get/:id').get(authorization.checkAccessAdmin, usersCtrl.getById);
   router.route('/user-getbyrole').get(authorization.checkAccessAdmin, usersCtrl.getByRole);
   router.route('/users-insert').post(authorization.checkAccessAdminORStudent, usersCtrl.register);
-  router.route('/resetpass').put(authorization.verifyToken, usersCtrl.updatePassword);
+  router.route('/resetpass').put( usersCtrl.updatePassword);
   router.route('/user-makeadmin').put(authorization.checkAccessAdmin, usersCtrl.makeAdmin);
   router.route('/user-getadmin').get(authorization.checkAccessAdmin, usersCtrl.getAdmins);
   router.route('/sendmail/:email').get(authorization.verifyToken, usersCtrl.sendMail);
@@ -112,7 +112,7 @@ export  function setRoutes(app, router) {
   router.route('/professional-getbystudentfk/:id').get(authorization.verifyToken,professionalCtrl.getByStudentFk);
   router.route('/professional-insert').post(authorization.checkAccessStudentZelfInsertOrUpdate,professionalCtrl.insert);
   router.route('/professional-delete/:id').delete(authorization.verifyToken,professionalCtrl.delete);
-  
+
   //Language
   router.route('/language-getalldistinct').get(authorization.verifyToken,languageCtrl.selectLanguage);
   router.route('/language-getfkbylang/:lang').get(authorization.verifyToken,languageCtrl.getbyLanguage);

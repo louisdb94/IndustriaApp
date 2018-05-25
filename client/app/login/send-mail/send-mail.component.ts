@@ -18,18 +18,20 @@ export class SendMailComponent implements OnInit {
   public pass: any;
   public pass2: any;
   token = String;
-  currentUser = { id: '', email: '', rnumber: '', password: ''};
-  resetForm: FormGroup;
-  password = new FormControl('', [
-    Validators.required,
-    Validators.minLength(6),
-    Validators.maxLength(50)
-  ]);
-  password2 = new FormControl('', [
-    Validators.required,
-    Validators.minLength(6),
-    Validators.maxLength(50)
-  ]);
+  currentUser = { id: 0, email: '', rnumber: '', password: ''};
+  resetForm= new FormGroup({
+    password : new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(50)
+    ]),
+    password2 : new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(50)
+    ])
+  });
+
 
   constructor(  private activatedRoute: ActivatedRoute,
                 private mailService: MailService,
@@ -48,8 +50,8 @@ export class SendMailComponent implements OnInit {
     });
 
     this.resetForm = this.formBuilder.group({
-      password: this.password,
-      password2: this.password2
+      password: this.resetForm.value.password,
+      password2: this.resetForm.value.password2
     });
   }
 
@@ -58,13 +60,13 @@ export class SendMailComponent implements OnInit {
     this.setCurrentUser(decodedUser);
   }
   setClassPassword() {
-    return { 'has-danger': !this.password.pristine && !this.password.valid };
+    return { 'has-danger': !this.resetForm.value.password.pristine && !this.resetForm.value.password.valid };
   }
 
   setCurrentUser(decodedUser) {
-    this.currentUser.id = decodedUser[0].id;
-    this.currentUser.email = decodedUser[0].email;
-    this.currentUser.rnumber = decodedUser[0].rnumber;
+    this.currentUser.id = decodedUser.id;
+    this.currentUser.email = decodedUser.email;
+    this.currentUser.rnumber = decodedUser.rnumber;
     this.currentUser.password = '';
   }
 
