@@ -1,4 +1,4 @@
-<div class="profile-component" *ngIf="auth.currentUser.studentId == id || auth.currentUser.role =='Company' || auth.currentUser.admin == 1" >
+<div class="profile-component" *ngIf="auth.currentUser.studentId === id || auth.currentUser.role === 'Company' || auth.currentUser.admin == '1'" >
 
 <div *ngIf="student">
     <profile-header class="component" [student]="student" id="profile-header"></profile-header>
