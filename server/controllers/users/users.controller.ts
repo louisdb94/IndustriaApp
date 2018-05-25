@@ -131,21 +131,23 @@ export class UsersController extends DefaultController {
 
   sendMailBackEnd(user, req, res){
 
-    // const mailOptions = {
-    //     from: 'bedrijvenrelaties2018@gmail.com', // sender address
-    //     to: req.params.email, // list of receivers
-    //     subject: 'Password reset', // Subject line
-    //     html: 'Dear user, you can set your new password via this link:  ' +
-    //         'https://bedrijvenrelaties-industria.be/sendmail/' + user// plain text body
-    // };
-
     const mailOptions = {
         from: 'bedrijvenrelaties2018@gmail.com', // sender address
         to: req.params.email, // list of receivers
         subject: 'Password reset', // Subject line
         html: 'Dear user, you can set your new password via this link:  ' +
-            'http://localhost:4200/sendmail/' + user// plain text body
+            'https://bedrijvenrelaties-industria.be/sendmail/' + user// plain text body
     };
+
+    //Test scenario for localhost
+
+    // const mailOptions = {
+    //     from: 'bedrijvenrelaties2018@gmail.com', // sender address
+    //     to: req.params.email, // list of receivers
+    //     subject: 'Password reset', // Subject line
+    //     html: 'Dear user, you can set your new password via this link:  ' +
+    //         'http://localhost:4200/sendmail/' + user// plain text body
+    // };
 
     transporter.sendMail(mailOptions, function (mailerr, info) {
         if (mailerr) {

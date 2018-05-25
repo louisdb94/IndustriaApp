@@ -39,7 +39,7 @@
         <div class="card-header">
           <h4 translate>Add Admin</h4></div>
         <div class="card-block">
-          <form class="form-inline text-align-center" [formGroup]="addAdminForm" (ngSubmit)="makeAdmin(addAdminForm._value)" >
+          <form class="form-inline text-align-center" [formGroup]="addAdminForm" (ngSubmit)="makeAdmin(addAdminForm.value)" >
             <div class="form-group">
               <input class="form-control" type="text" name="email" formControlName="email" placeholder="Admin email">
             </div>
@@ -164,7 +164,7 @@
      <div class="card">
          <div class="card-header"><h4 translate>Add Parameter</h4></div>
          <div class="card-block">
-           <form class="form-inline text-align-center" [formGroup]="addParamForm" (ngSubmit)="addParam(addParamForm._value)" >
+           <form class="form-inline text-align-center" [formGroup]="addParamForm" (ngSubmit)="addParam(addParamForm.value)" >
              <div class="form-group">
                <input class="form-control" type="text" name="parameter" formControlName="parameter" placeholder="parameter">
                <input class="form-control" type="text" name="value" formControlName="value" placeholder="{{'Value' | translate}}">

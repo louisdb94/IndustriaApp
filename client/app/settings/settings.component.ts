@@ -37,6 +37,7 @@ export class SettingsComponent implements OnInit {
   contact : any;
   experiences : any;
   deleteMode = false;
+  emailStudent: any;
 
 
   ngOnInit() {

@@ -21,30 +21,24 @@ dotenv.load({ path: '.env' });
 app.use('/', express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.get('/*', function(req, res) {
-//   res.sendFile(path.join(__dirname, '../public/index.html'));
-// });
-//
 app.use(fileupload({ safeFileNames: true }));
 
 const pool = mysql.createPool({
-    host: process.env.DB_HOST ? process.env.DB_HOST : 'localhost',
-    user: process.env.DB_USER ? process.env.DB_USER : 'industria',
-    //    host: 'node5390-industria-staging.cloud.interhostsolutions.be',
-    //    password: 'HAJzfboxsR',
-    password: process.env.DB_PASSWORD ? process.env.DB_PASSWORD : '',
-    port: process.env.DB_PORT ? process.env.DB_PORT : '3306',
-    database: process.env.DB_NAME ? process.env.DB_NAME : 'br_industria'
+    //in production: docker5390-industria-staging.cloud.interhostsolutions.be
+    host: process.env.dbHost,
+    user: process.env.dbUser,
+    password: process.env.dbPassword,
+    database: process.env.database,
 });
 
+//Localhost test
+
 // const pool = mysql.createPool({
-//     //in production: docker5390-industria-staging.cloud.interhostsolutions.be
-//     host: process.env.dbHost ? process.env.dbHost : 'localhost',
-//     user: process.env.dbUser ? process.env.dbUser : 'industria',
-//     password: process.env.dbPassword ? process.env.dbPassword : 'VUS4iaLWgG',
-//     database: process.env.database ? process.env.database : 'br_industria',
-//     // password: 'HAJzfboxsR',
-//     // port: '3306',
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     port: process.env.DB_PORT,
+//     database: process.env.DB_NAME ? process.env.DB_NAME : 'br_industria'
 // });
 
 
@@ -87,30 +81,6 @@ app.use((err, req, res, next) => {
 //     });
 // });
 
-
-//http://localhost:3000/admincontact   -> naar dit routen
-app.get('/admincontact', (req,res) => {
-  const sql = `SELECT name, id FROM companies`;
-  this.pool.getConnection(function (err, connection) {
-          connection.query(sql, (error, result) => {
-              // Handle error after the release.
-              if (error) {
-                  throw error;
-              }
-              for (let res of result){
-                const sql2 = `INSERT INTO admin_companycontact SET name = '${res.name}', company_fk = '${res.id}'`;
-                connection.query(sql2, (error, result1) => {
-                  if(error){throw error}
-                })
-              }
-
-
-              connection.release();
-              res.send(result);
-
-          });
-      });
-});
 var router = express.Router();
 setRoutes(app,router);
 setShibbRoutes(app);

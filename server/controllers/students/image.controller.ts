@@ -3,7 +3,6 @@ import * as  mysql from 'mysql';
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
-import sql_users from '../../models_mysql/users';
 import * as bcrypt from 'bcryptjs';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { DefaultController} from '../default.controller';
@@ -27,7 +26,7 @@ export class ImageController extends DefaultController {
     }
     else{
       name = req.body.rnumber;
-    } 
+    }
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
     newImage.mv(root + this.uploadString + name + mime, function (err) {
