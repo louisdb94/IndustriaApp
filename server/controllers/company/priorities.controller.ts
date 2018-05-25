@@ -2,7 +2,6 @@ import { pool } from '../../app';
 import * as  mysql from 'mysql';
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
-import sql_users from '../../models_mysql/users';
 import * as bcrypt from 'bcryptjs';
 import { DefaultController} from '../default.controller';
 
@@ -14,7 +13,7 @@ export  class PrioritiesController extends DefaultController {
     this[crud_controller].getBy(this.model, 'company_fk', req.body.company_fk).then(result => {
       if(result == ""){
         this.insertFunction(req, res);
-      }    
+      }
       res.status(200).json( result );
     });
   }
@@ -24,7 +23,7 @@ export  class PrioritiesController extends DefaultController {
     this[crud_controller].getBy(this.model, 'company_fk', req.params.company_fk).then(result => {
       if(result != ""){
         this.deleteById(res, this.model, 'company_fk', req.params.company_fk);
-      }    
+      }
       res.status(200).json( result );
     });
   }
