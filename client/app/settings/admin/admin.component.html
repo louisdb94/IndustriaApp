@@ -150,11 +150,13 @@
          <tr>
            <th>Parameter</th>
            <th translate>Value</th>
+           <th translate>Delete</th>
          </tr>
        </thead>
        <tr *ngFor="let item of parameters">
          <td>{{item.parameter}}</td>
          <td> {{item.value}} </td>
+         <td><button translate class="btn btn-danger" (click)="deleteParameter(item)">Delete</button></td>
        </tr>
        <br><br>
      </table>

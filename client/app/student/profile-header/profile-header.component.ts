@@ -188,7 +188,7 @@ export class HeaderProfile implements OnInit {
           this.fileService.addCv(this.addCvForm.value).subscribe(
             res => {
               const newCv = res.json();
-              this.cvs.push(newCv);
+              window.location.reload();
             }
           );
         }

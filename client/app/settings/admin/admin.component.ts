@@ -308,7 +308,9 @@ export class AdminComponent implements OnInit {
     this.addParamForm.value.role = "admin";
     this.addParamForm.value.value = AddParamForm.value;
     this.addParamForm.value.parameter = AddParamForm.parameter;
-    this.paramService.addParam(this.addParamForm.value).subscribe();
+    this.paramService.addParam(this.addParamForm.value).subscribe(
+      data => {this.getParametersAdmin()}
+    );
   }
 
   changePriority(e, priority, delete_priority, item){
@@ -335,6 +337,12 @@ export class AdminComponent implements OnInit {
         window.location.reload();
       }
     );
+  }
+
+  deleteParameter(parameter){
+    this.paramService.deleteParameter(parameter.id).subscribe(
+      data => {this.getParametersAdmin()}
+    )
   }
 
 }

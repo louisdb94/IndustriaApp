@@ -33,6 +33,27 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         });
     }
 
+    public getView(tableName: String): Promise<T[]> {
+        const sql = `SELECT * FROM ${tableName}`;
+
+        return this.getConnection().then(conn => {
+            if (conn) {
+                return new Promise<T[]>((resolve, reject) => {
+                    return conn.query(sql, (err, result) => {
+                        const resultObjects: T[] = [];
+
+                        for (const row of result) {
+                            resultObjects.push(this.parseObject(row));
+                        }
+                        return resolve(resultObjects);
+                    });
+                });
+            } else {
+                Promise.reject('Could not create connection');
+            }
+        });
+    }
+
     public getDistinct(column_name: string, table_name: string): Promise<T[]> {
         let sql = `SELECT DISTINCT ?? FROM ??`;
         const inserts = [column_name, table_name];

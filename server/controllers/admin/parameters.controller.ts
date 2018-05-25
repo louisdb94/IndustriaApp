@@ -6,11 +6,11 @@ export  class ParametersController extends DefaultController {
   model = 'parameters';
 
   getByAdmin = (req, res) => {
-    this.getWhere(res, 'role', 'admin');
+    this.getView(res, 'admin_parameters');
   }
 
   getByParamsCompany = (req, res) => {
-    this.getWhere(res, 'role', '');
+    this.getView(res, 'company_parameters');
   }
 
   getParamsForCompany = (req, res) => {

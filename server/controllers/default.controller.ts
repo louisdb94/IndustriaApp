@@ -129,6 +129,13 @@ export abstract class DefaultController {
       });
   }
 
+  getView(res, table_name){
+    var crud_controller = this.model + "Crud";
+    this[crud_controller].getView(table_name).then(result => {
+        res.status(200).json(result );
+    });
+  }
+
   getById = (req, res) => {
       this.getWhere(res, 'id', req.params.id);
   }

@@ -9,4 +9,10 @@ let parameters = `CREATE TABLE IF NOT EXISTS parameters (
     CONSTRAINT parameters_ibfk_1 FOREIGN KEY (user_fk) REFERENCES user (id)
 )`
 
+//CREATE VIEW admin_parameters AS
+//SELECT * FROM `parameters` WHERE `role` = 'admin'
+
+//CREATE VIEW company_parameters AS
+//SELECT * FROM `parameters` WHERE `role` = ''
+
   export default parameters;

@@ -10,6 +10,7 @@ import { DefaultController} from '../default.controller';
 
 export class ImageController extends DefaultController {
   model = 'image';
+  uploadString = '/uploads/images/';
 
   upload(req, res, mime) {
 
@@ -29,7 +30,7 @@ export class ImageController extends DefaultController {
     } 
     let newImage = (<any>req.files).files;
     let type = newImage.mimetype.split('/')[1]
-    newImage.mv(root + '/uploads/images/' + name + mime, function (err) {
+    newImage.mv(root + this.uploadString + name + mime, function (err) {
       if (err) { return res.status(500).send(err); }
       else { res.status(200).redirect('back'); }
     });
@@ -53,7 +54,7 @@ export class ImageController extends DefaultController {
   remove = (req, res) => {
     const root = process.cwd();
     if(req.body.name){
-      fs.unlink(root + '/uploads/images/' + req.body.name + '.' + req.body.mimetype);
+      fs.unlink(root + this.uploadString + req.body.name + '.' + req.body.mimetype);
     }
   }
 
@@ -62,7 +63,7 @@ export class ImageController extends DefaultController {
     var crud_controller = "studentsCrud";
     this[crud_controller].getBy('students', 'id', req.params.id).then(result => {
           if (result[0].image === 1) {
-            fs.readFile(root + '/uploads/images/' + result[0].rnumber + '.jpg', 'base64', function (err1, data) {
+            fs.readFile(root + this.uploadString + result[0].rnumber + '.jpg', 'base64', function (err1, data) {
               if (err1) {
                 console.log(err1)
               }
@@ -88,7 +89,7 @@ export class ImageController extends DefaultController {
     var crud_controller = "companiesCrud";
     this[crud_controller].getByImage('companies', 'id', req.params.id).then(result => {
         if (result[0].image === 1) {
-          fs.readFile(root + '/uploads/images/' + result[0].name + '.png', 'base64', function (err1, data) {
+          fs.readFile(root + this.uploadString + result[0].name + '.png', 'base64', function (err1, data) {
             if (err1) {
               console.log(err1);
             }
