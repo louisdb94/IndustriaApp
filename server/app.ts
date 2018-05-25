@@ -23,23 +23,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(fileupload({ safeFileNames: true }));
 
-const pool = mysql.createPool({
-    //in production: docker5390-industria-staging.cloud.interhostsolutions.be
-    host: process.env.dbHost,
-    user: process.env.dbUser,
-    password: process.env.dbPassword,
-    database: process.env.database,
-});
+// const pool = mysql.createPool({
+//     //in production: docker5390-industria-staging.cloud.interhostsolutions.be
+//     host: process.env.dbHost,
+//     user: process.env.dbUser,
+//     password: process.env.dbPassword,
+//     database: process.env.database,
+// });
 
 //Localhost test
 
-// const pool = mysql.createPool({
-//     host: process.env.DB_HOST,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASSWORD,
-//     port: process.env.DB_PORT,
-//     database: process.env.DB_NAME ? process.env.DB_NAME : 'br_industria'
-// });
+const pool = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME ? process.env.DB_NAME : 'br_industria'
+});
 
 
 pool.getConnection(function (err, connection) {

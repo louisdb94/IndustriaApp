@@ -248,12 +248,6 @@ export class AdminComponent implements OnInit {
                     this.toast.setMessage('successfully added!', 'success');
                   }
                 );
-                addPriority.company_fk = data.insertId;
-                if(editPriority.priority == "FREE"){
-                  this.companyService.addPrioritiesFromCompanyId(addPriority).subscribe(
-                    data => {}
-                  );
-                }
                 this.adminContactService.insertContact(admin_companycontact).subscribe();
               });
             });

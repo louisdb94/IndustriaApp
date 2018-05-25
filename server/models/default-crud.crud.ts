@@ -209,10 +209,12 @@ export abstract class DefaultCrud<T extends DefaultModel>{
         let sql = `DELETE FROM ?? WHERE ?? = ?`;
         const inserts = [table_name, column_name, whereId];
         sql = mysql.format(sql, inserts);
+        console.log(sql);
         return this.getConnection().then(conn => {
             if (conn) {
                 return new Promise<T>((resolve, reject) => {
                     return conn.query(sql, (err, result) => {
+                        console.log(table_name, result);
                         return resolve(result);
                     });
                 });

@@ -4,8 +4,6 @@ import { CompanyContactService } from '../../../services/company/contact.service
 import { ToastComponent } from '../../../shared/toast/toast.component';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ContactService} from '../../../services/contact.service';
-import { } from 'googlemaps';
-import { MapsAPILoader } from '@agm/core';
 import { FormControl } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 
@@ -39,7 +37,6 @@ export class CompanyContactProfile implements OnInit {
                 private contactService: ContactService,
                 private activatedRoute: ActivatedRoute,
                 public toast: ToastComponent,
-                private mapsAPILoader: MapsAPILoader,
                 private ngZone: NgZone,
                 public auth: AuthService){}
 

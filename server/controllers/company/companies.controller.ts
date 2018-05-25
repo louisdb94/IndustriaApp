@@ -15,12 +15,35 @@ export  class CompaniesController extends DefaultController {
 
   deleteCompany = (req, res) => {
     var crud_controller = this.model + "Crud";
-        this[crud_controller].delete('vacatures', 'company_fk', req.body.id).then(result => {
-        this[crud_controller].delete('contact_company', 'company_fk', req.body.id).then(result => {
+    this[crud_controller].delete('admin_companycontact', 'company_fk', req.body.id).then(result => {
+    this[crud_controller].delete('contact_company', 'company_fk', req.body.id).then(result => {
+    this[crud_controller].delete('parameters', 'user_fk', req.body.user_fk).then(result => {
+    this[crud_controller].getBy('vacatures', 'company_fk', req.body.id).then(result => {
+      for(let item of result){
+        this[crud_controller].delete('requirements', 'vacatures_fk', item.id).then(result => {
+          this[crud_controller].delete('vacatures', 'id', item.id).then(result => {
+            this[crud_controller].getBy('vacatures', 'company_fk', req.body.id).then(result => {
+              if(result.length == 0){
+                this[crud_controller].delete('companies', 'id', req.body.id).then(result => {
+                this[crud_controller].delete('user', 'id', req.body.user_fk).then(result => {
+                  res.status(200).json( result );
+                });});
+              }
+            });
+          });
+        });
+      }
+
+      if(result.length == 0){
         this[crud_controller].delete('companies', 'id', req.body.id).then(result => {
         this[crud_controller].delete('user', 'id', req.body.user_fk).then(result => {
           res.status(200).json( result );
-        });});});});
+        });});
+      }
+    });
+    });
+    });
+    });
   }
 
   innerJoinCompany = (req, res) => {

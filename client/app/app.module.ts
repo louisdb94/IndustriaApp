@@ -88,7 +88,6 @@ import { UtilsModule } from './homepage/utils/module';
 
 
 import { NgxPaginationModule } from 'ngx-pagination';
-import { AgmCoreModule } from '@agm/core';
 
 import { FilterPipe } from './pipes/student-list.pipe';
 import { FilterSkill } from './pipes/filterSkill.pipe';
@@ -162,10 +161,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     HttpClientModule,
     DataTableModule,
-    AgmCoreModule.forRoot({
-      apiKey: "AIzaSyD91Mh-sJ__BIEbxl-KhalMoEn64TviLwY",
-      libraries: ["places"]
-    }),
     FormsModule,
     ReactiveFormsModule,
     CalendarModule.forRoot(),
