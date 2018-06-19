@@ -16,7 +16,7 @@ export class LanguageController extends DefaultController {
     const map: Map<string, string> = new Map();
     map.set('type', '');
     map.set('student_fk', '');
-    this.getBySelection(res, map, 'type', req.params.type);
+    this.getBySelection(res, map, 'type', req.params.lang);
   }
 
 }

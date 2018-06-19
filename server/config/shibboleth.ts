@@ -77,6 +77,7 @@ router.route('/assert').post(function(req,res){
 
 
 // // Test scenario for localhost usage  -> verander in firstpage component html de href van /api/login naar /api/assert
+    // en verander in /checkstudent de link naar bedrijvenrelaties
 // router.route('/assert').get(function(req,res){
 //
 //     var rnumber = 'r0909090';
@@ -145,7 +146,7 @@ function checkStudent(rnumber, res){
                     process.env.SECRET_TOKEN ? process.env.SECRET_TOKEN : 'supersecret', {
                       expiresIn: 86400 // expires in 24 hours
                     });
-                //    res.redirect('http://localhost:4200/home-students/'+ token);
+                  //  res.redirect('http://localhost:4200/home-students/'+ token);
                     res.redirect('https://bedrijvenrelaties-industria.be/home-students/' + token);
 
                   });

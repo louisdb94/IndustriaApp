@@ -25,15 +25,14 @@
             <th translate (click)="sortGradYear()">GradYear</th>
             <th translate *ngIf="auth.currentUser.admin == '1'"> Delete student </th>
           </tr>
-          <tr *ngFor="let item of students |  paginate: { itemsPerPage: 8, currentPage: p }">
 
             <tr class="width100" *ngFor="let item of students | FilterPipe : searchText : model.filter |  paginate: { itemsPerPage: 8, currentPage: p }">
             <td>
-              <a *ngIf="item.id" href="/profile-student/{{item.id}}">{{item.name}} </a>
+              <a *ngIf="item" href="/profile-student/{{item.id}}">{{item.name}} </a>
             </td>
-            <td>{{item.degree}}</td>
-            <td>{{item.gradYear}}</td>
-            <td *ngIf="auth.currentUser.admin == '1'">
+            <td *ngIf="item">{{item.degree}}</td>
+            <td *ngIf="item">{{item.gradYear}}</td>
+            <td *ngIf="auth.currentUser.admin == '1' && item">
               <button class="btn btn-danger" (click)="deleteStudent(item)"> Delete </button>
             </td>
           </tr>
