@@ -76,8 +76,8 @@ router.route('/assert').post(function(req,res){
 });
 
 
-// // Test scenario for localhost usage  -> verander in firstpage component html de href van /api/login naar /api/assert
-    // en verander in /checkstudent de link naar bedrijvenrelaties
+// // // Test scenario for localhost usage  -> verander in firstpage component html de href van /api/login naar /api/assert
+//     // en verander in /checkstudent de link naar bedrijvenrelaties
 // router.route('/assert').get(function(req,res){
 //
 //     var rnumber = 'r0909090';

@@ -38,7 +38,10 @@ export class AdminComponent implements OnInit {
 
   companies = [];
   editPriority = false;
-  editEmail = false;
+  editContact = false;
+  editEmailContact = false;
+  editHR = false;
+  editEmailHR = false;
   editPhone = false;
   adminCompanycontacts = [];
   newMail : string;
@@ -253,10 +256,25 @@ export class AdminComponent implements OnInit {
             });
         this.companies.push(addCompanyForm);
   }
-  keyDownFunctionMail(item, company){
-    company.email = item;
+  keyDownFunctionContact(item, company){
+    company.contact = item;
     this.adminContactService.editContact(company).subscribe();
-    this.editEmail = false;
+    this.editContact = false;
+  }
+  keyDownFunctionMailContact(item, company){
+    company.emailContact = item;
+    this.adminContactService.editContact(company).subscribe();
+    this.editEmailContact = false;
+  }
+  keyDownFunctionHR(item, company){
+    company.hr = item;
+    this.adminContactService.editContact(company).subscribe();
+    this.editHR = false;
+  }
+  keyDownFunctionMailHR(item, company){
+    company.emailHR = item;
+    this.adminContactService.editContact(company).subscribe();
+    this.editEmailHR = false;
   }
   keyDownFunctionPhone(item, company){
     company.phone = item;

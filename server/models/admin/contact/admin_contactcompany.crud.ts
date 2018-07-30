@@ -12,7 +12,10 @@ export class Admin_companycontactCrud extends DefaultCrud<Admin_companycontactMo
 
     _newAdminContact.id = input.id;
     _newAdminContact.name = input.name;
-    _newAdminContact.email = input.email;
+    _newAdminContact.contact = input.contact;
+    _newAdminContact.emailContact = input.emailContact;
+    _newAdminContact.hr = input.hr;
+    _newAdminContact.emailHR = input.emailHR;
     _newAdminContact.phone = input.phone;
     _newAdminContact.address = input.address;
     _newAdminContact.company_fk = input.company_fk;

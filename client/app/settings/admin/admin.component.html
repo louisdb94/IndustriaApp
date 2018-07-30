@@ -182,9 +182,21 @@
          <thead class="thead-default" >
            <tr>
              <th translate>Name</th>
-             <th>Email
-               <button *ngIf="!editEmail" class="btn btn-primary padding-3" (click)="editEmail = true"><i class="fa fa-pencil"></i> Edit</button>
-               <button *ngIf="editEmail" class="btn btn-primary padding-3" (click)="editEmail = false"><i class="fa fa-floppy-o"></i> Cancel</button>
+             <th> Contact
+               <button *ngIf="!editContact" class="btn btn-primary padding-3" (click)="editContact = true"><i class="fa fa-pencil"></i> Edit</button>
+               <button *ngIf="editContact" class="btn btn-primary padding-3" (click)="editContact = false"><i class="fa fa-floppy-o"></i> Cancel</button>
+             </th>
+             <th>Email Contact
+               <button *ngIf="!editEmailContact" class="btn btn-primary padding-3" (click)="editEmailContact = true"><i class="fa fa-pencil"></i> Edit</button>
+               <button *ngIf="editEmailContact" class="btn btn-primary padding-3" (click)="editEmailContact = false"><i class="fa fa-floppy-o"></i> Cancel</button>
+             </th>
+             <th> HR
+               <button *ngIf="!editHR" class="btn btn-primary padding-3" (click)="editHR = true"><i class="fa fa-pencil"></i> Edit</button>
+               <button *ngIf="editHR" class="btn btn-primary padding-3" (click)="editHR = false"><i class="fa fa-floppy-o"></i> Cancel</button>
+             </th>
+             <th>Email HR
+               <button *ngIf="!editEmailHR" class="btn btn-primary padding-3" (click)="editEmailHR = true"><i class="fa fa-pencil"></i> Edit</button>
+               <button *ngIf="editEmailHR" class="btn btn-primary padding-3" (click)="editEmailHR = false"><i class="fa fa-floppy-o"></i> Cancel</button>
              </th>
              <th>Phone
                <button *ngIf="!editPhone" class="btn btn-primary padding-3" (click)="editPhone = true" ><i class="fa fa-pencil"></i> Edit</button>
@@ -195,10 +207,28 @@
          <tr *ngFor="let company of adminCompanycontacts;">
            <td> <a md-line routerLink='/profile-company/{{company.company_fk}}'> {{company.name}} </a> </td>
            <td>
-             <span *ngIf="editEmail == true ">
-                 <input  type="text" (keyup.enter)="keyDownFunctionMail($event.target.value, company)" placeholder="{{company.email}}" />
+             <span *ngIf="editContact == true ">
+                 <input  type="text" (keyup.enter)="keyDownFunctionContact($event.target.value, company)" placeholder="{{company.contact}}" />
              </span>
-             <span *ngIf="editEmail == false"> {{company.email}} </span>
+             <span *ngIf="editContact == false"> {{company.contact}} </span>
+           </td>
+           <td>
+             <span *ngIf="editEmailContact == true ">
+                 <input  type="text" (keyup.enter)="keyDownFunctionMailContact($event.target.value, company)" placeholder="{{company.emailContact}}" />
+             </span>
+             <span *ngIf="editEmailContact == false"> {{company.emailContact}} </span>
+           </td>
+           <td>
+             <span *ngIf="editHR == true ">
+                 <input  type="text" (keyup.enter)="keyDownFunctionHR($event.target.value, company)" placeholder="{{company.hr}}" />
+             </span>
+             <span *ngIf="editHR == false"> {{company.hr}} </span>
+           </td>
+           <td>
+             <span *ngIf="editEmailHR == true ">
+                 <input  type="text" (keyup.enter)="keyDownFunctionMailHR($event.target.value, company)" placeholder="{{company.emailHR}}" />
+             </span>
+             <span *ngIf="editEmailHR == false"> {{company.emailHR}} </span>
            </td>
            <td>
              <span *ngIf="editPhone == true">
